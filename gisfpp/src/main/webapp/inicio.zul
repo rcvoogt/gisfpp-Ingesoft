@@ -1,0 +1,9 @@
+<zk>
+	<borderlayout>
+		<north height="24%">
+			<include src="/vistas/cabecera.zul"/>
+		</north>
+		<center></center>
+		<south></south>
+	</borderlayout>
+</zk>
