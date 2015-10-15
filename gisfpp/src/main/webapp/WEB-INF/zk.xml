@@ -10,4 +10,9 @@
 	</preference>
 	-->
 	
+	<!-- <library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>cerulean</value>
+	</library-property> -->
+	
 </zk>

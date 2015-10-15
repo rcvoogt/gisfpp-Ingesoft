@@ -66,6 +66,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.zkoss.addons</groupId>
+			<artifactId>zk-bootstrap</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
