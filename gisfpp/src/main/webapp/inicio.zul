@@ -1,6 +1,6 @@
 <zk>
 	<borderlayout>
-		<north height="24%">
+		<north height="20%">
 			<include src="/vistas/cabecera.zul"/>
 		</north>
 		<center></center>
