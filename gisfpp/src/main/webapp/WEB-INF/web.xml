@@ -4,7 +4,7 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation=" http://xmlns.jcp.org/xml/ns/javaee  http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"> 
 
-	<description><![CDATA[My ZK Application]]></description>
+	<description><![CDATA[GISFPP]]></description>
 	<display-name>gisfpp</display-name>
 
 	<!-- //// -->
@@ -189,6 +189,13 @@
 		<extension>zul</extension>
 		<mime-type>text/html</mime-type>
 	</mime-mapping>
+
+	<resource-ref>
+      <description>Conexion a BD</description>
+      <res-ref-name>jdbc/gisfpp</res-ref-name>
+      <res-type>javax.sql.DataSource</res-type>
+      <res-auth>Container</res-auth>
+  </resource-ref>
 
 	<welcome-file-list>
 		<welcome-file>inicio.zul</welcome-file>
