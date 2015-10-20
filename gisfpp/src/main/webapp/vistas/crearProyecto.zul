@@ -1,0 +1,42 @@
+<panel title="Crear Proyecto" border="rounded" 
+	movable="true" width="60%" height="65%" sclass="panel-primary centrado-porcentual" 
+		onClose="panelCentro.src=null">
+	<panelchildren>
+<grid>
+		<columns>
+			<column width="30%"/>
+			<column width="70%"/>
+		</columns>
+		<rows>
+			<row>
+				<label value="Codigo:"/>
+				<textbox value=""/>	
+			</row>
+			<row>
+				<label value="N° Resolución:"/>
+				<textbox value=""/>
+			</row>
+			<row>
+				<label value="Título:"/>
+				<textbox value=""/>
+			</row>
+			<row>
+				<label value="Descripción:"/>
+				<textbox value=""/>
+			</row>
+			<row>
+				<label value="Tipo:"/>
+				<textbox value=""/>
+			</row>
+			<row>
+				<label value="Fecha Inicio:"/>
+				<datebox format="dd/MM/yyyy" buttonVisible="true"/>
+			</row>
+			<row>
+				<label value="Fecha Fin:"/>
+				<datebox format="dd/MM/yyyy" buttonVisible="true"/>
+			</row>
+		</rows>
+	</grid>
+</panelchildren>
+</panel>
