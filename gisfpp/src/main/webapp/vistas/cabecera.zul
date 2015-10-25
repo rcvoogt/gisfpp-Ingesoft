@@ -1,0 +1,18 @@
+<hbox hflex="1">
+	<div hflex="1">
+		<a href="http://www.unp.edu.ar">
+			<image src="/recursos/img/logo_unpsjb.png" />
+		</a>
+	</div>
+	<div sclass="centrado-porcentual" hflex="1">
+		<html>
+			
+			<![CDATA[<h3>Instancias Supervisadas de Formación Práctica
+			Profesional</h3>]]>
+			
+			</html>
+	</div>
+</hbox>
+
+
+
