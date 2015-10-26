@@ -4,13 +4,11 @@
 			<image src="/recursos/img/logo_unpsjb.png" />
 		</a>
 	</div>
-	<div sclass="centrado-porcentual" hflex="1">
+	<div sclass="centrado-porcentual">
 		<html>
-			
 			<![CDATA[<h3>Instancias Supervisadas de Formación Práctica
-			Profesional</h3>]]>
-			
-			</html>
+				Profesional</h3>]]>
+		</html>
 	</div>
 </hbox>
 

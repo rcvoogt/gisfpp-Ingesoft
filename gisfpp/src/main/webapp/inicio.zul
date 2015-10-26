@@ -4,22 +4,21 @@
 <zk>
 	<borderlayout>
 		<north height="16%">
-			<include src="/vistas/cabecera.zul"/>
+			<include src="/vistas/cabecera.zul" />
 		</north>
-		<center hflex="1">
-			<vbox hflex="1">
-				<menubar hflex="1">
+		<center>
+			<vbox hflex="1" vflex="1">
+				<menubar vflex="min">
 					<menuitem label="Proyectos" onClick='panelCentro.src="vistas/crearProyecto.zul"'/>
 					<menuitem label="Personas"/>
 					<menuitem label="Inicio"/>						
 				</menubar>
-			<div>
-				<include id="panelCentro"/>
-			</div>
+				<div vflex="1">
+					<include id="panelCentro" vflex="1"/>
+				</div>
 			</vbox>
 		</center>
-		<south height="4%">
-		</south>
+		<south height="4%"></south>
 	</borderlayout>
 
 </zk>

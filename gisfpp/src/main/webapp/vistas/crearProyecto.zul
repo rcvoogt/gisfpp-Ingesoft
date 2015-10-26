@@ -1,42 +1,74 @@
-<panel title="Crear Proyecto" border="rounded" 
-	movable="true" width="60%" height="65%" sclass="panel-primary centrado-porcentual" 
-		onClose="panelCentro.src=null">
-	<panelchildren>
-<grid>
-		<columns>
-			<column width="30%"/>
-			<column width="70%"/>
-		</columns>
-		<rows>
-			<row>
-				<label value="Codigo:"/>
-				<textbox value=""/>	
-			</row>
-			<row>
-				<label value="N° Resolución:"/>
-				<textbox value=""/>
-			</row>
-			<row>
-				<label value="Título:"/>
-				<textbox value=""/>
-			</row>
-			<row>
-				<label value="Descripción:"/>
-				<textbox value=""/>
-			</row>
-			<row>
-				<label value="Tipo:"/>
-				<textbox value=""/>
-			</row>
-			<row>
-				<label value="Fecha Inicio:"/>
-				<datebox format="dd/MM/yyyy" buttonVisible="true"/>
-			</row>
-			<row>
-				<label value="Fecha Fin:"/>
-				<datebox format="dd/MM/yyyy" buttonVisible="true"/>
-			</row>
-		</rows>
-	</grid>
-</panelchildren>
+<panel id="panelNuevoProyecto" title="Nuevo Proyecto" border="none"
+	  width="100%" height="100%" sclass="panel-primary">
+	<panelchildren style="overflow:auto">
+		<tabbox vflex="1">
+			<tabs>
+				<tab label="Datos Generales" />
+				<tab label="Responsables" />
+				<tab label="Demandantes" />
+			</tabs>
+			<tabpanels>
+				<tabpanel id="tabDatosGen" vflex="1">
+					<grid>
+						<columns>
+							<column width="10%" />
+							<column width="90%" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Codigo:" sclass="texto-formulario"/>
+								<textbox value="" maxlength="20"/>
+							</row>
+							<row>
+								<label value="N° Resolución:" sclass="texto-formulario"/>
+								<textbox value="" maxlength="20"/>
+							</row>
+							<row>
+								<label value="Título:" sclass="texto-formulario"/>
+								<textbox value="" width="30%" maxlength="50" 
+									constraint="no empty: Debe indicar un título para el Proyecto."/>
+							</row>
+							<row>
+								<label value="Descripción:" sclass="texto-formulario"/>
+								<textbox value="" width="30%" maxlength="500"
+									cols="50" rows="3" style="resize: none;"/>
+							</row>
+							<row>
+								<label value="Tipo:" sclass="texto-formulario"/>
+								<combobox>
+									<comboitem label="Interno"/>
+									<comboitem label="Empresa"/>
+									<comboitem label="Extensión"/>
+									<comboitem label="Ivestigación"/>
+								</combobox>
+							</row>
+							<row>
+								<label value="Fecha Inicio:" sclass="texto-formulario"/>
+								<datebox format="dd/MM/yyyy"
+									buttonVisible="true" />
+							</row>
+							<row>
+								<label value="Fecha Fin:" sclass="texto-formulario"/>
+								<datebox format="dd/MM/yyyy"
+									buttonVisible="true" />
+							</row>
+							<row>
+								<label value="Detalle:" sclass="texto-formulario"/>
+								<textbox value="" width="30%"
+									cols="60" rows="6" style="resize: none;"/>
+							</row>
+							<row spans="2" sclass="botonera">
+								<hbox pack="end" hflex="1">
+									<button label="Guardar" sclass="btn-primary" onClick='alert("Se guardo el nuevo Proyecto en la Bd.")'/>
+									<space/>
+									<button label="Cancelar" sclass="btn-primary" onClick="panelNuevoProyecto.onClose(); panelCentro.src=null"/>
+								</hbox>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				<tabpanel></tabpanel>
+			</tabpanels>
+		</tabbox>
+	</panelchildren>
 </panel>
