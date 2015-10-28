@@ -1,71 +1,91 @@
 <panel id="panelNuevoProyecto" title="Nuevo Proyecto" border="none"
-	  width="100%" height="100%" sclass="panel-primary">
-	<panelchildren style="overflow:auto">
-		<tabbox vflex="1">
+	width="100%" height="100%" sclass="panel-primary" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.VMProyectos')">
+	<panelchildren>
+		<tabbox vflex="1" style="overflow:auto">
 			<tabs>
 				<tab label="Datos Generales" />
 				<tab label="Responsables" />
 				<tab label="Demandantes" />
 			</tabs>
 			<tabpanels>
-				<tabpanel id="tabDatosGen" vflex="1">
-					<grid>
+				<tabpanel id="tabDatosGenerales" vflex="1">
+					<grid
+						form="@id('frm') @load(vm.seleccion) @save(vm.seleccion, before='guardar')">
 						<columns>
 							<column width="10%" />
 							<column width="90%" />
 						</columns>
 						<rows>
 							<row>
-								<label value="Codigo:" sclass="texto-formulario"/>
-								<textbox value="" maxlength="20"/>
+								<label value="Codigo:"
+									sclass="texto-formulario" />
+								<textbox value="@save(frm.codigo)"
+									maxlength="20" />
 							</row>
 							<row>
-								<label value="N° Resolución:" sclass="texto-formulario"/>
-								<textbox value="" maxlength="20"/>
+								<label value="N° Resolución:"
+									sclass="texto-formulario" />
+								<textbox value="@save(frm.resolucion)"
+									maxlength="20" />
 							</row>
 							<row>
-								<label value="Título:" sclass="texto-formulario"/>
-								<textbox value="" width="30%" maxlength="50" 
-									constraint="no empty: Debe indicar un título para el Proyecto."/>
+								<label value="Título:"
+									sclass="texto-formulario" />
+								<textbox value="@save(frm.titulo)"
+									width="30%" maxlength="50"
+									constraint="no empty: Debe indicar un título para el Proyecto." />
 							</row>
 							<row>
-								<label value="Descripción:" sclass="texto-formulario"/>
-								<textbox value="" width="30%" maxlength="500"
-									cols="50" rows="3" style="resize: none;"/>
+								<label value="Descripción:"
+									sclass="texto-formulario" />
+								<textbox value="@save(frm.descripcion)"
+									width="30%" maxlength="500" cols="50" rows="3"
+									style="resize: none;" />
 							</row>
+
 							<row>
-								<label value="Tipo:" sclass="texto-formulario"/>
-								<combobox>
-									<comboitem label="Interno"/>
-									<comboitem label="Empresa"/>
-									<comboitem label="Extensión"/>
-									<comboitem label="Ivestigación"/>
+								<label value="Tipo:"
+									sclass="texto-formulario" />
+								<combobox model="@load(vm.tipos)"
+									selectedItem="@save(frm.tipo)">
+									<template name="model">
+										<comboitem
+											label="@load(each.descripcion)" />
+									</template>
 								</combobox>
 							</row>
 							<row>
-								<label value="Fecha Inicio:" sclass="texto-formulario"/>
+								<label value="Fecha Inicio:"
+									sclass="texto-formulario" />
 								<datebox format="dd/MM/yyyy"
-									buttonVisible="true" />
+									buttonVisible="true" value="@save(frm.fecha_inicio)" />
 							</row>
 							<row>
-								<label value="Fecha Fin:" sclass="texto-formulario"/>
+								<label value="Fecha Fin:"
+									sclass="texto-formulario" />
 								<datebox format="dd/MM/yyyy"
-									buttonVisible="true" />
+									buttonVisible="true" value="@save(frm.fecha_fin)" />
 							</row>
 							<row>
-								<label value="Detalle:" sclass="texto-formulario"/>
-								<textbox value="" width="30%"
-									cols="60" rows="6" style="resize: none;"/>
+								<label value="Detalle:"
+									sclass="texto-formulario" />
+								<textbox value="" width="30%" cols="60"
+									rows="6" style="resize: none;" />
 							</row>
 							<row spans="2" sclass="botonera">
 								<hbox pack="end" hflex="1">
-									<button label="Guardar" sclass="btn-primary" onClick='alert("Se guardo el nuevo Proyecto en la Bd.")'/>
-									<space/>
-									<button label="Cancelar" sclass="btn-primary" onClick="panelNuevoProyecto.onClose(); panelCentro.src=null"/>
+									<button label="Guardar"
+										sclass="btn-primary" onClick="@command('guardar')" />
+									<space />
+									<button label="Cancelar"
+										sclass="btn-primary"
+										onClick="panelNuevoProyecto.onClose(); panelCentro.src=null" />
 								</hbox>
 							</row>
 						</rows>
 					</grid>
+	
 				</tabpanel>
 				<tabpanel></tabpanel>
 			</tabpanels>
