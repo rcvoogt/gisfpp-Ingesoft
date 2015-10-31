@@ -4,7 +4,7 @@
 <zk>
 	<borderlayout>
 		<north height="16%">
-			<include src="/vistas/cabecera.zul" />
+			<include src="/vistas/cabecera.zul" width="100%"/>
 		</north>
 		<center>
 			<vbox hflex="1" vflex="1">

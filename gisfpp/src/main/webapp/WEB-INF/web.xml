@@ -7,6 +7,21 @@
 	<description><![CDATA[GISFPP]]></description>
 	<display-name>gisfpp</display-name>
 
+
+	<!-- Configuración Spring -->
+	<!-- Loads the Spring application context configuration -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/appContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- For using web scoped bean -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
 	<!-- //// -->
 	<!-- ZK -->
 	<listener>

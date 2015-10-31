@@ -2,59 +2,67 @@ package unpsjb.fipm.gisfpp.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
-import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.dao.DataAccessException;
 
 /**
- * Interface DAO Generica
+ * Interface DAO Generica: Interface generica con los métodos comunes que
+ * deberan implementar todos los DAO de la aplicacion
  * 
  * @author Jose Devia
  * @param <T>
+ *            instancia
  * @param <K>
+ *            identificador
  */
 public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 
-	// Elimina todas las instancias de la Colllection pasada como parámetro
-	public void deleteAll(Collection<T> instances) throws Exception;
-
-	// Inserta un registro en la BD de la instancia pasada como parámetro
-	public K Create(T instance) throws Exception;
-
-	// Inserta o actualiza en la BD las instancias contenidas en la Collection
-	// pasada como parámetro
-	public void CreateOrUpdateAll(Collection<T> instances) throws Exception;
-
-	// Inserta o actualiza en la BD la instancia pasada como parámetro
-	public void CreateOrUpdate(T instance) throws Exception;
-
-	/*
-	 * public void persist(T transientInstance) throws Exception;
+	/**
+	 * Crear un registro nuevo en la BD de la instancia (T) pasada como
+	 * parámetro. Devuelve el Id (K) generado.
 	 * 
-	 * public void attachDirty(T instance) throws Exception;
-	 * 
-	 * public void attachClean(T instance) throws Exception;
+	 * @param instancia
+	 *            (T)
+	 * @return id (K)
+	 * @throws DataAccessException
 	 */
+	public K crear(T instancia) throws DataAccessException;
 
-	// Elimina de la BD la instacia pasada como parámetro
-	public void delete(T persistentInstance) throws Exception;
+	/**
+	 * Actualiza el registro en la BD de la instancia (T) pasada como parámetro.
+	 * 
+	 * @param instancia
+	 *            (T)
+	 * @throws DataAccessException
+	 */
+	public void actualizar(T instancia) throws DataAccessException;
 
-	// Devuelve todas las instancias encontradas en la BD que coincidan con la
-	// instancia proporcionada como parámetro
-	public List<T> findByExample(T instance) throws Exception;
+	/**
+	 * Elimina de la BD el registro correspondiente a la instancia (T) pasada
+	 * como parámetro.
+	 * 
+	 * @param instancia
+	 *            (T)
+	 * @throws DataAccessException
+	 */
+	public void eliminar(T instancia) throws DataAccessException;
 
-	// Devuelve el resultado de la consulta proporcionada como parámetro
-	// (String)
-	public List<T> findByQuery(String query) throws Exception;
+	/**
+	 * Recupera todos los registros de la BD de el tipo de instancias T
+	 * 
+	 * @return Collection<T>
+	 * @throws DataAccessException
+	 */
+	public Collection<T> recuperarTodo() throws DataAccessException;
 
-	public List<Map<String, Object>> findMapByQuery(String queryString) throws Exception;
+	/**
+	 * Recupera la instancia (T) de la BD con el id (K) pasado como parámetro
+	 * 
+	 * @param id
+	 *            (K)
+	 * @return instancia (T)
+	 * @throws DataAccessException
+	 */
+	public T recuperarxId(K id) throws DataAccessException;
 
-	public List<T> findByCriteria(DetachedCriteria criteria) throws Exception;
-
-	public T merge(T detachedInstance) throws Exception;
-
-	public List<T> findAll() throws Exception;
-
-	public T findById(K id) throws Exception;
 }
