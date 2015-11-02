@@ -18,16 +18,14 @@ public class VMProyectos {
 
 	private ServiciosProyecto servicios;
 	private ProyectoProxy nuevoProyecto = null;
-	private List<ProyectoProxy> lista;
+	private List<ProyectoProxy> listaProyectos;
+
 	private Boolean creando = false;
 
 	@Init
 	public void init() {
 		servicios = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
-		/*
-		 * try { lista = servicios.getAllProyectos(); } catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
+		obtenerAllProyectos();
 	}
 
 	public List<TipoProyecto> getTipos() {
@@ -87,15 +85,19 @@ public class VMProyectos {
 		this.nuevoProyecto = seleccion;
 	}
 
-	@Command("listarProyectos")
+	@Command("obtenerTodo")
 	@NotifyChange("lista")
-	public List<ProyectoProxy> getListaProyectos() {
+	public void obtenerAllProyectos() {
 		try {
-			lista = servicios.getAllProyectos();
+			listaProyectos = servicios.obtenerTodosProyectos();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return lista;
+
+	}
+
+	public List<ProyectoProxy> getListaProyectos() {
+		return listaProyectos;
 	}
 
 	public Boolean getCreando() {

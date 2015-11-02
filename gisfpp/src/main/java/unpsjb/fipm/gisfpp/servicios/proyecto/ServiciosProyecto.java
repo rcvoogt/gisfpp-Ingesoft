@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface ServiciosProyecto {
 
-	public List<ProyectoProxy> getProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
+	public List<ProyectoProxy> consultarProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
 
-	public List<ProyectoProxy> getAllProyectos() throws Exception;
+	public List<ProyectoProxy> obtenerTodosProyectos() throws Exception;
 
 	public Integer guardarProyecto(ProyectoProxy proyecto) throws Exception;
 

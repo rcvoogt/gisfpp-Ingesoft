@@ -12,8 +12,9 @@
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" onClick="@command('nuevo')" 
 					disabled="@load(vm.creando)"/>
-				<toolbarbutton image="recursos/img/icon-exit.png" label="Salir"
-					onClick="panelNuevoProyecto.onClose(); panelCentro.src=null" disabled="@load(vm.creando)"/>
+				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver"
+					onClick='panelNuevoProyecto.onClose(); panelCentro.src=null; panelCentro.src ="vistas/proyecto/listarProyectos.zul"' 
+						disabled="@load(vm.creando)"/>
 			</toolbar>
 			<tabpanels>
 				<tabpanel id="tabDatosGenerales" vflex="1">

@@ -1,7 +1,7 @@
 package unpsjb.fipm.gisfpp.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
@@ -53,7 +53,7 @@ public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 	 * @return Collection<T>
 	 * @throws DataAccessException
 	 */
-	public Collection<T> recuperarTodo() throws DataAccessException;
+	public List<T> recuperarTodo() throws DataAccessException;
 
 	/**
 	 * Recupera la instancia (T) de la BD con el id (K) pasado como parámetro
