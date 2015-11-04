@@ -2,22 +2,24 @@ package unpsjb.fipm.gisfpp.servicios.proyecto;
 
 import java.util.List;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+
 /**
  * @author Jose Devia
  *
  */
 public interface ServiciosProyecto {
 
-	public List<ProyectoProxy> consultarProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
+	public List<Proyecto> consultarProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
 
-	public List<ProyectoProxy> obtenerTodosProyectos() throws Exception;
+	public List<Proyecto> obtenerTodosProyectos() throws Exception;
 
-	public Integer guardarProyecto(ProyectoProxy proyecto) throws Exception;
+	public Integer guardarProyecto(Proyecto proyecto) throws Exception;
 
-	public void editarProyecto(ProyectoProxy proyecto) throws Exception;
+	public void editarProyecto(Proyecto proyecto) throws Exception;
 
-	public ProyectoProxy verProyecto(Integer id) throws Exception;
+	public Proyecto verProyecto(Integer id) throws Exception;
 
-	public void bajaProyecto(ProyectoProxy proyecto) throws Exception;
+	public void bajaProyecto(Proyecto proyecto) throws Exception;
 
 }

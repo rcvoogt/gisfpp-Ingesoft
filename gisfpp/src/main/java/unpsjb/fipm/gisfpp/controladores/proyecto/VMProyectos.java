@@ -10,22 +10,29 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.SpringUtil;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.ProyectoProxy;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 
 public class VMProyectos {
 
 	private ServiciosProyecto servicios;
-	private ProyectoProxy nuevoProyecto = null;
-	private List<ProyectoProxy> listaProyectos;
+	private Proyecto seleccionado = null;
+	private List<Proyecto> listaProyectos;
 
-	private Boolean creando = false;
+	private Proyecto nuevoProyecto = null;
+	private boolean creando = false;
+	private boolean editando = false;
 
 	@Init
 	public void init() {
-		servicios = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
-		obtenerAllProyectos();
+
+		if (servicios == null) {
+			servicios = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
+		}
+		if (listaProyectos == null) {
+			obtenerAllProyectos();
+		}
 	}
 
 	public List<TipoProyecto> getTipos() {
@@ -39,7 +46,7 @@ public class VMProyectos {
 	@Command("nuevo")
 	@NotifyChange({ "nuevoProyecto", "creando" })
 	public void nuevoProyecto() {
-		nuevoProyecto = new ProyectoProxy("", "", "", "", null, null, null, null, null);
+		nuevoProyecto = new Proyecto("", "", "", "", null, null, null, null, null);
 		creando = true;
 	}
 
@@ -54,19 +61,6 @@ public class VMProyectos {
 		}
 		Clients.showNotification("Proyecto guardado en la BD con Id: " + String.valueOf(id_proyecto), "info", null,
 				"top_right", 4000);
-		/*
-		 * for (ProyectoProxy proyecto : getListaProyectos()) {
-		 * System.out.println("-------------------------------------");
-		 * System.out.println("Codigo: " + proyecto.getCodigo());
-		 * System.out.println("N Resolucion: " + proyecto.getResolucion());
-		 * System.out.println("Titulo: " + proyecto.getTitulo());
-		 * System.out.println("Descripcion: " + proyecto.getDescripcion());
-		 * System.out.println("Tipo: " + proyecto.getTipo().getDescripcion());
-		 * System.out.println("Inicio: " + proyecto.getInicio());
-		 * System.out.println("Fin: " + proyecto.getFin()); System.out.println(
-		 * "Detalle: " + proyecto.getDetalle());
-		 * System.out.println("-------------------------------------"); }
-		 */
 		creando = false;
 	}
 
@@ -77,11 +71,11 @@ public class VMProyectos {
 		nuevoProyecto = null;
 	}
 
-	public ProyectoProxy getNuevoProyecto() {
+	public Proyecto getNuevoProyecto() {
 		return nuevoProyecto;
 	}
 
-	public void setNuevoProyecto(ProyectoProxy seleccion) {
+	public void setNuevoProyecto(Proyecto seleccion) {
 		this.nuevoProyecto = seleccion;
 	}
 
@@ -96,12 +90,24 @@ public class VMProyectos {
 
 	}
 
-	public List<ProyectoProxy> getListaProyectos() {
-		return listaProyectos;
+	public List<Proyecto> getListaProyectos() {
+		return this.listaProyectos;
 	}
 
 	public Boolean getCreando() {
 		return creando;
+	}
+
+	public Boolean getEditando() {
+		return editando;
+	}
+
+	public Proyecto getSeleccionado() {
+		return seleccionado;
+	}
+
+	public void setSeleccionado(Proyecto seleccionado) {
+		this.seleccionado = seleccionado;
 	}
 
 }// Fin de la clase

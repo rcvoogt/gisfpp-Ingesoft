@@ -1,6 +1,6 @@
 <hbox width="100%">
 	<div width="110px">
-		<image src="/recursos/img/logo_unpsjb.png" style="width:100%; max-width:108px; height: auto"/>
+		<image src="/recursos/img/logo_unpsjb.png" style="width:100%; max-width:98px; height: auto"/>
 	</div>
 	<div sclass="centrado-porcentual" hflex="1">
 		<html>

@@ -77,14 +77,14 @@
 								<label value="Fecha Inicio:"
 									sclass="texto-formulario" />
 								<datebox format="dd/MM/yyyy" mold="rounded"
-									buttonVisible="true" value="@bind(frm.inicio)" 
+									buttonVisible="true" value="@bind(frm.fecha_inicio)" 
 										disabled="@load(not vm.creando)"/>
 							</row>
 							<row>
 								<label value="Fecha Fin:"
 									sclass="texto-formulario" />
 								<datebox format="dd/MM/yyyy" mold="rounded"
-									buttonVisible="true" value="@bind(frm.fin)" 
+									buttonVisible="true" value="@bind(frm.fecha_fin)" 
 										disabled="@load(not vm.creando)"/>
 							</row>
 							<row>

@@ -1,8 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,11 +11,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "proyecto")
 public class Proyecto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "idProyecto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,20 +51,23 @@ public class Proyecto implements Serializable {
 	private EstadoProyecto estado;
 
 	@Column(name = "fecha_inicio")
+	@Temporal(TemporalType.DATE)
 	private Date fecha_inicio;
 
 	@Column(name = "fecha_fin")
+	@Temporal(TemporalType.DATE)
 	private Date fecha_fin;
 
 	@Column(name = "detalle")
-	private Blob detalle;
+	@Lob
+	private String detalle;
 
 	protected Proyecto() {
 		super();
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
-			EstadoProyecto estado, Date fecha_inicio, Date fecha_fin, Blob detalle) {
+			EstadoProyecto estado, Date fecha_inicio, Date fecha_fin, String detalle) {
 		super();
 		this.codigo = codigo;
 		this.resolucion = resolucion;
@@ -134,11 +144,11 @@ public class Proyecto implements Serializable {
 		this.fecha_fin = fecha_fin;
 	}
 
-	public Blob getDetalle() {
+	public String getDetalle() {
 		return detalle;
 	}
 
-	public void setDetalle(Blob detalle) {
+	public void setDetalle(String detalle) {
 		this.detalle = detalle;
 	}
 
