@@ -10,7 +10,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
  */
 public interface ServiciosProyecto {
 
-	public List<Proyecto> consultarProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
+	public List<Proyecto> filtrarProyectos(String campoBusqueda, String patronBusqueda) throws Exception;
 
 	public List<Proyecto> obtenerTodosProyectos() throws Exception;
 

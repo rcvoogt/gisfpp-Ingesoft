@@ -3,6 +3,8 @@ package unpsjb.fipm.gisfpp.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -26,7 +28,7 @@ public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 	 * @return id (K)
 	 * @throws DataAccessException
 	 */
-	public K crear(T instancia) throws DataAccessException;
+	public K crear(T instancia) throws DataAccessException, ConstraintViolationException;
 
 	/**
 	 * Actualiza el registro en la BD de la instancia (T) pasada como parámetro.
@@ -35,7 +37,7 @@ public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 	 *            (T)
 	 * @throws DataAccessException
 	 */
-	public void actualizar(T instancia) throws DataAccessException;
+	public void actualizar(T instancia) throws DataAccessException, ConstraintViolationException;
 
 	/**
 	 * Elimina de la BD el registro correspondiente a la instancia (T) pasada

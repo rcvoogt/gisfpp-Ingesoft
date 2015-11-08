@@ -15,6 +15,10 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.AssertTrue;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "proyecto")
@@ -36,7 +40,7 @@ public class Proyecto implements Serializable {
 	private String resolucion;
 
 	@Basic(optional = false)
-	@Column(name = "titulo", nullable = false, length = 50, unique = true)
+	@Column(name = "titulo", nullable = false, length = 80, unique = true)
 	private String titulo;
 
 	@Column(name = "descripcion", length = 500)
@@ -88,6 +92,7 @@ public class Proyecto implements Serializable {
 		this.id = id;
 	}
 
+	@Length(max = 20, message = "\"Código\"  - El Codigo del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getCodigo() {
 		return codigo;
 	}
@@ -96,6 +101,7 @@ public class Proyecto implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@Length(max = 20, message = "\"N° Resolución\" - El Número de Resolución del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getResolucion() {
 		return resolucion;
 	}
@@ -104,6 +110,8 @@ public class Proyecto implements Serializable {
 		this.resolucion = resolucion;
 	}
 
+	@NotBlank(message = "\"Título\" - Debe especificarle un Título al Proyecto.")
+	@Length(max = 80, message = "\"Título\" - El Titulo del Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}
@@ -112,6 +120,7 @@ public class Proyecto implements Serializable {
 		this.titulo = titulo;
 	}
 
+	@Length(max = 500, message = "\"Descripción\" - La Descripción del Proyecto no debe ser mayor a 500 caracteres")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -160,4 +169,13 @@ public class Proyecto implements Serializable {
 		this.estado = estado;
 	}
 
-}
+	@AssertTrue(message = "\"Fecha Fin\" - La Fecha Fin debe ser posterior a la Fecha Inicio del Proyecto.")
+	private boolean isFechaFinValida() {
+		if (fecha_fin.after(fecha_inicio)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+}// Fin de la clase Entity Proyecto

@@ -1,12 +1,12 @@
-<?page title="GISFPP" contentType="text/html;charset=UTF-8"?>
+<?page id="appGISFPP" title="GISFPP" contentType="text/html;charset=UTF-8"?>
 <?link rel="stylesheet" type="text/css" href="recursos/estilos/mis_estilos.css"?>
 
 <zk>
-	<borderlayout>
-		<north height="14%">
+	<borderlayout id="zonas">
+		<north height="14%" id="zonaNorte">
 			<include src="/vistas/cabecera.zul" width="100%"/>
 		</north>
-		<center>
+		<center id="zonaCentro">
 			<vbox hflex="1" vflex="1">
 				<menubar vflex="min" hflex="1">
 					<menuitem label="Proyectos" onClick='panelCentro.src="vistas/proyecto/listarProyectos.zul"'/>
@@ -18,7 +18,7 @@
 				</div>
 			</vbox>
 		</center>
-		<south height="4%"></south>
+		<south id="ZonaSur" height="4%"></south>
 	</borderlayout>
 
 </zk>
