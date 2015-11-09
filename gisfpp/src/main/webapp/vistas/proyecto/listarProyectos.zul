@@ -1,0 +1,70 @@
+<panel id="panelListarProyectos" title="Listado de Proyectos"
+	border="none" width="100%" height="100%" sclass="panel-primary"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
+	<panelchildren>
+		<vbox hflex="1" spacing="1px">
+			<toolbar hflex="1" sclass="mitool-bar">
+				<toolbarbutton label="Salir"
+					image="recursos/img/icon-exit.png" style="float:right;"
+					onClick="@command('salir')"/>
+				<space spacing="8px" style="float:right;" />
+				<toolbarbutton label="Nuevo Proyecto"
+					image="recursos/img/icon-addfolderalt.png" style="float:right;"
+					tooltiptext="Crear nuevo proyecto"
+					onClick="@command('nuevoProyecto')" />
+			</toolbar>
+			<groupbox hflex="1">
+				<caption label="Buscar por" sclass="texto-formulario" />
+				<toolbarbutton label="Deshacer" image="recursos/img/icon-undo.png" style="float: right;"
+					tooltiptext="Deshacer busqueda" disabled="@load(not vm.filtrado)"
+						onClick='txtPatron.setValue(""); cbxCampo.setValue("")' a:onClick="@command('deshacer')" xmlns:a="annotation"/>
+				<space spacing="8px" style="float:right;" />
+				<toolbarbutton label="Buscar"
+					image="recursos/img/icon-lupa.png" style="float:right;" 
+						onClick="@command('busqueda', campo=cbxCampo.value, patron=txtPatron.value)"
+							disabled="@load(vm.filtrado)"/>
+				<space spacing="8px" style="float:right;" />
+				<textbox id="txtPatron" placeholder="Buscar..." maxlength="50"
+					width="15%" style="float:right;"/>
+				<space spacing="8px" style="float:right;" />
+				<combobox id="cbxCampo" style="float:right;" placeholder="Seleccionar campo...">
+					<comboitem label="Código" value="codigo"/>
+					<comboitem label="Nº Resolucion" value="resolucion" />
+					<comboitem label="Título" value="titulo" />
+				</combobox>
+			</groupbox>
+			<grid mold="paging" pageSize="11" emptyMessage="La consulta no arrojo ningun resultado. No hay Proyectos para mostrar."
+				model="@load(vm.listaProyectos)">
+				<columns>
+					<column label="Codigo" width="10%" />
+					<column label="N° Resolucion" width="10%" />
+					<column label="Titulo" width="39%" />
+					<column label="Tipo" width="10%"/>
+					<column label="Inicio" width="8%"/>
+					<column label="Finalizacion" width="8%"/>
+					<column label="Ver" width="5%" align="center"/>
+					<column label="Editar" width="5%" align="center"/>
+					<column label="Baja" width="5%" align="center"/>
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.codigo)" />
+						<label value="@load(each.resolucion)" />
+						<label value="@load(each.titulo)" />
+						<label value="@load(each.tipo.descripcion)"/>
+						<label value="@load(each.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+						<label value="@load(each.fecha_fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
+						<toolbarbutton image="recursos/img/icon-preview.png" tooltip="Ver datos del Proyeccto"
+							onClick="@command('verProyecto', item=each)"/>
+						<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar el Proyecto"
+							onClick="@command('editarProyecto', item=each)"/>
+						<toolbarbutton image="recursos/img/icon-remove-sign.png" tooltiptext="Dar de baja el Proyecto"
+							onClick='Messagebox.show("Se deberia eliminar el proyecto");'/>
+					</row>
+				</template>
+			</grid>
+			
+		</vbox>
+	</panelchildren>
+</panel>

@@ -31,4 +31,9 @@
 		<name>org.zkoss.zul.Panel.mold</name>
 		<value>bs</value>
 	</library-property>
+	
+	<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
+		<location>/vistas/error/error.zul</location>
+	</error-page>
 </zk>

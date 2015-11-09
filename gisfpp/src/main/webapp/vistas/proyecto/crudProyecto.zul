@@ -2,7 +2,7 @@
 	width="100%" height="100%" sclass="panel-primary" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
 	<panelchildren>
-		<tabbox vflex="1" style="overflow:auto">
+		<tabbox vflex="1">
 			<tabs>
 				<tab label="Datos Generales" />
 				<tab label="Responsables" />
@@ -16,9 +16,9 @@
 					onClick="@command('volver')" disabled="@load(vm.creando and vm.editando and (not vm.ver))"/>
 			</toolbar>
 			<tabpanels>
-				<tabpanel id="tabDatosGenerales" height="100%" width="100%">
+				<tabpanel id="tabDatosGenerales">
 					<grid
-						form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')" height="100%" width="100%">
+						form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')">
 						<columns>
 							<column width="10%"/>
 							<column width="80%"/>

@@ -215,4 +215,9 @@
 	<welcome-file-list>
 		<welcome-file>inicio.zul</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
+		<location>/vistas/error/error.zul</location>
+	</error-page>
 </web-app>
