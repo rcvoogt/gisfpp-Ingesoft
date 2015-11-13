@@ -61,10 +61,12 @@
 } 
 
 .botonera {
-	padding-top: 5px;
+	padding-top: 10px;
+	padding-right: 8px;
 	border-style: solid;
-	border-width: 2px;
+	border-width: 0,5px;
 	border-color: #D9D9D9;
+	background-color: #F3F3F3;
 }
 
 .footer a,.footer a:VISITED {
@@ -132,3 +134,39 @@
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
+
+ .fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+        div.z-cell,div.z-grid { 
+  border: none;
+  overflow: hidden;
+  zoom: 1;
+  background: white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none; }
+  
+  .fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+        .z-cell { 
+  background-color: #F7F7F7;
+  border-bottom: 1px solid transparent; 
+  border-left: 1px solid transparent; 
+  border-top: 1px solid transparent;
+  }
+  
+ .fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+        .z-cell,.fgrid.z-grid-odd {
+  background: none repeat scroll 0 0 transparent;
+  }
+  
+  .fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+        .z-cell,.fgrid tr.z-grid-odd {
+  background: white
+  }
+  
+  .fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+  background: white; 
+  border-top: none;
+  }
+  
+  

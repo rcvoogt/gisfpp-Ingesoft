@@ -1,100 +1,116 @@
 <panel id="pnlCrudProyecto" title="@load(vm.titulo)" border="none"
-	width="100%" height="100%" sclass="panel-primary" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
+	width="100%" height="100%" sclass="panel-primary"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
 	<panelchildren>
-		<tabbox vflex="1">
+		<tabbox vflex="1" hflex="1">
 			<tabs>
 				<tab label="Datos Generales" />
 				<tab label="Responsables" />
 				<tab label="Demandantes" />
-				<tab label="Sub-Proyectos"/>
+				<tab label="Sub-Proyectos" />
 			</tabs>
 			<toolbar>
-				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" onClick="@command('nuevoProyecto')" 
-					visible="@load(vm.modo eq 'nuevo')" disabled="@load(vm.creando)"/>
-				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver"
-					onClick="@command('volver')" disabled="@load(vm.creando and vm.editando and (not vm.ver))"/>
+				<toolbarbutton image="recursos/img/icon-plus-sign.png"
+					label="Nuevo" onClick="@command('nuevoProyecto')"
+					visible="@load(vm.modo eq 'nuevo')" disabled="@load(vm.creando)" />
+				<toolbarbutton image="recursos/img/icon-arrow-left.png"
+					label="Volver" onClick="@command('volver')"
+					disabled="@load(vm.creando and vm.editando and (not vm.ver))" />
 			</toolbar>
-			<tabpanels>
-				<tabpanel id="tabDatosGenerales">
-					<grid
-						form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')">
-						<columns>
-							<column width="10%"/>
-							<column width="80%"/>
-							<column width="10%"/>
-						</columns>
-						<rows>
-							<row>
-								<label value="Codigo:"
-									sclass="texto-formulario" />
-								<textbox value="@bind(frm.codigo)" width="25%"
-									 disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row>
-								<label value="N° Resolución:"
-									sclass="texto-formulario" />
-								<textbox value="@bind(frm.resolucion)" width="25%"
-									 disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row>
-								<label value="Título:"
-									sclass="texto-formulario" />
-								<textbox value="@bind(frm.titulo)"
-									width="35%" disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row>
-								<label value="Descripción:"
-									sclass="texto-formulario" />
-								<textbox value="@bind(frm.descripcion)"
-									width="35%" cols="50" rows="3"
-									style="resize: none;" disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
+			<tabpanels hflex="1">
+				<tabpanel id="tabDatosGenerales" vflex="1" hflex="1">
+					<vbox hflex="1" vflex="1">
+						<grid
+							form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')"
+							hflex="1" height="95%" sclass="fgrid">
+							<columns>
+								<column width="10%" />
+								<column width="80%" />
+								<column width="10%" />
+							</columns>
+							<rows vflex="1">
+								<row>
+									<label value="Codigo:"
+										sclass="texto-formulario" />
+									<textbox value="@bind(frm.codigo)"
+										width="25%"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row>
+									<label value="N° Resolución:"
+										sclass="texto-formulario" />
+									<textbox
+										value="@bind(frm.resolucion)" width="25%"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row>
+									<label value="Título:"
+										sclass="texto-formulario" />
+									<textbox value="@bind(frm.titulo)"
+										width="35%"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row>
+									<label value="Descripción:"
+										sclass="texto-formulario" />
+									<textbox
+										value="@bind(frm.descripcion)" width="35%" cols="50" rows="4"
+										style="resize: none;"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
 
-							<row>
-								<label value="Tipo:"
-									sclass="texto-formulario" />
-								<combobox model="@load(vm.tipos)" 
-									selectedItem="@bind(frm.tipo)" disabled="@load((not vm.creando) and (not vm.editando))">
-									<template name="model">
-										<comboitem
-											label="@load(each.descripcion)" />
-									</template>
-								</combobox>
-							</row>
-							<row>
-								<label value="Fecha Inicio:"
-									sclass="texto-formulario" />
-								<datebox format="dd/MM/yyyy" mold="rounded"
-									buttonVisible="true" value="@bind(frm.fecha_inicio)" 
-										disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row>
-								<label value="Fecha Fin:"
-									sclass="texto-formulario" />
-								<datebox format="dd/MM/yyyy" mold="rounded"
-									buttonVisible="true" value="@bind(frm.fecha_fin)" 
-										disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row>
-								<label value="Detalle:"
-									sclass="texto-formulario" />
-								<textbox value="@bind(frm.detalle)" width="35%" cols="60" maxlength="2000"
-									rows="6" style="resize: none;" disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row spans="3" sclass="botonera">
-								<hbox pack="end" hflex="1">
-									<button label="Guardar"
-										sclass="btn-primary" onClick="@command('guardar')" disabled="@load((not vm.creando) and (not vm.editando))"/>
-									<space />
-									<button label="Cancelar"
-										sclass="btn-primary"
-										onClick="@command('cancelar')" disabled="@load((not vm.creando) and (not vm.editando))"/>
-								</hbox>
-							</row>
-						</rows>
-					</grid>
-	
+								<row>
+									<label value="Tipo:"
+										sclass="texto-formulario" />
+									<combobox model="@load(vm.tipos)"
+										selectedItem="@bind(frm.tipo)"
+										disabled="@load((not vm.creando) and (not vm.editando))">
+										<template name="model">
+											<comboitem
+												label="@load(each.descripcion)" />
+										</template>
+									</combobox>
+								</row>
+								<row>
+									<label value="Fecha Inicio:"
+										sclass="texto-formulario" />
+									<datebox format="dd/MM/yyyy"
+										mold="rounded" buttonVisible="true"
+										value="@bind(frm.fecha_inicio)"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row>
+									<label value="Fecha Fin:"
+										sclass="texto-formulario" />
+									<datebox format="dd/MM/yyyy"
+										mold="rounded" buttonVisible="true"
+										value="@bind(frm.fecha_fin)"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row>
+									<label value="Detalle:"
+										sclass="texto-formulario" />
+									<textbox value="@bind(frm.detalle)"
+										width="35%" cols="60" maxlength="2000" rows="6"
+										style="resize: none;"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</row>
+								<row vflex="1"/>
+							</rows>
+						</grid>
+						<div hflex="1" vflex="1" sclass="botonera">
+							<hbox pack="end" hflex="1">
+								<button label="Guardar"
+									sclass="btn-primary" onClick="@command('guardar')"
+									disabled="@load((not vm.creando) and (not vm.editando))" />
+								<space />
+								<button label="Cancelar"
+									sclass="btn-primary" onClick="@command('cancelar')"
+									disabled="@load((not vm.creando) and (not vm.editando))" />
+							</hbox>
+						</div>
+					</vbox>
 				</tabpanel>
 				<tabpanel></tabpanel>
 			</tabpanels>

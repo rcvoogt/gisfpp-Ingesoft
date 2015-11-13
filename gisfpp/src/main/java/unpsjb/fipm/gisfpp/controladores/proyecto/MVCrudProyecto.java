@@ -104,7 +104,7 @@ public class MVCrudProyecto {
 
 	@Command("guardar")
 	@NotifyChange({ "creando", "editando", "ver" })
-	public void guardar() {
+	public void guardar() throws Exception {
 		if (creando) {
 			try {
 				int id = servicio.guardarProyecto(seleccionado);
@@ -119,6 +119,7 @@ public class MVCrudProyecto {
 			} catch (Exception e) {
 				System.err.println("Exception original: " + e.getCause().toString());
 				System.err.println("Causa: " + e.getMessage());
+				throw e;
 			}
 		}
 		if (editando) {
@@ -135,6 +136,7 @@ public class MVCrudProyecto {
 			} catch (Exception e) {
 				System.err.println("Exception original: " + e.getCause().toString());
 				System.err.println("Causa: " + e.getMessage());
+				throw e;
 			}
 		}
 	}

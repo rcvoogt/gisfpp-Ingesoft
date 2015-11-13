@@ -1,0 +1,83 @@
+<panel id="pnlListarPersonas" title="Listado de Personas" border="none"
+	width="100%" height="100%" sclass="panel-primary" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarPersonas')">
+	<panelchildren>
+		<tabbox>
+			<tabs>
+				<tab label="Personas Físicas" />
+				<tab label="Personas Jurídicas"/>
+			</tabs>
+			<toolbar>
+				<toolbarbutton image="recursos/img/icon-portrait.png"
+					label="Nueva Persona" onClick="@command('nuevaPersona', tipo=tabPF.selected?'pf':'pj')"/>
+				<toolbarbutton image="recursos/img/icon-exit.png"
+					label="Salir" onClick="@command('salir')"/>
+			</toolbar>
+			<tabpanels hflex="1">
+				<tabpanel id="tabPF" hflex="1" vflex="1">
+					<grid mold="paging" autopaging="true" emptyMessage="La consulta no arrojo ningún resultado. No hay Personas para mostrar."
+						vflex="1" model="@load(vm.fisicas)">
+						<columns>
+							<column label="Nombres" width="15%"/>
+							<column label="Apellidos" width="15%"/>
+							<column label="DNI"/>
+							<column label="CUIL"/>
+							<column label="Telefono 1"/>
+							<column label="E-Mail 1" width="15%"/>
+							<column label="Ver" align="center" width="5%"/>
+							<column label="Editar" align="center" width="5%"/>
+							<column label="Baja" align="center" width="5%"/>
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@load(each.nombre)"/>
+								<label value="@load(each.apellidos)"/>
+								<label value="@load(each.dni)"/>
+								<label value="@load(each.cuil)"/>
+								<label value="@load(each.telefono1)"/>
+								<label value="@load(each.email1)"/>
+								<toolbarbutton image="recursos/img/icon-preview.png" tooltip="Ver detalle"
+									onClick=""/>
+								<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos"
+									onClick=""/>
+								<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
+									onClick='Messagebox.show("Se deberia eliminar el proyecto");'/>
+							</row>
+						</template>
+					</grid>
+				</tabpanel>
+				<tabpanel id="tabPJ" hflex="1" vflex="1">
+					<grid mold="paging" autopaging="true" emptyMessage="La consulta no arrojo ningún resultado. No hay Personas para mostrar."
+						vflex="1" model="@load(vm.juridicas)">
+						<columns>
+							<column label="Razón Social" width="20%"/>
+							<column label="Web" width="20%"/>
+							<column label="CUIT"/>
+							<column label="Telefono 1"/>
+							<column label="E-Mail 1"/>
+							<column label="Ver" align="center" width="5%"/>
+							<column label="Editar" align="center" width="5%"/>
+							<column label="Baja" align="center" width="5%"/>
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@load(each.nombre)"/>
+								<label value="@load(each.web)"/>
+								<label value="@load(each.telefono1)"/>
+								<label value="@load(each.email1)"/>
+								<label value=""/>
+								<toolbarbutton image="recursos/img/icon-preview.png" tooltip="Ver Detalle"
+									onClick=""/>
+								<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar Datos"
+									onClick=""/>
+								<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
+									onClick='Messagebox.show("Se deberia eliminar el proyecto");'/>
+							</row>
+						</template>
+					</grid>	
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+	</panelchildren>
+</panel>

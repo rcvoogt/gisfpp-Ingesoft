@@ -7,11 +7,13 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Panel;
+import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
@@ -122,6 +124,12 @@ public class MVListarProyectos {
 	public void deshacerBusqueda() throws Exception {
 		recuperarTodo();
 		filtrado = false;
+	}
+
+	@Command("dlgFiltros")
+	public void mostrarDlgFiltros() {
+		Window dlg = (Window) Executions.createComponents("/vistas/proyecto/dlgFiltros.zul", null, null);
+		dlg.doModal();
 	}
 
 	public boolean isFiltrado() {

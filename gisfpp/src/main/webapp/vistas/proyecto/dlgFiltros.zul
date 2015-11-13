@@ -1,0 +1,32 @@
+<window id="dlgFiltro" title="Aplicar Filtros" border="normal" closable="true" mode="modal"
+	width="400px">
+	<grid sclass="fgrid">
+		<columns>
+			<column width="30%"/>
+			<column width="10%"/>
+			<column width="60%"/>
+		</columns>
+		<rows>
+			<row>
+				<label value="Codigo"/>
+				<checkbox id="ckbxCodigo"/>
+				<textbox width="90%" disabled="${ckbxCodigo.checked}"/>
+			</row>
+			<row>
+				<label value="N° Resolucion"/>
+				<checkbox id="ckbxResolucion"/>
+				<textbox width="90%" disabled="${ckbxResolucion.checked}"/>
+			</row>
+			<row>
+				<label value="Título"/>
+				<checkbox id="ckbxTitulo" checked="true" onClick="{txtTitulo.setDisabled(false);}"/>
+				<textbox id="txtTitulo" width="90%" disabled="true"/>
+			</row>
+			<row spans="3">
+				<hbox pack="center"  hflex="1">
+					<button label="Filtrar" image="/recursos/img/icon-filter.png"/>
+				</hbox>
+			</row>
+		</rows>
+	</grid>
+</window>

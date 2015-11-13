@@ -18,6 +18,7 @@
 		<property name="packagesToScan">
 			<list>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
+				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -25,12 +26,20 @@
 				hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.auto=update
-				hibernate.hbm2ddl.import_files=/resources/scripts/insert_proyectos.sql
+				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql, /scripts/insert_personas.sql
 		</value>
 		</property>
 	</bean>
 	
 	<bean id="daoProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoProyectoImpl">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPersonaFisica" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisicaImp">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPersonaJuridica" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridicaImp">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 
