@@ -1,0 +1,32 @@
+<window id="dlgDatosContacto" title="@load(vm.titulo)" border="normal" closable="true"
+	width="28%" height="23%" apply="org.zkoss.bind.BindComposer" mode="modal"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgDatosContacto')">
+	<groupbox vflex="1">
+		<grid hflex="1" vflex="1" sclass="fgrid">
+			<columns>
+				<column width="40%" />
+				<column width="60%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Tipo: " sclass="texto-formulario" />
+					<combobox model="@load(vm.tipos)" selectedItem="@save(vm.datosContacto.tipo)" disabled="@load(vm.modo eq 'EDICION')">
+						<template name="model">
+							<comboitem label="@load(each.titulo)"/>
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<label value="Valor:" sclass="texto-formulario"/>
+					<textbox width="95%" value="@bind(vm.datosContacto.valor)"/>
+				</row>
+				<row spans="2">
+					<hbox pack="center" spacing="5px" hflex="1">
+						<button label="Aceptar" onClick="@command('aceptar')"/>
+						<button label="Cancelar" onClick="@command('cancelar')"/>
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+</window>

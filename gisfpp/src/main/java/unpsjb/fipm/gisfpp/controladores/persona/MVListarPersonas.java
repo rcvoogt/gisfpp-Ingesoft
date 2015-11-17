@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.controladores.persona;
 import java.util.HashMap;
 import java.util.List;
 
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -14,35 +13,24 @@ import org.zkoss.zul.Include;
 import org.zkoss.zul.Panel;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.servicios.persona.ServicioPersonaFisica;
-import unpsjb.fipm.gisfpp.servicios.persona.ServicioPersonaJuridica;
+import unpsjb.fipm.gisfpp.servicios.persona.IServiciosPersonaFisica;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class MVListarPersonas {
 
-	private List<PersonaFisica> fisicas;
-	private List<PersonaJuridica> juridicas;
-	private ServicioPersonaJuridica servJuridica;
-	private ServicioPersonaFisica servFisica;
+	private List<PersonaFisica> personas;
+	private IServiciosPersonaFisica servPersona;
 
 	@Init
 	public void init() throws Exception {
-		servJuridica = (ServicioPersonaJuridica) SpringUtil.getBean("servPersonaJuridica");
-		servFisica = (ServicioPersonaFisica) SpringUtil.getBean("servPersonaFisica");
-		todoPersonasFisica();
-		todoPersonasJuridica();
+		servPersona = (IServiciosPersonaFisica) SpringUtil.getBean("servPersonaFisica");
+		recuperarTodo();
 	}
 
-	@Command("todoPersonasFisica")
+	@Command("recuperarTodo")
 	@NotifyChange("fisicas")
-	public void todoPersonasFisica() throws Exception {
-		fisicas = servFisica.todoPersonaFisica();
-	}
-
-	@Command("todoPersonasJuridica")
-	@NotifyChange("juridicas")
-	public void todoPersonasJuridica() throws Exception {
-		juridicas = servJuridica.todoPersonaJuridica();
+	public void recuperarTodo() throws Exception {
+		personas = servPersona.recuperarTodo();
 	}
 
 	@Command("salir")
@@ -56,10 +44,9 @@ public class MVListarPersonas {
 	}
 
 	@Command("nuevaPersona")
-	public void nuevaPersona(@BindingParam("tipo") String tipo) {
+	public void nuevaPersona() {
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("tipo", tipo);
-		map.put("modo", "nuevo");
+		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		Sessions.getCurrent().setAttribute("opcCrudPersona", map);
 
 		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListarPersonas");
@@ -71,12 +58,8 @@ public class MVListarPersonas {
 		}
 	}
 
-	public List<PersonaFisica> getFisicas() {
-		return fisicas;
-	}
-
-	public List<PersonaJuridica> getJuridicas() {
-		return juridicas;
+	public List<PersonaFisica> getPersonas() {
+		return personas;
 	}
 
 }// Fin de la clase MVListarPersonas

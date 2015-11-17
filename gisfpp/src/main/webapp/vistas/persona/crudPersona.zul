@@ -4,90 +4,49 @@
 	<panelchildren>
 		<tabbox hflex="1" vflex="1">
 			<tabs>
-				<tab label="Persona Fisica" visible="@load(vm.tipo eq'pf'?true:false)"/>
-				<tab label="Persona Juridica" visible="@load(vm.tipo eq'pj'?true:false)"/>
+				<tab label="Datos Basicos"/>
+				<tab label="N° de Identificacion"/>
+				<tab label="Datos de Contacto"/>
+				<tab label="Domicilios"/>
 			</tabs>
 			<toolbar>
-				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar"/>
+				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
+					visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevaPersona')"/>
+				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" disabled="@load(vm.editando)"
+					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"/>
 				<space bar="true" spacing="10px"/>
-				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar"/>
-				<toolbarbutton image="recursos/img/icon-remove-sign.png" label="Cancelar" onClick="@command('cancelar')"/>
+				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" 
+					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('guardar')"/>
+				<toolbarbutton image="recursos/img/icon-remove-sign.png" label="Cancelar" 
+					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('cancelar')"/>
 				<space bar="true" spacing="10px"/>
 				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver"
 					onClick="@command('volver')"/>
 			</toolbar>
 			<tabpanels>
-				<tabpanel id="tabPF" hflex="1" vflex="1">
-					<grid hflex="1" height="95%" sclass="fgrid"
-						form="@id('frm') @load(vm.seleccionPF) @save(vm.seleccionPF, before='guardar')">
+				<tabpanel id="tabDatosBasicos" hflex="1" vflex="1">
+					<grid hflex="1" vflex="1" sclass="fgrid" >
 						<columns>
 							<column width="10%"/>
 							<column width="30%"/>
-							<column width="10%"/>
-							<column width="30%"/>
-							<column width="20%"/>
+							<column width="60%"/>
 						</columns>
 						<rows>
-							<row height="50px">
-								<label value="Nombres:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.nombre)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-								<label value="Apellidos:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.apellidos)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="50px">
-								<label value="Fecha Nacimiento:" sclass="texto-formulario"/>
-								<datebox format="dd/MM/yyyy" buttonVisible="true" mold="rounded"
-									value="@bind(frm.nacimiento)" readonly="@load((not vm.creando) and (not vm.editando))"/>
-								<label value="DNI:" sclass="texto-formulario"/>
-								<textbox value="@load(frm.dni)" width="30%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="50px">
-								<label value="CUIL:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.cuil)" width="30%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-								<label value="Web:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.web)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="50px">
-								<label value="Telefono1:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.telefono1)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-								<label value="Telefono 2:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.telefono2)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="50px">
-								<label value="E-Mail 1:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.email1)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-								<label value="E-Mail 2:" sclass="texto-formulario"/>
-								<textbox value="@bind(frm.email2)" width="60%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="15px"/>
-							<row spans="3,1">
-								<groupbox hflex="1">
-									<caption label="Domicilios" sclass="texto-formulario"/>
-									<listbox rows="4" emptyMessage="">
-										<listhead>
-											<listheader label="Alt./N°" width="10%"/>
-											<listheader label="Calle" width="50%"/>
-											<listheader label="Localidad" width="40%"/>
-										</listhead>
-										<listitem popup="popDomicilios">
-											<listcell><label value="25"/></listcell>
-											<listcell><label value="Av. Siempre viva"/></listcell>
-											<listcell><label value="Springfield"/></listcell>
-										</listitem>							
-									</listbox>
-								</groupbox>
-								<menupopup id="popDomicilios">
-									<menuitem label="Agregar" onClick="@command('menuDomicilios', accion='agregar', item=null)"/>
-									<menuitem label="Editar" id="editar" onClick="@command('menuDomicilios', accion='editar', item=null)"/>
-									<menuitem label="Eliminar" id="eliminar" onClick="@command('menuDomicilios', accion='eliminar', item=null)"/>
-								</menupopup>
+							<row height="70px">
+								<label value="Nombre y Apellido:" sclass="texto-formulario"/>
+								<textbox value="@bind(vm.item.nombre)" width="65%" readonly="@load((not vm.creando) and (not vm.editando))"/>
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
-				<tabpanel id="tabPJ">
-				
+				<tabpanel id="tabIdentificaciones">
+					<include src="vistas/persona/pnlIdentificaciones.zul"/>
+				</tabpanel>
+				<tabpanel id="tabDatosContacto" hflex="1" vflex="1">
+					<include src="vistas/persona/pnlDatosContacto.zul"/>
+				</tabpanel>
+				<tabpanel id="tabDomicilios">
+					<include src="vistas/persona/pnlDomicilios.zul"/>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>

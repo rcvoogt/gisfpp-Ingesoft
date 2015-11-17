@@ -2,70 +2,59 @@ package unpsjb.fipm.gisfpp.controladores.persona;
 
 import java.util.HashMap;
 
+import javax.validation.ConstraintViolationException;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Panel;
+import org.zkoss.zul.Window;
 
-import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
+import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.servicios.persona.ServicioPersonaFisica;
-import unpsjb.fipm.gisfpp.servicios.persona.ServicioPersonaJuridica;
+import unpsjb.fipm.gisfpp.servicios.persona.IServiciosPersonaFisica;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class MVCrudPersona {
 
-	private ServicioPersonaFisica servPF;
-	private ServicioPersonaJuridica servPJ;
-	private PersonaFisica seleccionPF;
-	private PersonaJuridica seleccionPJ;
+	private IServiciosPersonaFisica servPF;
+	private PersonaFisica item;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
 	private String modo;
-	private String tipo;
 	private String titulo;
 
+	@SuppressWarnings("unchecked")
 	@Init
+	@NotifyChange({ "creando", "editando", "ver", "modo", "item", "titulo" })
 	public void init() {
 		final HashMap<String, Object> opciones = (HashMap<String, Object>) Sessions.getCurrent()
 				.getAttribute("opcCrudPersona");
-		tipo = (String) opciones.get("tipo");
 		modo = (String) opciones.get("modo");
-		if (tipo.equals("pf")) {
-			switch (modo) {
-			case "nuevo": {
-				servPF = (ServicioPersonaFisica) SpringUtil.getBean("servPersonaFisica");
-				seleccionPF = new PersonaFisica();
-				creando = true;
-				titulo = "Nueva Persona Física";
-				break;
-			}
-			default:
-				break;
-			}
-		} else {// tipo es pj (Persona Juridica)
-			switch (modo) {
-			case "nuevo": {
-				servPJ = (ServicioPersonaJuridica) SpringUtil.getBean("servPersonaJuridica");
-				seleccionPJ = new PersonaJuridica();
-				creando = true;
-				titulo = "Nueva Persona Juridica";
-				break;
-			}
-
-			default:
-				break;
-			}
+		servPF = (IServiciosPersonaFisica) SpringUtil.getBean("servPersonaFisica");
+		switch (modo) {
+		case UtilGisfpp.MOD_NUEVO: {
+			item = new PersonaFisica();
+			creando = true;
+			titulo = "Nueva Persona";
+			break;
 		}
-
-	}
+		default:
+			break;
+		}
+	}// fin del método init
 
 	@Command("volver")
 	public void volver() {
@@ -79,51 +68,144 @@ public class MVCrudPersona {
 
 	}
 
-	@Command("menuDomicilios")
-	public void crdDomicilio(@BindingParam("accion") String accion, @BindingParam("item") Persona item) {
-
-		switch (accion) {
-		case "agregar":
-			Messagebox.show("Agregando un nuevo domicilio para esta persona!!!");
-			break;
-		case "editar":
-			Messagebox.show("Editando el domicilio seleccionado de esta persona!!!!!");
-			break;
-		case "eliminar":
-			Messagebox.show("Eliminando el domicilio seleccionado de esta persona!!!");
+	@Command("guardar")
+	public void guardar() throws Exception {
+		if (creando) {
+			try {
+				int id = servPF.nuevaPersonaFisica(item);
+				Clients.showNotification("Nueva Persona Creada N°: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
+						"top_right", 3500);
+				creando = false;
+				editando = false;
+				ver = true;
+			} catch (ConstraintViolationException cve) {
+				Clients.showNotification(UtilGisfpp.getMensajeValidations(cve), Clients.NOTIFICATION_TYPE_WARNING, null,
+						"top_right", 10000, true);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		if (editando) {
 
 		}
+	}
 
+	@Command("nuevaPersona")
+	@NotifyChange({ "item", "creando", "editando", "ver" })
+	public void nuevaPersona() {
+		item = new PersonaFisica();
+		creando = true;
+		editando = false;
+		ver = false;
 	}
 
 	@Command("cancelar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "creando", "editando", "ver", "item" })
 	public void cancelar() {
-		if (modo == "edicion") {
+		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			volver();
 		} else {
-			seleccionPF = null;
-			seleccionPJ = null;
+			item = null;
 			creando = false;
 			editando = false;
 			ver = true;
 		}
 	}
 
-	public String getTipo() {
-		return tipo;
+	@Command("verDlgIdentificacion")
+	public void verDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("valor") Identificador arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("valor", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgIdentificacion.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgIdentificacion")
+	@NotifyChange({ "item" })
+	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("valor") Identificador arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.agregarIdentificador(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getIdentificadores().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("verDlgDatosContacto")
+	public void verDlgDatosContacto(@BindingParam("modo") String arg1,
+			@BindingParam("datosContacto") DatoDeContacto arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("datosContacto", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDatosContacto.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgDatosContacto")
+	@NotifyChange("item")
+	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("datosContacto") DatoDeContacto arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.getDatosDeContacto().add(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getDatosDeContacto().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("verDlgDomicilios")
+	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("domicilio") Domicilio arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("valor", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDomicilios.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgDomicilios")
+	@NotifyChange("item")
+	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("domicilio") Domicilio arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.getDomicilios().add(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getDomicilios().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("quitarDomicilios")
+	@NotifyChange("item")
+	public void quitarDomicilios(@BindingParam("index") int index) {
+		item.getDomicilios().remove(index);
+	}
+
+	@Command("quitarDatosContacto")
+	@NotifyChange("item")
+	public void quitarDatosContacto(@BindingParam("index") int index) {
+		item.getDatosDeContacto().remove(index);
+	}
+
+	@Command("quitarIdentificador")
+	@NotifyChange("item")
+	public void quitarIdentificacion(@BindingParam("index") int index) {
+		item.getIdentificadores().remove(index);
 	}
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public PersonaFisica getSeleccionPF() {
-		return seleccionPF;
-	}
-
-	public PersonaJuridica getSeleccionPJ() {
-		return seleccionPJ;
+	public PersonaFisica getItem() {
+		return item;
 	}
 
 	public boolean isCreando() {
@@ -136,6 +218,10 @@ public class MVCrudPersona {
 
 	public boolean isVer() {
 		return ver;
+	}
+
+	public String getModo() {
+		return modo;
 	}
 
 }// Fin de la clase MVCrudPersona

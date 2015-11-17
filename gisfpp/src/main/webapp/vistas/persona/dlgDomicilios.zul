@@ -1,0 +1,49 @@
+<window id="dlgDomicilio" title="@load(vm.titulo)" border="normal" closable="true"
+	width="35%" height="48%" apply="org.zkoss.bind.BindComposer" mode="modal"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgDomicilios')">
+	<groupbox vflex="1">
+		<grid hflex="1" vflex="1" sclass="fgrid">
+			<columns>
+				<column width="30%" />
+				<column width="70%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Altura: " sclass="texto-formulario" />
+					<textbox width="30%" value="@bind(vm.domicilio.altura)"/>
+				</row>
+				<row>
+					<label value="Calle:" sclass="texto-formulario"/>
+					<textbox width="90%" value="@bind(vm.domicilio.calle)"/>
+				</row>
+				<row>
+					<label value="N° Piso:" sclass="texto-formulario"/>
+					<textbox width="30%" value="@bind(vm.domicilio.piso)"/>
+				</row>
+				<row>
+					<label value="N° Dpto:" sclass="texto-formulario"/>
+					<textbox width="30%" value="@bind(vm.domicilio.num_dpto)"/>
+				</row>
+				<row>
+					<label value="Cod. Postal:" sclass="texto-formulario"/>
+					<textbox width="30%" value="@bind(vm.domicilio.cod_postal)"/>
+				</row>
+				<row>
+					<label value="Localidad:" sclass="texto-formulario"/>
+					<textbox width="90%" value="@bind(vm.domicilio.localidad)"/>
+				</row>
+				<row>
+					<label value="Provincia:" sclass="texto-formulario"/>
+					<textbox width="90%" value="@bind(vm.domicilio.provincia)"/>
+				</row>
+				<row height="20px"/>
+				<row spans="2">
+					<hbox pack="center" spacing="5px" hflex="1">
+						<button label="Aceptar" onClick="@command('aceptar')"/>
+						<button label="Cancelar" onClick="@command('cancelar')"/>
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+</window>

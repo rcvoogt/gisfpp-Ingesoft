@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,58 +17,49 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Persona implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
+public abstract class Persona implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idPersona")
 	private Integer id;
 
-	@Column(name = "nombre", length = 50, nullable = false)
-	private String nombre;
-
-	@Column(name = "web", length = 100)
-	private String web;
-
-	@Column(length = 20)
-	private String telefono1;
-
-	@Column(length = 20)
-	private String telefono2;
-
-	@Column(length = 100)
-	private String email1;
-
-	@Column(length = 100)
-	private String email2;
+	// Para Persona Física corresponde al Nombre y Apellidos, para Persona
+	// Juridica corresponde a la Razón Social
+	@Column(name = "nombre", length = 80, nullable = false)
+	protected String nombre;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "personaId")
 	private List<Domicilio> domicilios;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "personaId")
+	private List<DatoDeContacto> datosDeContacto;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "personaId")
+	private List<Identificador> identificadores;
+
 	public Persona() {
 		super();
 		this.domicilios = new ArrayList<Domicilio>();
+		this.datosDeContacto = new ArrayList<>();
+		this.identificadores = new ArrayList<>();
 	}
 
-	public Persona(String nombre, String web, String telefono1, String telefono2, String email1, String email2) {
+	public Persona(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.web = web;
-		this.telefono1 = telefono1;
-		this.telefono2 = telefono2;
-		this.email1 = email1;
-		this.email2 = email2;
 		this.domicilios = new ArrayList<Domicilio>();
+		this.datosDeContacto = new ArrayList<>();
+		this.identificadores = new ArrayList<>();
 	}
 
 	public Integer getId() {
@@ -77,59 +70,11 @@ public class Persona implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank(message = "Debe especificar un \"Nombre\" para la Persona.")
-	@Length(max = 50, message = "El \"Nombre\"  de la Persona no debe ser mayor a 50 caracteres.")
-	public String getNombre() {
-		return nombre;
-	}
+	public abstract String getNombre();
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
 
-	@Length(max = 100, message = "El  link \"Web\"  de la Persona no debe ser mayor a 100 caracteres.")
-	public String getWeb() {
-		return web;
-	}
-
-	public void setWeb(String web) {
-		this.web = web;
-	}
-
-	@Length(max = 20, message = "El \"N° de Telefono 1\" no debe ser mayor a 20 caracteres.")
-	public String getTelefono1() {
-		return telefono1;
-	}
-
-	public void setTelefono1(String telefono1) {
-		this.telefono1 = telefono1;
-	}
-
-	@Length(max = 20, message = "El \"N° de Telefono 2\" no debe ser mayor a 20 caracteres.")
-	public String getTelefono2() {
-		return telefono2;
-	}
-
-	public void setTelefono2(String telefono2) {
-		this.telefono2 = telefono2;
-	}
-
-	@Length(max = 100, message = "El \"E-Mail 1\" no debe ser mayor a 100 caracteres.")
-	public String getEmail1() {
-		return email1;
-	}
-
-	public void setEmail1(String email1) {
-		this.email1 = email1;
-	}
-
-	@Length(max = 100, message = "El \"E-Mail 2\" no debe ser mayor a 100 caracteres.")
-	public String getEmail2() {
-		return email2;
-	}
-
-	public void setEmail2(String email2) {
-		this.email2 = email2;
 	}
 
 	@Valid
@@ -141,8 +86,54 @@ public class Persona implements Serializable {
 		this.domicilios = domicilios;
 	}
 
-	public void addDomicilio(Domicilio domicilio) {
-		this.domicilios.add(domicilio);
+	@Valid
+	public List<DatoDeContacto> getDatosDeContacto() {
+		return datosDeContacto;
+	}
+
+	public void setDatosDeContacto(List<DatoDeContacto> datosDeContacto) {
+		this.datosDeContacto = datosDeContacto;
+	}
+
+	@Valid
+	public List<Identificador> getIdentificadores() {
+		return identificadores;
+	}
+
+	protected void setIdentificadores(List<Identificador> identificadores) {
+		this.identificadores = identificadores;
+	}
+
+	public String getValorIdentificador(TIdentificador tipo) {
+		for (Identificador identificador : identificadores) {
+			if (identificador.getTipo().equals(tipo)) {
+				return identificador.getValor();
+			}
+		}
+		return null;
+	}
+
+	public abstract String getDni();
+
+	public abstract String getCuil();
+
+	public abstract String getCuit();
+
+	public abstract String getMatricula();
+
+	public abstract String getLegajo();
+
+	public void agregarIdentificador(Identificador identificador) throws ConstraintViolationException {
+		for (Identificador iden : identificadores) {
+			if (iden.getTipo().equals(identificador.getTipo())) {
+				throw new ConstraintViolationException("Error: Tipo de identificador duplicado.", null);
+			}
+		}
+		identificadores.add(identificador);
+	}
+
+	public void removerIdentificador(Identificador identificador) {
+		identificadores.remove(identificador);
 	}
 
 }// Fin de la clase Entity Persona

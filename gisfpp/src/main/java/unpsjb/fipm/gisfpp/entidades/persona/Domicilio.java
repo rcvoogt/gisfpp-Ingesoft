@@ -17,7 +17,7 @@ public class Domicilio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "altura", length = 4)
+	@Column(name = "altura", length = 6)
 	private String altura;
 
 	@Column(name = "calle", length = 50)
@@ -42,18 +42,18 @@ public class Domicilio {
 		super();
 	}
 
-	public Domicilio(String altura, String calle, String piso, String num_dpto, String localidad, String provincia) {
+	public Domicilio(String altura, String calle, String piso, String num_dpto, String cod_postal, String localidad,
+			String provincia) {
 		super();
 		this.altura = altura;
 		this.calle = calle;
 		this.piso = piso;
 		this.num_dpto = num_dpto;
+		this.cod_postal = cod_postal;
 		this.localidad = localidad;
 		this.provincia = provincia;
 	}
 
-	@NotBlank(message = "Debe indicar un número de \"Altura\" para el Domicilio.")
-	@Length(max = 4, message = "El número de Altura no puede ser mayor a 9999")
 	public String getAltura() {
 		return altura;
 	}

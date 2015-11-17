@@ -4,7 +4,7 @@ import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
-public interface ServicioPersonaFisica {
+public interface IServiciosPersonaFisica {
 
 	public Integer nuevaPersonaFisica(PersonaFisica persona) throws Exception;
 
@@ -12,6 +12,8 @@ public interface ServicioPersonaFisica {
 
 	public void eliminarPersonaFisica(PersonaFisica persona) throws Exception;
 
-	public List<PersonaFisica> todoPersonaFisica() throws Exception;
+	public List<PersonaFisica> recuperarTodo() throws Exception;
+
+	public PersonaFisica recuperarxId(Integer id) throws Exception;
 
 }

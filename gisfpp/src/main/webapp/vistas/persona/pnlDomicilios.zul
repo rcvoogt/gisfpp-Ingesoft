@@ -1,0 +1,55 @@
+<panel id="pnlDomicilios" border="none" hflex="1" vflex="1">
+	<panelchildren>
+		<grid hflex="1" vflex="1" sclass="fgrid">
+			<columns>
+				<column width="75%" />
+				<column width="25%" />
+			</columns>
+			<rows>
+				<row>
+					<listbox id="lista" rows="5"
+						emptyMessage="Sin Domicilios para mostrar"
+						model="@load(vm.item.domicilios)" hflex="1">
+						<listhead hflex="1">
+							<listheader label="Altura" width="5%" />
+							<listheader label="Calle" width="30%" />
+							<listheader label="N° Piso" width="5%" />
+							<listheader label="N° Dpto." width="5%" />
+							<listheader label="Cod. Postal" width="8%" />
+							<listheader label="Localidad" width="25%" />
+							<listheader label="Provincia" width="22%" />
+						</listhead>
+						<template name="model">
+							<listitem value="@load(each)">
+								<listcell label="@load(each.altura)" />
+								<listcell label="@load(each.calle)" />
+								<listcell label="@load(each.piso)" />
+								<listcell label="@load(each.num_dpto)" />
+								<listcell label="@load(each.cod_postal)" />
+								<listcell label="@load(each.localidad)" />
+								<listcell label="@load(each.provincia)" />
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+				<row height="5px" />
+				<row>
+					<hbox hflex="1">
+						<button label="Agregar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('verDlgDomicilios', modo='NUEVO', valor=null)" />
+						<button label="Editar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))" 
+								onClick="@command('verDlgDomicilios', modo='EDICION', valor=lista.selectedItem.value, 
+									index=lista.selectedIndex)"/>
+						<button label="Quitar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))" 
+								onClick="@command('quitarDomicilios', index=lista.selectedIndex)"/>
+					</hbox>
+				</row>
+				
+			</rows>
+		</grid>
+
+	</panelchildren>
+</panel>

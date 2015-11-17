@@ -1,0 +1,45 @@
+<panel id="pnlDatosContacto" border="none" hflex="1" vflex="1">
+	<panelchildren>
+		<grid hflex="1" vflex="1" sclass="fgrid">
+			<columns>
+				<column width="25%" />
+				<column width="40%" />
+				<column width="35%" />
+			</columns>
+			<rows>
+				<row>
+					<listbox id="lista" rows="7"
+						emptyMessage="Sin Datos de Contacto para mostrar"
+						model="@load(vm.item.datosDeContacto)" hflex="1">
+						<listhead hflex="1">
+							<listheader label="Tipo" width="40%" />
+							<listheader label="Valor" width="60%" />
+						</listhead>
+						<template name="model">
+							<listitem value="@load(each)">
+								<listcell label="@load(each.tipo.titulo)" />
+								<listcell label="@load(each.valor)" />
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+				<row height="5px" />
+				<row>
+					<hbox hflex="1">
+						<button label="Agregar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('verDlgDatosContacto', modo='NUEVO', valor=null)" />
+						<button label="Editar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))" 
+								onClick="@command('verDlgDatosContacto', modo='EDICION', valor=lista.selectedItem.value)"/>
+						<button label="Quitar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))" 
+								onClick="@command('quitarDatosContacto', index=lista.selectedIndex)"/>
+					</hbox>
+				</row>
+				
+			</rows>
+		</grid>
+
+	</panelchildren>
+</panel>

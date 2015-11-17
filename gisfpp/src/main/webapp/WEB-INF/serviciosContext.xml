@@ -11,6 +11,7 @@
 
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.proyecto"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>

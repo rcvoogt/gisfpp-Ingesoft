@@ -19,6 +19,7 @@
 			<list>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
 				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
+				<value>unpsjb.fipm.gisfpp.entidades.staff</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -26,7 +27,7 @@
 				hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.auto=update
-				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql, /scripts/insert_personas.sql
+				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql
 		</value>
 		</property>
 	</bean>
@@ -35,12 +36,12 @@
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	
-	<bean id="daoPersonaFisica" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisicaImp">
+	<bean id="daoPF" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisica">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	
-	<bean id="daoPersonaJuridica" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridicaImp">
+	<bean id="daoStaff" class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
-
+	
 </beans>
