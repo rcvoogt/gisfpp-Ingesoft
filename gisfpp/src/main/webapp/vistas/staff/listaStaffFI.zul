@@ -1,0 +1,47 @@
+<panel id="pnlListaStaffFI" title="Staff de la FI" border="none"
+	width="100%" height="100%" sclass="panel-primary"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.staff.MVListaStaffFI')">
+	<panelchildren>
+		<vbox hflex="1" vflex="1" spacing="12px">
+			<toolbar sclass="mitool-bar" hflex="1">
+				<toolbarbutton image="recursos/img/icon-exit.png"
+					style="float:right;" label="Salir" onClick="@command('salir')" />
+				<toolbarbutton image="recursos/img/icon-addfriend.png"
+					style="float:right;" label="Asociar Persona" onClick="@command('asociarPersona')"/>
+			</toolbar>
+			<grid mold="paging" autopaging="true"
+				emptyMessage="La consulta no arrojo ningún resultado. No hay miembros del Staff para mostrar."
+				vflex="1" model="@load(vm.lista)">
+				<columns>
+					<column label="Nombre y Apellido" width="30%" />
+					<column label="DNI" width="12%"/>
+					<column label="Cargo" width="20%"/>
+					<column label="Desde" hflex="1"/>
+					<column label="Hasta" hflex="1"/>
+					<column label="Ver" align="center" width="7%" />
+					<column label="Editar" align="center" width="7%" />
+					<column label="Eliminar" align="center" width="7%" />
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.miembro.nombre)"/>
+						<label value="@load(each.miembro.dni)" />
+						<label value="@load(each.rol.descripcion)" />
+						<label value="@load(each.desde) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+						<label value="@load(each.hasta) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+						<toolbarbutton
+							image="recursos/img/icon-preview.png" tooltip="Ver detalle"
+							onClick="" />
+						<toolbarbutton
+							image="recursos/img/icon-edit.png" tooltiptext="Editar datos"
+							onClick="" />
+						<toolbarbutton
+							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
+							onClick='Messagebox.show("Se deberia eliminar esta asociacion!!!");' />
+					</row>
+				</template>
+			</grid>
+		</vbox>
+	</panelchildren>
+</panel>

@@ -1,0 +1,38 @@
+<window id="dlgLkpPersona" title="Busqueda de Persona"
+	border="normal" width="650px" closable="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgLkpPersona')">
+	<vbox>
+		<groupbox hflex="1">
+			<caption label="Buscar por" sclass="texto-formulario" />
+			<combobox placeholder="Seleccionar campo..." value="@bind(vm.campoLookup)">
+				<comboitem label="Nombre y Apellido"/>
+				<comboitem label="DNI"/>
+				<comboitem label="CUIL"/>
+			</combobox>
+			<space spacing="8px"/>
+			<textbox placeholder="Buscar..." maxlength="50" width="38%" value="@bind(vm.valorLookup)" 
+				onOK="@command('filtrar')"/>
+			<space spacing="8px"/>
+			<toolbarbutton label="Filtrar" onClick="@command('filtrar')"
+				image="recursos/img/icon-userfilter.png"/>
+			<space spacing="8px"/>		
+			<toolbarbutton label="Deshacer"
+				image="recursos/img/icon-undo.png" tooltiptext="Deshacer busqueda" disabled="@load(not vm.filtrado)"
+				onClick="@command('quitarFiltro')" />
+		</groupbox>	
+		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.lista)" >
+			<listhead>
+				<listheader label="Nombre y Apellido" sort="auto" width="50%"/>
+				<listheader label="DNI" width="25%"/>
+				<listheader label="CUIL" width="25%"/>
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="@load(each.nombre)" onClick="@command('seleccion', item=each)"/>
+					<listcell label="@load(each.dni)" onClick="@command('seleccion', item=each)"/>
+					<listcell label="@load(each.cuil)" onClick="@command('seleccion', item=each)"/>
+				</listitem>
+			</template>
+		</listbox>
+	</vbox>
+</window>

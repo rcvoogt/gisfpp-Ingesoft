@@ -1,0 +1,43 @@
+<panel id="pnlListaOrganizaciones" title="Listado de Organizaciones" border="none"
+	width="100%" height="100%" sclass="panel-primary"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarOrganizaciones')">
+	<panelchildren>
+		<vbox hflex="1" vflex="1" spacing="12px">
+			<toolbar sclass="mitool-bar" hflex="1">
+				<toolbarbutton image="recursos/img/icon-exit.png"
+					style="float:right;" label="Salir" onClick="@command('salir')" />
+				<toolbarbutton image="recursos/img/icon-portrait.png"
+					style="float:right;" label="Nueva Organizacion" onClick="@command('nueva')"/>
+			</toolbar>
+			<grid mold="paging" autopaging="true"
+				emptyMessage="La consulta no arrojo ningún resultado. No hay Organizaciones para mostrar."
+				vflex="1" model="@load(vm.lista)">
+				<columns>
+					<column label="Razón Social" width="35%" />
+					<column label="CUIT" />
+					<column label="Ver" align="center" width="7%" />
+					<column label="Editar" align="center" width="7%" />
+					
+					<column label="Baja" align="center" width="7%" />
+					<column label=" "/>
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.nombre)" />
+						<label value="@load(each.cuit)" />
+						<toolbarbutton
+							image="recursos/img/icon-preview.png" tooltip="Ver detalle"
+							onClick="" />
+						<toolbarbutton
+							image="recursos/img/icon-edit.png" tooltiptext="Editar datos"
+							onClick="@command('editar', item=each)" />
+						<toolbarbutton
+							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
+							onClick='Messagebox.show("Se deberia eliminar el proyecto");' />
+					</row>
+				</template>
+			</grid>
+		</vbox>
+	</panelchildren>
+</panel>
