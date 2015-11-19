@@ -26,4 +26,18 @@ public class MVInicio {
 		include.setSrc("vistas/proyecto/listarProyectos.zul");
 	}
 
-}
+	@Command("verListaStaff")
+	public void verListaStaff() {
+		Include include = (Include) Path.getComponent("/panelCentro");
+		include.setSrc(null);
+		include.setSrc("vistas/staff/listaStaffFI.zul");
+	}
+
+	@Command("verListaOrganizaciones")
+	public void verListaOrganizaciones() {
+		Include include = (Include) Path.getComponent("/panelCentro");
+		include.setSrc(null);
+		include.setSrc("vistas/persona/listaOrganizaciones.zul");
+	}
+
+}// fin de la clase

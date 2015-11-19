@@ -65,7 +65,6 @@ public class MVCrudPersona {
 			include.setSrc(null);
 			include.setSrc("vistas/persona/listarPersonas.zul");
 		}
-
 	}
 
 	@Command("guardar")
@@ -73,14 +72,14 @@ public class MVCrudPersona {
 		if (creando) {
 			try {
 				int id = servPF.nuevaPersonaFisica(item);
-				Clients.showNotification("Nueva Persona Creada N°: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
-						"top_right", 3500);
+				Clients.showNotification("Nueva Persona Creada. N°: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
+						"top_right", 4000);
 				creando = false;
 				editando = false;
 				ver = true;
 			} catch (ConstraintViolationException cve) {
-				Clients.showNotification(UtilGisfpp.getMensajeValidations(cve), Clients.NOTIFICATION_TYPE_WARNING, null,
-						"top_right", 10000, true);
+				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de Datos", Messagebox.OK,
+						Messagebox.ERROR);
 			} catch (Exception e) {
 				throw e;
 			}

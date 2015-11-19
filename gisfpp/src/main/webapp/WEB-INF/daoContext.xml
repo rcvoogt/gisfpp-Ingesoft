@@ -36,6 +36,10 @@
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	
+	<bean id="daoPersona" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersona">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
 	<bean id="daoPF" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisica">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>

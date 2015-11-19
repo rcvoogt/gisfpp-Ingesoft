@@ -6,7 +6,7 @@ import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 
 public interface IServiosStaff {
 
-	public void nuevaAsociacionStaff(StaffFI asociacion) throws Exception;
+	public int nuevaAsociacionStaff(StaffFI asociacion) throws Exception;
 
 	public void editarAsociacionStaff(StaffFI asociacion) throws Exception;
 

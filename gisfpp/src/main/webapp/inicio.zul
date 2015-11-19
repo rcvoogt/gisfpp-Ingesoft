@@ -14,7 +14,8 @@
 					<menu label="Entidades">
 						<menupopup>
 							<menuitem label="Personas" onClick="@command('verListaPersonas')"/>
-							<menuitem label="Organizaciones"/>
+							<menuitem label="Organizaciones" onClick="@command('verListaOrganizaciones')"/>
+							<menuitem label="Staff-FI" onClick="@command('verListaStaff')"/>
 						</menupopup>
 					</menu>
 					<menuitem label="Inicio"/>						

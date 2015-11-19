@@ -19,9 +19,9 @@ public class ServiciosStaff implements IServiosStaff {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void nuevaAsociacionStaff(StaffFI asociacion) throws Exception {
+	public int nuevaAsociacionStaff(StaffFI asociacion) throws Exception {
 		try {
-			dao.crear(asociacion);
+			return dao.crear(asociacion);
 		} catch (Exception e) {
 			throw e;
 		}
