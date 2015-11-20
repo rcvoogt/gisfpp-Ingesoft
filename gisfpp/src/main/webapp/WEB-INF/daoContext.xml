@@ -44,6 +44,10 @@
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	
+	<bean id="daoPJ" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridica">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
 	<bean id="daoStaff" class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>

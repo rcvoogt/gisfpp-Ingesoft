@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.persona;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,11 +22,10 @@ public class PersonaJuridica extends Persona {
 	}
 
 	@Override
-	@NotBlank(message = "Debe indicar la \"Razón Social\" para la Organización.")
+	@NotBlank(message = "Debe indicar la \"Razón Social\" de la Organización.")
 	@Length(max = 80, message = "La \"Razón Social\" de la Organización no debe ser mayor a 80 caracteres.")
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+		return nombre;
 	}
 
 	// Es Persona Jurídica, no posee DNI
@@ -55,6 +55,20 @@ public class PersonaJuridica extends Persona {
 	@Override
 	public String getLegajo() {
 		return null;
+	}
+
+	@AssertTrue(message = "El N° de Identificación permitido para una Organizacion es el CUIT solamente.")
+	private boolean isIdentificacionesValidas() {
+		if (getIdentificadores() == null) {
+			return true;
+		} else if (getIdentificadores().isEmpty()) {
+			return true;
+		} else if (getIdentificadores().size() == 1
+				&& (getIdentificadores().get(0).getTipo().equals(TIdentificador.CUIT))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }// Fin de la clase PersonaJuridica

@@ -21,11 +21,12 @@ public class MVDlgIdentificacion {
 
 	private String modo;
 	private Identificador identificador;
+	private Identificador aux;
 	private String titulo;
 
 	@SuppressWarnings("unchecked")
 	@Init
-	@NotifyChange({ "valor", "modo", "titulo" })
+	@NotifyChange({ "identificador", "modo", "titulo" })
 	public void init() {
 		HashMap<String, Object> map = (HashMap<String, Object>) Executions.getCurrent().getArg();
 		modo = (String) map.get("modo");
@@ -34,7 +35,9 @@ public class MVDlgIdentificacion {
 			identificador = new Identificador();
 		} else {
 			titulo = "Editar Identificacion";
-			identificador = (Identificador) map.get("valor");
+			aux = (Identificador) map.get("valor");
+			identificador = new Identificador();
+			copiar(aux, identificador);
 		}
 
 	}
@@ -69,7 +72,12 @@ public class MVDlgIdentificacion {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", modo);
 		map.put("opcion", Messagebox.OK);
-		map.put("valor", identificador);
+		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
+			copiar(identificador, aux);
+			map.put("valor", aux);
+		} else {
+			map.put("valor", identificador);
+		}
 		BindUtils.postGlobalCommand(null, null, "retornoDlgIdentificacion", map);
 		cerrar();
 	}
@@ -84,4 +92,9 @@ public class MVDlgIdentificacion {
 		cerrar();
 	}
 
-}
+	private void copiar(Identificador origen, Identificador destino) {
+		destino.setTipo(origen.getTipo());
+		destino.setValor(origen.getValor());
+	}
+
+}// fin de la clase

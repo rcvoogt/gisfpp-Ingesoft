@@ -1,12 +1,17 @@
 package unpsjb.fipm.gisfpp.controladores.persona;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
@@ -14,15 +19,22 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Panel;
+import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
+import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaDeContacto;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersona;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersonaJuridica;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class MVCrudOrganizacion {
 
-	private IServicioPersona servicio;
+	private IServicioPersonaJuridica servicio;
 	private PersonaJuridica item;
+	private List<PersonaDeContacto> contactos;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -31,40 +43,36 @@ public class MVCrudOrganizacion {
 
 	@Init
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver", "titulo" })
-	public void init() {
+	public void init() throws Exception {
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> opciones = (HashMap<String, Object>) Sessions.getCurrent()
-				.getAttribute("paramCrudOrganizacion");
+				.getAttribute("opcCrudOrganizacion");
 		modo = (String) opciones.get("modo");
-		servicio = (IServicioPersona) SpringUtil.getBean("serPersona");
+		servicio = (IServicioPersonaJuridica) SpringUtil.getBean("servPersonaJuridica");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new PersonaJuridica();
+			contactos = new ArrayList<PersonaDeContacto>();
 			creando = true;
-			editando = false;
-			ver = false;
 			titulo = "Nueva Organizacion";
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
 			item = (PersonaJuridica) opciones.get("item");
-			creando = false;
+			contactos = servicio.recupararContactos(item);
 			editando = true;
-			ver = false;
 			titulo = "Editando Organización: " + item.getNombre();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			item = (PersonaJuridica) opciones.get("item");
-			creando = false;
-			editando = false;
+			contactos = servicio.recupararContactos(item);
 			ver = true;
 			titulo = "Ver detalle de Organizacion: " + item.getNombre();
 			break;
 		}
-		default:
-			break;
 		}
+		Sessions.getCurrent().removeAttribute("opcCrudOrganizacion");
 	}
 
 	@Command("nuevaOrganizacion")
@@ -81,7 +89,7 @@ public class MVCrudOrganizacion {
 	public void guardar() throws Exception {
 		if (creando) {
 			try {
-				int id = servicio.nuevaPersona(item);
+				int id = servicio.nuevaPersonaJuridica(item);
 				Clients.showNotification("Nueva Organizacion registrada con Id: " + id, Clients.NOTIFICATION_TYPE_INFO,
 						null, "top_right", 4000);
 				creando = false;
@@ -96,7 +104,7 @@ public class MVCrudOrganizacion {
 		}
 		if (editando) {
 			try {
-				servicio.actualizarPersona(item);
+				servicio.actualizarPersonaJuridica(item);
 				Clients.showNotification("Los cambios efectuados han sido registrados.", Clients.NOTIFICATION_TYPE_INFO,
 						null, "top_right", 4000);
 				creando = false;
@@ -143,6 +151,109 @@ public class MVCrudOrganizacion {
 		}
 	}
 
+	@Command("verDlgLkpPersona")
+	public void verDldLkpPersona() {
+		Window dlg = (Window) Executions.createComponents("/vistas/persona/dlgLookupPersona.zul", null, null);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("obtenerLkpPersona")
+	@NotifyChange("contacto")
+	public void obtPersonaLookup(@BindingParam("seleccion") PersonaFisica arg1) {
+		PersonaDeContacto contacto = new PersonaDeContacto();
+		contacto.setOrganizacion(item);
+		contacto.setPersona(arg1);
+		contactos.add(contacto);
+	}
+
+	@Command("verDlgIdentificacion")
+	public void verDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("valor") Identificador arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("valor", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgIdentificacion.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgIdentificacion")
+	@NotifyChange({ "item" })
+	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("valor") Identificador arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.agregarIdentificador(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getIdentificadores().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("verDlgDatosContacto")
+	public void verDlgDatosContacto(@BindingParam("modo") String arg1,
+			@BindingParam("datosContacto") DatoDeContacto arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("datosContacto", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDatosContacto.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgDatosContacto")
+	@NotifyChange("item")
+	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("datosContacto") DatoDeContacto arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.getDatosDeContacto().add(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getDatosDeContacto().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("verDlgDomicilios")
+	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("domicilio") Domicilio arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("valor", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDomicilios.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgDomicilios")
+	@NotifyChange("item")
+	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
+			@BindingParam("domicilio") Domicilio arg3) {
+		if (arg2 == Messagebox.OK) {
+			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+				item.getDomicilios().add(arg3);
+			}
+			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+				item.getDomicilios().indexOf(arg3);
+			}
+		}
+	}
+
+	@Command("quitarDomicilios")
+	@NotifyChange("item")
+	public void quitarDomicilios(@BindingParam("index") int index) {
+		item.getDomicilios().remove(index);
+	}
+
+	@Command("quitarDatosContacto")
+	@NotifyChange("item")
+	public void quitarDatosContacto(@BindingParam("index") int index) {
+		item.getDatosDeContacto().remove(index);
+	}
+
+	@Command("quitarIdentificador")
+	@NotifyChange("item")
+	public void quitarIdentificacion(@BindingParam("index") int index) {
+		item.getIdentificadores().remove(index);
+	}
+
 	public PersonaJuridica getItem() {
 		return item;
 	}
@@ -169,6 +280,10 @@ public class MVCrudOrganizacion {
 
 	public String getTitulo() {
 		return titulo;
+	}
+
+	public List<PersonaDeContacto> getContactos() {
+		return contactos;
 	}
 
 }// fin de la clase

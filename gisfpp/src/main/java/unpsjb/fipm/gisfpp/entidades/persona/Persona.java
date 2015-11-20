@@ -30,8 +30,8 @@ public abstract class Persona implements Serializable {
 	@Column(name = "idPersona")
 	private Integer id;
 
-	// Para Persona Física corresponde al Nombre y Apellidos, para Persona
-	// Juridica corresponde a la Razón Social
+	// Para Persona Física corresponde el Nombre y Apellidos, para Persona
+	// Juridica corresponde la Razón Social
 	@Column(name = "nombre", length = 80, nullable = false)
 	protected String nombre;
 

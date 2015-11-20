@@ -36,7 +36,7 @@
 					<label value="Provincia:" sclass="texto-formulario"/>
 					<textbox width="90%" value="@bind(vm.domicilio.provincia)"/>
 				</row>
-				<row height="20px"/>
+				<row height="10px"/>
 				<row spans="2">
 					<hbox pack="center" spacing="5px" hflex="1">
 						<button label="Aceptar" onClick="@command('aceptar')"/>

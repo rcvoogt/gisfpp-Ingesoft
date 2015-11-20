@@ -49,6 +49,9 @@
 				<tabpanel id="tabDomicilios">
 					<include src="vistas/persona/pnlDomicilios.zul"/>
 				</tabpanel>
+				<tabpanel id="tabPersonasContacto">
+					<include src="vistas/persona/pnlPersonasContacto.zul"/>
+				</tabpanel>
 			</tabpanels>
 		</tabbox>
 	</panelchildren>

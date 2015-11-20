@@ -48,7 +48,7 @@ public class MVListarOrganizaciones {
 	public void nueva() {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		Sessions.getCurrent().setAttribute("paramCrudOrganizacion", map);
+		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
 
 		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
 		Include include = (Include) Path.getComponent("/panelCentro");
@@ -64,7 +64,7 @@ public class MVListarOrganizaciones {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_EDICION);
 		map.put("item", arg1);
-		Sessions.getCurrent().setAttribute("paramCrudOrganizacion", map);
+		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
 
 		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
 		Include include = (Include) Path.getComponent("/panelCentro");
@@ -73,6 +73,23 @@ public class MVListarOrganizaciones {
 			include.setSrc(null);
 			include.setSrc("vistas/persona/crudOrganizacion.zul");
 		}
+	}
+
+	@Command("ver")
+	public void ver(@BindingParam("item") PersonaJuridica arg1) {
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", UtilGisfpp.MOD_VER);
+		map.put("item", arg1);
+		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
+
+		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
+		Include include = (Include) Path.getComponent("/panelCentro");
+		if (panel != null) {
+			panel.onClose();
+			include.setSrc(null);
+			include.setSrc("vistas/persona/crudOrganizacion.zul");
+		}
+
 	}
 
 	public List<PersonaJuridica> getLista() {

@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.controladores.persona;
 import java.util.HashMap;
 import java.util.List;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -47,6 +48,38 @@ public class MVListarPersonas {
 	public void nuevaPersona() {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
+		Sessions.getCurrent().setAttribute("opcCrudPersona", map);
+
+		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListarPersonas");
+		Include include = (Include) Path.getComponent("/panelCentro");
+		if (panel != null) {
+			panel.onClose();
+			include.setSrc(null);
+			include.setSrc("vistas/persona/crudPersona.zul");
+		}
+	}
+
+	@Command("editarPersona")
+	public void editarPersona(@BindingParam("item") PersonaFisica arg1) {
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", UtilGisfpp.MOD_EDICION);
+		map.put("item", arg1);
+		Sessions.getCurrent().setAttribute("opcCrudPersona", map);
+
+		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListarPersonas");
+		Include include = (Include) Path.getComponent("/panelCentro");
+		if (panel != null) {
+			panel.onClose();
+			include.setSrc(null);
+			include.setSrc("vistas/persona/crudPersona.zul");
+		}
+	}
+
+	@Command("verPersona")
+	public void verPersona(@BindingParam("item") PersonaFisica arg1) {
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", UtilGisfpp.MOD_VER);
+		map.put("item", arg1);
 		Sessions.getCurrent().setAttribute("opcCrudPersona", map);
 
 		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListarPersonas");

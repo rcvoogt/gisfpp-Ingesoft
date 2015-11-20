@@ -3,8 +3,7 @@
 		<grid hflex="1" vflex="1" sclass="fgrid">
 			<columns>
 				<column width="25%" />
-				<column width="40%" />
-				<column width="35%" />
+				<column width="75%" />
 			</columns>
 			<rows>
 				<row>

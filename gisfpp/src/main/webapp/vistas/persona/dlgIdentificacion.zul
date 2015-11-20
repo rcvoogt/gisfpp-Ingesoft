@@ -1,11 +1,11 @@
 <window id="dlgIdentificacion" title="@load(vm.titulo)" border="normal" closable="true"
-	width="26%" height="23%" apply="org.zkoss.bind.BindComposer" mode="modal"
+	width="25%" height="25%" apply="org.zkoss.bind.BindComposer" mode="modal"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgIdentificacion')">
 	<groupbox vflex="1">
 		<grid hflex="1" vflex="1" sclass="fgrid">
 			<columns>
-				<column width="40%" />
-				<column width="60%" />
+				<column width="25%" />
+				<column width="75%" />
 			</columns>
 			<rows>
 				<row>
@@ -18,8 +18,9 @@
 				</row>
 				<row>
 					<label value="Valor:" sclass="texto-formulario"/>
-					<textbox width="95%" value="@bind(vm.identificador.valor)"/>
+					<textbox width="70%" value="@bind(vm.identificador.valor)"/>
 				</row>
+				<row height="10px"/>
 				<row spans="2">
 					<hbox pack="center" spacing="5px" hflex="1">
 						<button label="Aceptar" onClick="@command('aceptar')"/>

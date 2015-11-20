@@ -18,6 +18,7 @@ public class MVDlgDomicilios {
 
 	private String modo;
 	private Domicilio domicilio;
+	private Domicilio aux;
 	private String titulo;
 
 	@SuppressWarnings("unchecked")
@@ -26,14 +27,20 @@ public class MVDlgDomicilios {
 	public void init() {
 		HashMap<String, Object> map = (HashMap<String, Object>) Executions.getCurrent().getArg();
 		modo = (String) map.get("modo");
-		if (modo.equals(UtilGisfpp.MOD_NUEVO)) {
+		switch (modo) {
+		case UtilGisfpp.MOD_NUEVO: {
 			titulo = "Nuevo Domicilio";
 			domicilio = new Domicilio();
-		} else {
-			titulo = "Editar Domicilio";
-			domicilio = (Domicilio) map.get("domicilio");
+			break;
 		}
-
+		case UtilGisfpp.MOD_EDICION: {
+			aux = (Domicilio) map.get("domicilio");
+			domicilio = new Domicilio();
+			copiar(aux, domicilio);
+			titulo = "Editar Domicilio";
+			break;
+		}
+		}
 	}
 
 	public String getTitulo() {
@@ -62,7 +69,12 @@ public class MVDlgDomicilios {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", modo);
 		map.put("opcion", Messagebox.OK);
-		map.put("domicilio", domicilio);
+		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
+			copiar(domicilio, aux);
+			map.put("domicilio", aux);
+		} else {
+			map.put("domicilio", domicilio);
+		}
 		BindUtils.postGlobalCommand(null, null, "retornoDlgDomicilios", map);
 		cerrar();
 	}
@@ -75,4 +87,14 @@ public class MVDlgDomicilios {
 		cerrar();
 	}
 
-}
+	private void copiar(Domicilio origen, Domicilio destino) {
+		destino.setAltura(origen.getAltura());
+		destino.setCalle(origen.getCalle());
+		destino.setPiso(origen.getPiso());
+		destino.setNum_dpto(origen.getNum_dpto());
+		destino.setCod_postal(origen.getCod_postal());
+		destino.setLocalidad(origen.getLocalidad());
+		destino.setProvincia(origen.getProvincia());
+	}
+
+}// fin de la clase

@@ -11,7 +11,7 @@
 					style="float:right;" label="Asociar Persona" onClick="@command('asociarPersona')"/>
 			</toolbar>
 			<grid mold="paging" autopaging="true"
-				emptyMessage="La consulta no arrojo ningún resultado. No hay miembros del Staff para mostrar."
+				emptyMessage="No hay miembros registrados en el Staff de la FI."
 				vflex="1" model="@load(vm.lista)">
 				<columns>
 					<column label="Nombre y Apellido" width="30%" />

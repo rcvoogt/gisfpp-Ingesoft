@@ -1,4 +1,4 @@
-<panel id="pnlListaOrganizaciones" title="Listado de Organizaciones" border="none"
+<panel id="pnlListaOrganizaciones" title="Lista de Organizaciones" border="none"
 	width="100%" height="100%" sclass="panel-primary"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarOrganizaciones')">
@@ -11,14 +11,13 @@
 					style="float:right;" label="Nueva Organizacion" onClick="@command('nueva')"/>
 			</toolbar>
 			<grid mold="paging" autopaging="true"
-				emptyMessage="La consulta no arrojo ningún resultado. No hay Organizaciones para mostrar."
-				vflex="1" model="@load(vm.lista)">
+				emptyMessage="No hay Organizaciones registradas."
+				vflex="1" model="@load(vm.lista)" hflex="1">
 				<columns>
 					<column label="Razón Social" width="35%" />
 					<column label="CUIT" />
 					<column label="Ver" align="center" width="7%" />
 					<column label="Editar" align="center" width="7%" />
-					
 					<column label="Baja" align="center" width="7%" />
 					<column label=" "/>
 				</columns>
@@ -28,7 +27,7 @@
 						<label value="@load(each.cuit)" />
 						<toolbarbutton
 							image="recursos/img/icon-preview.png" tooltip="Ver detalle"
-							onClick="" />
+							onClick="@command('ver', item=each)" />
 						<toolbarbutton
 							image="recursos/img/icon-edit.png" tooltiptext="Editar datos"
 							onClick="@command('editar', item=each)" />

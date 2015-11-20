@@ -11,7 +11,7 @@
 					style="float:right;" label="Nueva Persona" onClick="@command('nuevaPersona')"/>
 			</toolbar>
 			<grid mold="paging" autopaging="true"
-				emptyMessage="La consulta no arrojo ningún resultado. No hay Personas para mostrar."
+				emptyMessage="No hay Personas registradas."
 				vflex="1" model="@load(vm.personas)">
 				<columns>
 					<column label="Nombre y Apellido" width="35%" />
@@ -28,10 +28,10 @@
 						<label value="@load(each.cuil)" />
 						<toolbarbutton
 							image="recursos/img/icon-preview.png" tooltip="Ver detalle"
-							onClick="" />
+							onClick="@command('verPersona', item=each)" />
 						<toolbarbutton
 							image="recursos/img/icon-edit.png" tooltiptext="Editar datos"
-							onClick="" />
+							onClick="@command('editarPersona', item=each)" />
 						<toolbarbutton
 							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
 							onClick='Messagebox.show("Se deberia eliminar el proyecto");' />

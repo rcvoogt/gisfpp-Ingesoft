@@ -20,7 +20,8 @@
 				image="recursos/img/icon-undo.png" tooltiptext="Deshacer busqueda" disabled="@load(not vm.filtrado)"
 				onClick="@command('quitarFiltro')" />
 		</groupbox>	
-		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.lista)" >
+		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.lista)" 
+			emptyMessage="No hay Personas registradas.">
 			<listhead>
 				<listheader label="Nombre y Apellido" sort="auto" width="50%"/>
 				<listheader label="DNI" width="25%"/>

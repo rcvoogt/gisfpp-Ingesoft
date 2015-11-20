@@ -20,6 +20,7 @@ import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 public class MVDlgDatosContacto {
 	private String modo;
 	private DatoDeContacto datosContacto;
+	private DatoDeContacto aux;
 	private String titulo;
 
 	@SuppressWarnings("unchecked")
@@ -33,7 +34,9 @@ public class MVDlgDatosContacto {
 			datosContacto = new DatoDeContacto();
 		} else {
 			titulo = "Editar Dato de Contacto";
-			datosContacto = (DatoDeContacto) map.get("datosContacto");
+			aux = (DatoDeContacto) map.get("datosContacto");
+			datosContacto = new DatoDeContacto();
+			copiar(aux, datosContacto);
 		}
 
 	}
@@ -68,7 +71,12 @@ public class MVDlgDatosContacto {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", modo);
 		map.put("opcion", Messagebox.OK);
-		map.put("datosContacto", datosContacto);
+		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
+			copiar(datosContacto, aux);
+			map.put("datosContacto", aux);
+		} else {
+			map.put("datosContacto", datosContacto);
+		}
 		BindUtils.postGlobalCommand(null, null, "retornoDlgDatosContacto", map);
 		cerrar();
 	}
@@ -80,4 +88,10 @@ public class MVDlgDatosContacto {
 		BindUtils.postGlobalCommand(null, null, "retornoDlgDatosContacto", map);
 		cerrar();
 	}
-}
+
+	private void copiar(DatoDeContacto origen, DatoDeContacto destino) {
+		destino.setTipo(origen.getTipo());
+		destino.setValor(origen.getValor());
+	}
+
+}// fin de la clase

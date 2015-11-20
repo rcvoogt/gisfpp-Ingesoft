@@ -51,9 +51,20 @@ public class MVCrudPersona {
 			titulo = "Nueva Persona";
 			break;
 		}
-		default:
+		case UtilGisfpp.MOD_EDICION: {
+			item = (PersonaFisica) opciones.get("item");
+			editando = true;
+			titulo = "Editando Persona: " + item.getNombre();
 			break;
 		}
+		case UtilGisfpp.MOD_VER: {
+			item = (PersonaFisica) opciones.get("item");
+			ver = true;
+			titulo = "Ver detalle de  Persona: " + item.getNombre();
+			break;
+		}
+		}
+		Sessions.getCurrent().removeAttribute("opcCrudPersona");
 	}// fin del método init
 
 	@Command("volver")
@@ -68,11 +79,12 @@ public class MVCrudPersona {
 	}
 
 	@Command("guardar")
+	@NotifyChange({ "creando", "editando", "ver" })
 	public void guardar() throws Exception {
 		if (creando) {
 			try {
 				int id = servPF.nuevaPersonaFisica(item);
-				Clients.showNotification("Nueva Persona Creada. N°: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
+				Clients.showNotification("Nueva Persona Creada. Id: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 4000);
 				creando = false;
 				editando = false;
@@ -85,7 +97,19 @@ public class MVCrudPersona {
 			}
 		}
 		if (editando) {
-
+			try {
+				servPF.actualizarPersonaFisica(item);
+				Clients.showNotification("Los cambios efectuados han sido registrados.", Clients.NOTIFICATION_TYPE_INFO,
+						null, "top_right", 4000);
+				creando = false;
+				editando = false;
+				ver = true;
+			} catch (ConstraintViolationException cve) {
+				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error de Validacion de Datos", Messagebox.OK,
+						Messagebox.ERROR);
+			} catch (Exception e) {
+				throw e;
+			}
 		}
 	}
 
@@ -95,6 +119,14 @@ public class MVCrudPersona {
 		item = new PersonaFisica();
 		creando = true;
 		editando = false;
+		ver = false;
+	}
+
+	@Command("reEditar")
+	@NotifyChange({ "creando", "editando", "ver" })
+	public void reEditar() {
+		creando = false;
+		editando = true;
 		ver = false;
 	}
 
@@ -135,8 +167,7 @@ public class MVCrudPersona {
 	}
 
 	@Command("verDlgDatosContacto")
-	public void verDlgDatosContacto(@BindingParam("modo") String arg1,
-			@BindingParam("datosContacto") DatoDeContacto arg2) {
+	public void verDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("item") DatoDeContacto arg2) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", arg1);
 		map.put("datosContacto", arg2);
@@ -159,10 +190,10 @@ public class MVCrudPersona {
 	}
 
 	@Command("verDlgDomicilios")
-	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("domicilio") Domicilio arg2) {
+	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("valor") Domicilio arg2) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", arg1);
-		map.put("valor", arg2);
+		map.put("domicilio", arg2);
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDomicilios.zul", null, map);
 		dlg.doModal();
 	}
