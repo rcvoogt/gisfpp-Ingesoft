@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+@SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
@@ -35,15 +36,15 @@ public abstract class Persona implements Serializable {
 	@Column(name = "nombre", length = 80, nullable = false)
 	protected String nombre;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "personaId")
 	private List<Domicilio> domicilios;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "personaId")
 	private List<DatoDeContacto> datosDeContacto;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "personaId")
 	private List<Identificador> identificadores;
 

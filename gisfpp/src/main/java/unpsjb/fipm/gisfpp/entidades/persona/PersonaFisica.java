@@ -1,7 +1,9 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -12,6 +14,9 @@ public class PersonaFisica extends Persona {
 
 	private static final long serialVersionUID = 1L;
 
+	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+	private Usuario usuario;
+
 	public PersonaFisica() {
 		super();
 	}
@@ -21,7 +26,7 @@ public class PersonaFisica extends Persona {
 	}
 
 	@Override
-	@NotBlank(message = "Debe indicar un \"Nombre\" para la Persona.")
+	@NotBlank(message = "Debe indicar \"Nombrey Apellido\" para la Persona.")
 	@Length(max = 80, message = "El \"Nombre\" de la Persona no debe ser mayor a 80 caracteres.")
 	public String getNombre() {
 		return nombre;
@@ -51,6 +56,14 @@ public class PersonaFisica extends Persona {
 	@Override
 	public String getLegajo() {
 		return getValorIdentificador(TIdentificador.LEGAJO);
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }// Fin de la clase Entity PersonaFísica

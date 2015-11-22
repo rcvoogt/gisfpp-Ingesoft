@@ -1,17 +1,37 @@
 package unpsjb.fipm.gisfpp.dao.persona;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.hibernate.Hibernate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
 
 	@Override
 	public Integer crear(PersonaFisica instancia) throws DataAccessException {
+		// si la persona a crear no tiene un usuario establecido se le crea uno
+		// por defecto con dni como nickname(si no posee dni, se crea un
+		// nickname por defecto) y password por defecto "unpsjbfipm"
+		if (instancia.getUsuario() == null) {
+			Usuario usuario = new Usuario();
+			String nickDefault;
+			if (instancia.getDni() == null || instancia.getDni().isEmpty()) {
+				int aleatorio = (int) (Math.random() * 100);
+				StringTokenizer tokens = new StringTokenizer(instancia.getNombre());
+				nickDefault = tokens.nextToken() + aleatorio;
+			} else {
+				nickDefault = instancia.getDni();
+			}
+			usuario.setNickname(nickDefault);
+			usuario.setPassword("unpsjbfipm");
+			usuario.setActivo(false);
+			instancia.setUsuario(usuario);
+		}
 		getHibernateTemplate().saveOrUpdate(instancia);
 		return instancia.getId();
 	}
@@ -42,4 +62,4 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		return getHibernateTemplate().get(PersonaFisica.class, id);
 	}
 
-}
+}// fin de la clase

@@ -1,0 +1,41 @@
+<panel id="pnlPersonasContacto" border="none" hflex="1" vflex="1">
+	<panelchildren>
+		<grid hflex="1" vflex="1" sclass="fgrid">
+			<columns>
+				<column width="25%" />
+				<column width="75%" />
+			</columns>
+			<rows>
+				<row>
+					<listbox id="lista" rows="5"
+						emptyMessage="No hay Personas de Contacto registradas para esta Organización."
+						model="@load(vm.contactos)" hflex="1">
+						<listhead hflex="1">
+							<listheader label="DNI" width="30%" />
+							<listheader label="Nombre y Apellido" width="70%" />
+						</listhead>
+						<template name="model">
+							<listitem value="@load(each)">
+								<listcell label="@load(each.persona.dni)" />
+								<listcell label="@load(each.persona.nombre)" />
+							</listitem>
+						</template>
+					</listbox>
+				</row>
+				<row height="5px" />
+				<row>
+					<hbox hflex="1">
+						<button label="Agregar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('verDlgLkpPersona')" />
+						<button label="Quitar" sclass="btn-primary"
+							disabled="@load((not vm.creando) and (not vm.editando))" 
+								onClick="@command('quitarPersonaContacto', index=lista.selectedIndex)"/>
+					</hbox>
+				</row>
+				
+			</rows>
+		</grid>
+
+	</panelchildren>
+</panel>

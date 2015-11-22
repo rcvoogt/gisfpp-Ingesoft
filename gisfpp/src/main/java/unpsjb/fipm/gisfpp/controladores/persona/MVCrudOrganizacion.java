@@ -35,6 +35,8 @@ public class MVCrudOrganizacion {
 	private IServicioPersonaJuridica servicio;
 	private PersonaJuridica item;
 	private List<PersonaDeContacto> contactos;
+	private List<PersonaDeContacto> agregarContactos;
+	private List<PersonaDeContacto> quitarContactos;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -61,14 +63,14 @@ public class MVCrudOrganizacion {
 			item = (PersonaJuridica) opciones.get("item");
 			contactos = servicio.recupararContactos(item);
 			editando = true;
-			titulo = "Editando Organización: " + item.getNombre();
+			titulo = "Editando Organización ( " + item.getNombre() + " )";
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			item = (PersonaJuridica) opciones.get("item");
 			contactos = servicio.recupararContactos(item);
 			ver = true;
-			titulo = "Ver detalle de Organizacion: " + item.getNombre();
+			titulo = "Ver detalle de Organizacion (" + item.getNombre() + ")";
 			break;
 		}
 		}
@@ -158,12 +160,34 @@ public class MVCrudOrganizacion {
 	}
 
 	@GlobalCommand("obtenerLkpPersona")
-	@NotifyChange("contacto")
-	public void obtPersonaLookup(@BindingParam("seleccion") PersonaFisica arg1) {
+	@NotifyChange("contactos")
+	public void obtPersonaLookup(@BindingParam("seleccion") PersonaFisica arg1) throws Exception {
 		PersonaDeContacto contacto = new PersonaDeContacto();
 		contacto.setOrganizacion(item);
 		contacto.setPersona(arg1);
+		try {
+			servicio.agregarContacto(contacto);
+			Clients.showNotification("Se registro una nueva Persona de Contacto para esta Organización.",
+					Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 4000);
+		} catch (ConstraintViolationException cve) {
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error de Validacion de Datos", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (Exception e) {
+			throw e;
+		}
 		contactos.add(contacto);
+	}
+
+	@Command("quitarPersonaContacto")
+	@NotifyChange("contactos")
+	public void quitarPersonaContacto(@BindingParam("index") int arg1) throws Exception {
+		try {
+			servicio.quitarContacto(contactos.get(arg1));
+			Clients.showNotification("", Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 4000);
+		} catch (Exception e) {
+			throw e;
+		}
+		contactos.remove(arg1);
 	}
 
 	@Command("verDlgIdentificacion")

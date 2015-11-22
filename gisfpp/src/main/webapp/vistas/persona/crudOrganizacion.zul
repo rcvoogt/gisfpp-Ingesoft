@@ -14,7 +14,7 @@
 				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
 					visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevaOrganizacion')"/>
 				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" disabled="@load(vm.editando)"
-					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"/>
+					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))" onClick="@command('reEditar')"/>
 				<space bar="true" spacing="10px"/>
 				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" 
 					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('guardar')"/>
