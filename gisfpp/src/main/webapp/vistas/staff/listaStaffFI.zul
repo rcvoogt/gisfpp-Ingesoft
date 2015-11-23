@@ -1,4 +1,4 @@
-<panel id="pnlListaStaffFI" title="Staff de la FI" border="none"
+<panel id="pnlListaStaffFI" title="Staff-FI" border="none"
 	width="100%" height="100%" sclass="panel-primary"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.staff.MVListaStaffFI')">

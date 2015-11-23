@@ -27,7 +27,7 @@
 				hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.auto=update
-				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql
+				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql, /scripts/insert_personas.sql 
 		</value>
 		</property>
 	</bean>

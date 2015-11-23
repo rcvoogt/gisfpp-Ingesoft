@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaJuridica;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 
 @Service("servPersonaJuridica")
@@ -66,38 +65,6 @@ public class ServicioPersonaJuridica implements IServicioPersonaJuridica {
 	public PersonaJuridica recuperarxId(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public void agregarContacto(PersonaDeContacto contacto) throws Exception {
-		try {
-			dao.agregarPersonaContacto(contacto);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public void quitarContacto(PersonaDeContacto contacto) throws Exception {
-		try {
-			dao.quitarPersonaContacto(contacto);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<PersonaDeContacto> recupararContactos(PersonaJuridica organizacion) throws Exception {
-		try {
-			return dao.getPersonasContacto(organizacion);
 		} catch (Exception e) {
 			throw e;
 		}

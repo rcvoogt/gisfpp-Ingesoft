@@ -29,9 +29,9 @@
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="@load(each.nombre)" onClick="@command('seleccion', item=each)"/>
-					<listcell label="@load(each.dni)" onClick="@command('seleccion', item=each)"/>
-					<listcell label="@load(each.cuil)" onClick="@command('seleccion', item=each)"/>
+					<listcell label="@load(each.nombre)" onDoubleClick="@command('seleccion', item=each)"/>
+					<listcell label="@load(each.dni)" onDoubleClick="@command('seleccion', item=each)"/>
+					<listcell label="@load(each.cuil)" onDoubleClick="@command('seleccion', item=each)"/>
 				</listitem>
 			</template>
 		</listbox>

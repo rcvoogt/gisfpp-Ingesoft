@@ -6,7 +6,6 @@ import org.hibernate.Hibernate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 
 public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPersonaJuridica {
@@ -34,6 +33,7 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 			Hibernate.initialize(item.getDatosDeContacto());
 			Hibernate.initialize(item.getDomicilios());
 			Hibernate.initialize(item.getIdentificadores());
+			Hibernate.initialize(item.getContactos());
 		}
 		return lista;
 	}
@@ -41,25 +41,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	@Override
 	public PersonaJuridica recuperarxId(Integer id) throws DataAccessException {
 		return getHibernateTemplate().get(PersonaJuridica.class, id);
-	}
-
-	@Override
-	public void agregarPersonaContacto(PersonaDeContacto contacto) throws DataAccessException {
-		getHibernateTemplate().saveOrUpdate(contacto);
-	}
-
-	@Override
-	public void quitarPersonaContacto(PersonaDeContacto contacto) throws DataAccessException {
-		getHibernateTemplate().delete(contacto);
-
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PersonaDeContacto> getPersonasContacto(PersonaJuridica organizacion) throws DataAccessException {
-		String query = "select pc from PersonaDeContacto pc where pc.organizacion.nombre = ?";
-		return (List<PersonaDeContacto>) getHibernateTemplate().find(query, organizacion.getNombre());
-
 	}
 
 }// fin de la clase

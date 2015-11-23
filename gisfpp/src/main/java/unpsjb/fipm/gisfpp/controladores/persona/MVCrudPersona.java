@@ -60,7 +60,7 @@ public class MVCrudPersona {
 		case UtilGisfpp.MOD_VER: {
 			item = (PersonaFisica) opciones.get("item");
 			ver = true;
-			titulo = "Ver detalle de  Persona: " + item.getNombre();
+			titulo = "Ver Persona: " + item.getNombre();
 			break;
 		}
 		}

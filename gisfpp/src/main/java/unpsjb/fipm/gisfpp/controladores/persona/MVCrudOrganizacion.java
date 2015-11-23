@@ -1,8 +1,6 @@
 package unpsjb.fipm.gisfpp.controladores.persona;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
@@ -24,7 +22,6 @@ import org.zkoss.zul.Window;
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersonaJuridica;
@@ -34,9 +31,6 @@ public class MVCrudOrganizacion {
 
 	private IServicioPersonaJuridica servicio;
 	private PersonaJuridica item;
-	private List<PersonaDeContacto> contactos;
-	private List<PersonaDeContacto> agregarContactos;
-	private List<PersonaDeContacto> quitarContactos;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -54,23 +48,20 @@ public class MVCrudOrganizacion {
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new PersonaJuridica();
-			contactos = new ArrayList<PersonaDeContacto>();
 			creando = true;
 			titulo = "Nueva Organizacion";
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
 			item = (PersonaJuridica) opciones.get("item");
-			contactos = servicio.recupararContactos(item);
 			editando = true;
-			titulo = "Editando Organización ( " + item.getNombre() + " )";
+			titulo = "Editar Organizacion: " + item.getNombre();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			item = (PersonaJuridica) opciones.get("item");
-			contactos = servicio.recupararContactos(item);
 			ver = true;
-			titulo = "Ver detalle de Organizacion (" + item.getNombre() + ")";
+			titulo = "Ver Organizacion: " + item.getNombre();
 			break;
 		}
 		}
@@ -87,7 +78,7 @@ public class MVCrudOrganizacion {
 	}
 
 	@Command("guardar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "creando", "editando", "ver", "item" })
 	public void guardar() throws Exception {
 		if (creando) {
 			try {
@@ -160,34 +151,15 @@ public class MVCrudOrganizacion {
 	}
 
 	@GlobalCommand("obtenerLkpPersona")
-	@NotifyChange("contactos")
+	@NotifyChange("item")
 	public void obtPersonaLookup(@BindingParam("seleccion") PersonaFisica arg1) throws Exception {
-		PersonaDeContacto contacto = new PersonaDeContacto();
-		contacto.setOrganizacion(item);
-		contacto.setPersona(arg1);
-		try {
-			servicio.agregarContacto(contacto);
-			Clients.showNotification("Se registro una nueva Persona de Contacto para esta Organización.",
-					Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 4000);
-		} catch (ConstraintViolationException cve) {
-			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error de Validacion de Datos", Messagebox.OK,
-					Messagebox.ERROR);
-		} catch (Exception e) {
-			throw e;
-		}
-		contactos.add(contacto);
+		item.getContactos().add(arg1);
 	}
 
 	@Command("quitarPersonaContacto")
-	@NotifyChange("contactos")
+	@NotifyChange("item")
 	public void quitarPersonaContacto(@BindingParam("index") int arg1) throws Exception {
-		try {
-			servicio.quitarContacto(contactos.get(arg1));
-			Clients.showNotification("", Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 4000);
-		} catch (Exception e) {
-			throw e;
-		}
-		contactos.remove(arg1);
+		item.getContactos().remove(arg1);
 	}
 
 	@Command("verDlgIdentificacion")
@@ -260,6 +232,14 @@ public class MVCrudOrganizacion {
 		}
 	}
 
+	@Command("dlgVerDatosContacto")
+	public void verDlgVerDatosContacto(@BindingParam("item") PersonaFisica arg1) {
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("item", arg1);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgVerDatosContacto.zul", null, map);
+		dlg.doModal();
+	}
+
 	@Command("quitarDomicilios")
 	@NotifyChange("item")
 	public void quitarDomicilios(@BindingParam("index") int index) {
@@ -304,10 +284,6 @@ public class MVCrudOrganizacion {
 
 	public String getTitulo() {
 		return titulo;
-	}
-
-	public List<PersonaDeContacto> getContactos() {
-		return contactos;
 	}
 
 }// fin de la clase

@@ -9,15 +9,17 @@
 				<row>
 					<listbox id="lista" rows="5"
 						emptyMessage="No hay Personas de Contacto registradas para esta Organización."
-						model="@load(vm.contactos)" hflex="1">
+						model="@load(vm.item.contactos)" hflex="1">
 						<listhead hflex="1">
 							<listheader label="DNI" width="30%" />
 							<listheader label="Nombre y Apellido" width="70%" />
 						</listhead>
 						<template name="model">
 							<listitem value="@load(each)">
-								<listcell label="@load(each.persona.dni)" />
-								<listcell label="@load(each.persona.nombre)" />
+								<listcell label="@load(each.dni)" 
+									onDoubleClick="@command('dlgVerDatosContacto', item=lista.selectedItem.value)"/>
+								<listcell label="@load(each.nombre)" 
+									onDoubleClick="@command('dlgVerDatosContacto', item=lista.selectedItem.value)"/>
 							</listitem>
 						</template>
 					</listbox>
