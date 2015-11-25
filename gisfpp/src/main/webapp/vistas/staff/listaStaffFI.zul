@@ -14,7 +14,7 @@
 				emptyMessage="No hay miembros registrados en el Staff de la FI."
 				vflex="1" model="@load(vm.lista)">
 				<columns>
-					<column label="Nombre y Apellido" width="30%" />
+					<column label="Nombre y Apellido" width="30%" sort="auto(nombre)"/>
 					<column label="DNI" width="12%"/>
 					<column label="Cargo" width="20%"/>
 					<column label="Desde" hflex="1"/>

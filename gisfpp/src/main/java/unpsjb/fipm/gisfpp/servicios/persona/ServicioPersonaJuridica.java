@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaJuridica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
@@ -18,18 +17,15 @@ public class ServicioPersonaJuridica implements IServicioPersonaJuridica {
 	private IDaoPersonaJuridica dao;
 
 	@Override
-	@Transactional(readOnly = false)
 	public Integer nuevaPersonaJuridica(PersonaJuridica persona) throws Exception {
 		try {
 			return dao.crear(persona);
 		} catch (Exception e) {
 			throw e;
 		}
-
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void actualizarPersonaJuridica(PersonaJuridica persona) throws Exception {
 		try {
 			dao.actualizar(persona);
@@ -40,7 +36,6 @@ public class ServicioPersonaJuridica implements IServicioPersonaJuridica {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void eliminarPersonaJuridica(PersonaJuridica persona) throws Exception {
 		try {
 			dao.eliminar(persona);
@@ -61,7 +56,6 @@ public class ServicioPersonaJuridica implements IServicioPersonaJuridica {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public PersonaJuridica recuperarxId(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);

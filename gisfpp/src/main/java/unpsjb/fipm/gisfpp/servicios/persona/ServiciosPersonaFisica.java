@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -18,7 +17,6 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 	private IDaoPersonaFisica dao;
 
 	@Override
-	@Transactional(readOnly = false)
 	public Integer nuevaPersonaFisica(PersonaFisica persona) throws Exception {
 		try {
 			dao.crear(persona);
@@ -29,7 +27,6 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void actualizarPersonaFisica(PersonaFisica persona) throws Exception {
 		try {
 			dao.actualizar(persona);
@@ -39,7 +36,6 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void eliminarPersonaFisica(PersonaFisica persona) throws Exception {
 		try {
 			dao.eliminar(persona);
@@ -50,7 +46,6 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<PersonaFisica> recuperarTodo() throws Exception {
 		try {
 			return dao.recuperarTodo();
@@ -60,7 +55,6 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public PersonaFisica recuperarxId(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
@@ -69,7 +63,7 @@ public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
 		}
 	}
 
-	@Autowired(required = true)
+	@Autowired(required = false)
 	public void setDao(IDaoPersonaFisica dao) {
 		this.dao = dao;
 	}

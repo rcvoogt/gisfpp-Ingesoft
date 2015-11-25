@@ -36,31 +36,31 @@ public abstract class Persona implements Serializable {
 	@Column(name = "nombre", length = 80, nullable = false)
 	protected String nombre;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId")
 	private List<Domicilio> domicilios;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId")
 	private List<DatoDeContacto> datosDeContacto;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId")
 	private List<Identificador> identificadores;
 
 	public Persona() {
 		super();
 		this.domicilios = new ArrayList<Domicilio>();
-		this.datosDeContacto = new ArrayList<>();
-		this.identificadores = new ArrayList<>();
+		this.datosDeContacto = new ArrayList<DatoDeContacto>();
+		this.identificadores = new ArrayList<Identificador>();
 	}
 
 	public Persona(String nombre) {
 		super();
 		this.nombre = nombre;
 		this.domicilios = new ArrayList<Domicilio>();
-		this.datosDeContacto = new ArrayList<>();
-		this.identificadores = new ArrayList<>();
+		this.datosDeContacto = new ArrayList<DatoDeContacto>();
+		this.identificadores = new ArrayList<Identificador>();
 	}
 
 	public Integer getId() {

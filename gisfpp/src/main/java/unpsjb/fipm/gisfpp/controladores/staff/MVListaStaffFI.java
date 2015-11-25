@@ -12,6 +12,7 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Panel;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiosStaff;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -30,7 +31,15 @@ public class MVListaStaffFI {
 	@Command("recuperarTodo")
 	@NotifyChange("lista")
 	public void recuperarTodo() throws Exception {
-		lista = servicios.recuperarTodoStaff();
+		try {
+			lista = servicios.recuperarTodoStaff();
+			Identificador identificador = lista.get(0).getMiembro().getIdentificadores().get(0);
+			System.out.println(identificador.toString());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
+
 	}
 
 	@Command("asociarPersona")

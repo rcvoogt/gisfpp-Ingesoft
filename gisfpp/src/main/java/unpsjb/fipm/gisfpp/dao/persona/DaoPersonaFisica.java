@@ -6,10 +6,12 @@ import java.util.StringTokenizer;
 import org.hibernate.Hibernate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
+@Transactional
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
 
 	@Override
@@ -47,19 +49,20 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<PersonaFisica> recuperarTodo() throws DataAccessException {
 		List<PersonaFisica> lista = getHibernateTemplate().loadAll(PersonaFisica.class);
-		for (PersonaFisica persona : lista) {
-			Hibernate.initialize(persona.getIdentificadores());
-			Hibernate.initialize(persona.getDatosDeContacto());
-			Hibernate.initialize(persona.getDomicilios());
-		}
 		return lista;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public PersonaFisica recuperarxId(Integer id) throws DataAccessException {
-		return getHibernateTemplate().get(PersonaFisica.class, id);
+		PersonaFisica item = getHibernateTemplate().get(PersonaFisica.class, id);
+		Hibernate.initialize(item.getDatosDeContacto());
+		Hibernate.initialize(item.getIdentificadores());
+		Hibernate.initialize(item.getDomicilios());
+		return item;
 	}
 
 }// fin de la clase

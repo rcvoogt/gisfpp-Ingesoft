@@ -14,7 +14,7 @@
 				emptyMessage="No hay Organizaciones registradas."
 				vflex="1" model="@load(vm.lista)" hflex="1">
 				<columns>
-					<column label="Razón Social" width="35%" />
+					<column label="Razón Social" width="35%" sort="auto(nombre)"/>
 					<column label="CUIT" />
 					<column label="Ver" align="center" width="7%" />
 					<column label="Editar" align="center" width="7%" />

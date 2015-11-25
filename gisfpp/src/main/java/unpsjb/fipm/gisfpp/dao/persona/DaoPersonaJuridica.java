@@ -2,12 +2,13 @@ package unpsjb.fipm.gisfpp.dao.persona;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 
+@Transactional
 public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPersonaJuridica {
 
 	@Override
@@ -27,18 +28,14 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<PersonaJuridica> recuperarTodo() throws DataAccessException {
 		List<PersonaJuridica> lista = getHibernateTemplate().loadAll(PersonaJuridica.class);
-		for (PersonaJuridica item : lista) {
-			Hibernate.initialize(item.getDatosDeContacto());
-			Hibernate.initialize(item.getDomicilios());
-			Hibernate.initialize(item.getIdentificadores());
-			Hibernate.initialize(item.getContactos());
-		}
 		return lista;
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public PersonaJuridica recuperarxId(Integer id) throws DataAccessException {
 		return getHibernateTemplate().get(PersonaJuridica.class, id);
 	}

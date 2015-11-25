@@ -14,7 +14,7 @@
 				emptyMessage="No hay Personas registradas."
 				vflex="1" model="@load(vm.personas)">
 				<columns>
-					<column label="Nombre y Apellido" width="35%" />
+					<column label="Nombre y Apellido" width="35%" sort="auto(nombre)"/>
 					<column label="DNI" />
 					<column label="CUIL" />
 					<column label="Ver" align="center" width="7%" />
