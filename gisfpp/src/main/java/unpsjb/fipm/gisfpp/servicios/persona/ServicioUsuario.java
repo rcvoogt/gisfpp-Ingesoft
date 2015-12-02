@@ -11,7 +11,7 @@ import unpsjb.fipm.gisfpp.dao.persona.IDaoUsuario;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
-@Service
+@Service("servUsuario")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServicioUsuario implements IServicioUsuario {
 

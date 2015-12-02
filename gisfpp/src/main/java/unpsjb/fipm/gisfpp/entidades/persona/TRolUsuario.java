@@ -1,7 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
 public enum TRolUsuario {
-	ADMIN("Administrador de la App"), COORD_EXT("Coordinador de Extensiones"), RESP_PROY(
+	ADMIN("Administrador de la App"), COORD_EXT("Coordinador de Extension"), RESP_PROY(
 			"Responsable de Proyecto"), RESP_SUBPROY("Responsable de Sub-Proyecto"), ALUMNO("Alumno");
 
 	private String titulo;

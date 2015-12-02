@@ -3,7 +3,10 @@
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
 <?link rel='stylesheet prefetch' href='recursos/css/font-awesome.min.css'?>
 
+<?variable-resolver class="org.zkoss.spring.init.SecurityVariableResolver"?>
+
 <zk>
+
 	<borderlayout id="zonas" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')">
 		<north height="14%" id="zonaNorte">
@@ -12,9 +15,10 @@
 		<center id="zonaCentro">
 			<vbox hflex="1" vflex="1">
 				<menubar vflex="min" hflex="1">
-					<menuitem label="Proyectos"
-						onClick="@command('verListaProyectos')" />
-					<menu label="Entidades">
+					<menuitem label="Proyectos"	onClick="@command('verListaProyectos')"
+						visible="@load(vm.logeado)"/>
+					<menu label="Entidades"
+						visible="@load(vm.logeado)">
 						<menupopup>
 							<menuitem label="Personas"
 								onClick="@command('verListaPersonas')" />
@@ -25,7 +29,12 @@
 						</menupopup>
 					</menu>
 					<menuitem label="Ingresar" style="float:right;"
-						popup="dlgLogin" />
+						popup="dlgLogin"
+						visible="@load(not vm.logeado)" />
+					<menuitem label="@load(vm.usuario.persona.nombre)"
+						style="float: right;"
+						visible="@load(vm.logeado)"
+						href="logout-gisfpp" />
 				</menubar>
 				<div vflex="1">
 					<include id="panelCentro" vflex="1" />
@@ -37,36 +46,38 @@
 
 	<popup id="dlgLogin" width="300px">
 		<html>
+
+			
 			<![CDATA[ 
-				<div class="module form-module"> 
-					<div class="toggle">
-						<i class="fa fa-times fa-pencil"></i> 
-						<div class="tooltip">Registrarme</div> 
-					</div> 
-					<div class="form">
-						<h2>Ingreso a GISFPP</h2> 
-							<form action="login_gisfpp" method="POST"> 
-								<input type="text" placeholder="Nombre de Usuario" name="username"/> 
-								<input type="password" placeholder="Contraseña" name="password"/>
-								<button type="submit">Ingresar</button> 
-							</form>
-					</div> 
-				<div class="form"> 
-					<h2>Datos de Registro</h2> 
+			   <div class="module form-module">
+			   	<div class="toggle"> 
+			   		<i class="fa fa-times fa-pencil"></i>
+			   		<div class="tooltip">Registrarme</div>
+			   	</div> 
+			   	<div class="form">
+					<h2>Ingreso a GISFPP</h2> 
+					<form action="login-gisfpp" method="POST"> 
+						<input type="text" placeholder="Nombre de Usuario" name="username"/>
+						<input type="password" placeholder="Contraseña" name="password"/>
+						<button type="submit">Ingresar</button>
+					</form> 
+				</div>
+				<div class="form">
+					<h2>Datos de Registro</h2>
 					<form>
-						<input type="text" placeholder="Nombre y Apellido"/> 
+						<input type="text" placeholder="Nombre y Apellido"/>
 						<input type="text" placeholder="DNI"/>
 						<input type="text" placeholder="Nombre de Usuario"/>
 						<input type="password" placeholder="Contraseña"/>
 						<input type="password" placeholder="Repetir Contraseña"/>
 						<button>Registrarme</button>
 					</form> 
-				</div> 
-				<div class="cta"><a href="">Olvidaste tu password?</a></div>
 				</div>
-				<script src='recursos/js/jquery.min.js'></script>
-				<script src="recursos/js/index.js"></script>
-			]]>
+				<div class="cta"><a href="">Olvidaste tu contraseña?</a></div>
+			</div> 
+			<script src='recursos/js/jquery.min.js'></script>
+			<script src="recursos/js/index.js"></script>]]>
+					
 		</html>
 	</popup>
 

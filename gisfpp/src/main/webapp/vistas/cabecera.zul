@@ -1,16 +1,15 @@
 <hbox width="100%">
-	<div width="110px">
+	<cell align="left" width="10%">
 		<image src="/recursos/img/logo_unpsjb.png" style="width:100%; max-width:98px; height: auto"/>
-	</div>
-	<div sclass="centrado-porcentual" hflex="1">
-		<html>
-			<![CDATA[<h3>Instancias Supervisadas de Formación Práctica
+	</cell>
+	<cell align="center" width="78%">
+		<html sclass="centrado-porcentual">
+			<![CDATA[<h3 style="display: inline" >Instancias Supervisadas de Formación Práctica
 				Profesional</h3>]]>
 		</html>
-	</div>
-	<div hflex="1">
-		
-	</div>
+	</cell>
+	<cell align="right" width="12%" valign="bottom">
+	</cell>	
 </hbox>
 
 

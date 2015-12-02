@@ -3,12 +3,16 @@ package unpsjb.fipm.gisfpp.util;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UtilGisfpp {
 
 	// Constantes utilizadas en el sistema
 	public static final String MOD_NUEVO = "NUEVO";
 	public static final String MOD_EDICION = "EDICION";
 	public static final String MOD_VER = "VER";
+	private static Logger logger;
 
 	public static String getMensajeValidations(ConstraintViolationException cve) {
 		StringBuffer acumulados = new StringBuffer("");
@@ -21,4 +25,11 @@ public class UtilGisfpp {
 		return new String(acumulados);
 	}
 
-}
+	public static Logger getLogger() {
+		if (logger == null) {
+			logger = LoggerFactory.getLogger("log_gisfpp");
+		}
+		return logger;
+	}
+
+}// fin de la clase

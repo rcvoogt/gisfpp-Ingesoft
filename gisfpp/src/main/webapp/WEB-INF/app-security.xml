@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<security:http pattern="/recursos/**" security="none"/>
+		
+	<security:http use-expressions="true" >
+		<security:intercept-url pattern="/zkau/**" access="permitAll"/>
+		<security:intercept-url pattern="/inicio.zul" access="permitAll"/>
+		<security:intercept-url pattern="/**" access="isAuthenticated()"/>
+		<security:form-login login-page="/inicio.zul" default-target-url="/inicio.zul" login-processing-url="/login-gisfpp" 
+			authentication-failure-url="/inicio.zul?login_error=1"/>
+		<security:logout logout-url="/logout-gisfpp" logout-success-url="/inicio.zul" invalidate-session="true"/>
+		<security:csrf disabled="true"/>	
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="miUserDetailService"/>
+	</security:authentication-manager>
+
+	<bean id="miUserDetailService" class="unpsjb.fipm.gisfpp.util.security.UserDetailServiceImp">
+	</bean>
+</beans>

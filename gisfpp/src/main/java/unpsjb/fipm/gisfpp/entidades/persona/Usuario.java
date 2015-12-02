@@ -1,6 +1,8 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -103,6 +105,18 @@ public class Usuario implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public List<Permiso> getPermisosVigentes() {
+		List<Permiso> resultado = new ArrayList<>();
+		if (getPermisos() != null) {
+			for (Permiso permiso : this.getPermisos()) {
+				if (permiso.getHasta().after(new Date())) {
+					resultado.add(permiso);
+				}
+			}
+		}
+		return resultado;
 	}
 
 }// Fin de la clase Usuario

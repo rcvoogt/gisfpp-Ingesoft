@@ -32,6 +32,7 @@ public class MVListarOrganizaciones {
 	@NotifyChange("lista")
 	public void recuperarTodo() throws Exception {
 		lista = servicio.recuperarSoloPJ();
+		System.out.println("En recuperarTodo de MVListarOrganizaciones");
 	}
 
 	@Command("salir")

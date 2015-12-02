@@ -9,5 +9,6 @@
 
 <import resource="daoContext.xml"/>
 <import resource="serviciosContext.xml"/>
+<import resource="app-security.xml"/>
 
 </beans>
