@@ -25,15 +25,6 @@ public class ServiciosProyectoImpl implements ServiciosProyecto, Serializable {
 
 	@Transactional(readOnly = true)
 	public List<Proyecto> filtrarProyectos(String campoBusqueda, String patronBusqueda) throws Exception {
-		if (campoBusqueda.equals("Código")) {
-			return dao.filtrarxCodigo(patronBusqueda);
-		}
-		if (campoBusqueda.equals("Nº Resolucion")) {
-			return dao.filtrarxResolucion(patronBusqueda);
-		}
-		if (campoBusqueda.equals("Título")) {
-			return dao.filtrarxTitulo(patronBusqueda);
-		}
 		return null;
 	}
 

@@ -1,7 +1,22 @@
 <?page title="GISFPP: Error de Sistema" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Error: ${requestScope['javax.servlet.error.status_code']}" border="normal" mode="modal" closable="true">
-	<label value="Causa: ${requestScope['javax.servlet.error.message']}" 
-	style="font-size: 14px; font-style: italic; font-family: 'Times New Roman', Times, serif; color: red;"/>
-</window>
+<window
+		title="Error ${requestScope['javax.servlet.error.status_code']}"
+		width="450px" border="normal" mode="modal" hflex="1">
+		<vbox spacing="10px">
+			<separator />
+			<separator />
+
+			<div sclass="z-messagebox" width="100%">
+				<label multiline="true"
+					value="${requestScope['javax.servlet.error.message']}"
+					sclass="word-wrap" width="100%" />
+			</div>
+
+			<separator />
+			<hbox style="margin-left:auto; margin-right:auto">
+				<button label="Ok" onClick="spaceOwner.detach()" />
+			</hbox>
+		</vbox>
+	</window>
 </zk>

@@ -2,58 +2,77 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto {
 
+	private Logger log = UtilGisfpp.getLogger();
+
+	@Transactional(readOnly = false)
 	public Integer crear(Proyecto instancia) throws DataAccessException {
-		getHibernateTemplate().save(instancia);
-		return instancia.getId();
+		try {
+			getHibernateTemplate().save(instancia);
+			return instancia.getId();
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
+	@Transactional(readOnly = false)
 	public void actualizar(Proyecto instancia) throws DataAccessException {
-		getHibernateTemplate().update(instancia);
+		try {
+			getHibernateTemplate().update(instancia);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
+	@Transactional(readOnly = false)
 	public void eliminar(Proyecto instancia) throws DataAccessException {
-		getHibernateTemplate().delete(instancia);
+		try {
+			getHibernateTemplate().delete(instancia);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public List<Proyecto> recuperarTodo() throws DataAccessException {
-		List<Proyecto> proyectos = getHibernateTemplate().loadAll(Proyecto.class);
-		return proyectos;
+		String query = "from Proyecto as p";
+		try {
+			return (List<Proyecto>) getHibernateTemplate().find(query, null);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public Proyecto recuperarxId(Integer id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "from Proyecto as p left join fetch p.subProyectos where p.id=?";
+		List<Proyecto> result;
+		try {
+			result = (List<Proyecto>) getHibernateTemplate().find(query, id);
+			if ((result.isEmpty()) || (result == null)) {
+				return null;
+			} else {
+				return result.get(0);
+			}
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Proyecto> filtrarxTitulo(String titulo) throws DataAccessException {
-		String query = "select p from Proyecto p where p.titulo like :filtro";
-		List<Proyecto> resultado = (List<Proyecto>) getHibernateTemplate().findByNamedParam(query, "filtro",
-				"%" + titulo + "%");
-		return resultado;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Proyecto> filtrarxCodigo(String codigo) throws DataAccessException {
-		String query = "select p from Proyecto p where p.codigo like :filtro";
-		List<Proyecto> resultado = (List<Proyecto>) getHibernateTemplate().findByNamedParam(query, "filtro",
-				"%" + codigo + "%");
-		return resultado;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Proyecto> filtrarxResolucion(String resolucion) throws DataAccessException {
-		String query = "select p from Proyecto p where p.resolucion like :filtro";
-		List<Proyecto> resultado = (List<Proyecto>) getHibernateTemplate().findByNamedParam(query, "filtro",
-				"%" + resolucion + "%");
-		return resultado;
-	}
-
-}
+}// fin de la clase

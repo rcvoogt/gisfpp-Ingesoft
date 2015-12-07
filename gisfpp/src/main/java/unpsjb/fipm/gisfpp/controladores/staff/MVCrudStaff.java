@@ -22,7 +22,7 @@ import org.zkoss.zul.Panel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.staff.Rol;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiosStaff;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -153,8 +153,8 @@ public class MVCrudStaff {
 		return titulo;
 	}
 
-	public List<Rol> getCargos() {
-		return Arrays.asList(Rol.values());
+	public List<ECargosStaffFi> getCargos() {
+		return Arrays.asList(ECargosStaffFi.values());
 	}
 
 }// fin de clase

@@ -10,7 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,6 +21,7 @@ import org.hibernate.validator.constraints.Length;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
+@Table(name = "staff_fi")
 public class StaffFI implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,10 +31,11 @@ public class StaffFI implements Serializable {
 	private Integer id;
 
 	@ManyToOne(targetEntity = PersonaFisica.class, optional = false)
+	@JoinColumn(name = "personaId")
 	private PersonaFisica miembro;
 
 	@Enumerated(EnumType.STRING)
-	private Rol rol;
+	private ECargosStaffFi rol;
 
 	@Temporal(TemporalType.DATE)
 	private Date desde;
@@ -46,7 +50,7 @@ public class StaffFI implements Serializable {
 		super();
 	}
 
-	public StaffFI(PersonaFisica miembro, Rol rol, Date desde, Date hasta, String nota) {
+	public StaffFI(PersonaFisica miembro, ECargosStaffFi rol, Date desde, Date hasta, String nota) {
 		super();
 		this.miembro = miembro;
 		this.rol = rol;
@@ -71,11 +75,11 @@ public class StaffFI implements Serializable {
 		this.miembro = miembro;
 	}
 
-	public Rol getRol() {
+	public ECargosStaffFi getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(ECargosStaffFi rol) {
 		this.rol = rol;
 	}
 

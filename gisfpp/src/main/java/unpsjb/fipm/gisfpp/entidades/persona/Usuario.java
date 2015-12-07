@@ -1,9 +1,6 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.Length;
@@ -27,7 +23,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "personaId", referencedColumnName = "idPersona")
 	private PersonaFisica persona;
 
@@ -39,21 +35,16 @@ public class Usuario implements Serializable {
 
 	private Boolean activo;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	@JoinColumn(name = "usuarioId")
-	private List<Permiso> permisos;
-
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(PersonaFisica persona, String nickname, String password, Boolean activo, List<Permiso> permisos) {
+	public Usuario(PersonaFisica persona, String nickname, String password, Boolean activo) {
 		super();
 		this.persona = persona;
 		this.nickname = nickname;
 		this.password = password;
 		this.activo = activo;
-		this.permisos = permisos;
 	}
 
 	public Integer getId() {
@@ -91,32 +82,12 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public List<Permiso> getPermisos() {
-		return permisos;
-	}
-
-	public void setPermisos(List<Permiso> permisos) {
-		this.permisos = permisos;
-	}
-
 	public Boolean getActivo() {
 		return activo;
 	}
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
-	}
-
-	public List<Permiso> getPermisosVigentes() {
-		List<Permiso> resultado = new ArrayList<>();
-		if (getPermisos() != null) {
-			for (Permiso permiso : this.getPermisos()) {
-				if (permiso.getHasta().after(new Date())) {
-					resultado.add(permiso);
-				}
-			}
-		}
-		return resultado;
 	}
 
 }// Fin de la clase Usuario

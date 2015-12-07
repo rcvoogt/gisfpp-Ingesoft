@@ -3,8 +3,6 @@
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
 <?link rel='stylesheet prefetch' href='recursos/css/font-awesome.min.css'?>
 
-<?variable-resolver class="org.zkoss.spring.init.SecurityVariableResolver"?>
-
 <zk>
 
 	<borderlayout id="zonas" apply="org.zkoss.bind.BindComposer"
@@ -17,7 +15,7 @@
 				<menubar vflex="min" hflex="1">
 					<menuitem label="Proyectos"	onClick="@command('verListaProyectos')"
 						visible="@load(vm.logeado)"/>
-					<menu label="Entidades"
+					<menu label="Entidades" 
 						visible="@load(vm.logeado)">
 						<menupopup>
 							<menuitem label="Personas"
@@ -31,10 +29,13 @@
 					<menuitem label="Ingresar" style="float:right;"
 						popup="dlgLogin"
 						visible="@load(not vm.logeado)" />
-					<menuitem label="@load(vm.usuario.persona.nombre)"
-						style="float: right;"
-						visible="@load(vm.logeado)"
-						href="logout-gisfpp" />
+					<menu label="@load(vm.usuario.persona.nombre)" style="float: right;"
+						visible="@load(vm.logeado)" tooltiptext="@load(vm.toolTipRoles)">
+						<menupopup>
+							<menuitem label=" Datos Personales"/>
+							<menuitem label=" Salir" href="logout-gisfpp"/>
+						</menupopup>
+					</menu>
 				</menubar>
 				<div vflex="1">
 					<include id="panelCentro" vflex="1" />
@@ -43,7 +44,6 @@
 		</center>
 		<south id="ZonaSur" height="4%"></south>
 	</borderlayout>
-
 	<popup id="dlgLogin" width="300px">
 		<html>
 
@@ -80,5 +80,5 @@
 					
 		</html>
 	</popup>
-
+	
 </zk>

@@ -8,24 +8,28 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import unpsjb.fipm.gisfpp.entidades.persona.Permiso;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
 @SuppressWarnings("serial")
 public class DetalleUsuario implements UserDetails {
 
 	private Usuario usuario;
+	private List<RolUsuario> roles;
 
-	public DetalleUsuario(Usuario usuario) {
+	public DetalleUsuario(Usuario usuario, List<RolUsuario> roles) {
 		super();
 		this.usuario = usuario;
+		this.roles = roles;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> autorizaciones = new ArrayList<SimpleGrantedAuthority>();
-		for (Permiso permiso : usuario.getPermisosVigentes()) {
-			autorizaciones.add(new SimpleGrantedAuthority(permiso.getRol().name()));
+		if (roles == null || roles.isEmpty()) {
+			return autorizaciones;
+		}
+		for (RolUsuario rol : roles) {
+			autorizaciones.add(new SimpleGrantedAuthority(rol.getRol() + "-" + rol.getTabla()));
 		}
 		return autorizaciones;
 	}
@@ -60,4 +64,20 @@ public class DetalleUsuario implements UserDetails {
 		return usuario.getActivo();
 	}
 
-}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<RolUsuario> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<RolUsuario> roles) {
+		this.roles = roles;
+	}
+
+}// fin de la clase

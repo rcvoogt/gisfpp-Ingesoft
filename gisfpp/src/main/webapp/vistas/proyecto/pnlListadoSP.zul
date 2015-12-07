@@ -1,0 +1,35 @@
+<vbox spacing="12px" width="100%" height="100%">
+	<toolbar hflex="1" sclass="mitool-bar">
+		<toolbarbutton image="recursos/img/icon-addtolist.png"
+			style="float:right;" label="Nuevo SP"
+			onClick="@command('nuevoSubProyecto')" />
+	</toolbar>
+	<grid width="100%" vflex="1" mold="paging" autopaging="true"
+		emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
+			model="@load(vm.subProyectos)">
+		<columns>
+			<column label="N°" width="10%" />
+			<column label="Titulo" width="40%" />
+			<column label="Inicio" width="13%" />
+			<column label="Fin" width="13%" />
+			<column label="Ver" width="8%" align="center"/>
+			<column label="Editar" width="8%" align="center"/>
+			<column label="Baja" width="8%" align="center"/>
+		</columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.id)" />
+				<label value="@load(each.titulo)" />
+				<label value="@load(each.inicio)"/>
+				<label value="@load(each.fin)"/>
+				<toolbarbutton image="recursos/img/icon-preview.png"
+					tooltip="Ver detalle" onClick="" />
+				<toolbarbutton image="recursos/img/icon-edit.png"
+					tooltiptext="Editar datos" onClick="" />
+				<toolbarbutton image="recursos/img/icon-trash.png"
+					tooltiptext="Dar de baja"
+					onClick="" />
+			</row>
+		</template>
+	</grid>
+</vbox>

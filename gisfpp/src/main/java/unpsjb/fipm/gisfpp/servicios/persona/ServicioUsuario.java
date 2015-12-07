@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoUsuario;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.util.security.RolUsuario;
 
 @Service("servUsuario")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -18,33 +20,52 @@ public class ServicioUsuario implements IServicioUsuario {
 	private IDaoUsuario dao;
 
 	@Override
-	public Integer nuevoUsuario(Usuario usuario) throws Exception {
-		return dao.crear(usuario);
+	@Transactional(readOnly = false)
+	public Integer persistir(Usuario instancia) throws Exception {
+		dao.crear(instancia);
+		return instancia.getId();
 	}
 
 	@Override
-	public void editarUsuario(Usuario usuario) throws Exception {
-		dao.actualizar(usuario);
+	@Transactional(readOnly = false)
+	public void editar(Usuario instancia) throws Exception {
+		dao.actualizar(instancia);
 	}
 
 	@Override
-	public void eliminarUsuario(Usuario usuario) throws Exception {
-		dao.eliminar(usuario);
+	@Transactional(readOnly = false)
+	public void eliminar(Usuario instancia) throws Exception {
+		dao.eliminar(instancia);
 	}
 
 	@Override
-	public List<Usuario> recuperarTodos() throws Exception {
+	@Transactional(readOnly = true)
+	public Usuario getId(Integer id) throws Exception {
+		return getId(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 	@Override
-	public Usuario recupararxPersona(PersonaFisica persona) throws Exception {
+	@Transactional(readOnly = true)
+	public Usuario getUsuario(PersonaFisica persona) throws Exception {
 		return dao.getxPersona(persona);
 	}
 
 	@Override
-	public Usuario recupararxNombreUsuario(String nickname) throws Exception {
+	@Transactional(readOnly = true)
+	public Usuario getUsuario(String nickname) throws Exception {
 		return dao.getxNombreUsuario(nickname);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RolUsuario> getRoles(Usuario usuario) throws Exception {
+		return dao.getRoles(usuario);
 	}
 
 	@Autowired(required = true)

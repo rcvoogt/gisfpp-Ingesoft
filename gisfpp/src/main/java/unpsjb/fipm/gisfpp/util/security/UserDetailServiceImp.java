@@ -1,5 +1,7 @@
 package unpsjb.fipm.gisfpp.util.security;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,22 +14,20 @@ public class UserDetailServiceImp implements UserDetailsService {
 
 	IServicioUsuario servicio;
 	Usuario usuario;
+	List<RolUsuario> roles;
 
 	@Override
 	public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
 		try {
-			usuario = servicio.recupararxNombreUsuario(arg0);
+			usuario = servicio.getUsuario(arg0);
+			roles = servicio.getRoles(usuario);
 			if (usuario == null) {
 				throw new UsernameNotFoundException("Usuario Inexistente.");
 			}
 		} catch (Exception e) {
 			throw new UsernameNotFoundException(e.getMessage());
 		}
-		/*
-		 * if (usuario.getPermisosVigentes().isEmpty()) { throw new
-		 * UsernameNotFoundException("Usuario sin permisos vigentes."); }
-		 */
-		return new DetalleUsuario(usuario);
+		return new DetalleUsuario(usuario, roles);
 	}
 
 	@Autowired(required = true)

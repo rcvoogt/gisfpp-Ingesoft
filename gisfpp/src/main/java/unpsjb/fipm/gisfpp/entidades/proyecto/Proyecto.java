@@ -2,16 +2,21 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,9 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "proyecto")
 public class Proyecto implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -66,12 +69,16 @@ public class Proyecto implements Serializable {
 	@Lob
 	private String detalle;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "proyectoId", nullable = false)
+	private List<SubProyecto> subProyectos;
+
 	protected Proyecto() {
 		super();
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
-			EstadoProyecto estado, Date fecha_inicio, Date fecha_fin, String detalle) {
+			EstadoProyecto estado, Date fecha_inicio, Date fecha_fin, String detalle, List<SubProyecto> subProyectos) {
 		super();
 		this.codigo = codigo;
 		this.resolucion = resolucion;
@@ -82,6 +89,7 @@ public class Proyecto implements Serializable {
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.detalle = detalle;
+		this.subProyectos = subProyectos;
 	}
 
 	public Integer getId() {
@@ -167,6 +175,14 @@ public class Proyecto implements Serializable {
 
 	public void setEstado(EstadoProyecto estado) {
 		this.estado = estado;
+	}
+
+	public List<SubProyecto> getSubProyectos() {
+		return subProyectos;
+	}
+
+	public void setSubProyectos(List<SubProyecto> subProyectos) {
+		this.subProyectos = subProyectos;
 	}
 
 	@AssertTrue(message = "\"Fecha Fin\" - La Fecha Fin debe ser posterior a la Fecha Inicio del Proyecto.")

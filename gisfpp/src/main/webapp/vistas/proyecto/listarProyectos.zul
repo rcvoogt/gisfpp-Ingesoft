@@ -1,9 +1,9 @@
 <panel id="panelListarProyectos" title="Listado de Proyectos"
-	border="none" width="100%" height="100%" sclass="panel-primary"
+	border="none" width="100%" height="100%" sclass="panel panel-info"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
 	<panelchildren>
-		<vbox hflex="1" spacing="1px" vflex="1">
+		<vbox hflex="1" spacing="12px" vflex="1">
 			<toolbar hflex="1" sclass="mitool-bar">
 				<toolbarbutton label="Salir"
 					image="recursos/img/icon-exit.png" style="float:right;"
@@ -14,25 +14,6 @@
 					tooltiptext="Crear nuevo proyecto"
 					onClick="@command('nuevoProyecto')" />
 			</toolbar>
-			<groupbox hflex="1">
-				<caption label="Buscar por" sclass="texto-formulario" />
-				<toolbarbutton label="Deshacer" image="recursos/img/icon-undo.png" style="float: right;"
-					tooltiptext="Deshacer busqueda" disabled="@load(not vm.filtrado)"
-						onClick='txtPatron.setValue(""); cbxCampo.setValue("")' a:onClick="@command('deshacer')" xmlns:a="annotation"/>
-				<space spacing="8px" style="float:right;" />
-				<toolbarbutton label="Filtrar"
-					image="recursos/img/icon-filter.png" style="float:right;" 
-						onClick="@command('dlgFiltros')"/>
-				<space spacing="8px" style="float:right;" />
-				<textbox id="txtPatron" placeholder="Buscar..." maxlength="50"
-					width="15%" style="float:right;"/>
-				<space spacing="8px" style="float:right;" />
-				<combobox id="cbxCampo" style="float:right;" placeholder="Seleccionar campo...">
-					<comboitem label="Código" value="codigo"/>
-					<comboitem label="Nº Resolucion" value="resolucion" />
-					<comboitem label="Título" value="titulo" />
-				</combobox>
-			</groupbox>
 			<grid mold="paging" autopaging="true" emptyMessage="La consulta no arrojo ningun resultado. No hay Proyectos para mostrar."
 				model="@load(vm.listaProyectos)" vflex="1">
 				<columns>

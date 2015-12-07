@@ -136,7 +136,7 @@
   
   .fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
         .z-cell { 
-  background-color: #F7F7F7;
+  background-color: white;
   border-bottom: 1px solid transparent; 
   border-left: 1px solid transparent; 
   border-top: 1px solid transparent;

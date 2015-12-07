@@ -6,27 +6,33 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import org.slf4j.Logger;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Panel;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVCrudProyecto {
 
 	private ServiciosProyecto servicio;
 	private Proyecto seleccionado;
+	private List<SubProyecto> subProyectos;
+	private Logger log;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -37,27 +43,28 @@ public class MVCrudProyecto {
 	@NotifyChange({ "modo", "creando", "editando", "ver", "titulo" })
 	public void init() {
 		servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
+		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
-				.getAttribute("modosProyecto");
+				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) map.get("modo");
-		if (modo.equals("nuevo")) {
-			seleccionado = new Proyecto("", "", "", "", null, EstadoProyecto.GENERADO, null, null, "");
+		if (modo.equals(UtilGisfpp.MOD_NUEVO)) {
+			seleccionado = new Proyecto("", "", "", "", null, EstadoProyecto.GENERADO, null, null, "", null);
 			creando = true;
 			editando = false;
 			ver = false;
-			titulo = "Proyecto: Nuevo";
-		} else if (modo.equals("edicion")) {
-			seleccionado = acomodarProyecto((Proyecto) map.get("itemSeleccionado"));
+			titulo = "Nuevo Proyecto";
+		} else if (modo.equals(UtilGisfpp.MOD_EDICION)) {
+			seleccionado = acomodarProyecto((Proyecto) map.get("item"));
 			editando = true;
 			creando = false;
 			ver = false;
-			titulo = "Proyecto: Edicion";
+			titulo = "Editando Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
 		} else if (modo.equals("ver")) {
-			seleccionado = acomodarProyecto((Proyecto) map.get("itemSeleccionado"));
+			seleccionado = acomodarProyecto((Proyecto) map.get("item"));
 			ver = true;
 			creando = false;
 			editando = false;
-			titulo = "Proyecto: Ver detalle";
+			titulo = "Ver Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
 		}
 	}
 
@@ -67,6 +74,16 @@ public class MVCrudProyecto {
 
 	public List<TipoProyecto> getTipos() {
 		return Arrays.asList(TipoProyecto.values());
+	}
+
+	public List<SubProyecto> getSubProyectos() throws Exception {
+		IServicioSubProyecto serv = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
+		try {
+			return subProyectos = serv.getSubProyectos(seleccionado);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
 	public String getModo() {
@@ -96,7 +113,7 @@ public class MVCrudProyecto {
 	@Command("nuevoProyecto")
 	@NotifyChange({ "seleccionado", "creando" })
 	public void nuevoProyecto() {
-		seleccionado = new Proyecto("", "", "", "", null, EstadoProyecto.GENERADO, null, null, "");
+		seleccionado = new Proyecto("", "", "", "", null, EstadoProyecto.GENERADO, null, null, "", null);
 		creando = true;
 		editando = false;
 		ver = false;
@@ -166,7 +183,7 @@ public class MVCrudProyecto {
 	}
 
 	private Proyecto acomodarProyecto(Proyecto proyecto) {
-		Proyecto proxy = new Proyecto("", "", "", "", null, null, null, null, "");
+		Proyecto proxy = new Proyecto("", "", "", "", null, null, null, null, "", null);
 		proxy.setId(proyecto.getId());
 		proxy.setCodigo(proyecto.getCodigo());
 		proxy.setResolucion(proyecto.getResolucion());
