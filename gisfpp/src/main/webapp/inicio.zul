@@ -1,5 +1,5 @@
 <?page id="appGISFPP" title="GISFPP" contentType="text/html;charset=UTF-8"?>
-<?link rel="stylesheet" type="text/css" href="recursos/css/mis_estilos.css"?>
+<?link rel="stylesheet" type="text/css" href="recursos/css/gisfpp.css"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
 <?link rel='stylesheet prefetch' href='recursos/css/font-awesome.min.css'?>
 

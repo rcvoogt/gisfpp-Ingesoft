@@ -8,7 +8,7 @@
 				<tab label="Datos Generales" />
 				<tab label="Responsables" />
 				<tab label="Demandantes" />
-				<tab label="Sub-Proyectos" />
+				<tab label="Sub-Proyectos" visible="@load(vm.modo ne 'NUEVO')"/>
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
@@ -26,52 +26,49 @@
 			</toolbar>
 			<tabpanels hflex="1">
 				<tabpanel id="tabDatosGenerales" vflex="1" hflex="1">
-					<vbox hflex="1" vflex="1">
-						<grid
-							form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')"
+					<grid form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')"
 							hflex="1" vflex="1" sclass="fgrid">
 							<columns>
 								<column width="10%" />
-								<column width="80%" />
-								<column width="10%" />
+								<column width="40%" />
+								<column width="50%" />
 							</columns>
 							<rows vflex="1">
 								<row height="45px">
 									<label value="Codigo:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<textbox value="@bind(frm.codigo)"
-										width="20%"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										width="30%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row height="45px">
 									<label value="N° Resolución:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<textbox
-										value="@bind(frm.resolucion)" width="20%"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										value="@bind(frm.resolucion)" width="30%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row height="45px">
 									<label value="Título:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<textbox value="@bind(frm.titulo)"
-										width="35%"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										width="60%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row>
 									<label value="Descripción:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<textbox
-										value="@bind(frm.descripcion)" width="35%" cols="50" rows="4"
+										value="@bind(frm.descripcion)" width="60%" cols="50" rows="4"
 										style="resize: none;"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 
 								<row height="45px">
-									<label value="Tipo:" width="20%"
-										sclass="texto-formulario" />
+									<label value="Tipo:" sclass="form-label"/>
 									<combobox model="@load(vm.tipos)"
 										selectedItem="@bind(frm.tipo)"
-										disabled="@load((not vm.creando) and (not vm.editando))">
+										readonly="@load((not vm.creando) and (not vm.editando))">
 										<template name="model">
 											<comboitem
 												label="@load(each.descripcion)" />
@@ -80,32 +77,31 @@
 								</row>
 								<row height="45px">
 									<label value="Fecha Inicio:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<datebox format="dd/MM/yyyy"
 										mold="rounded" buttonVisible="true"
 										value="@bind(frm.fecha_inicio)"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row height="45px">
 									<label value="Fecha Fin:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<datebox format="dd/MM/yyyy"
 										mold="rounded" buttonVisible="true"
 										value="@bind(frm.fecha_fin)"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row>
 									<label value="Detalle:"
-										sclass="texto-formulario" />
+										sclass="form-label" />
 									<textbox value="@bind(frm.detalle)"
-										width="35%" cols="60" maxlength="2000" rows="6"
+										width="60%" cols="60" maxlength="2000" rows="6"
 										style="resize: none;"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row vflex="1"/>
 							</rows>
 						</grid>
-					</vbox>
 				</tabpanel>
 				<tabpanel id="tabResponsables">
 				</tabpanel>

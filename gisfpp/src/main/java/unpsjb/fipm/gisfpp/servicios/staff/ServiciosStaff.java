@@ -58,9 +58,20 @@ public class ServiciosStaff implements IServiosStaff {
 		}
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public StaffFI getStaffFI(Integer id) throws Exception {
+		try {
+			return dao.recuperarxId(id);
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+
 	@Autowired(required = true)
 	public void setDao(IDaoStaffFI arg) {
 		dao = arg;
 	}
 
-}
+}// fin de la clase

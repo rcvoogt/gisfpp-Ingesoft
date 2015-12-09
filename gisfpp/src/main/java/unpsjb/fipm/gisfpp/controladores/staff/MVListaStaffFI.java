@@ -3,29 +3,28 @@ package unpsjb.fipm.gisfpp.controladores.staff;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Path;
-import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Panel;
 
-import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiosStaff;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVListaStaffFI {
 
 	private List<StaffFI> lista;
 	private IServiosStaff servicios;
+	private Logger log;
 
 	@Init
 	public void init() throws Exception {
 		servicios = (IServiosStaff) SpringUtil.getBean("servStaffFI");
 		recuperarTodo();
+		log = UtilGisfpp.getLogger();
 	}
 
 	@Command("recuperarTodo")
@@ -33,37 +32,22 @@ public class MVListaStaffFI {
 	public void recuperarTodo() throws Exception {
 		try {
 			lista = servicios.recuperarTodoStaff();
-			Identificador identificador = lista.get(0).getMiembro().getIdentificadores().get(0);
-			System.out.println(identificador.toString());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			log.debug(this.getClass().getName(), e);
 			throw e;
 		}
-
 	}
 
 	@Command("asociarPersona")
 	public void asociarPersona() {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		Sessions.getCurrent().setAttribute("opcCrudStaff", map);
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaStaffFI");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/staff/crudStaff.zul");
-		}
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaStaffFI", "vistas/staff/crudStaff.zul", map);
 	}
 
 	@Command("salir")
 	public void salir() {
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaStaffFI");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-		}
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlListaStaffFI");
 	}
 
 	public List<StaffFI> getLista() {

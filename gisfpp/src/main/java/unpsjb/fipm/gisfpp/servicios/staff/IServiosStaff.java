@@ -13,4 +13,6 @@ public interface IServiosStaff {
 	public void eliminarAsociacionStaff(StaffFI asociacion) throws Exception;
 
 	public List<StaffFI> recuperarTodoStaff() throws Exception;
+
+	public StaffFI getStaffFI(Integer id) throws Exception;
 }

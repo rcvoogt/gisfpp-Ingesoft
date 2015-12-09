@@ -1,0 +1,63 @@
+<?page title="Gisfpp - Unpsjb FI PM" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native" style="border:0px;">
+	<n:nav class="navbar navbar-default">
+		<n:div class="container-fluid">
+				<n:div class="navbar-header">
+					<n:a class="navbar-brand" href="#">
+						<n:image src="recursos/img/logo_unpsjb_2.png"/>	
+					</n:a>
+				</n:div>
+				<n:div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<n:ul class="nav navbar-nav">
+						<n:li class="active">
+							<n:a href="#">
+								Link
+								<n:span class="sr-only">
+									(current)
+								</n:span>
+							</n:a>
+						</n:li>
+						<n:li>
+							<n:a href="#">Link</n:a>
+						</n:li>
+						<n:li class="dropdown">
+							<n:a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-expanded="false">
+								Dropdown
+								<n:span class="caret"></n:span>
+							</n:a>
+							<n:ul class="dropdown-menu" role="menu">
+								<n:li>
+									<n:a href="#">Action</n:a>
+								</n:li>
+								<n:li>
+									<n:a href="#">Another action</n:a>
+								</n:li>
+								<n:li>
+									<n:a href="#">
+										Something else here
+									</n:a>
+								</n:li>
+								<n:li class="divider"></n:li>
+								<n:li>
+									<n:a href="#">Separated link</n:a>
+								</n:li>
+								<n:li class="divider"></n:li>
+								<n:li>
+									<n:a href="#">
+										One more separated link
+									</n:a>
+								</n:li>
+							</n:ul>
+						</n:li>
+					</n:ul>
+					<n:ul class="nav navbar-nav navbar-right">
+						<n:li>
+							<n:a href="#">Ingreso</n:a>
+						</n:li>
+					</n:ul>
+				</n:div>
+			</n:div>
+		</n:nav>
+</zk>

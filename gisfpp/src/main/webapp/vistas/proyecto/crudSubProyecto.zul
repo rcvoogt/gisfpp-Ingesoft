@@ -1,0 +1,75 @@
+<panel id="pnlCrudSP" title="Nuevo SubProyecto" border="none" sclass="panel-primary"
+	width="100%" height="100%" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
+	<panelchildren>
+		<tabbox height="100%" width="100%">
+			<tabs>
+				<tab label="Datos Generales"/>
+				<tab label="ISFPP" />
+			</tabs>
+			<toolbar>
+				<toolbarbutton image="recursos/img/icon-plus-sign.png"
+					label="Nuevo" disabled="@load(vm.creando)" visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevoSP')" />
+				<toolbarbutton image="recursos/img/icon-edit.png"
+					label="Editar" disabled="@load(vm.editando)" visible="@load(vm.modo eq 'EDICION')" onClick="@command('editar')"/>
+				<space bar="true" spacing="10px" />
+				<toolbarbutton image="recursos/img/icon-save.png"
+					label="Guardar"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('guardar')" />
+				<toolbarbutton image="recursos/img/icon-remove-sign.png"
+					label="Cancelar" disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('cancelar')" />
+				<space bar="true" spacing="10px" />
+				<toolbarbutton image="recursos/img/icon-arrow-left.png"
+					label="Volver" onClick="@command('volver')"/>
+			</toolbar>
+			<tabpanels>
+				<tabpanel id="tabDatosGenerales">
+					<grid hflex="1" vflex="1" sclass="fgrid" xmlns:n="native">
+						<columns>
+							<column width="8%"/>
+							<column width="40%"/>
+							<column width="52%"/>	
+						</columns>
+						<rows vflex="1">
+							<row height="12px"/>
+							<row>
+								<label value="Titulo:"/>
+								<textbox value="@bind(vm.item.titulo)" width="60%" 
+									maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))"
+										placeholder="Título del Sub-Proyecto"/>	
+							</row>
+							<row height="12px"/>
+							<row>
+								<label value="Descripcion:"/>
+								<textbox value="@bind(vm.item.descripcion)" 
+									placeholder="Breve descripción de los objetivos del Sub-Proyecto" 
+										cols="60" rows="4" maxlength="500" width="60%" 
+										readonly="@load((not vm.creando) and (not vm.editando))"/>
+							</row>
+							<row height="12px"/>
+							<row>
+								<label value="Inicio:"/>
+								<datebox buttonVisible="true" format="dd/MM/yyy" value="@bind(vm.item.inicio)"
+									width="20%" readonly="@load((not vm.creando) and (not vm.editando))"/>
+							</row>
+							<row height="12px"/>
+							<row height="40px">
+								<label value="Fin:"/>
+								<datebox buttonVisible="true" format="dd/MM/yyyy" value="@bind(vm.item.fin)"
+									width="20%" readonly="@load((not vm.creando) and (not vm.editando))"/>
+							</row>
+							<row height="12px"/>
+							<row>
+								<label value="Detalle:"/>
+								<textbox value="@bind(vm.item.detalle)" placeholder="Detalle del Sub-Proyecto"
+									width="60%" rows="6" readonly="@load((not vm.creando) and (not vm.editando))"/>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</panelchildren>
+</panel>

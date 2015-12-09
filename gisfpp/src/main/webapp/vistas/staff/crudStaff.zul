@@ -41,7 +41,7 @@
 						<combobox model="@load(vm.cargos)" width="42%" selectedItem="@bind(vm.item.rol)"
 							readonly="@load((not vm.creando) and (not vm.editando))" buttonVisible="@load(vm.creando or vm.editando)">
 							<template name="model">
-								<comboitem label="@load(each.descripcion)" value="@load(each)"/>
+								<comboitem label="@load(each.titulo)" value="@load(each)"/>
 							</template>
 						</combobox>
 					</row>

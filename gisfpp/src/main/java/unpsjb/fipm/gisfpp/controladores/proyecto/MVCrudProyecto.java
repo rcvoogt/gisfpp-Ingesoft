@@ -11,18 +11,14 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Panel;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -59,7 +55,7 @@ public class MVCrudProyecto {
 			creando = false;
 			ver = false;
 			titulo = "Editando Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
-		} else if (modo.equals("ver")) {
+		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
 			seleccionado = acomodarProyecto((Proyecto) map.get("item"));
 			ver = true;
 			creando = false;
@@ -77,13 +73,7 @@ public class MVCrudProyecto {
 	}
 
 	public List<SubProyecto> getSubProyectos() throws Exception {
-		IServicioSubProyecto serv = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
-		try {
-			return subProyectos = serv.getSubProyectos(seleccionado);
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
-		}
+		return seleccionado.getSubProyectos();
 	}
 
 	public String getModo() {
@@ -173,13 +163,17 @@ public class MVCrudProyecto {
 
 	@Command("volver")
 	public void volver() {
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlCrudProyecto");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/proyecto/listarProyectos.zul");
-		}
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listarProyectos.zul");
+	}
+
+	@Command("nuevoSubProyecto")
+	public void nuevoSP() {
+		SubProyecto nuevoSP = new SubProyecto(seleccionado, null, null, null, null, null);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("item", nuevoSP);
+		map.put("modo", UtilGisfpp.MOD_NUEVO);
+		map.put("volverA", "/vistas/proyecto/listarProyectos.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
 	private Proyecto acomodarProyecto(Proyecto proyecto) {

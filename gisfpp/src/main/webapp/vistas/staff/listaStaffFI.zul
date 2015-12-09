@@ -27,7 +27,7 @@
 					<row>
 						<label value="@load(each.miembro.nombre)"/>
 						<label value="@load(each.miembro.dni)" />
-						<label value="@load(each.rol.descripcion)" />
+						<label value="@load(each.rol.titulo)" />
 						<label value="@load(each.desde) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 						<label value="@load(each.hasta) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 						<toolbarbutton

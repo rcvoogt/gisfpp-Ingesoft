@@ -63,7 +63,7 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	@Override
 	@Transactional(readOnly = true)
 	public List<StaffFI> recuperarTodo() throws DataAccessException {
-		String query = "from StaffFi as stf left join fetch stf.miembro";
+		String query = "from StaffFI as stf left join fetch stf.miembro as p left join fetch p.identificadores";
 		try {
 			return (List<StaffFI>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	@Override
 	@Transactional(readOnly = true)
 	public StaffFI recuperarxId(Integer id) throws DataAccessException {
-		String query = "from StaffFi stf left join fetch stf.miembro where stf.id=?";
+		String query = "from StaffFI as stf left join fetch stf.miembro where stf.id=?";
 		List<StaffFI> resultado;
 		try {
 			resultado = (List<StaffFI>) getHibernateTemplate().find(query, id);

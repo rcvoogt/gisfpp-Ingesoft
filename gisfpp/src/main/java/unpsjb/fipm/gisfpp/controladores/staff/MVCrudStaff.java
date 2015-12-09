@@ -12,13 +12,10 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Panel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -26,6 +23,7 @@ import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiosStaff;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVCrudStaff {
 
@@ -42,20 +40,25 @@ public class MVCrudStaff {
 	public void init() {
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> opciones = (HashMap<String, Object>) Sessions.getCurrent()
-				.getAttribute("opcCrudStaff");
+				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) opciones.get("modo");
 		servicio = (IServiosStaff) SpringUtil.getBean("servStaffFI");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new StaffFI();
-			titulo = "Nueva asociación Persona-StaffFI";
+			titulo = "Nuevo miembro del Staff-FI";
 			creando = true;
 			editando = false;
 			ver = false;
 			break;
 		}
-		default:
+		case UtilGisfpp.MOD_EDICION: {
+
 			break;
+		}
+		default: {
+
+		}
 		}
 	}
 
@@ -106,13 +109,7 @@ public class MVCrudStaff {
 
 	@Command("volver")
 	public void volver() {
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlCrudStaff");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/staff/listaStaffFI.zul");
-		}
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudStaff", "vistas/staff/listaStaffFI.zul");
 	}
 
 	@Command("verDlgLookupPersona")
