@@ -14,7 +14,7 @@
 				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
 					visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevoProyecto')"/>
 				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" disabled="@load(vm.editando)"
-					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))" onClick=""/>
+					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))" onClick="@command('editar')"/>
 				<space bar="true" spacing="10px"/>
 				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" 
 					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('guardar')"/>
@@ -26,78 +26,81 @@
 			</toolbar>
 			<tabpanels hflex="1">
 				<tabpanel id="tabDatosGenerales" vflex="1" hflex="1">
-					<grid form="@id('frm') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar')"
-							hflex="1" vflex="1" sclass="fgrid">
+					<grid hflex="1" vflex="1" sclass="fgrid">
 							<columns>
-								<column width="10%" />
+								<column width="8%" />
 								<column width="40%" />
-								<column width="50%" />
+								<column width="52%" />
 							</columns>
 							<rows vflex="1">
-								<row height="45px">
+								<row>
 									<label value="Codigo:"
 										sclass="form-label" />
-									<textbox value="@bind(frm.codigo)"
-										width="30%"
+									<textbox value="@bind(vm.seleccionado.codigo)"
+										width="30%" maxlength="20"
 										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
-								<row height="45px">
+								<row height="12px"/>
+								<row>
 									<label value="N° Resolución:"
 										sclass="form-label" />
 									<textbox
-										value="@bind(frm.resolucion)" width="30%"
+										value="@bind(vm.seleccionado.resolucion)" width="30%" maxlength="20"
 										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
-								<row height="45px">
+								<row height="12px"/>
+								<row>
 									<label value="Título:"
 										sclass="form-label" />
-									<textbox value="@bind(frm.titulo)"
-										width="60%"
+									<textbox value="@bind(vm.seleccionado.titulo)"
+										width="60%" maxlength="80"
 										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
+								<row height="12px"/>
 								<row>
 									<label value="Descripción:"
 										sclass="form-label" />
-									<textbox
-										value="@bind(frm.descripcion)" width="60%" cols="50" rows="4"
-										style="resize: none;"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
+									<textbox value="@bind(vm.seleccionado.descripcion)" 
+										width="70%" cols="50" rows="4" maxlength="500"
+											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
-
-								<row height="45px">
+								<row height="12px"/>
+								<row>
 									<label value="Tipo:" sclass="form-label"/>
 									<combobox model="@load(vm.tipos)"
-										selectedItem="@bind(frm.tipo)"
-										readonly="@load((not vm.creando) and (not vm.editando))">
+										selectedItem="@bind(vm.seleccionado.tipo)"
+										disabled="@load((not vm.creando) and (not vm.editando))">
 										<template name="model">
 											<comboitem
 												label="@load(each.descripcion)" />
 										</template>
 									</combobox>
 								</row>
-								<row height="45px">
+								<row height="12px"/>
+								<row>
 									<label value="Fecha Inicio:"
 										sclass="form-label" />
 									<datebox format="dd/MM/yyyy"
 										mold="rounded" buttonVisible="true"
-										value="@bind(frm.fecha_inicio)"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
+										value="@bind(vm.seleccionado.fecha_inicio)"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
 								</row>
-								<row height="45px">
+								<row height="12px"/>
+								<row>
 									<label value="Fecha Fin:"
 										sclass="form-label" />
 									<datebox format="dd/MM/yyyy"
 										mold="rounded" buttonVisible="true"
-										value="@bind(frm.fecha_fin)"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
+										value="@bind(vm.seleccionado.fecha_fin)"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
 								</row>
+								<row height="12px"/>
 								<row>
 									<label value="Detalle:"
 										sclass="form-label" />
-									<textbox value="@bind(frm.detalle)"
-										width="60%" cols="60" maxlength="2000" rows="6"
-										style="resize: none;"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
+									<textbox value="@bind(vm.seleccionado.detalle)"
+										width="70%" cols="60" maxlength="2000" rows="6"
+											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</row>
 								<row vflex="1"/>
 							</rows>

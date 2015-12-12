@@ -29,7 +29,8 @@ public class DetalleUsuario implements UserDetails {
 			return autorizaciones;
 		}
 		for (RolUsuario rol : roles) {
-			autorizaciones.add(new SimpleGrantedAuthority(rol.getRol() + "-" + rol.getTabla()));
+			autorizaciones.add(new SimpleGrantedAuthority(rol.getIdPersona() + "-" + rol.getRol() + "-" + rol.getEn()
+					+ "-" + rol.getTabla() + "-" + String.valueOf(rol.getIdTabla())));
 		}
 		return autorizaciones;
 	}

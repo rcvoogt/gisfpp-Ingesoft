@@ -7,6 +7,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -37,7 +39,7 @@ public class MVCrudProyecto {
 
 	@Init
 	@NotifyChange({ "modo", "creando", "editando", "ver", "titulo" })
-	public void init() {
+	public void init() throws Exception {
 		servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
@@ -50,13 +52,21 @@ public class MVCrudProyecto {
 			ver = false;
 			titulo = "Nuevo Proyecto";
 		} else if (modo.equals(UtilGisfpp.MOD_EDICION)) {
-			seleccionado = acomodarProyecto((Proyecto) map.get("item"));
+			Proyecto aux = servicio.getInstancia((Integer) map.get("idItem"));
+			if (aux == null) {
+				aux = new Proyecto("", "", "", "", TipoProyecto.INTERNO, EstadoProyecto.GENERADO, null, null, "", null);
+			}
+			seleccionado = aux;
 			editando = true;
 			creando = false;
 			ver = false;
 			titulo = "Editando Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
 		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
-			seleccionado = acomodarProyecto((Proyecto) map.get("item"));
+			Proyecto aux = servicio.getInstancia((Integer) map.get("idItem"));
+			if (aux == null) {
+				aux = new Proyecto("", "", "", "", TipoProyecto.INTERNO, EstadoProyecto.GENERADO, null, null, "", null);
+			}
+			seleccionado = aux;
 			ver = true;
 			creando = false;
 			editando = false;
@@ -109,56 +119,51 @@ public class MVCrudProyecto {
 		ver = false;
 	}
 
+	@Command("editar")
+	@NotifyChange({ "creando", "editando", "ver" })
+	public void reEditar() {
+		editando = true;
+		creando = false;
+		ver = false;
+	}
+
 	@Command("guardar")
 	@NotifyChange({ "creando", "editando", "ver" })
 	public void guardar() throws Exception {
-		if (creando) {
-			try {
-				int id = servicio.guardarProyecto(seleccionado);
-				Clients.showNotification("Se creo un nuevo Proyecto con Id: " + id, Clients.NOTIFICATION_TYPE_INFO,
-						null, "top_right", 3500);
+		try {
+			if (creando) {
+				int id = servicio.persistir(seleccionado);
+				Clients.showNotification("Nuevo Proyecto creado. ", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+						3500);
 				creando = false;
 				editando = false;
 				ver = true;
-			} catch (ConstraintViolationException cve) {
-				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos", Messagebox.OK,
-						Messagebox.ERROR);
-			} catch (Exception e) {
-				System.err.println("Exception original: " + e.getCause().toString());
-				System.err.println("Causa: " + e.getMessage());
-				throw e;
-			}
-		}
-		if (editando) {
-			try {
-				servicio.editarProyecto(seleccionado);
-				Clients.showNotification("Proyecto ( Id: " + seleccionado.getId() + ") guardado. ",
-						Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 3500);
+			} else if (editando) {
+				servicio.editar(seleccionado);
+				Clients.showNotification("Proyecto actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+						3500);
 				creando = false;
 				editando = false;
 				ver = true;
-			} catch (ConstraintViolationException cve) {
-				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos", Messagebox.OK,
-						Messagebox.ERROR);
-			} catch (Exception e) {
-				System.err.println("Exception original: " + e.getCause().toString());
-				System.err.println("Causa: " + e.getMessage());
-				throw e;
 			}
+		} catch (ConstraintViolationException cve) {
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
+			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
 		}
 	}
 
 	@Command("cancelar")
 	@NotifyChange({ "creando", "editando", "ver" })
 	public void cancelar() {
-		if (modo == "edicion") {
-			volver();
-		} else {
-			seleccionado = null;
-			creando = false;
-			editando = false;
-			ver = true;
-		}
+		creando = false;
+		editando = false;
+		ver = true;
 	}
 
 	@Command("volver")
@@ -166,32 +171,32 @@ public class MVCrudProyecto {
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listarProyectos.zul");
 	}
 
-	@Command("nuevoSubProyecto")
+	@Command("nuevoSP")
 	public void nuevoSP() {
 		SubProyecto nuevoSP = new SubProyecto(seleccionado, null, null, null, null, null);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("item", nuevoSP);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		map.put("volverA", "/vistas/proyecto/listarProyectos.zul");
+		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
-	private Proyecto acomodarProyecto(Proyecto proyecto) {
-		Proyecto proxy = new Proyecto("", "", "", "", null, null, null, null, "", null);
-		proxy.setId(proyecto.getId());
-		proxy.setCodigo(proyecto.getCodigo());
-		proxy.setResolucion(proyecto.getResolucion());
-		proxy.setTitulo(proyecto.getTitulo());
-		proxy.setDescripcion(proyecto.getDescripcion());
-		proxy.setTipo(proyecto.getTipo());
-		proxy.setEstado(proyecto.getEstado());
-		// debo volver las fechas tipo java.sql.Date que devuelve hibernate a
-		// java.util.Date para poder utilizar en el .zul
-		proxy.setFecha_inicio(new java.util.Date(proyecto.getFecha_inicio().getTime()));
-		proxy.setFecha_fin(new java.util.Date(proyecto.getFecha_fin().getTime()));
-		proxy.setDetalle(proxy.getDetalle());
+	@Command("verSP")
+	public void verSp(@BindingParam("idItem") Integer idItem) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("idItem", idItem);
+		map.put("modo", UtilGisfpp.MOD_VER);
+		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
+	}
 
-		return proxy;
+	@Command("editarSP")
+	public void editarSP(@BindingParam("idItem") Integer idItem) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("idItem", idItem);
+		map.put("modo", UtilGisfpp.MOD_EDICION);
+		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
 }

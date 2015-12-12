@@ -35,39 +35,42 @@ public class MVCrudSubProyecto {
 	@SuppressWarnings("unchecked")
 	@Init
 	@NotifyChange({ "modo", "titulo", "creando", "editando", "ver" })
-	public void init() {
+	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
 		servicio = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
 		map = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) map.get("modo");
-		item = (SubProyecto) map.get("item");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
+			item = (SubProyecto) map.get("item");
 			creando = true;
 			editando = false;
 			ver = false;
-			titulo = "Nuevo SubProyecto /Proyecto: (" + item.getProyecto().getCodigo() + ") "
+			titulo = "Nuevo Sub-Proyecto /Proyecto: (" + item.getProyecto().getCodigo() + ") "
 					+ item.getProyecto().getTitulo();
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
+			Integer id = (Integer) map.get("idItem");
+			item = servicio.getInstancia(id);
 			creando = false;
 			editando = true;
 			ver = false;
-			titulo = "Editando SubProyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo()
+			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo()
 					+ ") " + item.getProyecto().getTitulo();
+			break;
 		}
 		case UtilGisfpp.MOD_VER: {
+			Integer id = (Integer) map.get("idItem");
+			item = servicio.getInstancia(id);
 			creando = false;
 			editando = false;
 			ver = true;
-			titulo = "Ver SubProyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo() + ") "
+			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo() + ") "
 					+ item.getProyecto().getTitulo();
-		}
-		default:
 			break;
 		}
-
+		}
 	}
 
 	@Command("nuevoSP")
@@ -101,7 +104,7 @@ public class MVCrudSubProyecto {
 				ver = true;
 			} else if (editando) {
 				servicio.editar(item);
-				Clients.showNotification("Cambios efectuados guardados.", Clients.NOTIFICATION_TYPE_INFO, null,
+				Clients.showNotification("Se guardaron los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
 				creando = false;
 				editando = false;
@@ -111,7 +114,7 @@ public class MVCrudSubProyecto {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
-			Messagebox.show(dive.getMessage(), "Error: Violacion Integridad de Datos en BD.", Messagebox.OK,
+			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
@@ -153,7 +156,10 @@ public class MVCrudSubProyecto {
 
 	@Command("volver")
 	public void volver() {
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", (String) map.get("volverA"));
+		HashMap<String, Object> mapAux = new HashMap<>();
+		mapAux.put("idItem", item.getProyecto().getId());
+		mapAux.put("modo", UtilGisfpp.MOD_VER);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", (String) map.get("volverA"), mapAux);
 	}
 
 }// fin de la clase

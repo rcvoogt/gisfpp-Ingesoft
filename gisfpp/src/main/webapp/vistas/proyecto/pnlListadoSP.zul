@@ -2,7 +2,7 @@
 	<toolbar hflex="1" sclass="mitool-bar">
 		<toolbarbutton image="recursos/img/icon-addtolist.png"
 			style="float:right;" label="Nuevo SP"
-			onClick="@command('nuevoSubProyecto')" />
+			onClick="@command('nuevoSP')" />
 	</toolbar>
 	<grid width="100%" vflex="1" mold="paging" autopaging="true"
 		emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
@@ -18,14 +18,14 @@
 		</columns>
 		<template name="model">
 			<row>
-				<label value="@load(each.id)" />
+				<label  value="@load(each.id)" />
 				<label value="@load(each.titulo)" />
-				<label value="@load(each.inicio)"/>
-				<label value="@load(each.fin)"/>
+				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+				<label value="@load(each.fin) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<toolbarbutton image="recursos/img/icon-preview.png"
-					tooltip="Ver detalle" onClick="" />
+					tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-edit.png"
-					tooltiptext="Editar datos" onClick="" />
+					tooltiptext="Editar datos" onClick="@command('editarSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png"
 					tooltiptext="Dar de baja"
 					onClick="" />

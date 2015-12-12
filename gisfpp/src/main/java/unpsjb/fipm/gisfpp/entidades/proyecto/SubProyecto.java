@@ -29,7 +29,7 @@ public class SubProyecto implements Serializable {
 	private Integer Id;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "proyectoId", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "proyectoId", nullable = false)
 	private Proyecto proyecto;
 
 	@Column(length = 80, name = "titulo", nullable = false)
@@ -122,8 +122,17 @@ public class SubProyecto implements Serializable {
 	}
 
 	@AssertTrue(message = "La \"fecha de finalización\" debe ser posterior a la \"fecha de inicio\" del Sub-Proyecto.")
-	private boolean isFechaFinValida() {
+	private boolean isFechaFinValida1() {
 		if (fin.after(inicio)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@AssertTrue(message = "La \"fecha de finalizacion\" del Sub-Proyecto no puede ser posterior a la fecha de finalización del Proyecto al cual pertenece.")
+	private boolean isFechaFinValida2() {
+		if (fin.before(proyecto.getFecha_fin())) {
 			return true;
 		} else {
 			return false;

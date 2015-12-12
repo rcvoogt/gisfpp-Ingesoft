@@ -1,7 +1,10 @@
 package unpsjb.fipm.gisfpp.util.security;
 
-public class RolUsuario {
+import java.io.Serializable;
 
+public class RolUsuario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Integer idPersona;
 	private String rol;
 	private String en;

@@ -1,5 +1,5 @@
 <panel id="panelListarProyectos" title="Listado de Proyectos"
-	border="none" width="100%" height="100%" sclass="panel panel-info"
+	border="none" width="100%" height="100%" sclass="panel-primary"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
 	<panelchildren>
@@ -9,7 +9,7 @@
 					image="recursos/img/icon-exit.png" style="float:right;"
 					onClick="@command('salir')"/>
 				<space spacing="8px" style="float:right;" />
-				<toolbarbutton label="Nuevo Proyecto"
+				<toolbarbutton label="Nuevo Proyecto" visible="@load(vm.autorizadoNuevo)"
 					image="recursos/img/icon-addfolderalt.png" style="float:right;"
 					tooltiptext="Crear nuevo proyecto"
 					onClick="@command('nuevoProyecto')" />
@@ -40,8 +40,8 @@
 							onClick="@command('verProyecto', item=each)"/>
 						<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar el Proyecto"
 							onClick="@command('editarProyecto', item=each)"/>
-						<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Dar de baja el Proyecto"
-							onClick='Messagebox.show("Se deberia eliminar el proyecto");'/>
+						<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Eliminar Proyecto"
+							onClick="@command('eliminarProyecto', item = each)"/>
 					</row>
 				</template>
 			</grid>

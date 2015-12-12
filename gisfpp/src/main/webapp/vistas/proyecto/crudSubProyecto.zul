@@ -1,4 +1,4 @@
-<panel id="pnlCrudSP" title="Nuevo SubProyecto" border="none" sclass="panel-primary"
+<panel id="pnlCrudSP" title="@load(vm.titulo)" border="none" sclass="panel-primary"
 	width="100%" height="100%" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
 	<panelchildren>
@@ -11,7 +11,8 @@
 				<toolbarbutton image="recursos/img/icon-plus-sign.png"
 					label="Nuevo" disabled="@load(vm.creando)" visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevoSP')" />
 				<toolbarbutton image="recursos/img/icon-edit.png"
-					label="Editar" disabled="@load(vm.editando)" visible="@load(vm.modo eq 'EDICION')" onClick="@command('editar')"/>
+					label="Editar" disabled="@load(vm.editando)" visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
+					 onClick="@command('editar')"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-save.png"
 					label="Guardar"
@@ -35,36 +36,37 @@
 						<rows vflex="1">
 							<row height="12px"/>
 							<row>
-								<label value="Titulo:"/>
+								<label value="Titulo:" sclass="form-label"/>
 								<textbox value="@bind(vm.item.titulo)" width="60%" 
 									maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))"
 										placeholder="Título del Sub-Proyecto"/>	
 							</row>
 							<row height="12px"/>
 							<row>
-								<label value="Descripcion:"/>
+								<label value="Descripcion:" sclass="form-label"/>
 								<textbox value="@bind(vm.item.descripcion)" 
 									placeholder="Breve descripción de los objetivos del Sub-Proyecto" 
-										cols="60" rows="4" maxlength="500" width="60%" 
+										cols="60" rows="4" maxlength="500" width="70%" 
 										readonly="@load((not vm.creando) and (not vm.editando))"/>
 							</row>
 							<row height="12px"/>
 							<row>
-								<label value="Inicio:"/>
-								<datebox buttonVisible="true" format="dd/MM/yyy" value="@bind(vm.item.inicio)"
-									width="20%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="12px"/>
-							<row height="40px">
-								<label value="Fin:"/>
-								<datebox buttonVisible="true" format="dd/MM/yyyy" value="@bind(vm.item.fin)"
-									width="20%" readonly="@load((not vm.creando) and (not vm.editando))"/>
+								<label value="Inicio:" sclass="form-label"/>
+								<datebox format="dd/MM/yyyy" 
+									value="@bind(vm.item.inicio)" width="20%" 
+										disabled="@load((not vm.creando) and (not vm.editando))" />
 							</row>
 							<row height="12px"/>
 							<row>
-								<label value="Detalle:"/>
+								<label value="Fin:" sclass="form-label"/>
+								<datebox format="dd/MM/yyyy" value="@bind(vm.item.fin)"
+									width="20%" disabled="@load((not vm.creando) and (not vm.editando))"/>
+							</row>
+							<row height="12px"/>
+							<row>
+								<label value="Detalle:" sclass="form-label"/>
 								<textbox value="@bind(vm.item.detalle)" placeholder="Detalle del Sub-Proyecto"
-									width="60%" rows="6" readonly="@load((not vm.creando) and (not vm.editando))"/>
+									width="70%" rows="6" readonly="@load((not vm.creando) and (not vm.editando))"/>
 							</row>
 						</rows>
 					</grid>

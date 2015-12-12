@@ -51,7 +51,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SubProyecto getId(Integer id) throws Exception {
+	public SubProyecto getInstancia(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
 		} catch (Exception e) {

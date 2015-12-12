@@ -40,8 +40,8 @@ public class ServicioUsuario implements IServicioUsuario {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario getId(Integer id) throws Exception {
-		return getId(id);
+	public Usuario getInstancia(Integer id) throws Exception {
+		return getInstancia(id);
 	}
 
 	@Override
