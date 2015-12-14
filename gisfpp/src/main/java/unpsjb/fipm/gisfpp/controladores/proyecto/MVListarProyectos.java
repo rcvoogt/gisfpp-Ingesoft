@@ -1,18 +1,22 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
@@ -24,15 +28,21 @@ import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 public class MVListarProyectos {
 
 	private List<Proyecto> listaProyectos;
+	private List<Proyecto> temp;
+	private List<Proyecto> listConFiltro;
+	private boolean filtrado = false;
 	private ServiciosProyecto servicio;
 	private Logger log = UtilGisfpp.getLogger();
 	private boolean autorizadoNuevo = false;
-	private boolean autorizadoEliminar = false;
+	private String titulo;
 
 	@Init
+	@NotifyChange("Listado de Proyectos")
 	public void init() throws Exception {
 		try {
 			servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
+			recuperarTodo();
+			titulo = "Listado de Proyectos";
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -52,7 +62,6 @@ public class MVListarProyectos {
 	}
 
 	public List<Proyecto> getListaProyectos() throws Exception {
-		recuperarTodo();
 		return listaProyectos;
 	}
 
@@ -67,6 +76,33 @@ public class MVListarProyectos {
 		map.put("item", null);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/panelListarProyectos", "vistas/proyecto/crudProyecto.zul", map);
+	}
+
+	@Command("dlgFiltro")
+	@NotifyChange("listaProyectos")
+	public void verDlgFiltro() {
+		HashMap<String, Object> map = new HashMap<>();
+		listConFiltro = new ArrayList<>();
+		map.put("listSinFiltro", listaProyectos);
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgFiltrosProyecto.zul", null, map);
+		dlg.doModal();
+	}
+
+	@GlobalCommand("retornoDlgFiltroProyecto")
+	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
+	public void retornoDlgFiltroProyecto(@BindingParam("listConFiltro") List<Proyecto> arg1) {
+		temp = listaProyectos;
+		listaProyectos = arg1;
+		filtrado = true;
+		titulo = "Listado Filtrado";
+	}
+
+	@Command("quitarFiltro")
+	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
+	public void quitarFiltro() {
+		listaProyectos = temp;
+		filtrado = false;
+		titulo = "Listado de Proyectos";
 	}
 
 	@Command("editarProyecto")
@@ -139,6 +175,14 @@ public class MVListarProyectos {
 		} else {
 			return false;
 		}
+	}
+
+	public boolean isFiltrado() {
+		return filtrado;
+	}
+
+	public String getTitulo() {
+		return titulo;
 	}
 
 }// Fin de la clase MVListarProyectos

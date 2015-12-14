@@ -1,4 +1,4 @@
-<panel id="panelListarProyectos" title="Listado de Proyectos"
+<panel id="panelListarProyectos" title="@load(vm.titulo)"
 	border="none" width="100%" height="100%" sclass="panel-primary"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
@@ -9,6 +9,14 @@
 					image="recursos/img/icon-exit.png" style="float:right;"
 					onClick="@command('salir')"/>
 				<space spacing="8px" style="float:right;" />
+				<toolbarbutton label="Quitar Filtro" image="recursos/img/icon-remove-sign.png"
+					tooltiptext="Quitar el filtro aplicado" visible="@load(vm.filtrado)" 
+						onClick="@command('quitarFiltro')" style="float:right;"/>
+				<space spacing="8px" style="float:right"/>
+				<toolbarbutton label="Filtrar" image="recursos/img/icon-filter.png"
+					tooltiptext="Filtrar por varios criterios de busquedas" onClick="@command('dlgFiltro')"
+						visible="@load(not empty vm.listaProyectos)" disabled="@load(vm.filtrado)" style="float:right;"/>
+				<space spacing="6px" style="float:right"/>		
 				<toolbarbutton label="Nuevo Proyecto" visible="@load(vm.autorizadoNuevo)"
 					image="recursos/img/icon-addfolderalt.png" style="float:right;"
 					tooltiptext="Crear nuevo proyecto"

@@ -1,0 +1,62 @@
+<window id="dlgFiltroProyecto" title="Gisfpp: Aplicar Filtros a Listado de Proyectos" border="normal" 
+	closable="true" mode="modal" width="500px" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgFiltrosProyecto')">
+	<grid sclass="fgrid">
+		<columns>
+			<column width="30%"/>
+			<column width="8%"/>
+			<column width="62%"/>
+		</columns>
+		<rows>
+			<row>
+				<label value="Codigo:" sclass="form-label"/>
+				<checkbox id="ckbxCodigo" checked="false" 
+					onCheck="txtCodigo.setDisabled(!ckbxCodigo.isChecked())"/>
+				<textbox id="txtCodigo" width="90%" disabled="true" value="@save(vm.codigo)"/>
+			</row>
+			<row height="12px"/>
+			<row>
+				<label value="N° Resolucion:" sclass="form-label"/>
+				<checkbox id="ckbxResolucion" checked="false" 
+					onCheck="txtResolucion.setDisabled(!ckbxResolucion.isChecked())"/>
+				<textbox id="txtResolucion" width="90%" disabled="true" value="@save(vm.resolucion)"/>
+			</row>
+			<row height="12px"/>
+			<row>
+				<label value="Título:" sclass="form-label"/>
+				<checkbox id="ckbxTitulo" checked="false" 
+					onCheck="txtTitulo.setDisabled(!ckbxTitulo.isChecked())" value="@save(vm.checkTitulo)"/>
+				<textbox id="txtTitulo" width="90%" disabled="true" value="@save(vm.titulo)"/>
+			</row>
+			<row height="12px"/>
+			<row>
+				<label value="Tipo:" sclass="form-label"/>
+				<checkbox id="ckbxTipo" checked="false" 
+					onCheck="cbbxTipo.setDisabled(!ckbxTipo.isChecked())"/>
+				<combobox id="cbbxTipo" disabled="true" model="@load(vm.tipos)"
+					selectedItem="@save(vm.tipo)">
+					<template name="model">
+						<comboitem label="@load(each.descripcion)"/>
+					</template>
+				</combobox>
+			</row>
+			<row height="12px"/>
+			<row>
+				<label value="Estado:" sclass="form-label"/>
+				<checkbox id="ckbxEstado" checked="false" onCheck="cbbxEstado.setDisabled(!ckbxEstado.isChecked())"/>
+				<combobox id="cbbxEstado" disabled="true" model="@load(vm.estados)"
+					selectedItem="@save(vm.estado)">
+					<template name="model">
+						<comboitem label="@load(each.descripcion)"/>
+					</template>
+				</combobox>
+			</row>
+			<row height="12px"/>
+			<row spans="3">
+				<hbox pack="center"  hflex="1">
+					<button label="Filtrar" image="/recursos/img/icon-filter.png" onClick="@command('filtrar')"/>
+				</hbox>
+			</row>
+		</rows>
+	</grid>
+</window>
