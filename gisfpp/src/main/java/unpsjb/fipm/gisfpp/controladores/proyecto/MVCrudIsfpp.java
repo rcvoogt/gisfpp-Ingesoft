@@ -54,6 +54,9 @@ public class MVCrudIsfpp {
 		case UtilGisfpp.MOD_EDICION: {
 			Integer id = (Integer) args.get("idItem");
 			item = servicio.getInstancia(id);
+			if (item != null) {
+				item.setPerteneceA(perteneceA);
+			}
 			creando = (ver = false);
 			editando = true;
 			break;
@@ -61,6 +64,9 @@ public class MVCrudIsfpp {
 		case UtilGisfpp.MOD_VER: {
 			Integer id = (Integer) args.get("idItem");
 			item = servicio.getInstancia(id);
+			if (item != null) {
+				item.setPerteneceA(perteneceA);
+			}
 			creando = (editando = false);
 			ver = true;
 		}
@@ -93,7 +99,7 @@ public class MVCrudIsfpp {
 	}
 
 	@Command("guardar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "item", "creando", "editando", "ver" })
 	public void guardar() throws Exception {
 		try {
 			if (creando) {
@@ -138,7 +144,7 @@ public class MVCrudIsfpp {
 	}
 
 	@Command("cancelar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "item", "creando", "editando", "ver" })
 	public void cancelar() {
 		creando = (editando = false);
 		ver = true;

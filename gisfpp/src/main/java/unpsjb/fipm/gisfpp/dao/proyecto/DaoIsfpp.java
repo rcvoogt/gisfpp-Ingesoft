@@ -2,7 +2,6 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -66,15 +65,20 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	@Override
 	@Transactional(readOnly = true)
 	public Isfpp recuperarxId(Integer id) throws DataAccessException {
-		Isfpp result;
+		String query = "from Isfpp as isfpp where isfpp.id = ?";
+		List<Isfpp> result;
 		try {
-			result = getHibernateTemplate().get(Isfpp.class, id);
-			Hibernate.initialize(result.getPerteneceA());
+			result = (List<Isfpp>) getHibernateTemplate().find(query, id);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
-		return result;
+		if (result != null && !result.isEmpty()) {
+			return result.get(0);
+		} else {
+			return null;
+		}
+
 	}
 
 	@Override

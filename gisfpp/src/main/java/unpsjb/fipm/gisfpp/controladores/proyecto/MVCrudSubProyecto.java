@@ -171,29 +171,34 @@ public class MVCrudSubProyecto {
 
 	@Command("nuevaIsfpp")
 	public void nuevaIsfpp() {
+		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
+	}
+
+	@Command("editarIsfpp")
+	public void editarIsfpp(@BindingParam("idItem") Integer id) {
+		crearTab(UtilGisfpp.MOD_EDICION, "Editar Isfpp", id);
+	}
+
+	@Command("verIsfpp")
+	public void verIsfpp(@BindingParam("idItem") Integer id) {
+		crearTab(UtilGisfpp.MOD_VER, "Ver Isfpp", id);
+	}
+
+	private void crearTab(String modo, String titulo, Integer id) {
 		Tabbox tabBox = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
-		Tab tab = new Tab("Nueva Isfpp");
+		Tab tab = new Tab(titulo);
 		Tabpanel tabPanel = new Tabpanel();
 		Include include = new Include("vistas/proyecto/crudIsfpp.zul");
 		HashMap<String, Object> args = new HashMap<>();
 		args.put("perteneceA", item);
-		args.put("modo", UtilGisfpp.MOD_NUEVO);
+		args.put("modo", modo);
+		args.put("idItem", id);
 		args.put("tab", tab);
 		include.setDynamicProperty("argsCrudIsfpp", args);
 		tabBox.getTabs().appendChild(tab);
 		tabPanel.getChildren().add(include);
 		tabBox.getTabpanels().getChildren().add(tabPanel);
 		tabBox.setSelectedTab(tab);
-	}
-
-	@Command("editarIsfpp")
-	public void editarIsfpp(@BindingParam("idItem") Integer id) {
-
-	}
-
-	@Command("verIsfpp")
-	public void verIsfpp(@BindingParam("idItem") Integer id) {
-
 	}
 
 	@Command("volver")

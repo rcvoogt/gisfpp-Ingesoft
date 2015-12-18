@@ -80,22 +80,27 @@
 }
 
 .z-textbox, .z-decimalbox, .z-intbox, .z-longbox, .z-doublebox {
-	font-family: Arial, Sans-serif;
 	font-size: 12px;
 	font-weight: normal;
 	font-style: normal;
-	color: #000;
-	min-height: 30px;
-	border: 1px solid #CCC;
+	color: #555555;
+	min-height: 34px;
+	border: 1px solid #cccccc;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	-o-border-radius: 6px;
 	-ms-border-radius: 6px;
 	border-radius: 6px;
 	margin: 0;
-	padding: 4px 5px 3px;
-	line-height: 14px;
-	background: #ffffcc
+	padding: 8px 12px;
+	line-height: 1.42857143;
+	background-color: #ffffff;
+  	background-image: none;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 .z-textbox:focus, .z-decimalbox:focus, .z-intbox:focus, .z-longbox:focus,
@@ -118,13 +123,12 @@
 
 .z-combobox-input, .z-bandbox-input, .z-datebox-input, .z-timebox-input,
 	.z-spinner-input, .z-doublespinner-input {
-	font-family: Arial, Sans-serif;
 	font-size: 12px;
 	font-weight: normal;
 	font-style: normal;
-	color: #000;
-	height: 30px;
-	border: 1px solid #cfcfcf;
+	color: #555555;
+	height: 34px;
+	border: 1px solid #cccccc;
 	border-right: 0;
 	-webkit-border-radius: 6px 0 0 6px;
 	-moz-border-radius: 6px 0 0 6px;
@@ -132,9 +136,10 @@
 	-ms-border-radius: 6px 0 0 6px;
 	border-radius: 6px 0 0 6px;
 	margin: 0;
-	padding: 4px 5px;
-	line-height: 14px;
-	background: #ffffcc
+	padding: 8px 12px;
+	line-height: 1.42857143;
+	background-color: #ffffff;
+  	background-image: none;
 }
 
 .z-combobox-input:focus, .z-bandbox-input:focus, .z-datebox-input:focus,
@@ -153,9 +158,9 @@
 	font-size: 14px;
 	color: #636363;
 	display: inline-block;
-	min-width: 25px;
-	height: 30px;
-	min-height: 30px;
+	min-width: 27px;
+	height: 34px;
+	min-height: 34px;
 }
 
 .z-combobox-disabled, .z-bandbox-disabled, .z-datebox-disabled,
