@@ -68,7 +68,7 @@ public class Proyecto implements Serializable {
 	@Lob
 	private String detalle;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proyecto")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private List<SubProyecto> subProyectos;
 
 	protected Proyecto() {

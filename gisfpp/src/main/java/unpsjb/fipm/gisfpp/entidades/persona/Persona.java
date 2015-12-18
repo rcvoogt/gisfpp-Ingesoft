@@ -137,4 +137,12 @@ public abstract class Persona implements Serializable {
 		identificadores.remove(identificador);
 	}
 
+	/*
+	 * private boolean isEmailValido(){ if(datosDeContacto==null){ return false;
+	 * } for (DatoDeContacto contacto : datosDeContacto) {
+	 * if(contacto.getTipo().equals(TDatosContacto.EMAIL)){
+	 * 
+	 * } } }
+	 */
+
 }// Fin de la clase Entity Persona

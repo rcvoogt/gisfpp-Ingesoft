@@ -173,9 +173,8 @@ public class MVCrudProyecto {
 
 	@Command("nuevoSP")
 	public void nuevoSP() {
-		SubProyecto nuevoSP = new SubProyecto(seleccionado, null, null, null, null, null);
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("item", nuevoSP);
+		map.put("perteneceA", seleccionado);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
@@ -184,6 +183,7 @@ public class MVCrudProyecto {
 	@Command("verSP")
 	public void verSp(@BindingParam("idItem") Integer idItem) {
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("perteneceA", seleccionado);
 		map.put("idItem", idItem);
 		map.put("modo", UtilGisfpp.MOD_VER);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
@@ -193,6 +193,7 @@ public class MVCrudProyecto {
 	@Command("editarSP")
 	public void editarSP(@BindingParam("idItem") Integer idItem) {
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("perteneceA", seleccionado);
 		map.put("idItem", idItem);
 		map.put("modo", UtilGisfpp.MOD_EDICION);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");

@@ -2,7 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 public enum EstadoProyecto {
 
-	GENERADO("Generado"), ACTIVO("Activo"), SUSPENDIDO("Suspendido Temporalmente"), FINALIZADO("Finalizado");
+	GENERADO("Generado"), ACTIVO("Activo"), SUSPENDIDO("Suspendido"), CANCELADO("Cancelado"), CONCLUIDO("Concluido");
 
 	private String descripcion;
 

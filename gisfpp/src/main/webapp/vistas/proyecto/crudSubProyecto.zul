@@ -2,7 +2,7 @@
 	width="100%" height="100%" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
 	<panelchildren>
-		<tabbox height="100%" width="100%">
+		<tabbox id="tbbxSP" height="100%" width="100%">
 			<tabs>
 				<tab label="Datos Generales"/>
 				<tab label="ISFPP" />
@@ -27,49 +27,33 @@
 			</toolbar>
 			<tabpanels>
 				<tabpanel id="tabDatosGenerales">
-					<grid hflex="1" vflex="1" sclass="fgrid" xmlns:n="native">
+					<grid hflex="1" vflex="1" sclass="fgrid">
 						<columns>
 							<column width="8%"/>
 							<column width="40%"/>
 							<column width="52%"/>	
 						</columns>
 						<rows vflex="1">
-							<row height="12px"/>
+							<row height="20px"/>
 							<row>
 								<label value="Titulo:" sclass="form-label"/>
 								<textbox value="@bind(vm.item.titulo)" width="60%" 
 									maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))"
 										placeholder="Título del Sub-Proyecto"/>	
 							</row>
-							<row height="12px"/>
+							<row height="20px"/>
 							<row>
-								<label value="Descripcion:" sclass="form-label"/>
-								<textbox value="@bind(vm.item.descripcion)" 
-									placeholder="Breve descripción de los objetivos del Sub-Proyecto" 
+								<label value="Observaciones:" sclass="form-label"/>
+								<textbox value="@bind(vm.item.observaciones)" 
+									placeholder="Observaciones varias del Sub-Proyecto" 
 										cols="60" rows="4" maxlength="500" width="70%" 
 										readonly="@load((not vm.creando) and (not vm.editando))"/>
 							</row>
-							<row height="12px"/>
-							<row>
-								<label value="Inicio:" sclass="form-label"/>
-								<datebox format="dd/MM/yyyy" 
-									value="@bind(vm.item.inicio)" width="20%" 
-										disabled="@load((not vm.creando) and (not vm.editando))" />
-							</row>
-							<row height="12px"/>
-							<row>
-								<label value="Fin:" sclass="form-label"/>
-								<datebox format="dd/MM/yyyy" value="@bind(vm.item.fin)"
-									width="20%" disabled="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
-							<row height="12px"/>
-							<row>
-								<label value="Detalle:" sclass="form-label"/>
-								<textbox value="@bind(vm.item.detalle)" placeholder="Detalle del Sub-Proyecto"
-									width="70%" rows="6" readonly="@load((not vm.creando) and (not vm.editando))"/>
-							</row>
 						</rows>
 					</grid>
+				</tabpanel>
+				<tabpanel>
+					<include src="vistas/proyecto/pnlListadoIsfpp.zul"/>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>

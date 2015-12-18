@@ -80,8 +80,7 @@
 								<row>
 									<label value="Fecha Inicio:"
 										sclass="form-label" />
-									<datebox format="dd/MM/yyyy"
-										mold="rounded" buttonVisible="true"
+									<datebox format="dd/MM/yyyy" buttonVisible="true"
 										value="@bind(vm.seleccionado.fecha_inicio)"
 										disabled="@load((not vm.creando) and (not vm.editando))" />
 								</row>

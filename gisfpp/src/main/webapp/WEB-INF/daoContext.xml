@@ -27,7 +27,7 @@
 				hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 				hibernate.show_sql=true
 				hibernate.hbm2ddl.auto=update
-				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql, /scripts/insert_personas.sql, /scripts/create_vista_roles_usuario.sql
+				hibernate.hbm2ddl.import_files=/scripts/insert_proyectos.sql, /scripts/insert_personas.sql
 		</value>
 		</property>
 	</bean>
@@ -37,6 +37,10 @@
 	</bean>
 	
 	<bean id="daoSubProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoSubProyecto">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoIsfpp" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoIsfpp">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	

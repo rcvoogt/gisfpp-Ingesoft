@@ -2,23 +2,23 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyecto {
+public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
 	@Transactional(readOnly = false)
-	public Integer crear(SubProyecto instancia) throws DataAccessException {
+	public Integer crear(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);
 			return instancia.getId();
@@ -30,33 +30,33 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 
 	@Override
 	@Transactional(readOnly = false)
-	public void actualizar(SubProyecto instancia) throws DataAccessException {
+	public void actualizar(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
-
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public void eliminar(SubProyecto instancia) throws DataAccessException {
+	public void eliminar(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
+
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<SubProyecto> recuperarTodo() throws DataAccessException {
-		String query = "form SubProyecto as sp inner join fetch sp.perteneceA";
+	public List<Isfpp> recuperarTodo() throws DataAccessException {
+		String query = "from Isfpp as isffpp inner join fecth isfpp.perteneceA";
 		try {
-			return (List<SubProyecto>) getHibernateTemplate().find(query, null);
+			return (List<Isfpp>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -65,29 +65,24 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 
 	@Override
 	@Transactional(readOnly = true)
-	public SubProyecto recuperarxId(Integer id) throws DataAccessException {
-		String query = "from SubProyecto as sp left join fetch sp.instanciasIsfpp where sp.id=?";
-		List<SubProyecto> result;
+	public Isfpp recuperarxId(Integer id) throws DataAccessException {
+		Isfpp result;
 		try {
-			result = (List<SubProyecto>) getHibernateTemplate().find(query, id);
+			result = getHibernateTemplate().get(Isfpp.class, id);
+			Hibernate.initialize(result.getPerteneceA());
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
-		if (result != null && !result.isEmpty()) {
-			return result.get(0);
-		} else {
-			return null;
-		}
+		return result;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<SubProyecto> listadoSubProyectos(Proyecto proyecto) throws DataAccessException, HibernateException {
-		String query = "from SubProyecto as sp where sp.perteneceA = ?";
+	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception {
+		String query = "from Isfpp as isfpp where isfpp.perteneceA=?";
 		try {
-			return (List<SubProyecto>) getHibernateTemplate().find(query, proyecto);
+			return (List<Isfpp>) getHibernateTemplate().find(query, sp);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;

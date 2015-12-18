@@ -8,20 +8,18 @@
 		emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
 			model="@load(vm.subProyectos)">
 		<columns>
-			<column label="N°" width="10%" />
-			<column label="Titulo" width="40%" />
-			<column label="Inicio" width="13%" />
-			<column label="Fin" width="13%" />
-			<column label="Ver" width="8%" align="center"/>
-			<column label="Editar" width="8%" align="center"/>
-			<column label="Baja" width="8%" align="center"/>
+			<column label="N°" width="8%" />
+			<column label="Titulo" width="22%" />
+			<column label="Descripcion" width="55%" />
+			<column label="Ver" width="5%" align="center"/>
+			<column label="Editar" width="5%" align="center"/>
+			<column label="Baja" width="5%" align="center"/>
 		</columns>
 		<template name="model">
 			<row>
 				<label  value="@load(each.id)" />
 				<label value="@load(each.titulo)" />
-				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
-				<label value="@load(each.fin) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+				<label value="@load(each.observaciones)"/>
 				<toolbarbutton image="recursos/img/icon-preview.png"
 					tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-edit.png"

@@ -1,6 +1,5 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
@@ -29,8 +29,7 @@ public class MVListarProyectos {
 
 	private List<Proyecto> listaProyectos;
 	private List<Proyecto> temp;
-	private List<Proyecto> listConFiltro;
-	private boolean filtrado = false;
+	private boolean listadoFiltrado = false;
 	private ServiciosProyecto servicio;
 	private Logger log = UtilGisfpp.getLogger();
 	private boolean autorizadoNuevo = false;
@@ -79,10 +78,8 @@ public class MVListarProyectos {
 	}
 
 	@Command("dlgFiltro")
-	@NotifyChange("listaProyectos")
 	public void verDlgFiltro() {
 		HashMap<String, Object> map = new HashMap<>();
-		listConFiltro = new ArrayList<>();
 		map.put("listSinFiltro", listaProyectos);
 		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgFiltrosProyecto.zul", null, map);
 		dlg.doModal();
@@ -91,9 +88,13 @@ public class MVListarProyectos {
 	@GlobalCommand("retornoDlgFiltroProyecto")
 	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
 	public void retornoDlgFiltroProyecto(@BindingParam("listConFiltro") List<Proyecto> arg1) {
-		temp = listaProyectos;
+		// si el listado no tiene un filtro aplicado, mantenemos una referencia
+		// a dicho listado original, para luego recuperarlo
+		if (!listadoFiltrado) {
+			temp = listaProyectos;
+		}
 		listaProyectos = arg1;
-		filtrado = true;
+		listadoFiltrado = true;
 		titulo = "Listado Filtrado";
 	}
 
@@ -101,8 +102,10 @@ public class MVListarProyectos {
 	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
 	public void quitarFiltro() {
 		listaProyectos = temp;
-		filtrado = false;
+		listadoFiltrado = false;
 		titulo = "Listado de Proyectos";
+		// Limpiamos los argumentos de listadoFiltrado de la sesion.
+		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
 	}
 
 	@Command("editarProyecto")
@@ -178,7 +181,7 @@ public class MVListarProyectos {
 	}
 
 	public boolean isFiltrado() {
-		return filtrado;
+		return listadoFiltrado;
 	}
 
 	public String getTitulo() {

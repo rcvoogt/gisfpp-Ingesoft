@@ -15,7 +15,7 @@
 				<space spacing="8px" style="float:right"/>
 				<toolbarbutton label="Filtrar" image="recursos/img/icon-filter.png"
 					tooltiptext="Filtrar por varios criterios de busquedas" onClick="@command('dlgFiltro')"
-						visible="@load(not empty vm.listaProyectos)" disabled="@load(vm.filtrado)" style="float:right;"/>
+						visible="@load(not empty vm.listaProyectos)" style="float:right;"/>
 				<space spacing="6px" style="float:right"/>		
 				<toolbarbutton label="Nuevo Proyecto" visible="@load(vm.autorizadoNuevo)"
 					image="recursos/img/icon-addfolderalt.png" style="float:right;"

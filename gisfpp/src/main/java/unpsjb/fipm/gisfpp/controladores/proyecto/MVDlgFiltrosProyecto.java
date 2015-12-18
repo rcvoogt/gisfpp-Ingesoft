@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
@@ -30,6 +32,7 @@ public class MVDlgFiltrosProyecto {
 	public void init() {
 		HashMap<String, Object> map = (HashMap<String, Object>) Executions.getCurrent().getArg();
 		listSinFiltro = (List<Proyecto>) map.get("listSinFiltro");
+		recuperarArgUltFiltro();
 	}
 
 	@Command("filtrar")
@@ -38,6 +41,7 @@ public class MVDlgFiltrosProyecto {
 		HashMap<String, Object> prm = new HashMap<>();
 		prm.put("listConFiltro", resultado);
 		BindUtils.postGlobalCommand(null, null, "retornoDlgFiltroProyecto", prm);
+		guardarArgUltFiltro();
 		cerrar();
 	}
 
@@ -64,6 +68,39 @@ public class MVDlgFiltrosProyecto {
 	private void cerrar() {
 		Window thisDlg = (Window) Path.getComponent("/dlgFiltroProyecto");
 		thisDlg.detach();
+	}
+
+	/**
+	 * Mediante este método se guarda en la session web los criterios
+	 * (argumentos )de busqueda establecidos en el último filtro aplicado al
+	 * listado de Proyectos.
+	 */
+	private void guardarArgUltFiltro() {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("codigo", codigo);
+		map.put("resolucion", resolucion);
+		map.put("titulo", titulo);
+		map.put("tipo", tipo);
+		map.put("estado", estado);
+		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", map);
+	}
+
+	/**
+	 * Recuperamos de la session web, los criterios (argumentos) si los hubiera,
+	 * del último filtro aplicado al listado de Proyectos.
+	 */
+	@NotifyChange({ "codigo", "resolucion", "titulo", "tipo", "estado" })
+	private void recuperarArgUltFiltro() {
+		@SuppressWarnings("unchecked")
+		HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
+				.getAttribute("argUltFiltroProyectos");
+		if (map != null) {
+			codigo = (String) map.get("codigo");
+			resolucion = (String) map.get("resolucion");
+			titulo = (String) map.get("titulo");
+			tipo = (TipoProyecto) map.get("tipo");
+			estado = (EstadoProyecto) map.get("estado");
+		}
 	}
 
 	public List<TipoProyecto> getTipos() {

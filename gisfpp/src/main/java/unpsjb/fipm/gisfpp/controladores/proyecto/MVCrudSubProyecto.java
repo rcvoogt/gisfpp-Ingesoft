@@ -1,19 +1,27 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
+import org.zkoss.zul.Tabpanel;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
@@ -24,6 +32,7 @@ public class MVCrudSubProyecto {
 
 	private IServicioSubProyecto servicio;
 	private SubProyecto item;
+	private Proyecto perteneceA;
 	private Logger log;
 	private boolean creando;
 	private boolean editando;
@@ -40,34 +49,37 @@ public class MVCrudSubProyecto {
 		servicio = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
 		map = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) map.get("modo");
+		perteneceA = (Proyecto) map.get("perteneceA");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = (SubProyecto) map.get("item");
+			item = new SubProyecto(perteneceA, "", "");
 			creando = true;
 			editando = false;
 			ver = false;
-			titulo = "Nuevo Sub-Proyecto /Proyecto: (" + item.getProyecto().getCodigo() + ") "
-					+ item.getProyecto().getTitulo();
+			titulo = "Nuevo Sub-Proyecto / Proyecto: (" + item.getPerteneceA().getCodigo() + ") "
+					+ item.getPerteneceA().getTitulo();
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
 			Integer id = (Integer) map.get("idItem");
 			item = servicio.getInstancia(id);
+			item.setPerteneceA(perteneceA);
 			creando = false;
 			editando = true;
 			ver = false;
-			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo()
-					+ ") " + item.getProyecto().getTitulo();
+			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
+					+ perteneceA.getTitulo();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			Integer id = (Integer) map.get("idItem");
 			item = servicio.getInstancia(id);
+			item.setPerteneceA(perteneceA);
 			creando = false;
 			editando = false;
 			ver = true;
-			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " /Proyecto: (" + item.getProyecto().getCodigo() + ") "
-					+ item.getProyecto().getTitulo();
+			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
+					+ perteneceA.getTitulo();
 			break;
 		}
 		}
@@ -76,8 +88,7 @@ public class MVCrudSubProyecto {
 	@Command("nuevoSP")
 	@NotifyChange({ "item", "creando", "editando", "ver" })
 	public void nuevo() {
-		Proyecto proyecto = item.getProyecto();
-		item = new SubProyecto(proyecto, null, null, null, null, null);
+		item = new SubProyecto(perteneceA, null, null);
 		creando = true;
 		editando = false;
 		ver = false;
@@ -154,10 +165,41 @@ public class MVCrudSubProyecto {
 		return titulo;
 	}
 
+	public List<Isfpp> getInstanciasIsfpp() {
+		return item.getInstanciasIsfpp();
+	}
+
+	@Command("nuevaIsfpp")
+	public void nuevaIsfpp() {
+		Tabbox tabBox = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
+		Tab tab = new Tab("Nueva Isfpp");
+		Tabpanel tabPanel = new Tabpanel();
+		Include include = new Include("vistas/proyecto/crudIsfpp.zul");
+		HashMap<String, Object> args = new HashMap<>();
+		args.put("perteneceA", item);
+		args.put("modo", UtilGisfpp.MOD_NUEVO);
+		args.put("tab", tab);
+		include.setDynamicProperty("argsCrudIsfpp", args);
+		tabBox.getTabs().appendChild(tab);
+		tabPanel.getChildren().add(include);
+		tabBox.getTabpanels().getChildren().add(tabPanel);
+		tabBox.setSelectedTab(tab);
+	}
+
+	@Command("editarIsfpp")
+	public void editarIsfpp(@BindingParam("idItem") Integer id) {
+
+	}
+
+	@Command("verIsfpp")
+	public void verIsfpp(@BindingParam("idItem") Integer id) {
+
+	}
+
 	@Command("volver")
 	public void volver() {
 		HashMap<String, Object> mapAux = new HashMap<>();
-		mapAux.put("idItem", item.getProyecto().getId());
+		mapAux.put("idItem", perteneceA.getId());
 		mapAux.put("modo", UtilGisfpp.MOD_VER);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", (String) map.get("volverA"), mapAux);
 	}
