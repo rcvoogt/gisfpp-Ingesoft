@@ -19,8 +19,8 @@ INSERT INTO `persona` (`nombre`,`tipo`) VALUES ("Aerolineas Argentinas S.A","PJ"
 INSERT INTO `persona` (`nombre`,`tipo`) VALUES ("YPF S.A","PJ");
 INSERT INTO `persona` (`nombre`,`tipo`) VALUES ("Halliburton S.A","PJ");
 
-INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("MATRICULA","69859394341721728372939111426",1);
-INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("DNI","38268973114939692925517037921",2);
+INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("MATRICULA","25458789",1);
+INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("DNI","28238237",1);
 INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("DNI","96151323364014823189973622018",3);
 INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("LEGAJO","91647699839583294415401518288",4);
 INSERT INTO `identificador` (`tipo`,`valor`,`personaId`) VALUES ("CUIL","64321497163236333909946241296",5);
@@ -82,10 +82,10 @@ INSERT INTO `domicilio` (`altura`,`calle`,`codPostal`,`localidad`,`num_dpto`,`nu
 INSERT INTO `domicilio` (`altura`,`calle`,`codPostal`,`localidad`,`num_dpto`,`num_piso`,`provincia`,`personaId`) VALUES ("811287","oIcaGebERAHOIUFUaiqiSERIxIluvEeuLUQUTuHUSUJouEAio","66212","UILoNIyARilUAoqABUTAteJeCENopimoXuVuNEPUaeAOPuhai","379","311","JiAIQaJOaAEaXOvAjOJIbeVAIaroXUBUbauIYIOAbeougojii",19);
 INSERT INTO `domicilio` (`altura`,`calle`,`codPostal`,`localidad`,`num_dpto`,`num_piso`,`provincia`,`personaId`) VALUES ("896216","buRigACESiaifujeHufuBEHeBEMuQiWEgidOvOBuaacIbapoa","17464","MuWePoyuwEDerEOOHagIjenavUmIROLaJOFaMoVUludOJUwIu","999","638","BUdopocoaIXajUGuRaYueIhivoxijiXEPUHENeToGemacejou",20);
 
-INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (1,"xuKASEpUVeboSuOUUEUisiFiWixuGeUoiokoZoJidePilOkie","IUIaKovoTu",1);
+INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (1,"jldevia","fidelina",1);
 INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (0,"BiIIFEBoXOrAEAKouikInOnEqiPeAuwADIwUKUduPAlEwoWah","PuLOjaPoCI",2);
 INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (0,"KolEUiCOoOOOjaQIRuxaGOgumExOFoueKoSaLiJUmOmoYumiY","xUzoJeDePU",3);
-INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (0,"bIHumUyINUYeyAMeUAXAZekAjULuUEduTIEotocuSORUKiYEp","UiCUoUaUQu",4);
+INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (1,"dbarry","unpsjbfipm",4);
 INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (1,"wIYeGoSAriwOgajEBisoAIsalUzeLeOuIUOaNulooANazAQOA","zuyoKoYuJi",5);
 INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (0,"FIkUgOCiBUduiErUUoDuYOyutEbEFoquEINoZeUIDEpAcuIOR","WeciqoiOdU",6);
 INSERT INTO `usuario` (`activo`,`nickname`,`password`,`personaId`) VALUES (0,"GoOaSirotICadoMiNUFAgEzUtEvewIFenISEcomEWAquwoAoi","zabooeHAGe",7);

@@ -32,11 +32,10 @@ public class MVListarProyectos {
 	private boolean listadoFiltrado = false;
 	private ServiciosProyecto servicio;
 	private Logger log = UtilGisfpp.getLogger();
-	private boolean autorizadoNuevo = false;
 	private String titulo;
 
 	@Init
-	@NotifyChange("Listado de Proyectos")
+	@NotifyChange({"titulo","listaProyectos"})
 	public void init() throws Exception {
 		try {
 			servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
@@ -46,7 +45,6 @@ public class MVListarProyectos {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
-		checkAutorizadoNuevo();
 	}
 
 	@Command("recuperarTodo")
@@ -66,7 +64,7 @@ public class MVListarProyectos {
 
 	@Command("salir")
 	public void salir() {
-		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/panelListarProyectos");
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlListaProyectos");
 	}
 
 	@Command("nuevoProyecto")
@@ -74,46 +72,15 @@ public class MVListarProyectos {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", null);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/panelListarProyectos", "vistas/proyecto/crudProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
 	}
-
-	@Command("dlgFiltro")
-	public void verDlgFiltro() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("listSinFiltro", listaProyectos);
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgFiltrosProyecto.zul", null, map);
-		dlg.doModal();
-	}
-
-	@GlobalCommand("retornoDlgFiltroProyecto")
-	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
-	public void retornoDlgFiltroProyecto(@BindingParam("listConFiltro") List<Proyecto> arg1) {
-		// si el listado no tiene un filtro aplicado, mantenemos una referencia
-		// a dicho listado original, para luego recuperarlo
-		if (!listadoFiltrado) {
-			temp = listaProyectos;
-		}
-		listaProyectos = arg1;
-		listadoFiltrado = true;
-		titulo = "Listado Filtrado";
-	}
-
-	@Command("quitarFiltro")
-	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
-	public void quitarFiltro() {
-		listaProyectos = temp;
-		listadoFiltrado = false;
-		titulo = "Listado de Proyectos";
-		// Limpiamos los argumentos de listadoFiltrado de la sesion.
-		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
-	}
-
+	
 	@Command("editarProyecto")
 	public void editarProyecto(@BindingParam("item") Proyecto item) {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("idItem", item.getId());
 		map.put("modo", UtilGisfpp.MOD_EDICION);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/panelListarProyectos", "vistas/proyecto/crudProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
 
 	}
 
@@ -122,7 +89,7 @@ public class MVListarProyectos {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("idItem", item.getId());
 		map.put("modo", UtilGisfpp.MOD_VER);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/panelListarProyectos", "vistas/proyecto/crudProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
 	}
 
 	@Command("eliminarProyecto")
@@ -155,19 +122,50 @@ public class MVListarProyectos {
 		}
 	}
 
-	@NotifyChange("autorizadoNuevo")
-	private void checkAutorizadoNuevo() {
-		if (UtilGisfpp.rolStaffFi(ECargosStaffFi.COORDINADOR.toString())
-				|| UtilGisfpp.rolStaffFi(ECargosStaffFi.DELEGADO.toString())
-				|| UtilGisfpp.rolStaffFi(ECargosStaffFi.PROFESOR.toString())) {
-			autorizadoNuevo = true;
-		} else {
-			autorizadoNuevo = false;
-		}
+
+	//Inicio Bloque "Aplicacion Filtro de Listado"
+	@Command("dlgFiltro")
+	public void verDlgFiltro() {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("listSinFiltro", listaProyectos);
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgFiltrosProyecto.zul", null, map);
+		dlg.doModal();
 	}
 
-	public boolean isAutorizadoNuevo() {
-		return autorizadoNuevo;
+	@GlobalCommand("retornoDlgFiltroProyecto")
+	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
+	public void retornoDlgFiltroProyecto(@BindingParam("listConFiltro") List<Proyecto> arg1) {
+		// si el listado no tiene un filtro aplicado, mantenemos una referencia
+		// a dicho listado original, para luego recuperarlo
+		if (!listadoFiltrado) {
+			temp = listaProyectos;
+		}
+		listaProyectos = arg1;
+		listadoFiltrado = true;
+		titulo = "Listado Filtrado";
+	}
+
+	@Command("quitarFiltro")
+	@NotifyChange({ "listaProyectos", "filtrado", "titulo" })
+	public void quitarFiltro() {
+		listaProyectos = temp;
+		listadoFiltrado = false;
+		titulo = "Listado de Proyectos";
+		// Limpiamos los argumentos de listadoFiltrado de la sesion.
+		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
+	}
+	//Fin de bloque "Aplicacion de Filtro a Listado"
+
+		
+	@NotifyChange("autorizadoCrear")
+	public boolean isAutorizadoCrear() {
+		Boolean autorizado = UtilGisfpp.rolStaffFi(ECargosStaffFi.COORDINADOR.toString()) ||
+				UtilGisfpp.rolStaffFi(ECargosStaffFi.DELEGADO.toString())|| UtilGisfpp.rolStaffFi(ECargosStaffFi.PROFESOR.toString());
+		if(autorizado){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	private boolean isAutorizadoEliminar() {

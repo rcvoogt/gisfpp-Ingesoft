@@ -2,7 +2,7 @@
 <zk>
 <window
 		title="Error ${requestScope['javax.servlet.error.status_code']}"
-		width="450px" border="normal" mode="modal" hflex="1">
+		width="450px" border="normal" mode="modal" vflex="1">
 		<vbox spacing="10px">
 			<separator />
 			<separator />

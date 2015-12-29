@@ -11,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @SuppressWarnings("serial")
 @Entity
+@Table(name="usuario")
 public class Usuario implements Serializable {
 
 	@Id
@@ -73,7 +75,7 @@ public class Usuario implements Serializable {
 		this.nickname = nickname;
 	}
 
-	@Length(max = 50, message = "La \"Contraseña\" no puede ser mayor a 50 caracteres.")
+	@Length(max = 50, message = "La \"Contraseï¿½a\" no puede ser mayor a 50 caracteres.")
 	public String getPassword() {
 		return password;
 	}

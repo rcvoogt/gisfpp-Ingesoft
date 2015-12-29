@@ -98,7 +98,7 @@ public class Proyecto implements Serializable {
 		this.id = id;
 	}
 
-	@Length(max = 20, message = "\"Código\"  - El Codigo del Proyecto no debe ser mayor a 20 caracteres.")
+	@Length(max = 20, message = "\"Codigo\"  - El Codigo del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getCodigo() {
 		return codigo;
 	}
@@ -107,7 +107,7 @@ public class Proyecto implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@Length(max = 20, message = "\"N° Resolución\" - El Número de Resolución del Proyecto no debe ser mayor a 20 caracteres.")
+	@Length(max = 20, message = "\"NÂ° Resolucion\" - El Numero de Resolucion del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getResolucion() {
 		return resolucion;
 	}
@@ -116,8 +116,8 @@ public class Proyecto implements Serializable {
 		this.resolucion = resolucion;
 	}
 
-	@NotBlank(message = "\"Título\" - Debe especificarle un Título al Proyecto.")
-	@Length(max = 80, message = "\"Título\" - El Titulo del Proyecto no debe ser mayor a 80 caracteres.")
+	@NotBlank(message = "\"Titulo\" - Debe especificarle un Titulo al Proyecto.")
+	@Length(max = 80, message = "\"Titulo\" - El Titulo del Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}
@@ -126,7 +126,7 @@ public class Proyecto implements Serializable {
 		this.titulo = titulo;
 	}
 
-	@Length(max = 500, message = "\"Descripción\" - La Descripción del Proyecto no debe ser mayor a 500 caracteres")
+	@Length(max = 500, message = "\"Descripcion\" - La Descripcion del Proyecto no debe ser mayor a 500 caracteres")
 	public String getDescripcion() {
 		return descripcion;
 	}

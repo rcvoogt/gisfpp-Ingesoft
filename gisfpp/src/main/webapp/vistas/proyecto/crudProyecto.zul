@@ -1,118 +1,140 @@
-<panel id="pnlCrudProyecto" title="@load(vm.titulo)" border="none"
-	width="100%" height="100%" sclass="panel-primary"
-	apply="org.zkoss.bind.BindComposer"
+<div id="pnlCrudProyecto" xmlns:n="native" class="panel panel-primary"
+	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
-	<panelchildren>
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.titulo)" style="font-size:inherit;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
 		<tabbox vflex="1" hflex="1">
 			<tabs>
 				<tab label="Datos Generales" />
 				<tab label="Responsables" />
 				<tab label="Demandantes" />
-				<tab label="Sub-Proyectos" visible="@load(vm.modo ne 'NUEVO')"/>
+				<tab label="Sub-Proyectos"
+					visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
 			<toolbar>
-				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
-					visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevoProyecto')"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" disabled="@load(vm.editando)"
-					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))" onClick="@command('editar')"/>
-				<space bar="true" spacing="10px"/>
-				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" 
-					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('guardar')"/>
-				<toolbarbutton image="recursos/img/icon-remove-sign.png" label="Cancelar" 
-					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('cancelar')"/>
-				<space bar="true" spacing="10px"/>
-				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver"
-					onClick="@command('volver')"/>
+				<toolbarbutton image="recursos/img/icon-plus-sign.png"
+					label=" Nuevo" disabled="@load(vm.creando)"
+					visible="@load(vm.modo eq 'NUEVO')"
+					onClick="@command('nuevoProyecto')" class="btn btn-success btn-xs" />
+				<toolbarbutton image="recursos/img/icon-edit.png"
+					label=" Editar" disabled="@load(vm.editando)"
+					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
+					onClick="@command('editar')" class="btn btn-success btn-xs" />
+				<space bar="true" spacing="10px" />
+				<toolbarbutton image="recursos/img/icon-save.png"
+					label=" Guardar"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('guardar')" class="btn btn-success btn-xs" />
+				<toolbarbutton class="btn btn-success btn-xs"
+					image="recursos/img/icon-remove-sign.png"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('cancelar')" label=" Cancelar" />
+				<space bar="true" spacing="10px" />
+				<toolbarbutton label=" Volver"
+					class="btn btn-success btn-xs"
+					image="recursos/img/icon-arrow-left.png"
+					onClick="@command('volver')" />
 			</toolbar>
-			<tabpanels hflex="1">
+			<tabpanels hflex="1" vflex="1">
 				<tabpanel id="tabDatosGenerales" vflex="1" hflex="1">
 					<grid hflex="1" vflex="1" sclass="fgrid">
-							<columns>
-								<column width="8%" />
-								<column width="40%" />
-								<column width="52%" />
-							</columns>
-							<rows vflex="1">
-								<row>
-									<label value="Codigo:"
-										sclass="form-label" />
-									<textbox value="@bind(vm.seleccionado.codigo)"
-										width="30%" maxlength="20"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="N° Resolución:"
-										sclass="form-label" />
-									<textbox
-										value="@bind(vm.seleccionado.resolucion)" width="30%" maxlength="20"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Título:"
-										sclass="form-label" />
-									<textbox value="@bind(vm.seleccionado.titulo)"
-										width="60%" maxlength="80"
-										readonly="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Descripción:"
-										sclass="form-label" />
-									<textbox value="@bind(vm.seleccionado.descripcion)" 
-										width="70%" cols="50" rows="4" maxlength="500"
+						<columns>
+							<column width="33%"/>
+							<column width="33%"/>
+							<column width="34%"/>
+						</columns>
+						<rows vflex="true">
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Codigo" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.seleccionado.codigo)" width="90%" class="form-control"
+										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+								<div>
+									<label value="Numero de Resolucion" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.seleccionado.resolucion)" width="90%" class="form-control"
+										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Titulo" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.seleccionado.titulo)" width="90%" class="form-control"
+										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Descripcion" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.seleccionado.descripcion)" width="90%" class="form-control"
+										maxlength="500" cols="50" rows="4" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Tipo:" sclass="form-label"/>
-									<combobox model="@load(vm.tipos)"
-										selectedItem="@bind(vm.seleccionado.tipo)"
-										disabled="@load((not vm.creando) and (not vm.editando))">
+								</div>
+							</row>
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Tipo" class="form-label" width="45%"/>
+									<combobox model="@load(vm.tipos)" selectedItem="@bind(vm.seleccionado.tipo)"
+										disabled="@load((not vm.creando) and (not vm.editando))" width="45%">
+									<template name="model">
+										<comboitem
+											label="@load(each.descripcion)" />
+									</template>
+								</combobox>
+								</div>
+								<div>
+									<label value="Estado" class="form-label" width="45%"/>
+									<combobox model="@load(vm.estados)" selectedItem="@bind(vm.seleccionado.estado)"
+										disabled="@load((not vm.creando) and (not vm.editando))" width="45%" 
+											visible="@load(vm.modo ne 'NUEVO')">
 										<template name="model">
 											<comboitem
 												label="@load(each.descripcion)" />
 										</template>
 									</combobox>
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Fecha Inicio:"
-										sclass="form-label" />
+								</div>
+							</row>
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Fecha inicio" class="form-label" width="45%"/>
 									<datebox format="dd/MM/yyyy" buttonVisible="true"
-										value="@bind(vm.seleccionado.fecha_inicio)"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Fecha Fin:"
-										sclass="form-label" />
-									<datebox format="dd/MM/yyyy"
-										mold="rounded" buttonVisible="true"
-										value="@bind(vm.seleccionado.fecha_fin)"
-										disabled="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row height="12px"/>
-								<row>
-									<label value="Detalle:"
-										sclass="form-label" />
-									<textbox value="@bind(vm.seleccionado.detalle)"
-										width="70%" cols="60" maxlength="2000" rows="6"
+										value="@bind(vm.seleccionado.fecha_inicio)" width="35%"
+											disabled="@load((not vm.creando) and (not vm.editando))" />
+									</div>
+								<div>
+									<label value="Fecha fin" class="form-label" width="45%"/>
+									<datebox format="dd/MM/yyyy" mold="rounded" buttonVisible="true"
+										value="@bind(vm.seleccionado.fecha_fin)" width="35%"
+											disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px"/>
+							<row>
+								<div>
+									<label value="Detalle" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.seleccionado.descripcion)" width="90%" class="form-control"
+										maxlength="2000" cols="50" rows="6" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
-								</row>
-								<row vflex="1"/>
-							</rows>
-						</grid>
+								</div>
+							</row>
+						</rows>
+					</grid>
 				</tabpanel>
-				<tabpanel id="tabResponsables">
-				</tabpanel>
-				<tabpanel id="tabDemandantes">
-				</tabpanel>
+				<tabpanel id="tabResponsables"></tabpanel>
+				<tabpanel id="tabDemandantes"></tabpanel>
 				<tabpanel id="tabSubProyectos">
-					<include src="vistas/proyecto/pnlListadoSP.zul"/>
+					<include src="vistas/proyecto/listadoSP.zul" />
 				</tabpanel>
 			</tabpanels>
 		</tabbox>
-	</panelchildren>
-</panel>
+	</div>
+</div>

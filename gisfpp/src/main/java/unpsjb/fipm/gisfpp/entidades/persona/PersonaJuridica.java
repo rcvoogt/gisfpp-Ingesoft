@@ -22,7 +22,7 @@ public class PersonaJuridica extends Persona {
 	private static final long serialVersionUID = 1L;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "personas_contacto", joinColumns = @JoinColumn(name = "organizacionId") , inverseJoinColumns = @JoinColumn(name = "personaId") )
+	@JoinTable(name = "persona_contacto", joinColumns = @JoinColumn(name = "organizacionId") , inverseJoinColumns = @JoinColumn(name = "personaId") )
 	private List<PersonaFisica> contactos;
 
 	public PersonaJuridica() {
@@ -36,19 +36,19 @@ public class PersonaJuridica extends Persona {
 	}
 
 	@Override
-	@NotBlank(message = "Debe indicar la \"Razón Social\" de la Organización.")
-	@Length(max = 80, message = "La \"Razón Social\" de la Organización no debe ser mayor a 80 caracteres.")
+	@NotBlank(message = "Debe indicar la \"Razon Social\" de la Organizacion.")
+	@Length(max = 80, message = "La \"Razon Social\" de la Organizacion no debe ser mayor a 80 caracteres.")
 	public String getNombre() {
 		return nombre;
 	}
 
-	// Es Persona Jurídica, no posee DNI
+	// Es Persona Jurï¿½dica, no posee DNI
 	@Override
 	public String getDni() {
 		return null;
 	}
 
-	// Es Persona Jurídica, no posee CUIL
+	// Es Persona Jurï¿½dica, no posee CUIL
 	@Override
 	public String getCuil() {
 		return null;
@@ -59,19 +59,19 @@ public class PersonaJuridica extends Persona {
 		return getValorIdentificador(TIdentificador.CUIT);
 	}
 
-	// Es Persona Jurídica, no posee Matricula
+	// Es Persona Jurï¿½dica, no posee Matricula
 	@Override
 	public String getMatricula() {
 		return null;
 	}
 
-	// Es Persona Jurídica, no posee Legajo
+	// Es Persona Jurï¿½dica, no posee Legajo
 	@Override
 	public String getLegajo() {
 		return null;
 	}
 
-	@AssertTrue(message = "El N° de Identificación permitido para una Organizacion es el CUIT solamente.")
+	@AssertTrue(message = "El N° de Identificacion permitido para una Organizacion es el CUIT delinasolamente.")
 	private boolean isIdentificacionesValidas() {
 		if (getIdentificadores() == null) {
 			return true;

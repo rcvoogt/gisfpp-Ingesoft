@@ -49,22 +49,22 @@ public class MVInicio {
 
 	@Command("verListaPersonas")
 	public void verListaPersonas() {
-		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listarPersonas.zul");
+		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listadoPersonas.zul");
 	}
 
 	@Command("verListaProyectos")
 	public void verListaProyectos() {
-		UtilGuiGisfpp.loadPnlCentral("vistas/proyecto/listarProyectos.zul");
+		UtilGuiGisfpp.loadPnlCentral("vistas/proyecto/listadoProyectos.zul");
 	}
 
 	@Command("verListaStaff")
 	public void verListaStaff() {
-		UtilGuiGisfpp.loadPnlCentral("vistas/staff/listaStaffFI.zul");
+		UtilGuiGisfpp.loadPnlCentral("vistas/staff/listadoStaffFI.zul");
 	}
 
 	@Command("verListaOrganizaciones")
 	public void verListaOrganizaciones() {
-		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listaOrganizaciones.zul");
+		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listadoOrganizaciones.zul");
 	}
 
 	public Usuario getUsuario() {

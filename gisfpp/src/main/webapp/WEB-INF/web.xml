@@ -199,6 +199,7 @@
 
 	<welcome-file-list>
 		<welcome-file>inicio.zul</welcome-file>
+		<welcome-file>index.zul</welcome-file>
 	</welcome-file-list>
 
 	<error-page>

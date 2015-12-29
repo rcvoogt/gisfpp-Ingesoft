@@ -70,8 +70,8 @@ public class SubProyecto implements Serializable {
 		this.perteneceA = proyecto;
 	}
 
-	@NotBlank(message = "Debe especificarle un \"título\" al Sub-Proyecto.")
-	@Length(max = 80, message = "El \"título\" del Sub-Proyecto no debe ser mayor a 80 caracteres.")
+	@NotBlank(message = "Debe especificarle un \"tï¿½tulo\" al Sub-Proyecto.")
+	@Length(max = 80, message = "El \"tï¿½tulo\" del Sub-Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}

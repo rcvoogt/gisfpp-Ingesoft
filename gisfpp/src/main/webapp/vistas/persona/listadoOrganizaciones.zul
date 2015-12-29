@@ -1,5 +1,5 @@
 <panel id="pnlListaOrganizaciones" title="Lista de Organizaciones" border="none"
-	width="100%" height="100%" sclass="panel-primary"
+	width="100%" height="100%" class="panel panel-primary"
 	apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarOrganizaciones')">
 	<panelchildren>

@@ -1,61 +1,70 @@
-<panel id="pnlCrudSP" title="@load(vm.titulo)" border="none" sclass="panel-primary"
-	width="100%" height="100%" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
+<div id="pnlCrudSP" class="panel panel-primary" hflex="true" vflex="true" 
+	xmlns:n="native" apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
-	<panelchildren>
-		<tabbox id="tbbxSP" height="100%" width="100%">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.titulo)" style="font-size:inherit;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<tabbox id="tbbxSP" vflex="true" hflex="true">
 			<tabs>
 				<tab label="Datos Generales"/>
 				<tab label="ISFPP" />
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png"
-					label="Nuevo" disabled="@load(vm.creando)" visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevoSP')" />
-				<toolbarbutton image="recursos/img/icon-edit.png"
-					label="Editar" disabled="@load(vm.editando)" visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
-					 onClick="@command('editar')"/>
+					label="Nuevo" disabled="@load(vm.creando)" visible="@load(vm.modo eq 'NUEVO')" 
+						onClick="@command('nuevoSP')" class="btn btn-success btn-xs"/>
+				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" 
+					disabled="@load(vm.editando)" visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
+					 onClick="@command('editar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-save.png"
-					label="Guardar"
+					label="Guardar" class="btn btn-success btn-xs"
 					disabled="@load((not vm.creando) and (not vm.editando))"
 					onClick="@command('guardar')" />
 				<toolbarbutton image="recursos/img/icon-remove-sign.png"
 					label="Cancelar" disabled="@load((not vm.creando) and (not vm.editando))"
-					onClick="@command('cancelar')" />
+					onClick="@command('cancelar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-arrow-left.png"
-					label="Volver" onClick="@command('volver')"/>
+					label="Volver" onClick="@command('volver')" 
+						class="btn btn-success btn-xs"/>
 			</toolbar>
-			<tabpanels>
-				<tabpanel id="tabDatosGenerales">
+			<tabpanels vflex="true" hflex="true">
+				<tabpanel id="tabDatosGenerales" hflex="1" vflex="1">
 					<grid hflex="1" vflex="1" sclass="fgrid">
 						<columns>
-							<column width="8%"/>
-							<column width="40%"/>
-							<column width="52%"/>	
+							<column width="33%"/>
+							<column width="33%"/>
+							<column width="34%"/>	
 						</columns>
-						<rows vflex="1">
-							<row height="20px"/>
+						<rows>
+							<row height="15px"/>
 							<row>
-								<label value="Titulo:" sclass="form-label"/>
-								<textbox value="@bind(vm.item.titulo)" width="60%" 
-									maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))"
-										placeholder="Título del Sub-Proyecto"/>	
+								<div>
+									<label value="Titulo" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.item.titulo)" width="90%" class="form-control"
+										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>	
 							</row>
-							<row height="20px"/>
+							<row height="15px"/>
 							<row>
-								<label value="Observaciones:" sclass="form-label"/>
-								<textbox value="@bind(vm.item.observaciones)" 
-									placeholder="Observaciones varias del Sub-Proyecto" 
-										cols="60" rows="4" maxlength="500" width="70%" 
-										readonly="@load((not vm.creando) and (not vm.editando))"/>
+								<div>
+									<label value="Observaciones" class="form-label" width="45%"/>
+									<textbox value="@bind(vm.item.observaciones)" width="90%" class="form-control"
+										maxlength="500" cols="50" rows="4" 
+											readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
 				<tabpanel>
-					<include src="vistas/proyecto/pnlListadoIsfpp.zul"/>
+					<include src="vistas/proyecto/listadoIsfpp.zul"/>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>
-	</panelchildren>
-</panel>
+	</div>
+</div>

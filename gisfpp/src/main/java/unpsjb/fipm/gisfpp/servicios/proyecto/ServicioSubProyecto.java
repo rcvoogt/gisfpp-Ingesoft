@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoSubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.util.GisfppException;
 
 @Service("servSubProyecto")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -42,10 +43,15 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	@Override
 	@Transactional(readOnly = false)
 	public void eliminar(SubProyecto instancia) throws Exception {
-		try {
-			dao.eliminar(instancia);
-		} catch (Exception e) {
-			throw e;
+		if (instancia.getInstanciasIsfpp()==null || instancia.getInstanciasIsfpp().isEmpty()) {
+			try {
+				dao.eliminar(instancia);
+			} catch (Exception e) {
+				throw e;
+			}
+		} else {
+			throw new GisfppException("No se puede eliminar el Sub-Proyecto, "
+					+ "el mismo tiene ISFPP's asignadas.");
 		}
 	}
 

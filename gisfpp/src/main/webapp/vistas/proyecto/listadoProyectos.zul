@@ -1,0 +1,90 @@
+<div id="pnlListaProyectos" xmlns:n="native" vflex="true" hflex="true"
+	apply="org.zkoss.bind.BindComposer" class="panel panel-primary"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.titulo)" style="font-size: inherit;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<vbox hflex="true" spacing="5px" vflex="true">
+			<n:div class="btn-toolbar pull-right">
+				<a image="recursos/img/icon-addfolderalt.png"
+					class="btn btn-success btn-sm" tooltiptext="Crear nuevo Proyecto"
+					visible="@load(vm.autorizadoCrear)"
+					onClick="@command('nuevoProyecto')">
+					Nuevo Proyecto
+				</a>
+				<n:div class="btn-group">
+					<a image="recursos/img/icon-filter.png"
+						class="btn btn-success btn-sm" onClick="@command('dlgFiltro')"
+						tooltiptext="Aplicar filtro al Listado">
+						Filtrar
+					</a>
+					<a image="recursos/img/icon-remove-sign.png"
+						class="btn btn-success btn-sm"
+						tooltiptext="Quitar el filtro aplicado al Listado"
+						visible="@load(vm.filtrado)" onClick="@command('quitarFiltro')"
+						style="margin-left:1px">
+						Quitar Filtro
+					</a>
+				</n:div>
+				<a image="recursos/img/icon-exit.png"
+					class="btn btn-success btn-sm" onClick="@command('salir')"
+					tooltiptext="Salir de Listado Proyectos">
+					Salir
+				</a>
+			</n:div>
+				<grid mold="paging" autopaging="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+						emptyMessage="La consulta no arrojo ningun resultado. No hay Proyectos para mostrar."
+						model="@load(vm.listaProyectos)">
+						<columns>
+							<column label="Codigo" width="10%"
+								sort="auto(codigo)" tooltiptext="Clik para ordenar por Código" />
+							<column label="N° Resolucion" width="10%"
+								sort="auto(resolucion)"
+								tooltiptext="Clik para ordenar por N° Resolución" />
+							<column label="Titulo" width="39%"
+								sort="auto(titulo)" tooltiptext="Click para ordenar por Título" />
+							<column label="Tipo" width="10%" />
+							<column label="Inicio" width="8%" />
+							<column label="Finalizacion" width="8%" />
+							<column label="Ver" width="5%"
+								align="center" />
+							<column label="Editar" width="5%"
+								align="center" />
+							<column label="Baja" width="5%"
+								align="center" />
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@load(each.codigo)" />
+								<label value="@load(each.resolucion)" />
+								<label value="@load(each.titulo)" />
+								<label
+									value="@load(each.tipo.descripcion)" />
+								<label
+									value="@load(each.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')" />
+								<label
+									value="@load(each.fecha_fin) @converter('formatedDate', format='dd/MM/yyyy')" />
+								<toolbarbutton
+									image="recursos/img/icon-preview.png"
+									tooltip="Ver datos del Proyeccto"
+									onClick="@command('verProyecto', item=each)" />
+								<toolbarbutton
+									image="recursos/img/icon-edit.png"
+									tooltiptext="Editar el Proyecto"
+									onClick="@command('editarProyecto', item=each)" />
+								<toolbarbutton
+									image="recursos/img/icon-trash.png"
+									tooltiptext="Eliminar Proyecto"
+									onClick="@command('eliminarProyecto', item = each)" />
+							</row>
+						</template>
+					</grid>
+		</vbox>
+	</div>
+</div>
+
+
+

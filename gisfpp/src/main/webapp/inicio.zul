@@ -2,51 +2,29 @@
 <?link rel="stylesheet" type="text/css" href="recursos/css/gisfpp.css"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
 <?link rel='stylesheet prefetch' href='recursos/css/font-awesome.min.css'?>
+<?link rel="stylesheet" type="text/css" href="recursos/bootstrap/css/bootstrap.min.css"?>
 
 <zk>
 
 	<borderlayout id="zonas" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')">
-		<north height="14%" id="zonaNorte">
-			<include src="/vistas/cabecera.zul" width="100%" />
-		</north>
-		<center id="zonaCentro">
-			<vbox hflex="1" vflex="1">
-				<menubar vflex="min" hflex="1">
-					<menuitem label="Proyectos"	onClick="@command('verListaProyectos')"
-						visible="@load(vm.logeado)"/>
-					<menu label="Entidades" 
-						visible="@load(vm.logeado)">
-						<menupopup>
-							<menuitem label="Personas"
-								onClick="@command('verListaPersonas')" />
-							<menuitem label="Organizaciones"
-								onClick="@command('verListaOrganizaciones')" />
-							<menuitem label="Staff-FI"
-								onClick="@command('verListaStaff')" />
-						</menupopup>
-					</menu>
-					<menuitem label="Ingresar" style="float:right;"
-						popup="dlgLogin"
-						visible="@load(not vm.logeado)" />
-					<menu label="@load(vm.usuario.persona.nombre)" style="float: right;"
-						visible="@load(vm.logeado)" tooltiptext="@load(vm.toolTipRoles)">
-						<menupopup>
-							<menuitem label=" Datos Personales"/>
-							<menuitem label=" Salir" href="logout-gisfpp"/>
-						</menupopup>
-					</menu>
-				</menubar>
-				<div vflex="1">
-					<include id="panelCentro" vflex="1" />
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')" vflex="true" hflex="true">
+		<north height="8%" style="overflow: visible;">
+			<div>
+				<div hflex="1" visible="@load(not vm.logeado)" vflex="true">
+					<include src="/vistas/navDesconectado.zul"/>
 				</div>
-			</vbox>
+				<div hflex="1" visible="@load(vm.logeado)" vflex="true">
+					<include src="/vistas/navConectado.zul"/>
+				</div>
+			</div>
+		</north>
+		<center id="zonaCentro" vflex="true" class="container" style="padding-top:8px">
+			<include id="panelCentro"/>
 		</center>
 		<south id="ZonaSur" height="4%"></south>
 	</borderlayout>
 	<popup id="dlgLogin" width="300px">
 		<html>
-
 			
 			<![CDATA[ 
 			   <div class="module form-module">
@@ -74,11 +52,13 @@
 					</form> 
 				</div>
 				<div class="cta"><a href="">Olvidaste tu contraseña?</a></div>
-			</div> 
-			<script src='recursos/js/jquery.min.js'></script>
-			<script src="recursos/js/index.js"></script>]]>
+			</div>]]>
 					
 		</html>
 	</popup>
-	
+
+<!-- Archivos javascript utilizados en la app -->
+<?script type="text/javascript" src="recursos/js/jquery.min.js"?>
+<?script type="text/javascript" src="recursos/js/index.js"?>
+<?script type="text/javascript" src="recursos/bootstrap/js/bootstrap.min.js"?>	
 </zk>

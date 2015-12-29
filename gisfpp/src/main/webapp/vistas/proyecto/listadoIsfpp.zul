@@ -1,11 +1,12 @@
-<vbox spacing="12px" width="100%" height="100%">
-	<toolbar hflex="1" sclass="mitool-bar">
-		<toolbarbutton image="recursos/img/icon-createfile.png" 
-			style="float:right;" label="Nueva ISFPP"
-				onClick="@command('nuevaIsfpp')"/>
-	</toolbar>
+<vbox spacing="6px" width="100%" height="100%">
+	<div class="btn-toolbar pull-right">
+		<a image="recursos/img/icon-createfile.png" tooltiptext="Crear y asignar una nueva Isfpp"
+			class="btn btn-success btn-xs" onClick="@command('nuevaIsfpp')"> Nueva Isfpp</a>
+	</div>
 	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
-		emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." model="@load(vm.instanciasIsfpp)">
+	 	style="border: 2px solid #80ccff; border-radius: 5px;"
+			emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." 
+				model="@load(vm.instanciasIsfpp)">
 		<columns>
 			<column label="N°" width="8%"/>
 			<column label="Titulo" width="30%"/>

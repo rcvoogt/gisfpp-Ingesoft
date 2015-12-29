@@ -17,6 +17,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
+@Table(name="persona")
 public abstract class Persona implements Serializable {
 
 	@Id
@@ -31,8 +33,8 @@ public abstract class Persona implements Serializable {
 	@Column(name = "idPersona")
 	private Integer id;
 
-	// Para Persona Física corresponde el Nombre y Apellidos, para Persona
-	// Juridica corresponde la Razón Social
+	// Para Persona Fï¿½sica corresponde el Nombre y Apellidos, para Persona
+	// Juridica corresponde la Razï¿½n Social
 	@Column(name = "nombre", length = 80, nullable = false)
 	protected String nombre;
 

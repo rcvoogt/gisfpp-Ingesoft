@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "ISFPP")
+@Table(name = "isfpp")
 public class Isfpp implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -80,8 +80,8 @@ public class Isfpp implements Serializable {
 		this.id = id;
 	}
 
-	@NotBlank(message = "Debe especificarle un \"Título\" a la ISFPP.")
-	@Length(max = 80, message = "El \"Título\" de la ISFPP no debe superar los 80 caracteres.")
+	@NotBlank(message = "Debe especificarle un \"TÃ­tulo\" a la ISFPP.")
+	@Length(max = 80, message = "El \"TÃ­tulo\" de la ISFPP no debe superar los 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}

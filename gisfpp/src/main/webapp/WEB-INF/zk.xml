@@ -11,7 +11,7 @@
 	</library-property> -->
 
 
-	<library-property>
+	<!-- <library-property>
 		<name>org.zkoss.zul.Button.mold</name>
 		<value>bs</value>
 	</library-property>
@@ -30,6 +30,6 @@
 	<library-property>
 		<name>org.zkoss.zul.Panel.mold</name>
 		<value>bs</value>
-	</library-property>
+	</library-property> -->
 	
 </zk>

@@ -53,23 +53,15 @@ public class MVCrudProyecto {
 			titulo = "Nuevo Proyecto";
 		} else if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			Proyecto aux = servicio.getInstancia((Integer) map.get("idItem"));
-			if (aux == null) {
-				aux = new Proyecto("", "", "", "", TipoProyecto.INTERNO, EstadoProyecto.GENERADO, null, null, "", null);
-			}
 			seleccionado = aux;
 			editando = true;
-			creando = false;
-			ver = false;
+			creando = ver= false;
 			titulo = "Editando Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
 		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
 			Proyecto aux = servicio.getInstancia((Integer) map.get("idItem"));
-			if (aux == null) {
-				aux = new Proyecto("", "", "", "", TipoProyecto.INTERNO, EstadoProyecto.GENERADO, null, null, "", null);
-			}
 			seleccionado = aux;
 			ver = true;
-			creando = false;
-			editando = false;
+			creando = editando = false;
 			titulo = "Ver Proyecto:  (" + seleccionado.getCodigo() + ") " + seleccionado.getTitulo();
 		}
 	}
@@ -84,6 +76,10 @@ public class MVCrudProyecto {
 
 	public List<SubProyecto> getSubProyectos() throws Exception {
 		return seleccionado.getSubProyectos();
+	}
+	
+	public List<EstadoProyecto> getEstados(){
+		return Arrays.asList(EstadoProyecto.values());
 	}
 
 	public String getModo() {
@@ -168,7 +164,7 @@ public class MVCrudProyecto {
 
 	@Command("volver")
 	public void volver() {
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listarProyectos.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listadoProyectos.zul");
 	}
 
 	@Command("nuevoSP")

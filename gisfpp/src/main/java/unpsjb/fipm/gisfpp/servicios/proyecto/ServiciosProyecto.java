@@ -43,14 +43,15 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	@Override
 	@Transactional(readOnly = false)
 	public void eliminar(Proyecto instancia) throws Exception {
-		if (instancia.getEstado().equals(EstadoProyecto.GENERADO)) {
+		if (instancia.getSubProyectos()==null || instancia.getSubProyectos().isEmpty()) {
 			try {
 				dao.eliminar(instancia);
 			} catch (Exception e) {
 				throw e;
 			}
 		} else {
-			throw new GisfppException("El Proyecto solo puede eliminarse si se encuentra en estado \" GENERADO\".");
+			throw new GisfppException("No se puede eliminar el Proyecto,"
+					+ " el mismo tiene Sub-Proyectos asignados.");
 		}
 	}
 

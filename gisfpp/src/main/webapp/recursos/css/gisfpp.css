@@ -1,23 +1,15 @@
-.mi-menubar {
-	display: block;
-	background: #5687a8;
-	position: relative
-}
-
-.centrado-porcentual {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-}
-
 .form-label {
-	font-family: Arial;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	color: #555555;
 	font-weight: bold;
+	display:inline-block;
+	max-width: 100%;
+	margin-bottom: 5px;
+		
 }
 
-.botonera {
+/* .botonera {
 	padding-top: 10px;
 	padding-right: 8px;
 	border-style: solid;
@@ -26,26 +18,15 @@
 	background-color: #F3F3F3;
 }
 
-.row-title .z-label {
-	font-weight: bold;
-	color: #636363;
-}
-
-.fn-caption .z-caption-l {
-	font-weight: bold;
-	font-size: medium;
-	color: #636363;
-}
-
 .mitool-bar {
 	padding: 0;
 	border: 0;
 	margin: 0;
 	background: none repeat scroll 0 0 transparent;
-}
+} */
 
 .fgrid tr.z-row td.z-row-inner, tr.z-row, div.z-grid-body
-        div.z-cell, div.z-grid {
+        div.z-cell, div.z-grid,.fgrid tr.z-row td.z-row-inner div.z-row-content {
 	border: none;
 	overflow: hidden;
 	zoom: 1;
@@ -54,7 +35,9 @@
 	border-left: none;
 	border-right: none;
 	border-bottom: none;
+	color: inherit;
 }
+
 
 .fgrid .z-grid-odd .fgrid .z-row-inner, .fgrid .z-grid-odd
         .z-cell {
@@ -63,6 +46,7 @@
 	border-left: 1px solid transparent;
 	border-top: 1px solid transparent;
 }
+
 
 .fgrid .z-grid-odd .fgrid.z-row-inner, .fgrid.z-grid-odd
         .z-cell, .fgrid.z-grid-odd {
@@ -79,67 +63,60 @@
 	border-top: none;
 }
 
-.z-textbox, .z-decimalbox, .z-intbox, .z-longbox, .z-doublebox {
-	font-size: 12px;
-	font-weight: normal;
-	font-style: normal;
-	color: #555555;
-	min-height: 34px;
-	border: 1px solid #cccccc;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	-o-border-radius: 6px;
-	-ms-border-radius: 6px;
-	border-radius: 6px;
-	margin: 0;
-	padding: 8px 12px;
-	line-height: 1.42857143;
-	background-color: #ffffff;
-  	background-image: none;
-  	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-  	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+.z-grid-odd > .z-row-inner, .z-grid-odd > .z-cell {
+    background: #d9edf7 none repeat scroll 0% 0%;
 }
 
-.z-textbox:focus, .z-decimalbox:focus, .z-intbox:focus, .z-longbox:focus,
-	.z-doublebox:focus {
-	border-color: #66afe9;
-	outline: 0;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
-		rgba(102, 175, 233, 0.6);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
-		rgba(102, 175, 233, 0.6);
+.z-column-content{
+	font-family: Times New Roman,sans-serif, Arial;
+	font-size: 14px;	
 }
 
+.z-row-content{
+	font-family: ""Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #000000;
 }
+
+.z-row:hover > .z-row-inner > .z-row-content	
+{
+	position:static;
+	background:#00aaff;
+	color: #ffffff;
+}
+
+
+
+/*No funciona el estilo de clase ".form-control" de Bootstrap para controles 
+como <combobox> <datebox> etc., se establece las reglas de estilos para estos elementos */
 .z-combobox, .z-bandbox, .z-datebox, .z-timebox, .z-spinner,
 	.z-doublespinner {
-	display: inline-block;
-	min-height: 30px;
-	white-space: nowrap
+	display: block;
+	height: 38px;
+	white-space: nowrap;
 }
 
 .z-combobox-input, .z-bandbox-input, .z-datebox-input, .z-timebox-input,
 	.z-spinner-input, .z-doublespinner-input {
-	font-size: 12px;
-	font-weight: normal;
-	font-style: normal;
-	color: #555555;
-	height: 34px;
-	border: 1px solid #cccccc;
-	border-right: 0;
-	-webkit-border-radius: 6px 0 0 6px;
-	-moz-border-radius: 6px 0 0 6px;
-	-o-border-radius: 6px 0 0 6px;
-	-ms-border-radius: 6px 0 0 6px;
-	border-radius: 6px 0 0 6px;
-	margin: 0;
-	padding: 8px 12px;
+	padding:8px 12px;
+	font-size:14px;
 	line-height: 1.42857143;
+	color:#555555;
+	height:38px;
 	background-color: #ffffff;
-  	background-image: none;
+	background-image: none;
+	border:1px solid #cccccc;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	-ms-border-radius:4px;
+	border-radius:4px;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight:normal;
+	font-style:normal;
+	margin: 0;
 }
 
 .z-combobox-input:focus, .z-bandbox-input:focus, .z-datebox-input:focus,
@@ -159,20 +136,15 @@
 	color: #636363;
 	display: inline-block;
 	min-width: 27px;
-	height: 34px;
-	min-height: 34px;
+	height: 38px;
+	min-height: 38px;
 }
 
 .z-combobox-disabled, .z-bandbox-disabled, .z-datebox-disabled,
 	.z-timebox-disabled, .z-spinner-disabled, .z-doublespinner-disabled {
-	opacity: 1;
-	filter: alpha(opacity = 100)
-}
-
-.z-combobox-disabled *, .z-bandbox-disabled *, .z-datebox-disabled *,
-	.z-timebox-disabled *, .z-spinner-disabled *, .z-doublespinner-disabled *
-	{
+	background-color: #eeeeee !important;
+	cursor: not-allowed !important;
 	color: #000000 !important;
-	background: #ffffff!important;
-	cursor: default !important;
+	opacity: 1;
+	filter: alpha(opacity=100);
 }
