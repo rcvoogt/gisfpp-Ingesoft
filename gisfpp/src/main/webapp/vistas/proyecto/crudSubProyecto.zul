@@ -3,7 +3,7 @@
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">
-			<label value="@load(vm.titulo)" style="font-size:inherit;" />
+			<label value="@load(vm.titulo)" style="font-size: 14px;" />
 		</n:h3>
 	</div>
 	<div class="panel-body" vflex="true">
@@ -32,7 +32,7 @@
 					label="Volver" onClick="@command('volver')" 
 						class="btn btn-success btn-xs"/>
 			</toolbar>
-			<tabpanels vflex="true" hflex="true">
+			<tabpanels>
 				<tabpanel id="tabDatosGenerales" hflex="1" vflex="1">
 					<grid hflex="1" vflex="1" sclass="fgrid">
 						<columns>
@@ -45,7 +45,7 @@
 							<row>
 								<div>
 									<label value="Titulo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.titulo)" width="90%" class="form-control"
+									<textbox value="@bind(vm.item.titulo)" width="95%" class="form-control"
 										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>	
 							</row>
@@ -53,7 +53,7 @@
 							<row>
 								<div>
 									<label value="Observaciones" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.observaciones)" width="90%" class="form-control"
+									<textbox value="@bind(vm.item.observaciones)" width="95%" class="form-control"
 										maxlength="500" cols="50" rows="4" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>

@@ -6,66 +6,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Service("servPersonaFisica")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class ServiciosPersonaFisica implements IServiciosPersonaFisica {
+public class ServiciosPersonaFisica implements IServicioPF {
 
 	private IDaoPersonaFisica dao;
 
-	@Override
-	public Integer nuevaPersonaFisica(PersonaFisica persona) throws Exception {
-		try {
-			dao.crear(persona);
-			return persona.getId();
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public void actualizarPersonaFisica(PersonaFisica persona) throws Exception {
-		try {
-			dao.actualizar(persona);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public void eliminarPersonaFisica(PersonaFisica persona) throws Exception {
-		try {
-			dao.eliminar(persona);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
-	@Override
-	public List<PersonaFisica> recuperarTodo() throws Exception {
-		try {
-			return dao.recuperarTodo();
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public PersonaFisica recuperarxId(Integer id) throws Exception {
-		try {
-			return dao.recuperarxId(id);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
+	
 	@Autowired(required = false)
 	public void setDao(IDaoPersonaFisica dao) {
 		this.dao = dao;
 	}
 
-}
+
+	@Override
+	@Transactional(readOnly=false)
+	public Integer persistir(PersonaFisica instancia) throws Exception {
+		return dao.crear(instancia);
+	}
+
+
+	@Override
+	@Transactional(readOnly=false)
+	public void editar(PersonaFisica instancia) throws Exception {
+		dao.actualizar(instancia);		
+	}
+
+
+	@Override
+	@Transactional(readOnly=false)
+	public void eliminar(PersonaFisica instancia) throws Exception {
+		dao.eliminar(instancia);
+		
+	}
+
+
+	@Override
+	public PersonaFisica getInstancia(Integer id) throws Exception {
+		return dao.recuperarxId(id);
+	}
+
+
+	@Override
+	public List<PersonaFisica> getListado() throws Exception {
+		return dao.recuperarTodo();
+	}
+
+}//fin de la clase

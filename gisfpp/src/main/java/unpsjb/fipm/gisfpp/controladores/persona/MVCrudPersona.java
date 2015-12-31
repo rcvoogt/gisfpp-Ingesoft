@@ -4,32 +4,33 @@ import java.util.HashMap;
 
 import javax.validation.ConstraintViolationException;
 
+import org.slf4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Panel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.servicios.persona.IServiciosPersonaFisica;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVCrudPersona {
 
-	private IServiciosPersonaFisica servPF;
+	private IServicioPF servPF;
 	private PersonaFisica item;
+	private Logger log;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -39,26 +40,29 @@ public class MVCrudPersona {
 	@SuppressWarnings("unchecked")
 	@Init
 	@NotifyChange({ "creando", "editando", "ver", "modo", "item", "titulo" })
-	public void init() {
+	public void init() throws Exception {
 		final HashMap<String, Object> opciones = (HashMap<String, Object>) Sessions.getCurrent()
-				.getAttribute("opcCrudPersona");
+				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) opciones.get("modo");
-		servPF = (IServiciosPersonaFisica) SpringUtil.getBean("servPersonaFisica");
+		servPF = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
+		log = UtilGisfpp.getLogger();
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new PersonaFisica();
+			item = new PersonaFisica("");
 			creando = true;
 			titulo = "Nueva Persona";
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
-			item = (PersonaFisica) opciones.get("item");
+			int id = (Integer)opciones.get("idItem");
+			item = servPF.getInstancia(id);
 			editando = true;
 			titulo = "Editando Persona: " + item.getNombre();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
-			item = (PersonaFisica) opciones.get("item");
+			int id = (Integer) opciones.get("idItem");
+			item = servPF.getInstancia(id);
 			ver = true;
 			titulo = "Ver Persona: " + item.getNombre();
 			break;
@@ -69,47 +73,34 @@ public class MVCrudPersona {
 
 	@Command("volver")
 	public void volver() {
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlCrudPersona");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/persona/listarPersonas.zul");
-		}
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudPersona", "vistas/persona/listadoPersonas.zul");
+		
 	}
 
 	@Command("guardar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "item","creando", "editando", "ver" })
 	public void guardar() throws Exception {
-		if (creando) {
-			try {
-				int id = servPF.nuevaPersonaFisica(item);
-				Clients.showNotification("Nueva Persona Creada. Id: " + id, Clients.NOTIFICATION_TYPE_INFO, null,
-						"top_right", 4000);
-				creando = false;
-				editando = false;
-				ver = true;
-			} catch (ConstraintViolationException cve) {
-				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de Datos", Messagebox.OK,
-						Messagebox.ERROR);
-			} catch (Exception e) {
-				throw e;
+		try {
+			if(creando){
+				servPF.persistir(item);
+				Clients.showNotification("Nueva Persona guardada", Clients.NOTIFICATION_TYPE_INFO, null,
+						"top_right", 3500);
+			}else{
+				servPF.editar(item);
+				Clients.showNotification("Se han guardado los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
+						"top_right", 3500);
 			}
-		}
-		if (editando) {
-			try {
-				servPF.actualizarPersonaFisica(item);
-				Clients.showNotification("Los cambios efectuados han sido registrados.", Clients.NOTIFICATION_TYPE_INFO,
-						null, "top_right", 4000);
-				creando = false;
-				editando = false;
-				ver = true;
-			} catch (ConstraintViolationException cve) {
-				Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error de Validacion de Datos", Messagebox.OK,
-						Messagebox.ERROR);
-			} catch (Exception e) {
-				throw e;
-			}
+			creando = editando = false;
+			ver = true;
+		} catch (ConstraintViolationException cve) {
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
+			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
 		}
 	}
 
@@ -133,16 +124,12 @@ public class MVCrudPersona {
 	@Command("cancelar")
 	@NotifyChange({ "creando", "editando", "ver", "item" })
 	public void cancelar() {
-		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
-			volver();
-		} else {
-			item = null;
 			creando = false;
 			editando = false;
 			ver = true;
-		}
 	}
 
+	//Dialogo para agregar o editar un Numero de Identificacion 
 	@Command("verDlgIdentificacion")
 	public void verDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("valor") Identificador arg2) {
 		HashMap<String, Object> map = new HashMap<>();
@@ -156,16 +143,24 @@ public class MVCrudPersona {
 	@NotifyChange({ "item" })
 	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
 			@BindingParam("valor") Identificador arg3) {
-		if (arg2 == Messagebox.OK) {
-			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-				item.agregarIdentificador(arg3);
+		try{
+			if (arg2 == Messagebox.OK) {
+				if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
+					item.agregarIdentificador(arg3);//Si el numero de identificacion ya existe se lanza una ConstraintViolationException 
+				}
+				if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
+					item.getIdentificadores().indexOf(arg3);
+				}
+				Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del N° de Identificacion", 
+						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
-			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-				item.getIdentificadores().indexOf(arg3);
-			}
+		}catch(ConstraintViolationException cve){
+			Messagebox.show(cve.getMessage(), "Error: validacion de datos", Messagebox.OK, Messagebox.ERROR);
 		}
 	}
+	//Dialogo numero de identificacion
 
+	//Dialogo para agregar o editar un Dato de Contacto
 	@Command("verDlgDatosContacto")
 	public void verDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("item") DatoDeContacto arg2) {
 		HashMap<String, Object> map = new HashMap<>();
@@ -186,9 +181,13 @@ public class MVCrudPersona {
 			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
 				item.getDatosDeContacto().indexOf(arg3);
 			}
+			Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del Dato de Contacto", 
+					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 		}
 	}
-
+	//Dialogo Dato de Contacto
+	
+	//Dialogo para agregar o editar un Domicilio
 	@Command("verDlgDomicilios")
 	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("valor") Domicilio arg2) {
 		HashMap<String, Object> map = new HashMap<>();
@@ -198,6 +197,7 @@ public class MVCrudPersona {
 		dlg.doModal();
 	}
 
+	
 	@GlobalCommand("retornoDlgDomicilios")
 	@NotifyChange("item")
 	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
@@ -209,25 +209,35 @@ public class MVCrudPersona {
 			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
 				item.getDomicilios().indexOf(arg3);
 			}
+			Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del Domicilio", 
+					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 		}
 	}
-
-	@Command("quitarDomicilios")
+	//Dialogo Domicilio
+	
+	@Command("quitarDomicilio")
 	@NotifyChange("item")
-	public void quitarDomicilios(@BindingParam("index") int index) {
-		item.getDomicilios().remove(index);
+	public void quitarDomicilio(@BindingParam("valor") Domicilio valor) {
+		item.getDomicilios().remove(valor);
+		Clients.showNotification("Guarde cambios para confirmar eliminacion del Domicilio", Clients.NOTIFICATION_TYPE_WARNING, 
+				null, "top_right", 4000);
 	}
-
+	
+	
 	@Command("quitarDatosContacto")
 	@NotifyChange("item")
-	public void quitarDatosContacto(@BindingParam("index") int index) {
-		item.getDatosDeContacto().remove(index);
+	public void quitarDatosContacto(@BindingParam("item") DatoDeContacto dato) {
+		item.getDatosDeContacto().remove(dato);
+		Clients.showNotification("Guarde cambios para confirmar eliminacion del Dato de Contacto", Clients.NOTIFICATION_TYPE_WARNING, 
+				null, "top_right", 4000);
 	}
 
 	@Command("quitarIdentificador")
 	@NotifyChange("item")
-	public void quitarIdentificacion(@BindingParam("index") int index) {
-		item.getIdentificadores().remove(index);
+	public void quitarIdentificacion(@BindingParam("valor") Identificador valor) {
+		item.removerIdentificador(valor);
+		Clients.showNotification("Guarde cambios para confirmar eliminacion del N° de Identificacion", Clients.NOTIFICATION_TYPE_WARNING, 
+				null, "top_right", 4000);
 	}
 
 	public String getTitulo() {

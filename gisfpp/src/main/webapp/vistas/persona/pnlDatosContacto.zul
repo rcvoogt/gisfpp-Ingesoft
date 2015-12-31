@@ -1,45 +1,30 @@
-<panel id="pnlDatosContacto" border="none" hflex="1" vflex="1">
-	<panelchildren>
-		<grid hflex="1" vflex="1" sclass="fgrid">
+<vbox spacing="6px" width="100%" height="100%">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar dato de contacto"
+				onClick="@command('verDlgDatosContacto', modo='NUEVO', item=null)"> Agregar</a>
+	</div>
+	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+		emptyMessage="Esta persona no tiene datos de contacto registrados."
+			model="@load(vm.item.datosDeContacto)" mold="paging" autopaging="true">
 			<columns>
-				<column width="25%" />
-				<column width="45%" />
-				<column width="30%" />
+				<column label="Tipo" width="15%" />
+				<column label="Valor" width="34%" />
+				<column label="Editar" width="7%" align="center"/>
+				<column label="Quitar" width="7%" align="center"/>
+				<column width="37%"/>
 			</columns>
-			<rows>
+			<template name="model">
 				<row>
-					<listbox id="lista" rows="5"
-						emptyMessage="Sin Datos de Contacto para mostrar"
-						model="@load(vm.item.datosDeContacto)" hflex="1">
-						<listhead hflex="1">
-							<listheader label="Tipo" width="40%" />
-							<listheader label="Valor" width="60%" />
-						</listhead>
-						<template name="model">
-							<listitem value="@load(each)">
-								<listcell label="@load(each.tipo.titulo)" />
-								<listcell label="@load(each.valor)" />
-							</listitem>
-						</template>
-					</listbox>
+					<label value="@load(each.tipo.titulo)"/>
+					<label value="@load(each.valor)"/>
+					<toolbarbutton image="recursos/img/icon-edit.png"
+						tooltiptext="Editar datos de contacto" disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('verDlgDatosContacto', modo='EDICION', item = each)"/>
+					<toolbarbutton image="recursos/img/icon-trash.png"
+						tooltiptext="Eliminar datos de contacto" disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('quitarDatosContacto', item=each)"/>		
 				</row>
-				<row height="5px" />
-				<row>
-					<hbox hflex="1">
-						<button label="Agregar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))"
-							onClick="@command('verDlgDatosContacto', modo='NUEVO', item=null)" />
-						<button label="Editar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))" 
-								onClick="@command('verDlgDatosContacto', modo='EDICION', item=lista.selectedItem.value)"/>
-						<button label="Quitar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))" 
-								onClick="@command('quitarDatosContacto', index=lista.selectedIndex)"/>
-					</hbox>
-				</row>
-				
-			</rows>
-		</grid>
-
-	</panelchildren>
-</panel>
+			</template>
+	</grid>
+</vbox>

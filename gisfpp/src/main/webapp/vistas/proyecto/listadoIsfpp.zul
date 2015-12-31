@@ -1,7 +1,8 @@
 <vbox spacing="6px" width="100%" height="100%">
 	<div class="btn-toolbar pull-right">
 		<a image="recursos/img/icon-createfile.png" tooltiptext="Crear y asignar una nueva Isfpp"
-			class="btn btn-success btn-xs" onClick="@command('nuevaIsfpp')"> Nueva Isfpp</a>
+			class="btn btn-success btn-xs" onClick="@command('nuevaIsfpp')"
+				disabled="@load((not vm.creando) and (not vm.editando))"> Nueva Isfpp</a>
 	</div>
 	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
 	 	style="border: 2px solid #80ccff; border-radius: 5px;"
@@ -24,12 +25,12 @@
 				<label value="@load(each.estado)"/>
 				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
-				<toolbarbutton image="recursos/img/icon-preview.png"
+				<toolbarbutton image="recursos/img/icon-preview.png" 
 					tooltip="Ver detalle" onClick="@command('verIsfpp', idItem=each.id)" />
-				<toolbarbutton image="recursos/img/icon-edit.png"
+				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load((not vm.creando) and (not vm.editando))"
 					tooltiptext="Editar datos" onClick="@command('editarIsfpp', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png"
-					tooltiptext="Dar de baja"
+					tooltiptext="Dar de baja" disabled="@load((not vm.creando) and (not vm.editando))"
 					onClick="" />				
 			</row>
 		</template>

@@ -1,8 +1,11 @@
 package unpsjb.fipm.gisfpp.dao.persona;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -19,6 +22,7 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
+	@Transactional(readOnly=false)
 	public Integer crear(PersonaFisica instancia) throws DataAccessException {
 		Usuario usuario;
 		// si la persona a crear no tiene un usuario establecido se le crea uno
@@ -53,6 +57,7 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public void actualizar(PersonaFisica instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -63,6 +68,7 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public void eliminar(PersonaFisica instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -76,10 +82,16 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	@Override
 	@Transactional(readOnly = true)
 	public List<PersonaFisica> recuperarTodo() throws DataAccessException {
-		String query = "from PersonaFisica as pf left join fetch pf.identificadores";
+		String query = "select pf from PersonaFisica pf left join fetch pf.identificadores";
 		try {
 			List<PersonaFisica> lista = (List<PersonaFisica>) getHibernateTemplate().find(query, null);
-			return lista;
+			//La consulta devuelve Personas duplicadas segun la cantidad de identificadores
+			//registrados que tenga. Por eso se utiliza este truco de pasar la lista resultado a un Set que 
+			//por definicion no permite duplicados, eliminando dichos elementos duplicados de la lista
+			Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(lista);
+			lista.clear();
+			lista.addAll(listaSinDuplicados);
+ 			return lista;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -90,8 +102,17 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	@Override
 	@Transactional(readOnly = true)
 	public PersonaFisica recuperarxId(Integer id) throws DataAccessException {
+		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores	where pf.id = ?";
 		try {
-			return getHibernateTemplate().get(PersonaFisica.class, id);
+			getHibernateTemplate().setCacheQueries(true);
+			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, id);
+			if(result ==null || result.isEmpty()){
+				return null;
+			}else{
+				getHibernateTemplate().initialize(result.get(0).getDatosDeContacto());
+				getHibernateTemplate().initialize(result.get(0).getDomicilios());
+				return result.get(0);
+			}
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;

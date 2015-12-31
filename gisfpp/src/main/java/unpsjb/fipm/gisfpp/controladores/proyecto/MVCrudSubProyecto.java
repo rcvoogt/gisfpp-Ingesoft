@@ -54,8 +54,7 @@ public class MVCrudSubProyecto {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new SubProyecto(perteneceA, "", "");
 			creando = true;
-			editando = false;
-			ver = false;
+			editando = ver =false;
 			titulo = "Nuevo Sub-Proyecto / Proyecto: (" + item.getPerteneceA().getCodigo() + ") "
 					+ item.getPerteneceA().getTitulo();
 			break;
@@ -64,9 +63,8 @@ public class MVCrudSubProyecto {
 			Integer id = (Integer) map.get("idItem");
 			item = servicio.getInstancia(id);
 			item.setPerteneceA(perteneceA);
-			creando = false;
+			creando = ver=false;
 			editando = true;
-			ver = false;
 			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
 					+ perteneceA.getTitulo();
 			break;
@@ -75,8 +73,7 @@ public class MVCrudSubProyecto {
 			Integer id = (Integer) map.get("idItem");
 			item = servicio.getInstancia(id);
 			item.setPerteneceA(perteneceA);
-			creando = false;
-			editando = false;
+			creando = editando =false;
 			ver = true;
 			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
 					+ perteneceA.getTitulo();
@@ -90,16 +87,14 @@ public class MVCrudSubProyecto {
 	public void nuevo() {
 		item = new SubProyecto(perteneceA, null, null);
 		creando = true;
-		editando = false;
-		ver = false;
+		editando = ver =false;
 	}
 
 	@Command("editar")
 	@NotifyChange({ "editando", "creando", "ver" })
 	public void reEditar() {
 		editando = true;
-		creando = false;
-		ver = false;
+		creando = ver=false;
 	}
 
 	@Command("guardar")
@@ -108,19 +103,15 @@ public class MVCrudSubProyecto {
 		try {
 			if (creando) {
 				int id = servicio.persistir(item);
-				Clients.showNotification("Nuevo Sub-Proyecto registrado. Id: ( " + id + ")",
+				Clients.showNotification("Nuevo Sub-Proyecto guardado.",
 						Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 3500);
-				creando = false;
-				editando = false;
-				ver = true;
 			} else if (editando) {
 				servicio.editar(item);
 				Clients.showNotification("Se guardaron los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
-				creando = false;
-				editando = false;
-				ver = true;
 			}
+			creando=editando=false;
+			ver = true;
 		} catch (ConstraintViolationException cve) {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
@@ -136,8 +127,7 @@ public class MVCrudSubProyecto {
 	@Command("cancelar")
 	@NotifyChange({ "creando", "editando", "ver" })
 	public void cancelar() {
-		creando = false;
-		editando = false;
+		creando = editando =false;
 		ver = true;
 	}
 

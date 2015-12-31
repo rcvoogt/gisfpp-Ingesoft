@@ -42,13 +42,13 @@ public class PersonaJuridica extends Persona {
 		return nombre;
 	}
 
-	// Es Persona Jurï¿½dica, no posee DNI
+	// Es Persona Juridica, no posee DNI
 	@Override
 	public String getDni() {
 		return null;
 	}
 
-	// Es Persona Jurï¿½dica, no posee CUIL
+	// Es Persona Juridica, no posee CUIL
 	@Override
 	public String getCuil() {
 		return null;
@@ -59,19 +59,19 @@ public class PersonaJuridica extends Persona {
 		return getValorIdentificador(TIdentificador.CUIT);
 	}
 
-	// Es Persona Jurï¿½dica, no posee Matricula
+	// Es Persona Juridica, no posee Matricula
 	@Override
 	public String getMatricula() {
 		return null;
 	}
 
-	// Es Persona Jurï¿½dica, no posee Legajo
+	// Es Persona Juridica, no posee Legajo
 	@Override
 	public String getLegajo() {
 		return null;
 	}
 
-	@AssertTrue(message = "El N° de Identificacion permitido para una Organizacion es el CUIT delinasolamente.")
+	@AssertTrue(message = "El N° de Identificacion permitido para una Organizacion es el CUIT solamente.")
 	private boolean isIdentificacionesValidas() {
 		if (getIdentificadores() == null) {
 			return true;

@@ -3,7 +3,7 @@
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">
-			<label value="@load(vm.titulo)" style="font-size: inherit;" />
+			<label value="@load(vm.titulo)" style="font-size: 14px;" />
 		</n:h3>
 	</div>
 	<div class="panel-body" vflex="true">

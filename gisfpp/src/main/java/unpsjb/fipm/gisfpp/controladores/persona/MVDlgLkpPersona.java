@@ -10,19 +10,19 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Path;
-import org.zkoss.zkplus.spring.SpringUtil;
+import org.zkoss.spring.SpringUtil;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.servicios.persona.IServiciosPersonaFisica;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 
 public class MVDlgLkpPersona {
 
 	private List<PersonaFisica> lista;
 	private List<PersonaFisica> temporal;
 	private List<PersonaFisica> listFiltrada;
-	private IServiciosPersonaFisica servicio;
+	private IServicioPF servicio;
 	private String campoLookup = "";
 	private String valorLookup = "";
 	private boolean filtrado = false;
@@ -30,9 +30,9 @@ public class MVDlgLkpPersona {
 	@Init
 	@NotifyChange("lista")
 	public void init() throws Exception {
-		servicio = (IServiciosPersonaFisica) SpringUtil.getBean("servPersonaFisica");
+		servicio = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
 		try {
-			lista = servicio.recuperarTodo();
+			lista = servicio.getListado();
 		} catch (Exception e) {
 			throw e;
 		}

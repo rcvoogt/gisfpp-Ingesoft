@@ -21,20 +21,21 @@ import javax.persistence.Table;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
-@SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 @Table(name="persona")
 public abstract class Persona implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idPersona")
 	private Integer id;
 
-	// Para Persona F�sica corresponde el Nombre y Apellidos, para Persona
-	// Juridica corresponde la Raz�n Social
+	// Para Persona Fisica corresponde el Nombre y Apellidos, para Persona
+	// Juridica corresponde la Razon Social
 	@Column(name = "nombre", length = 80, nullable = false)
 	protected String nombre;
 
@@ -138,13 +139,6 @@ public abstract class Persona implements Serializable {
 	public void removerIdentificador(Identificador identificador) {
 		identificadores.remove(identificador);
 	}
-
-	/*
-	 * private boolean isEmailValido(){ if(datosDeContacto==null){ return false;
-	 * } for (DatoDeContacto contacto : datosDeContacto) {
-	 * if(contacto.getTipo().equals(TDatosContacto.EMAIL)){
-	 * 
-	 * } } }
-	 */
-
+	
+	
 }// Fin de la clase Entity Persona

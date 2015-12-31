@@ -1,16 +1,21 @@
-<panel id="pnlListarPersonas" title="Listado de Personas" border="none"
-	width="100%" height="100%" sclass="panel-primary"
+<div id="pnlListaPersonas" class="panel panel-primary" vflex="true" xmlns:n="native"
 	apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarPersonas')">
-	<panelchildren>
-		<vbox hflex="1" vflex="1" spacing="12px">
-			<toolbar sclass="mitool-bar" hflex="1">
-				<toolbarbutton image="recursos/img/icon-exit.png"
-					style="float:right;" label="Salir" onClick="@command('salir')" />
-				<toolbarbutton image="recursos/img/icon-portrait.png"
-					style="float:right;" label="Nueva Persona" onClick="@command('nuevaPersona')"/>
-			</toolbar>
-			<grid mold="paging" autopaging="true"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarPersonas')">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="Listado de Personas" style="font-size: 14px;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<vbox hflex="1" vflex="1" spacing="6px">
+			<div class="btn-toolbar pull-right">
+				<a image="recursos/img/icon-portrait.png" class="btn btn-success btn-sm"
+					onClick="@command('nuevaPersona')" 
+						tooltiptext="Crear registro de una nueva Persona"> Nueva Persona</a>
+				<a image="recursos/img/icon-exit.png" class="btn btn-success btn-sm"
+					onClick="@command('salir')"> Salir</a>
+			</div>
+			<grid mold="paging" autopaging="true" style="border: 2px solid #80ccff; border-radius: 5px;"
 				emptyMessage="No hay Personas registradas."
 				vflex="1" model="@load(vm.personas)">
 				<columns>
@@ -39,5 +44,6 @@
 				</template>
 			</grid>
 		</vbox>
-	</panelchildren>
-</panel>
+	</div>
+</div>
+

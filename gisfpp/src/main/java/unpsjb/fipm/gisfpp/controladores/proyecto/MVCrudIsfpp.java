@@ -106,16 +106,14 @@ public class MVCrudIsfpp {
 				servicio.persistir(item);
 				Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
-				creando = (editando = false);
-				ver = true;
 			}
 			if (editando) {
 				servicio.editar(item);
 				Clients.showNotification("Se guardaron los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
-				creando = (editando = false);
-				ver = true;
 			}
+			creando = editando = false;
+			ver=true;
 		} catch (ConstraintViolationException cve) {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);

@@ -1,49 +1,49 @@
 <window id="dlgDomicilio" title="@load(vm.titulo)" border="normal" closable="true"
-	width="35%" height="48%" apply="org.zkoss.bind.BindComposer" mode="modal"
+	width="35%" height="76%" apply="org.zkoss.bind.BindComposer" mode="modal"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgDomicilios')">
-	<groupbox vflex="1">
-		<grid hflex="1" vflex="1" sclass="fgrid">
-			<columns>
-				<column width="30%" />
-				<column width="70%" />
-			</columns>
-			<rows>
-				<row>
-					<label value="Altura: " sclass="texto-formulario" />
-					<textbox width="30%" value="@bind(vm.domicilio.altura)"/>
-				</row>
-				<row>
-					<label value="Calle:" sclass="texto-formulario"/>
-					<textbox width="90%" value="@bind(vm.domicilio.calle)"/>
-				</row>
-				<row>
-					<label value="N° Piso:" sclass="texto-formulario"/>
-					<textbox width="30%" value="@bind(vm.domicilio.piso)"/>
-				</row>
-				<row>
-					<label value="N° Dpto:" sclass="texto-formulario"/>
-					<textbox width="30%" value="@bind(vm.domicilio.num_dpto)"/>
-				</row>
-				<row>
-					<label value="Cod. Postal:" sclass="texto-formulario"/>
-					<textbox width="30%" value="@bind(vm.domicilio.cod_postal)"/>
-				</row>
-				<row>
-					<label value="Localidad:" sclass="texto-formulario"/>
-					<textbox width="90%" value="@bind(vm.domicilio.localidad)"/>
-				</row>
-				<row>
-					<label value="Provincia:" sclass="texto-formulario"/>
-					<textbox width="90%" value="@bind(vm.domicilio.provincia)"/>
-				</row>
-				<row height="10px"/>
-				<row spans="2">
-					<hbox pack="center" spacing="5px" hflex="1">
-						<button label="Aceptar" onClick="@command('aceptar')"/>
-						<button label="Cancelar" onClick="@command('cancelar')"/>
-					</hbox>
-				</row>
-			</rows>
-		</grid>
-	</groupbox>
+	<vbox vflex="true" hflex="true" spacing="12px" style="margin-left: 2px;">
+		<div>
+			<label value="Altura" class="form-label" width="45%"/>
+			<textbox width="30%" value="@bind(vm.domicilio.altura)"
+				class="form-control" maxlength="6"/>
+		</div>
+		<div>
+			<label value="Calle" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.domicilio.calle)"
+				class="form-control" maxlength="50"/>
+		</div>
+		<div>
+			<label value="N° Piso" class="form-label" width="45%"/>
+			<textbox width="30%" value="@bind(vm.domicilio.piso)"
+				class="form-control" maxlength="3"/>
+		</div>
+		<div>
+			<label value="N° Dpto" class="form-label" width="45%"/>
+			<textbox width="30%" value="@bind(vm.domicilio.num_dpto)"
+				class="form-control" maxlength="3"/>
+		</div>
+		<div>
+			<label value="Cod. Postal" class="form-label" width="45%"/>
+			<textbox width="30%" value="@bind(vm.domicilio.cod_postal)"
+				class="form-control" maxlength="5"/>
+		</div>
+		<div>
+			<label value="Localidad" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.domicilio.localidad)"
+				class="form-control" maxlength="50"/>
+		</div>
+		<div>
+			<label value="Provincia" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.domicilio.provincia)"
+				class="form-control" maxlength="50"/>
+		</div>
+		<div vflex="true">
+			<hbox pack="center" spacing="8px" hflex="true" align="end">
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptar')"> Aceptar</a>
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
+					onClick="@command('cancelar')"> Cancelar</a>	
+			</hbox>
+		</div>
+	</vbox>
 </window>

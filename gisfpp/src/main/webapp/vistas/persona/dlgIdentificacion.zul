@@ -1,33 +1,28 @@
 <window id="dlgIdentificacion" title="@load(vm.titulo)" border="normal" closable="true"
-	width="25%" height="25%" apply="org.zkoss.bind.BindComposer" mode="modal"
+	width="25%" height="30%" apply="org.zkoss.bind.BindComposer" mode="modal"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgIdentificacion')">
-	<groupbox vflex="1">
-		<grid hflex="1" vflex="1" sclass="fgrid">
-			<columns>
-				<column width="25%" />
-				<column width="75%" />
-			</columns>
-			<rows>
-				<row>
-					<label value="Tipo: " sclass="texto-formulario" />
-					<combobox model="@load(vm.tipos)" selectedItem="@bind(vm.identificador.tipo)" disabled="@load(vm.modo eq 'EDICION')">
-						<template name="model">
-							<comboitem label="@load(each.descripcion)"/>
-						</template>
-					</combobox>
-				</row>
-				<row>
-					<label value="Valor:" sclass="texto-formulario"/>
-					<textbox width="70%" value="@bind(vm.identificador.valor)"/>
-				</row>
-				<row height="10px"/>
-				<row spans="2">
-					<hbox pack="center" spacing="5px" hflex="1">
-						<button label="Aceptar" onClick="@command('aceptar')"/>
-						<button label="Cancelar" onClick="@command('cancelar')"/>
-					</hbox>
-				</row>
-			</rows>
-		</grid>
-	</groupbox>
+	<vbox vflex="true" hflex="true" spacing="12px" style="margin-left: 2px;">
+		<div hflex="true">
+			<label value="Tipo" sclass="form-label" width="45%"/>
+			<combobox model="@load(vm.tipos)" selectedItem="@bind(vm.identificador.tipo)" 
+				disabled="@load(vm.modo eq 'EDICION')" width="55%">
+				<template name="model">
+					<comboitem label="@load(each.descripcion)"/>
+				</template>
+			</combobox>
+		</div>
+		<div hflex="true">
+			<label value="Valor" sclass="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.identificador.valor)"
+				class="form-control" maxlength="30"/>
+		</div>
+		<div vflex="true">
+			<hbox pack="center" spacing="8px" hflex="true" align="end">
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptar')"> Aceptar</a>
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
+					onClick="@command('cancelar')"> Cancelar</a>	
+			</hbox>
+		</div>
+	</vbox>
 </window>

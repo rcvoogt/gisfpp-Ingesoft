@@ -129,19 +129,15 @@ public class MVCrudProyecto {
 		try {
 			if (creando) {
 				int id = servicio.persistir(seleccionado);
-				Clients.showNotification("Nuevo Proyecto creado. ", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+				Clients.showNotification("Nuevo Proyecto guardado. ", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
-				creando = false;
-				editando = false;
-				ver = true;
 			} else if (editando) {
 				servicio.editar(seleccionado);
-				Clients.showNotification("Proyecto actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+				Clients.showNotification("Se han guardado los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
-				creando = false;
-				editando = false;
-				ver = true;
 			}
+			creando=editando=false;
+			ver = true;
 		} catch (ConstraintViolationException cve) {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);

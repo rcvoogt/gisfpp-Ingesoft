@@ -1,44 +1,32 @@
-<panel id="pnlIdentificaciones" border="none" hflex="1" vflex="1">
-	<panelchildren>
-		<grid hflex="1" vflex="1" sclass="fgrid">
+<vbox spacing="6px" height="100%" width="100%">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar N° de Identificacion"
+				onClick="@command('verDlgIdentificacion', modo='NUEVO', valor=null)"> Agregar</a>
+	</div>
+	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+		emptyMessage="Esta persona no tiene Numeros de Identificacion registrados."
+			model="@load(vm.item.identificadores)" mold="paging" autopaging="true">
 			<columns>
-				<column width="25%" />
-				<column width="75%" />
+				<column label="Tipo" width="15%" />
+				<column label="Valor" width="34%" />
+				<column label="Editar" width="7%" align="center"/>
+				<column label="Quitar" width="7%" align="center"/>
+				<column width="37%"/>
 			</columns>
-			<rows>
+			<template name="model">
 				<row>
-					<listbox id="lista" rows="5"
-						emptyMessage="Sin Identificaciones"
-						model="@load(vm.item.identificadores)" hflex="1">
-						<listhead hflex="1">
-							<listheader label="Tipo" width="40%" />
-							<listheader label="Valor" width="60%" />
-						</listhead>
-						<template name="model">
-							<listitem value="@load(each)">
-								<listcell label="@load(each.tipo.descripcion)" />
-								<listcell label="@load(each.valor)" />
-							</listitem>
-						</template>
-					</listbox>
-				</row>
-				<row height="5px" />
-				<row>
-					<hbox hflex="1">
-						<button label="Agregar" sclass="btn-primary"
+					<label value="@load(each.tipo)"/>
+					<label value="@load(each.valor)"/>
+					<toolbarbutton image="recursos/img/icon-edit.png"
+						tooltiptext="Editar N° de Identificacion"
 							disabled="@load((not vm.creando) and (not vm.editando))"
-							onClick="@command('verDlgIdentificacion', modo='NUEVO', valor=null)" />
-						<button label="Editar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))" 
-								onClick="@command('verDlgIdentificacion', modo='EDICION', valor=lista.selectedItem.value)"/>
-						<button label="Quitar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))" 
-								onClick="@command('quitarIdentificador', index=lista.selectedIndex)"/>
-					</hbox>
+								onClick="@command('verDlgIdentificacion', modo='EDICION', valor= each)"/>
+					<toolbarbutton image="recursos/img/icon-trash.png"
+						tooltiptext="Eliminar N° de Identificacion" disabled="@load((not vm.creando) and (not vm.editando))"
+							onClick="@command('quitarIdentificador', valor= each)"/>		
 				</row>
-				
-			</rows>
-		</grid>
+			</template>
+	</grid>
+</vbox>
 
-	</panelchildren>
-</panel>

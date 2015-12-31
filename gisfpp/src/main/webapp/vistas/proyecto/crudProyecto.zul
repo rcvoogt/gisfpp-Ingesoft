@@ -3,7 +3,7 @@
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">
-			<label value="@load(vm.titulo)" style="font-size:inherit;" />
+			<label value="@load(vm.titulo)" style="font-size:14px;" />
 		</n:h3>
 	</div>
 	<div class="panel-body" vflex="true">
@@ -52,12 +52,12 @@
 							<row>
 								<div>
 									<label value="Codigo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.seleccionado.codigo)" width="90%" class="form-control"
+									<textbox value="@bind(vm.seleccionado.codigo)" width="95%" class="form-control"
 										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 								<div>
 									<label value="Numero de Resolucion" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.seleccionado.resolucion)" width="90%" class="form-control"
+									<textbox value="@bind(vm.seleccionado.resolucion)" width="95%" class="form-control"
 										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
@@ -65,7 +65,7 @@
 							<row>
 								<div>
 									<label value="Titulo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.seleccionado.titulo)" width="90%" class="form-control"
+									<textbox value="@bind(vm.seleccionado.titulo)" width="95%" class="form-control"
 										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
@@ -73,7 +73,7 @@
 							<row>
 								<div>
 									<label value="Descripcion" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.seleccionado.descripcion)" width="90%" class="form-control"
+									<textbox value="@bind(vm.seleccionado.descripcion)" width="95%" class="form-control"
 										maxlength="500" cols="50" rows="4" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
@@ -121,7 +121,7 @@
 							<row>
 								<div>
 									<label value="Detalle" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.seleccionado.descripcion)" width="90%" class="form-control"
+									<textbox value="@bind(vm.seleccionado.descripcion)" width="95%" class="form-control"
 										maxlength="2000" cols="50" rows="6" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
