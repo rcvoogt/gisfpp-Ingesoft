@@ -1,69 +1,97 @@
-<panel id="pnlCrudStaff" title="@load(vm.titulo)" border="none" width="100%" height="100%" 
-	sclass="panel-primary" apply="org.zkoss.bind.BindComposer"
+<div id="pnlCrudStaff" class="panel panel-primary" height="100%" width="100%" xmlns:n="native"
+	apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.staff.MVCrudStaff')">
-	<panelchildren>
-		<vbox hflex="1" vflex="1" spacing="12px">
-			<toolbar sclass="mitool-bar" hflex="1">
-				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver" style="float:right;"
-					onClick="@command('volver')"/>
-				<space bar="true" spacing="20px" style="float:right;"/>	
-				<toolbarbutton image="recursos/img/icon-remove-sign.png" label="Cancelar" style="float:right;"
-					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('cancelar')"/>
-				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" style="float:right;" 
-					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('guardar')"/>
-				<space bar="true" spacing="20px" style="float:right;"/>	
-				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" style="float:right;" disabled="@load(vm.editando)"
-					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"/>	
-				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
-					visible="@load(vm.modo eq 'NUEVO')" style="float:right;" onClick="@command('nuevaAsociacion')"/>	
-			</toolbar>
-			<grid width="100%" vflex="1" sclass="fgrid">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.titulo)" style="font-size:14px;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<vbox hflex="true" vflex="true" spacing="6px">
+			<div class="btn-toolbar pull-right">
+				<a class="btn btn-success btn-xs" tooltiptext="Asociar una nueva Persona"
+					image="recursos/img/icon-plus-sign.png" disabled="@load(vm.creando)"
+						visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevaAsociacion')"> Nuevo</a>
+				<a class="btn btn-success btn-xs" tooltiptext="Editar asociacion" onClick="@command('editar')"
+					image="recursos/img/icon-edit.png" disabled="@load(vm.editando)"
+						visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"> Editar</a>
+				<a class="btn btn-success btn-xs" image="recursos/img/icon-save.png"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('guardar')"> Guardar</a>
+				<a class="btn btn-success btn-xs" image="recursos/img/icon-remove-sign.png"
+					disabled="@load((not vm.creando) and (not vm.editando))" 
+						onClick="@command('cancelar')"> Cancelar</a>
+				<a class="btn btn-success btn-xs" image="recursos/img/icon-arrow-left.png"
+					onClick="@command('volver')" 
+						disabled="@load((vm.creando) or (vm.editando))"> Volver</a>
+				<a class="btn btn-success btn-xs" image="recursos/img/icon-exit.png"
+					disabled="@load((vm.creando) or (vm.editando))"
+						onClick="@command('salir')"> Salir</a>										
+			</div>
+			<grid hflex="true" vflex="true" sclass="fgrid" style="border-top: 2px solid #ebebe0;">
 				<columns>
-					<column width="10%"/>
-					<column width="30%"/>
-					<column width="60%"/>
+					<column width="33%"/>
+					<column width="33%"/>
+					<column width="34%"/>
 				</columns>
-				<rows>
-					<row height="45px">
-						<label value="Nombre y Apellido:" sclass="texto-formulario"/>
-						<hbox hflex="1">
-							<textbox value="@load(vm.item.miembro.nombre)" readonly="true" width="270px"/>
-							<toolbarbutton image="recursos/img/icon-findfriends.png" tooltiptext="Buscar Persona"
-								onClick="@command('verDlgLookupPersona')"/>
-						</hbox>
+				<rows vflex="true">
+					<row height="15px"/>
+					<row>
+						<div>
+							<label value="Nombre y Apellido" class="form-label" width="45%"/>
+							<hbox hflex="true">
+								<textbox value="@load(vm.item.miembro.nombre)" readonly="true" width="95%"
+									class="form-control"/>
+								<toolbarbutton image="recursos/img/icon-findfriends.png" tooltiptext="Buscar Persona"
+									onClick="@command('verDlgLookupPersona')" class="btn btn-success btn-sm"/>
+							</hbox>	
+						</div>
 					</row>
-					<row height="45px">
-						<label value="DNI:" sclass="texto-formulario"/>
-						<textbox value="@load(vm.item.miembro.dni)" readonly="true" width="25%"/>
+					<row height="15px"/>
+					<row>
+						<div>
+							<label value="DNI" class="form-label" width="45%"/>
+							<textbox value="@load(vm.item.miembro.dni)" readonly="true" width="25%"
+								class="form-control"/>
+						</div>
 					</row>
-					<row height="45px">
-						<label value="Cargo:" sclass="texto-formulario"/>
-						<combobox model="@load(vm.cargos)" width="42%" selectedItem="@bind(vm.item.rol)"
-							readonly="@load((not vm.creando) and (not vm.editando))" buttonVisible="@load(vm.creando or vm.editando)">
+					<row height="15px"/>
+					<row>
+						<div>
+							<label value="Cargo" class="form-label" width="45%"/>
+							<combobox model="@load(vm.cargos)" width="45%" selectedItem="@bind(vm.item.rol)"
+								disabled="@load((not vm.creando) and (not vm.editando))">
 							<template name="model">
 								<comboitem label="@load(each.titulo)" value="@load(each)"/>
 							</template>
-						</combobox>
+						</combobox>	
+						</div>
 					</row>
-					<row height="45px">
-						<label value="Desde:" sclass="texto-formulario"/>
-						<datebox buttonVisible="@load(vm.creando or vm.editando)" format="dd/MM/yyy" 
-							readonly="@load((not vm.creando) and (not vm.editando))"
-							 value="@bind(vm.item.desde)"/>
-					</row>
-					<row height="45px">
-						<label value="Hasta:" sclass="texto-formulario"/>
-						<datebox buttonVisible="@load(vm.creando or vm.editando)" format="dd/MM/yyy" 
-							readonly="@load((not vm.creando) and (not vm.editando))" value="@bind(vm.item.hasta)"/>
-					</row>
-					<row height="10px"/>
+					<row height="15px"/>
 					<row>
-						<label value="Observaciones:" sclass="texto-formulario"/>
-						<textbox value="@bind(vm.item.nota)"	width="80%" cols="60" maxlength="2000" rows="6"
-							style="resize: none;" readonly="@load((not vm.creando) and (not vm.editando))" />
+						<div>
+							<label value="Desde" class="form-label" width="45%"/>
+							<datebox format="dd/MM/yyy" width="35%" buttonVisible="true" 
+								disabled="@load((not vm.creando) and (not vm.editando))"
+							 		value="@bind(vm.item.desde)"/>
+						</div>
+						<div>
+							<label value="Hasta" class="form-label" width="45%"/>
+							<datebox buttonVisible="true" format="dd/MM/yyy" 
+								disabled="@load((not vm.creando) and (not vm.editando))" 
+									value="@bind(vm.item.hasta)" width="35%"/>	
+						</div>
+					</row>
+					<row height="15px"/>
+					<row>
+						<div>
+							<label value="Observacion" class="form-label" width="45%"/>
+							<textbox value="@bind(vm.item.nota)" width="95%" cols="60" maxlength="100" rows="6"
+								disabled="@load((not vm.creando) and (not vm.editando))" class="form-control"/>	
+						</div>
 					</row>
 				</rows>
 			</grid>
-		</vbox>
-	</panelchildren>	
-</panel>
+		</vbox>	
+	</div>	
+</div>

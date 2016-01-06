@@ -65,7 +65,7 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	@Override
 	@Transactional(readOnly = true)
 	public Isfpp recuperarxId(Integer id) throws DataAccessException {
-		String query = "from Isfpp as isfpp where isfpp.id = ?";
+		String query = "select isfpp from Isfpp as isfpp inner join fetch isfpp.perteneceA sp inner join fetch sp.perteneceA where isfpp.id = ?";
 		List<Isfpp> result;
 		try {
 			result = (List<Isfpp>) getHibernateTemplate().find(query, id);

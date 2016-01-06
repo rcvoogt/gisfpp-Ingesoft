@@ -13,65 +13,51 @@ import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 
 @Service("servStaffFI")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class ServiciosStaff implements IServiosStaff {
+public class ServiciosStaff implements IServiciosStaffFI {
 
 	private IDaoStaffFI dao;
 
-	@Override
-	@Transactional(readOnly = false)
-	public int nuevaAsociacionStaff(StaffFI asociacion) throws Exception {
-		try {
-			return dao.crear(asociacion);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public void editarAsociacionStaff(StaffFI asociacion) throws Exception {
-		try {
-			dao.actualizar(asociacion);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	@Transactional(readOnly = false)
-	public void eliminarAsociacionStaff(StaffFI asociacion) throws Exception {
-		try {
-			dao.eliminar(asociacion);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<StaffFI> recuperarTodoStaff() throws Exception {
-		try {
-			return dao.recuperarTodo();
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public StaffFI getStaffFI(Integer id) throws Exception {
-		try {
-			return dao.recuperarxId(id);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-
+	
 	@Autowired(required = true)
 	public void setDao(IDaoStaffFI arg) {
 		dao = arg;
 	}
+
+
+	@Override
+	@Transactional(readOnly=false)
+	public Integer persistir(StaffFI instancia) throws Exception {
+		return dao.crear(instancia);
+	}
+
+
+	@Override
+	@Transactional(readOnly=false)
+	public void editar(StaffFI instancia) throws Exception {
+		dao.actualizar(instancia);		
+	}
+
+
+	@Override
+	@Transactional(readOnly=false)
+	public void eliminar(StaffFI instancia) throws Exception {
+		dao.eliminar(instancia);		
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public StaffFI getInstancia(Integer id) throws Exception {
+		return dao.recuperarxId(id);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<StaffFI> getListado() throws Exception {
+		return dao.recuperarTodo();
+	}
+	
+	
 
 }// fin de la clase

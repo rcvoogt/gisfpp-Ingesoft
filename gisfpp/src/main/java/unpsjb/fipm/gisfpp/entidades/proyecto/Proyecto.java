@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,7 +15,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +27,8 @@ import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 
 @Entity
 @Table(name = "proyecto")
@@ -70,24 +76,29 @@ public class Proyecto implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private List<SubProyecto> subProyectos;
+	
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId"), inverseJoinColumns=@JoinColumn(name="personaId"))
+	private Set <Persona> demandantes;
 
 	protected Proyecto() {
 		super();
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
-			EstadoProyecto estado, Date fecha_inicio, Date fecha_fin, String detalle, List<SubProyecto> subProyectos) {
+			Date fecha_inicio, Date fecha_fin, String detalle, List<SubProyecto> subProyectos, Set<Persona> demandantes) {
 		super();
 		this.codigo = codigo;
 		this.resolucion = resolucion;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
-		this.estado = estado;
+		this.estado = EstadoProyecto.GENERADO;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.detalle = detalle;
 		this.subProyectos = subProyectos;
+		this.demandantes = demandantes;
 	}
 
 	public Integer getId() {
@@ -182,8 +193,16 @@ public class Proyecto implements Serializable {
 	public void setSubProyectos(List<SubProyecto> subProyectos) {
 		this.subProyectos = subProyectos;
 	}
+	
+	public Set<Persona> getDemandantes() {
+		return demandantes;
+	}
 
-	@AssertTrue(message = "\"Fecha Fin\" - La Fecha Fin debe ser posterior a la Fecha Inicio del Proyecto.")
+	public void setDemandantes(Set<Persona> demandantes) {
+		this.demandantes = demandantes;
+	}
+
+	@AssertTrue(message = "La Fecha de finalizacion del proyecto debe ser posterior a la fecha de inicio.")
 	private boolean isFechaFinValida() {
 		if (fecha_fin.after(fecha_inicio)) {
 			return true;

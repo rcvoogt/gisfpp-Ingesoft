@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
@@ -37,6 +38,7 @@ public class MVCrudSubProyecto {
 	private boolean creando;
 	private boolean editando;
 	private boolean ver;
+	private boolean toolbar_disabled=false;
 	private String modo;
 	private String titulo;
 	private HashMap<String, Object> map;
@@ -55,27 +57,25 @@ public class MVCrudSubProyecto {
 			item = new SubProyecto(perteneceA, "", "");
 			creando = true;
 			editando = ver =false;
-			titulo = "Nuevo Sub-Proyecto / Proyecto: (" + item.getPerteneceA().getCodigo() + ") "
+			titulo = "Nuevo Sub-Proyecto / Proyecto: (Cod.: " + item.getPerteneceA().getCodigo() + ") "
 					+ item.getPerteneceA().getTitulo();
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
-			Integer id = (Integer) map.get("idItem");
-			item = servicio.getInstancia(id);
+			item = servicio.getInstancia((Integer) map.get("idItem"));
 			item.setPerteneceA(perteneceA);
 			creando = ver=false;
 			editando = true;
-			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
+			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (Cod.: " + perteneceA.getCodigo() + ") "
 					+ perteneceA.getTitulo();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
-			Integer id = (Integer) map.get("idItem");
-			item = servicio.getInstancia(id);
+			item = servicio.getInstancia((Integer) map.get("idItem"));
 			item.setPerteneceA(perteneceA);
 			creando = editando =false;
 			ver = true;
-			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (" + perteneceA.getCodigo() + ") "
+			titulo = "Ver Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (Cod.: " + perteneceA.getCodigo() + ") "
 					+ perteneceA.getTitulo();
 			break;
 		}
@@ -102,7 +102,7 @@ public class MVCrudSubProyecto {
 	public void guardar() throws Exception {
 		try {
 			if (creando) {
-				int id = servicio.persistir(item);
+				servicio.persistir(item);
 				Clients.showNotification("Nuevo Sub-Proyecto guardado.",
 						Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 3500);
 			} else if (editando) {
@@ -154,24 +154,43 @@ public class MVCrudSubProyecto {
 	public String getTitulo() {
 		return titulo;
 	}
+	
+	public boolean isToolbar_disabled() {
+		return toolbar_disabled;
+	}
 
 	public List<Isfpp> getInstanciasIsfpp() {
 		return item.getInstanciasIsfpp();
 	}
 
 	@Command("nuevaIsfpp")
+	@NotifyChange("toolbar_disabled")
 	public void nuevaIsfpp() {
 		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
+		toolbar_disabled=true;
 	}
 
 	@Command("editarIsfpp")
+	@NotifyChange("toolbar_disabled")
 	public void editarIsfpp(@BindingParam("idItem") Integer id) {
 		crearTab(UtilGisfpp.MOD_EDICION, "Editar Isfpp", id);
+		toolbar_disabled = true;
 	}
 
 	@Command("verIsfpp")
+	@NotifyChange("toolbar_disabled")
 	public void verIsfpp(@BindingParam("idItem") Integer id) {
 		crearTab(UtilGisfpp.MOD_VER, "Ver Isfpp", id);
+		toolbar_disabled = true;
+	}
+	
+	@GlobalCommand("cerrandoTab")
+	@NotifyChange({"toolbar_disabled","item","instanciasIsfpp"})
+	public void cerrandoTab(@BindingParam ("actualizar") boolean actualizar) throws Exception{
+		toolbar_disabled = false;
+		if (actualizar){
+			item = servicio.getInstancia(item.getId());
+		}
 	}
 
 	private void crearTab(String modo, String titulo, Integer id) {
@@ -197,6 +216,11 @@ public class MVCrudSubProyecto {
 		mapAux.put("idItem", perteneceA.getId());
 		mapAux.put("modo", UtilGisfpp.MOD_VER);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", (String) map.get("volverA"), mapAux);
+	}
+	
+	@Command("salir")
+	public void salir (){
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlCrudSP");
 	}
 
 }// fin de la clase

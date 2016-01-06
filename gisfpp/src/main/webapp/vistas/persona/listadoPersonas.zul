@@ -39,7 +39,7 @@
 							onClick="@command('editarPersona', item=each)" />
 						<toolbarbutton
 							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
-							onClick='Messagebox.show("Se deberia eliminar el proyecto");' />
+							onClick='Messagebox.show("Persona eliminada!!!");' />
 					</row>
 				</template>
 			</grid>

@@ -1,9 +1,12 @@
 package unpsjb.fipm.gisfpp.controladores.persona;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.springframework.jca.cci.object.EisOperation;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -15,81 +18,69 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class MVDlgLkpPersona {
 
-	private List<PersonaFisica> lista;
-	private List<PersonaFisica> temporal;
-	private List<PersonaFisica> listFiltrada;
+	private List<PersonaFisica> resultado;
 	private IServicioPF servicio;
-	private String campoLookup = "";
+	private String campoLookup="";
 	private String valorLookup = "";
-	private boolean filtrado = false;
+	private Logger log;
+	private String mensaje;
 
 	@Init
 	@NotifyChange("lista")
 	public void init() throws Exception {
 		servicio = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
+		log = UtilGisfpp.getLogger();
+		mensaje = "Establezca los criterios de busqueda para efectuar la consulta.";
+	}	
+	
+	@Command("buscar")
+	@NotifyChange({"resultado","mensaje"})
+	public void buscar() throws Exception {
 		try {
-			lista = servicio.getListado();
+			switch (campoLookup) {
+			case ("Nombre y Apellido"): {
+				resultado = servicio.getxNombre(valorLookup);
+				if(resultado==null || resultado.isEmpty()){
+					mensaje="La consulta no arrojo ningun resultado.";
+				}
+				break;
+			}
+			case ("DNI"): {
+				resultado = servicio.getxIdentificador(TIdentificador.DNI.name(), valorLookup);
+				if(resultado==null || resultado.isEmpty()){
+					mensaje="La consulta no arrojo ningun resultado.";
+				}
+				break;
+			}
+			case ("CUIL"): {
+				resultado = servicio.getxIdentificador(TIdentificador.CUIL.name(), valorLookup);
+				break;
+			}
+			case("N° Legajo"):{
+				resultado =servicio.getxIdentificador(TIdentificador.LEGAJO.name(), valorLookup);
+				if(resultado==null || resultado.isEmpty()){
+					mensaje="La consulta no arrojo ningun resultado.";
+				}
+				break;
+			}
+			case("N° Matricula"):{
+				resultado = servicio.getxIdentificador(TIdentificador.MATRICULA.name(), valorLookup);
+				if(resultado==null || resultado.isEmpty()){
+					mensaje="La consulta no arrojo ningun resultado.";
+				}
+				break;
+			}
+			}
 		} catch (Exception e) {
+			log.debug(this.getClass().getName(), e);
 			throw e;
 		}
-	}
-
-	@Command("filtrar")
-	@NotifyChange({ "lista", "filtrado" })
-	public void filtrar() {
-		temporal = lista;
-		String busqueda = valorLookup.toLowerCase().trim();
-		listFiltrada = new ArrayList<>();
-		switch (campoLookup) {
-		case ("Nombre y Apellido"): {
-			for (PersonaFisica persona : lista) {
-				if (persona.getNombre().toLowerCase().contains(busqueda)) {
-					listFiltrada.add(persona);
-				}
-			}
-			lista = listFiltrada;
-			filtrado = true;
-			break;
-		}
-		case ("DNI"): {
-			for (PersonaFisica persona : lista) {
-				if ((persona.getDni() != null) && (persona.getDni().toLowerCase().contains(busqueda))) {
-					listFiltrada.add(persona);
-				}
-			}
-			lista = listFiltrada;
-			filtrado = true;
-			break;
-		}
-		case ("CUIL"): {
-			for (PersonaFisica persona : lista) {
-				if ((persona.getCuil() != null) && (persona.getCuil().toLowerCase().contains(busqueda))) {
-					listFiltrada.add(persona);
-				}
-			}
-			lista = listFiltrada;
-			filtrado = true;
-			break;
-		}
-		default:
-			Messagebox.show("Debe seleccionar el atributo de la Persona por la cual desea realizar la busqueda.",
-					"Error en la busqueda", Messagebox.OK, Messagebox.EXCLAMATION);
-		}
-
-	}
-
-	@Command("quitarFiltro")
-	@NotifyChange({ "lista", "filtrado", "campoLookup", "valorLookup" })
-	public void quitarFiltro() {
-		lista = temporal;
-		listFiltrada = null;
-		filtrado = false;
-		campoLookup = "";
-		valorLookup = "";
 	}
 
 	// En cada parte del sistema que se utilice este DlgLkpPersona se deberá
@@ -97,11 +88,19 @@ public class MVDlgLkpPersona {
 	// la
 	// persona seleccionada
 	@Command("seleccion")
-	public void devolverSeleccion(@BindingParam("item") PersonaFisica persona) {
+	public void devolverSeleccion(@BindingParam("item") PersonaFisica persona) throws Exception {
 		final HashMap<String, Object> parametros = new HashMap<>();
-		parametros.put("seleccion", persona);
-		BindUtils.postGlobalCommand(null, null, "obtenerLkpPersona", parametros);
-		cerrar();
+		try {
+			//Recuperamos todos los datos asociados a la persona seleccionada,
+			//por eso esta consulta.
+			PersonaFisica item = servicio.getInstancia(persona.getId());
+			parametros.put("seleccion", item);
+			BindUtils.postGlobalCommand(null, null, "obtenerLkpPersona", parametros);
+			cerrar();
+		} catch (Exception e) {
+			log.debug(this.getClass().getName(), e);
+			throw e;
+		}
 	};
 
 	private void cerrar() {
@@ -113,6 +112,7 @@ public class MVDlgLkpPersona {
 		return campoLookup;
 	}
 
+	@NotifyChange("campoLookup")
 	public void setCampoLookup(String campoLookup) {
 		this.campoLookup = campoLookup;
 	}
@@ -125,12 +125,12 @@ public class MVDlgLkpPersona {
 		this.valorLookup = valorLookup;
 	}
 
-	public List<PersonaFisica> getLista() {
-		return lista;
+	public List<PersonaFisica> getResultado() {
+		return resultado;
 	}
 
-	public boolean isFiltrado() {
-		return filtrado;
+	public String getMensaje() {
+		return mensaje;
 	}
-
+			
 }// fin de la clase

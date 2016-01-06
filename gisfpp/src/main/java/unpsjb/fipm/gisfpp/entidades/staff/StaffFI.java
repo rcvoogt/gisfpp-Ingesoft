@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -106,6 +107,15 @@ public class StaffFI implements Serializable {
 
 	public void setNota(String nota) {
 		this.nota = nota;
+	}
+	
+	@AssertTrue(message="La fecha \"Hasta\" debe ser posterior a la fecha \"Desde\".")
+	private boolean isFechaValida(){
+		if (hasta.after(desde)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }// Fin de la entidad StaffFI

@@ -24,8 +24,8 @@
 			onClick="@command('cancelar')" />
 		<space bar="true" spacing="10px" />
 		<toolbarbutton image="recursos/img/icon-exit.png"
-			label="Salir" onClick="@command('cerrar')" 
-				class="btn btn-success btn-xs"/>
+			label="Salir" onClick="@command('salir')" 
+				class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando)"/>
 	</toolbar>
 	<tabpanels>
 		<tabpanel id="tabDatosGen">

@@ -7,90 +7,58 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Path;
-import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Panel;
-
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersona;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPJ;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVListarOrganizaciones {
 
 	private List<PersonaJuridica> lista;
-	private IServicioPersona servicio;
+	private IServicioPJ servicio;
 
 	@Init
 	public void init() throws Exception {
-		servicio = (IServicioPersona) SpringUtil.getBean("servPersona");
+		servicio = (IServicioPJ) SpringUtil.getBean("servPersonaJuridica");
 		recuperarTodo();
 	}
 
 	@Command("recuperarTodo")
 	@NotifyChange("lista")
 	public void recuperarTodo() throws Exception {
-		lista = servicio.recuperarSoloPJ();
-		System.out.println("En recuperarTodo de MVListarOrganizaciones");
+		lista = servicio.getListado();
 	}
 
 	@Command("salir")
 	public void salir() {
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-		}
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlListaOrganizaciones");
 	}
 
 	@Command("nueva")
 	public void nueva() {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
-
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/persona/crudOrganizacion.zul");
-		}
+		
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaOrganizaciones", "vistas/persona/crudOrganizacion.zul", map);
 	}
 
 	@Command("editar")
 	public void editar(@BindingParam("item") PersonaJuridica arg1) {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_EDICION);
-		map.put("item", arg1);
-		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
-
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/persona/crudOrganizacion.zul");
-		}
+		map.put("idItem", arg1.getId());
+		
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaOrganizaciones", "vistas/persona/crudOrganizacion.zul", map);
 	}
 
 	@Command("ver")
 	public void ver(@BindingParam("item") PersonaJuridica arg1) {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_VER);
-		map.put("item", arg1);
-		Sessions.getCurrent().setAttribute("opcCrudOrganizacion", map);
-
-		Panel panel = (Panel) Path.getComponent("/panelCentro/pnlListaOrganizaciones");
-		Include include = (Include) Path.getComponent("/panelCentro");
-		if (panel != null) {
-			panel.onClose();
-			include.setSrc(null);
-			include.setSrc("vistas/persona/crudOrganizacion.zul");
-		}
-
+		map.put("idItem", arg1.getId());
+		
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaOrganizaciones", "vistas/persona/crudOrganizacion.zul",map);
 	}
 
 	public List<PersonaJuridica> getLista() {

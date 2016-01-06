@@ -12,10 +12,10 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-@Transactional
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
 
 	private IDaoUsuario daoUsuario;
@@ -119,8 +119,48 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		}
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getxNombre(String patronNombre) throws Exception {
+		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores where pf.nombre like concat('%',?,'%')";
+		try{
+			getHibernateTemplate().setCacheQueries(true);
+			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, patronNombre);
+			//La consulta devuelve Personas duplicadas segun la cantidad de identificadores
+			//registrados que tenga. Por eso se utiliza este truco de pasar la lista resultado a un Set que 
+			//por definicion no permite duplicados, eliminando dichos elementos duplicados de la lista
+			Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(result);
+			result.clear();
+			result.addAll(listaSinDuplicados);
+ 			return result;
+		}catch(Exception e){
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getxIdentificador(String tipo, String patron) throws Exception {
+		String query ="select pf from PersonaFisica pf inner join pf.identificadores id where id.tipo =? and id.valor like concat('%',?,'%')";
+		try {
+			getHibernateTemplate().setCacheQueries(true);
+			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, TIdentificador.valueOf(tipo),patron);
+			//Al no poder inicializar la coleccion de identificadores en la consulta anterior (no se pudo usar inner join fetch)
+			//se inicializa los identificadores de las personas resultado de la consulta manualmente.
+			for (PersonaFisica persona : result) {
+				getHibernateTemplate().initialize(persona.getIdentificadores());
+			}
+			return result;
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
+	}
+
 	public void setDaoUsuario(IDaoUsuario daoUsuario) {
 		this.daoUsuario = daoUsuario;
 	}
 
+			
 }// fin de la clase

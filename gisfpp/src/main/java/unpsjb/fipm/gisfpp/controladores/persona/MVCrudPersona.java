@@ -76,6 +76,11 @@ public class MVCrudPersona {
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudPersona", "vistas/persona/listadoPersonas.zul");
 		
 	}
+	
+	@Command("salir")
+	public void salir() {
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlCrudPersona");
+	}
 
 	@Command("guardar")
 	@NotifyChange({ "item","creando", "editando", "ver" })
@@ -85,7 +90,7 @@ public class MVCrudPersona {
 				servPF.persistir(item);
 				Clients.showNotification("Nueva Persona guardada", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
-			}else{
+			}else if(editando){
 				servPF.editar(item);
 				Clients.showNotification("Se han guardado los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
@@ -147,12 +152,14 @@ public class MVCrudPersona {
 			if (arg2 == Messagebox.OK) {
 				if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
 					item.agregarIdentificador(arg3);//Si el numero de identificacion ya existe se lanza una ConstraintViolationException 
+					Clients.showNotification("Guarde cambios para confirmar el registro del nuevo N° de Identificacion.", 
+							Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 				}
 				if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
 					item.getIdentificadores().indexOf(arg3);
+					Clients.showNotification("Guarde cambios para confirmar la modificacion del N° de Identificacion.", 
+							Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 				}
-				Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del N° de Identificacion", 
-						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
 		}catch(ConstraintViolationException cve){
 			Messagebox.show(cve.getMessage(), "Error: validacion de datos", Messagebox.OK, Messagebox.ERROR);
@@ -177,12 +184,14 @@ public class MVCrudPersona {
 		if (arg2 == Messagebox.OK) {
 			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
 				item.getDatosDeContacto().add(arg3);
+				Clients.showNotification("Guarde cambios para confirmar el registro del nuevo Dato de Contacto.", 
+						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
 			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
 				item.getDatosDeContacto().indexOf(arg3);
+				Clients.showNotification("Guarde cambios para confirmar la modificacion del Dato de Contacto.", 
+						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
-			Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del Dato de Contacto", 
-					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 		}
 	}
 	//Dialogo Dato de Contacto
@@ -205,12 +214,14 @@ public class MVCrudPersona {
 		if (arg2 == Messagebox.OK) {
 			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
 				item.getDomicilios().add(arg3);
+				Clients.showNotification("Guarde cambios para confirmar el registro del nuevo Domicilio.", 
+						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
 			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
 				item.getDomicilios().indexOf(arg3);
+				Clients.showNotification("Guarde cambios para confirmar la modificacion del Domicilio.", 
+						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 			}
-			Clients.showNotification("Guarde cambios para confirmar agregacion/edicion del Domicilio", 
-					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 		}
 	}
 	//Dialogo Domicilio

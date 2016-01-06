@@ -1,0 +1,29 @@
+<vbox spacing="6px" hflex="1" vflex="1">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un Demandante del Proyecto"
+				onClick="@command('verDlgBusqueda', modo='NUEVO', valor=null)"> Agregar</a>
+	</div>
+	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+		model="@load(vm.item.demandantes)" mold="paging" autopaging="true"
+		 emptyMessage="Este proyecto no tiene asignado ningun demandante.">
+		 <columns>
+		 	<column label="Nombres y Apellido / Razon Social"  width="36%"/>
+		 	<column label="DNI" width="18%"/>
+		 	<column label="CUIL" width="18%"/>
+		 	<column label="CUIT" width="18%"/>
+		 	<column label="Quitar" width="10%" align="center"/>
+		 </columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)"/>
+				<label value="@load(each.dni)"/>
+				<label value="@load(each.cuil)"/>
+				<label value="@load(each.cuit)"/>
+				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar Demandante"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('quitarDemandante', valor= each)"/>
+			</row>
+		</template>
+	</grid>
+</vbox>

@@ -14,23 +14,26 @@
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png"
-					label="Nuevo" disabled="@load(vm.creando)" visible="@load(vm.modo eq 'NUEVO')" 
+					label="Nuevo" disabled="@load((vm.creando) or (vm.toolbar_disabled))" visible="@load(vm.modo eq 'NUEVO')" 
 						onClick="@command('nuevoSP')" class="btn btn-success btn-xs"/>
 				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" 
-					disabled="@load(vm.editando)" visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
+					disabled="@load((vm.editando) or (vm.toolbar_disabled))" visible="@load((vm.modo ne 'NUEVO'))"
 					 onClick="@command('editar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-save.png"
 					label="Guardar" class="btn btn-success btn-xs"
-					disabled="@load((not vm.creando) and (not vm.editando))"
+					disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.toolbar_disabled))"
 					onClick="@command('guardar')" />
 				<toolbarbutton image="recursos/img/icon-remove-sign.png"
-					label="Cancelar" disabled="@load((not vm.creando) and (not vm.editando))"
+					label="Cancelar" disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.toolbar_disabled))"
 					onClick="@command('cancelar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-arrow-left.png"
 					label="Volver" onClick="@command('volver')" 
-						class="btn btn-success btn-xs"/>
+						class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando or vm.toolbar_disabled)"/>
+				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
+					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando or vm.toolbar_disabled)"
+						onClick="@command('salir')"/>		
 			</toolbar>
 			<tabpanels>
 				<tabpanel id="tabDatosGenerales" hflex="1" vflex="1">

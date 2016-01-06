@@ -21,7 +21,7 @@ public class PersonaJuridica extends Persona {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name = "persona_contacto", joinColumns = @JoinColumn(name = "organizacionId") , inverseJoinColumns = @JoinColumn(name = "personaId") )
 	private List<PersonaFisica> contactos;
 

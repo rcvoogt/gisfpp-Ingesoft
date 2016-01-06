@@ -1,52 +1,45 @@
 <window id="dlgFiltroProyecto" title="Gisfpp: Aplicar Filtros a Listado de Proyectos" border="normal" 
 	closable="true" mode="modal" width="400px" apply="org.zkoss.bind.BindComposer" 
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgFiltrosProyecto')">
-	<grid sclass="fgrid">
-		<columns>
-			<column width="30%"/>
-			<column width="70%"/>
-		</columns>
-		<rows>
-			<row>
-				<label value="Codigo:" sclass="form-label"/>
-				<textbox id="txtCodigo" width="90%" value="@bind(vm.codigo)"/>
-			</row>
-			<row height="12px"/>
-			<row>
-				<label value="N° Resolucion:" sclass="form-label"/>
-				<textbox id="txtResolucion" width="90%" value="@bind(vm.resolucion)"/>
-			</row>
-			<row height="12px"/>
-			<row>
-				<label value="Título:" sclass="form-label"/>
-				<textbox id="txtTitulo" width="90%" value="@bind(vm.titulo)"/>
-			</row>
-			<row height="12px"/>
-			<row>
-				<label value="Tipo:" sclass="form-label"/>
-				<combobox id="cbbxTipo" model="@load(vm.tipos)"
-					selectedItem="@bind(vm.tipo)">
-					<template name="model">
-						<comboitem label="@load(each.descripcion)"/>
-					</template>
-				</combobox>
-			</row>
-			<row height="12px"/>
-			<row>
-				<label value="Estado:" sclass="form-label"/>
-				<combobox id="cbbxEstado" model="@load(vm.estados)"
-					selectedItem="@bind(vm.estado)">
-					<template name="model">
-						<comboitem label="@load(each.descripcion)"/>
-					</template>
-				</combobox>
-			</row>
-			<row height="12px"/>
-			<row spans="3">
-				<hbox pack="center"  hflex="1">
-					<button label="Filtrar" image="/recursos/img/icon-filter.png" onClick="@command('filtrar')"/>
-				</hbox>
-			</row>
-		</rows>
-	</grid>
+	<vbox hflex="1" vflex="1" spacing="12px">
+		<div>
+			<label value="Codigo" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.codigo)" class="form-control"
+				maxlength="20"/>
+		</div>
+		<div>
+			<label value="N° Resolucion" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.resolucion)" class="form-control"
+				maxlength="20"/>
+		</div>
+		<div>
+			<label value="Título" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.titulo)" class="form-control"
+					maxlength="80"/>
+		</div>
+		<div>
+			<label value="Tipo" class="form-label" width="45%"/>
+			<combobox model="@load(vm.tipos)"
+					selectedItem="@bind(vm.tipo)" width="45%">
+				<template name="model">
+					<comboitem label="@load(each.descripcion)"/>
+				</template>
+			</combobox>
+		</div>
+		<div>
+			<label value="Estado" class="form-label" width="45%"/>
+			<combobox model="@load(vm.estados)"
+				selectedItem="@bind(vm.estado)" width="45%">
+				<template name="model">
+					<comboitem label="@load(each.descripcion)"/>
+				</template>
+			</combobox>
+		</div>
+		<div vflex="1">
+			<hbox hflex="1" height="35px" pack="center" align="end">
+				<a class="btn btn-success btn-sm" onClick="@command('filtrar')"
+					image="/recursos/img/icon-filter.png"> Filtrar</a>
+			</hbox>
+		</div>
+	</vbox>
 </window>

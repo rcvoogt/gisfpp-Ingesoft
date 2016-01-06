@@ -47,14 +47,31 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
+	@Transactional(readOnly=true)
 	public PersonaFisica getInstancia(Integer id) throws Exception {
 		return dao.recuperarxId(id);
 	}
 
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<PersonaFisica> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getxNombre(String patronNombre) throws Exception {
+		return dao.getxNombre(patronNombre);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getxIdentificador(String campo, String patronValor) throws Exception {
+		return dao.getxIdentificador(campo, patronValor);
+	}
+
+	
 }//fin de la clase

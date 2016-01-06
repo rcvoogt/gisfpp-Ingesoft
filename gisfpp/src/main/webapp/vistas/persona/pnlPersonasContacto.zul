@@ -1,43 +1,28 @@
-<panel id="pnlPersonasContacto" border="none" hflex="1" vflex="1">
-	<panelchildren>
-		<grid hflex="1" vflex="1" sclass="fgrid">
-			<columns>
-				<column width="25%" />
-				<column width="75%" />
-			</columns>
-			<rows>
-				<row>
-					<listbox id="lista" rows="5"
-						emptyMessage="No hay Personas de Contacto registradas para esta Organización."
-						model="@load(vm.item.contactos)" hflex="1">
-						<listhead hflex="1">
-							<listheader label="DNI" width="30%" />
-							<listheader label="Nombre y Apellido" width="70%" />
-						</listhead>
-						<template name="model">
-							<listitem value="@load(each)">
-								<listcell label="@load(each.dni)" 
-									onDoubleClick="@command('dlgVerDatosContacto', item=lista.selectedItem.value)"/>
-								<listcell label="@load(each.nombre)" 
-									onDoubleClick="@command('dlgVerDatosContacto', item=lista.selectedItem.value)"/>
-							</listitem>
-						</template>
-					</listbox>
-				</row>
-				<row height="5px" />
-				<row>
-					<hbox hflex="1">
-						<button label="Agregar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))"
-							onClick="@command('verDlgLkpPersona')" />
-						<button label="Quitar" sclass="btn-primary"
-							disabled="@load((not vm.creando) and (not vm.editando))" 
-								onClick="@command('quitarPersonaContacto', index=lista.selectedIndex)"/>
-					</hbox>
-				</row>
-				
-			</rows>
-		</grid>
-
-	</panelchildren>
-</panel>
+<vbox spacing="6px" hflex="true" vflex="true">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar nueva persona de contacto"
+				onClick="@command('verDlgLkpPersona')"> Agregar</a>
+	</div>
+	<grid hflex="true" vflex="true" model="@load(vm.item.contactos)"
+		style="border: 2px solid #80ccff; border-radius: 5px;" 
+			emptyMessage="Esta Organizacion no posee Personas de Contacto registradas.">
+		<columns>
+			<column label="Nombre y Apellido" width="30%"/>
+			<column label="DNI" width="15%"/>
+			<column label="Quitar" width="5%" align="center"/>
+			<column width="50%"/>
+		</columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)" onClick="@command('dlgVerDatosContacto', item= each)"/>
+				<label value="@load(each.dni)"/>
+				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="eliminar persona de contacto"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('quitarPersonaContacto', valor= each)"/>
+			</row>
+		</template>
+	</grid>
+	<label value="Haga click sobre el nombre de una persona para ver sus datos de contacto"
+		style="color: #0000ff; font-size: 10px; font-style: italic;"/>
+</vbox>

@@ -1,31 +1,28 @@
 <window id="dlgLkpPersona" title="Busqueda de Persona"
-	border="normal" width="650px" closable="true" apply="org.zkoss.bind.BindComposer"
+	border="normal" width="760px" closable="true" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgLkpPersona')">
 	<vbox>
-		<groupbox hflex="1">
-			<caption label="Buscar por" sclass="texto-formulario" />
-			<combobox placeholder="Seleccionar campo..." value="@bind(vm.campoLookup)">
-				<comboitem label="Nombre y Apellido"/>
-				<comboitem label="DNI"/>
-				<comboitem label="CUIL"/>
+		<hbox spacing="5px">
+			<combobox placeholder="Seleccionar campo..." value="@bind(vm.campoLookup)"
+				width="80%" constraint="no empty: Debe especificar un valor de la lista para poder realizar la busqueda.">
+				<comboitem label="Nombre y Apellido" value="Nombre y Apellido"/>
+				<comboitem label="DNI" value="DNI"/>
+				<comboitem label="CUIL" value="CUIL"/>
+				<comboitem label="N° Legajo" value="N° Legajo"/>
+				<comboitem label="N° Matricula" value="N° Matricula"/>
 			</combobox>
-			<space spacing="8px"/>
-			<textbox placeholder="Buscar..." maxlength="50" width="38%" value="@bind(vm.valorLookup)" 
-				onOK="@command('filtrar')"/>
-			<space spacing="8px"/>
-			<toolbarbutton label="Filtrar" onClick="@command('filtrar')"
-				image="recursos/img/icon-userfilter.png"/>
-			<space spacing="8px"/>		
-			<toolbarbutton label="Deshacer"
-				image="recursos/img/icon-undo.png" tooltiptext="Deshacer busqueda" disabled="@load(not vm.filtrado)"
-				onClick="@command('quitarFiltro')" />
-		</groupbox>	
-		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.lista)" 
-			emptyMessage="No hay Personas registradas.">
+			<textbox placeholder="Criterio de busqueda" maxlength="80" width="100%" value="@bind(vm.valorLookup)" 
+				onOK="@command('buscar')" class="form-control"/>
+			<toolbarbutton tooltiptext="Aplicar filtro" onClick="@command('buscar')"
+				image="recursos/img/icon-lupa.png" class="btn btn-success btn-sm"/>
+		</hbox>
+		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.resultado)"
+			style="border: 2px solid #80ccff; border-radius: 5px;"
+				emptyMessage="@load(vm.mensaje)">
 			<listhead>
-				<listheader label="Nombre y Apellido" sort="auto" width="50%"/>
-				<listheader label="DNI" width="25%"/>
-				<listheader label="CUIL" width="25%"/>
+				<listheader label="Nombre y Apellido" sort="auto" width="44%"/>
+				<listheader label="DNI" width="28%"/>
+				<listheader label="CUIL" width="28%"/>
 			</listhead>
 			<template name="model">
 				<listitem>

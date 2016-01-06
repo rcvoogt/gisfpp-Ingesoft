@@ -48,7 +48,7 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public List<Proyecto> recuperarTodo() throws DataAccessException {
-		String query = "from Proyecto as p";
+		String query = "select p from Proyecto as p";
 		try {
 			return (List<Proyecto>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {
@@ -60,7 +60,7 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public Proyecto recuperarxId(Integer id) throws DataAccessException {
-		String query = "from Proyecto as p left join fetch p.subProyectos where p.id=?";
+		String query = "select p from Proyecto as p left join fetch p.subProyectos left join fetch p.demandantes where p.id=?";
 		List<Proyecto> result;
 		try {
 			result = (List<Proyecto>) getHibernateTemplate().find(query, id);

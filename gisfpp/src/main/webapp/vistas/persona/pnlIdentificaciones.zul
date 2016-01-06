@@ -16,7 +16,7 @@
 			</columns>
 			<template name="model">
 				<row>
-					<label value="@load(each.tipo)"/>
+					<label value="@load(each.tipo.descripcion)"/>
 					<label value="@load(each.valor)"/>
 					<toolbarbutton image="recursos/img/icon-edit.png"
 						tooltiptext="Editar N° de Identificacion"

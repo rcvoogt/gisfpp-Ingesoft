@@ -7,7 +7,7 @@
 	<grid width="100%" vflex="1" mold="paging" autopaging="true" 
 		style="border: 2px solid #80ccff; border-radius: 5px;"
 			emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
-				model="@load(vm.subProyectos)">
+				model="@load(vm.item.subProyectos)">
 		<columns>
 			<column label="N°" width="8%" />
 			<column label="Titulo" width="19%" />

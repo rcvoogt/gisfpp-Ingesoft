@@ -4,14 +4,17 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.impl.BindContextUtil;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.Clients;
@@ -52,21 +55,13 @@ public class MVCrudIsfpp {
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
-			Integer id = (Integer) args.get("idItem");
-			item = servicio.getInstancia(id);
-			if (item != null) {
-				item.setPerteneceA(perteneceA);
-			}
+			item = servicio.getInstancia((Integer) args.get("idItem"));
 			creando = (ver = false);
 			editando = true;
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
-			Integer id = (Integer) args.get("idItem");
-			item = servicio.getInstancia(id);
-			if (item != null) {
-				item.setPerteneceA(perteneceA);
-			}
+			item = servicio.getInstancia((Integer) args.get("idItem"));
 			creando = (editando = false);
 			ver = true;
 		}
@@ -148,8 +143,15 @@ public class MVCrudIsfpp {
 		ver = true;
 	}
 
-	@Command("cerrar")
-	public void cerrar() {
+	@Command("salir")
+	public void salir() {
+		Map<String, Object> map = new HashMap<>();
+		if(modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)){
+			map.put("actualizar", true);
+		}else{
+			map.put("actualizar", false);
+		}
+		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
 		Tab tab = (Tab) args.get("tab");
 		tab.close();
 	}

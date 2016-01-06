@@ -1,6 +1,8 @@
 package unpsjb.fipm.gisfpp.dao.staff;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
@@ -63,9 +65,17 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	@Override
 	@Transactional(readOnly = true)
 	public List<StaffFI> recuperarTodo() throws DataAccessException {
-		String query = "from StaffFI as stf left join fetch stf.miembro as p left join fetch p.identificadores";
+		String query = "select stf from StaffFI as stf left join fetch stf.miembro as p left join fetch p.identificadores";
 		try {
-			return (List<StaffFI>) getHibernateTemplate().find(query, null);
+			List<StaffFI> result = (List<StaffFI>) getHibernateTemplate().find(query, null);
+			//Se quitan los elementos duplicados que genera la consulta
+			Set<StaffFI> listaSinDuplicados = new LinkedHashSet<StaffFI>(result);
+			result.clear();
+			result.addAll(listaSinDuplicados);
+			for (StaffFI staff : result) {
+				getHibernateTemplate().initialize(staff.getMiembro().getDatosDeContacto());
+			}
+			return  result;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -75,18 +85,18 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	@Override
 	@Transactional(readOnly = true)
 	public StaffFI recuperarxId(Integer id) throws DataAccessException {
-		String query = "from StaffFI as stf left join fetch stf.miembro where stf.id=?";
-		List<StaffFI> resultado;
+		String query = "select stf from StaffFI as stf left join fetch stf.miembro p left join fetch p.identificadores where stf.id=?";
+		List<StaffFI> result;
 		try {
-			resultado = (List<StaffFI>) getHibernateTemplate().find(query, id);
+			result = (List<StaffFI>) getHibernateTemplate().find(query, id);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
-		if (resultado == null || resultado.isEmpty()) {
+		if (result == null || result.isEmpty()) {
 			return null;
 		}
-		return resultado.get(0);
+		return result.get(0);
 	}
 
 }// fin de la clase
