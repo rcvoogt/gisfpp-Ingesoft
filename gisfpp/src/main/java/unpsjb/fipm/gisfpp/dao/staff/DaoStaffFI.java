@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.dao.staff;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -97,6 +99,23 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 			return null;
 		}
 		return result.get(0);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getListadoPersonas() throws Exception {
+		String query = "select pf from PersonaFisica pf, StaffFI stf left join fetch pf.identificadores where stf.miembro.id = pf.id";
+		List<PersonaFisica> result;
+		try {
+			result = (List<PersonaFisica>) getHibernateTemplate().find(query, null);
+			Set<PersonaFisica> listaSinDuplicados = new HashSet<>(result);
+			result.clear();
+			result.addAll(listaSinDuplicados);
+			return result;
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
 }// fin de la clase

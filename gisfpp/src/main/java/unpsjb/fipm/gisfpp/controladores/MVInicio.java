@@ -17,34 +17,9 @@ import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVInicio {
 
-	private Usuario usuario;
-	private String nameUser;
-	private List<SimpleGrantedAuthority> permisos;
-	private boolean logeado = false;
-	private IServicioUsuario servicio;
-	private StringBuilder toolTipRoles = new StringBuilder();
-
-	@SuppressWarnings("unchecked")
 	@Init
-	@NotifyChange({ "logeado", "usuario", "toolTipRoles" })
 	public void init() throws Exception {
-		nameUser = SecurityUtil.getAuthentication().getName();
-		if (!nameUser.equals("anonymousUser")) {
-			servicio = (IServicioUsuario) SpringUtil.getBean("servUsuario");
-			usuario = (Usuario) servicio.getUsuario(nameUser);
-			permisos = (List<SimpleGrantedAuthority>) SecurityUtil.getAuthentication().getAuthorities();
-			logeado = true;
-			// Se establece en la sesion los datos del usuario actualmente
-			// conectado
-			HashMap<String, Object> login = new HashMap<>();
-			login.put("usuario", usuario);
-			login.put("permisos", permisos);
-			Sessions.getCurrent().setAttribute("usuarioConectado", login);
-			toolTipRoles.append("Rol: \n");
-			for (SimpleGrantedAuthority permiso : permisos) {
-				toolTipRoles.append("* " + permiso.getAuthority() + "\n");
-			}
-		}
+		
 	}
 
 	@Command("verListaPersonas")
@@ -66,17 +41,5 @@ public class MVInicio {
 	public void verListaOrganizaciones() {
 		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listadoOrganizaciones.zul");
 	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public boolean isLogeado() {
-		return logeado;
-	}
-
-	public StringBuilder getToolTipRoles() {
-		return toolTipRoles;
-	}
-
+	
 }// fin de la clase

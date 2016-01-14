@@ -9,22 +9,22 @@
 	<div class="panel-body" vflex="true">
 		<vbox hflex="true" vflex="true" spacing="6px">
 			<div class="btn-toolbar pull-right">
-				<a class="btn btn-success btn-xs" tooltiptext="Asociar una nueva Persona"
+				<a class="btn btn-success btn-sm" tooltiptext="Asociar una nueva Persona"
 					image="recursos/img/icon-plus-sign.png" disabled="@load(vm.creando)"
 						visible="@load(vm.modo eq 'NUEVO')" onClick="@command('nuevaAsociacion')"> Nuevo</a>
-				<a class="btn btn-success btn-xs" tooltiptext="Editar asociacion" onClick="@command('editar')"
+				<a class="btn btn-success btn-sm" tooltiptext="Editar asociacion" onClick="@command('editar')"
 					image="recursos/img/icon-edit.png" disabled="@load(vm.editando)"
 						visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"> Editar</a>
-				<a class="btn btn-success btn-xs" image="recursos/img/icon-save.png"
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-save.png"
 					disabled="@load((not vm.creando) and (not vm.editando))"
 						onClick="@command('guardar')"> Guardar</a>
-				<a class="btn btn-success btn-xs" image="recursos/img/icon-remove-sign.png"
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
 					disabled="@load((not vm.creando) and (not vm.editando))" 
 						onClick="@command('cancelar')"> Cancelar</a>
-				<a class="btn btn-success btn-xs" image="recursos/img/icon-arrow-left.png"
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-arrow-left.png"
 					onClick="@command('volver')" 
 						disabled="@load((vm.creando) or (vm.editando))"> Volver</a>
-				<a class="btn btn-success btn-xs" image="recursos/img/icon-exit.png"
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-exit.png"
 					disabled="@load((vm.creando) or (vm.editando))"
 						onClick="@command('salir')"> Salir</a>										
 			</div>

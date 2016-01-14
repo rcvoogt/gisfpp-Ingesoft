@@ -5,7 +5,7 @@
 				onClick="@command('verDlgLkpPersona')"> Agregar</a>
 	</div>
 	<grid hflex="true" vflex="true" model="@load(vm.item.contactos)"
-		style="border: 2px solid #80ccff; border-radius: 5px;" 
+		style="border: 2px solid #80ccff; border-radius: 5px;" mold="paging" autopaging="true"
 			emptyMessage="Esta Organizacion no posee Personas de Contacto registradas.">
 		<columns>
 			<column label="Nombre y Apellido" width="30%"/>

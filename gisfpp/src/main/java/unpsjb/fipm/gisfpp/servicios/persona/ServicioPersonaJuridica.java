@@ -52,4 +52,16 @@ public class ServicioPersonaJuridica implements IServicioPJ {
 		return dao.recuperarTodo();
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaJuridica> getxNombre(String patronNombre) throws Exception {
+		return dao.getxNombre(patronNombre);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaJuridica> getxCuit(String patronValor) throws Exception {
+		return dao.getxCuit(patronValor);
+	}
+
 }// fin de la clase

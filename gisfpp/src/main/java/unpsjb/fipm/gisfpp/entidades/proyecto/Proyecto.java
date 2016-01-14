@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,18 +76,22 @@ public class Proyecto implements Serializable {
 	private String detalle;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
-	private List<SubProyecto> subProyectos;
+	private Set<SubProyecto> subProyectos;
 	
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId"), inverseJoinColumns=@JoinColumn(name="personaId"))
-	private Set <Persona> demandantes;
+	private Set <Persona> demandantes; 
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
+	private Set<MiembroStaffProyecto> staff;
 
 	protected Proyecto() {
 		super();
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
-			Date fecha_inicio, Date fecha_fin, String detalle, List<SubProyecto> subProyectos, Set<Persona> demandantes) {
+			Date fecha_inicio, Date fecha_fin, String detalle, Set<SubProyecto> subProyectos, 
+				Set<Persona> demandantes, Set<MiembroStaffProyecto> staff) {
 		super();
 		this.codigo = codigo;
 		this.resolucion = resolucion;
@@ -97,8 +102,9 @@ public class Proyecto implements Serializable {
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.detalle = detalle;
-		this.subProyectos = subProyectos;
-		this.demandantes = demandantes;
+		this.subProyectos =(subProyectos==null)? new HashSet<>(): subProyectos;
+		this.demandantes = (demandantes==null)? new HashSet<>(): demandantes;
+		this.staff = (staff==null)? new HashSet<>(): staff;
 	}
 
 	public Integer getId() {
@@ -109,7 +115,7 @@ public class Proyecto implements Serializable {
 		this.id = id;
 	}
 
-	@Length(max = 20, message = "\"Codigo\"  - El Codigo del Proyecto no debe ser mayor a 20 caracteres.")
+	@Length(max = 20, message = "El \"Codigo\" del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getCodigo() {
 		return codigo;
 	}
@@ -118,7 +124,7 @@ public class Proyecto implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@Length(max = 20, message = "\"N° Resolucion\" - El Numero de Resolucion del Proyecto no debe ser mayor a 20 caracteres.")
+	@Length(max = 20, message = "\"El Numero de Resolucion\" del Proyecto no debe ser mayor a 20 caracteres.")
 	public String getResolucion() {
 		return resolucion;
 	}
@@ -127,8 +133,8 @@ public class Proyecto implements Serializable {
 		this.resolucion = resolucion;
 	}
 
-	@NotBlank(message = "\"Titulo\" - Debe especificarle un Titulo al Proyecto.")
-	@Length(max = 80, message = "\"Titulo\" - El Titulo del Proyecto no debe ser mayor a 80 caracteres.")
+	@NotBlank(message = " Debe especificarle un \"Titulo\" al Proyecto.")
+	@Length(max = 80, message = "El \"Titulo\" del Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}
@@ -137,7 +143,7 @@ public class Proyecto implements Serializable {
 		this.titulo = titulo;
 	}
 
-	@Length(max = 500, message = "\"Descripcion\" - La Descripcion del Proyecto no debe ser mayor a 500 caracteres")
+	@Length(max = 500, message = "\"La Descripcio\" del Proyecto no debe ser mayor a 500 caracteres")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -186,11 +192,11 @@ public class Proyecto implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<SubProyecto> getSubProyectos() {
+	public Set<SubProyecto> getSubProyectos() {
 		return subProyectos;
 	}
 
-	public void setSubProyectos(List<SubProyecto> subProyectos) {
+	public void setSubProyectos(Set<SubProyecto> subProyectos) {
 		this.subProyectos = subProyectos;
 	}
 	
@@ -200,6 +206,14 @@ public class Proyecto implements Serializable {
 
 	public void setDemandantes(Set<Persona> demandantes) {
 		this.demandantes = demandantes;
+	}
+	
+	public Set<MiembroStaffProyecto> getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Set<MiembroStaffProyecto> staff) {
+		this.staff = staff;
 	}
 
 	@AssertTrue(message = "La Fecha de finalizacion del proyecto debe ser posterior a la fecha de inicio.")

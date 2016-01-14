@@ -32,7 +32,6 @@ public class MVDlgLkpPersona {
 	private String mensaje;
 
 	@Init
-	@NotifyChange("lista")
 	public void init() throws Exception {
 		servicio = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
 		log = UtilGisfpp.getLogger();
@@ -52,25 +51,25 @@ public class MVDlgLkpPersona {
 				break;
 			}
 			case ("DNI"): {
-				resultado = servicio.getxIdentificador(TIdentificador.DNI.name(), valorLookup);
+				resultado = servicio.getxIdentificador(TIdentificador.DNI, valorLookup);
 				if(resultado==null || resultado.isEmpty()){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;
 			}
 			case ("CUIL"): {
-				resultado = servicio.getxIdentificador(TIdentificador.CUIL.name(), valorLookup);
+				resultado = servicio.getxIdentificador(TIdentificador.CUIL, valorLookup);
 				break;
 			}
 			case("N° Legajo"):{
-				resultado =servicio.getxIdentificador(TIdentificador.LEGAJO.name(), valorLookup);
+				resultado =servicio.getxIdentificador(TIdentificador.LEGAJO, valorLookup);
 				if(resultado==null || resultado.isEmpty()){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;
 			}
 			case("N° Matricula"):{
-				resultado = servicio.getxIdentificador(TIdentificador.MATRICULA.name(), valorLookup);
+				resultado = servicio.getxIdentificador(TIdentificador.MATRICULA, valorLookup);
 				if(resultado==null || resultado.isEmpty()){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}

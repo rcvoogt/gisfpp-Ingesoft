@@ -87,4 +87,36 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 		}
 	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaJuridica> getxNombre(String patron) throws Exception {
+		String query ="select pj from PersonaJuridica as pj left join fetch pj.identificadores where pj.nombre like concat('%', ?, '%') ";
+		try {
+			return (List<PersonaJuridica>) getHibernateTemplate().find(query, patron);
+		} catch (Exception e) {
+			log.debug(this.getClass().getName(), e);
+			throw e;
+		}
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaJuridica> getxCuit(String patron) throws Exception {
+		String query ="select pj from PersonaJuridica as pj inner join pj.identificadores as id where id.tipo='CUIT' and id.valor like concat('%',?,'%')";
+		try {
+			List<PersonaJuridica> result = (List<PersonaJuridica>) getHibernateTemplate().find(query, patron);
+			if(result ==null || result.isEmpty()){
+				return null;
+			}else{
+				for (PersonaJuridica item : result) {
+					getHibernateTemplate().initialize(item.getIdentificadores());
+				}
+				return result;
+			}
+		} catch (Exception e) {
+			log.debug(this.getClass().getName(), e);
+			throw e;
+		}
+	}
+
 }// fin de la clase

@@ -21,7 +21,7 @@
 					visible="@load(vm.modo eq 'NUEVO')"
 					onClick="@command('nuevoProyecto')" class="btn btn-success btn-xs" />
 				<toolbarbutton image="recursos/img/icon-edit.png"
-					label=" Editar" disabled="@load(vm.editando)"
+					label=" Editar" disabled="@load(vm.editando)" if="${sec:autorizadoEditarBajaProyecto(sessionScope.prmPnlCentral.idItem)}"
 					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
 					onClick="@command('editar')" class="btn btn-success btn-xs" />
 				<space bar="true" spacing="10px" />
@@ -91,7 +91,7 @@
 										<comboitem
 											label="@load(each.descripcion)" />
 									</template>
-								</combobox>
+									</combobox>
 								</div>
 								<div>
 									<label value="Estado" class="form-label" width="45%"/>
@@ -132,7 +132,9 @@
 						</rows>
 					</grid>
 				</tabpanel>
-				<tabpanel id="tabStaff"></tabpanel>
+				<tabpanel id="tabStaff">
+					<include src="vistas/proyecto/listaStaffProyecto.zul"/>
+				</tabpanel>
 				<tabpanel id="tabDemandantes">
 					<include src="vistas/proyecto/listaDemandantes.zul"/>
 				</tabpanel>

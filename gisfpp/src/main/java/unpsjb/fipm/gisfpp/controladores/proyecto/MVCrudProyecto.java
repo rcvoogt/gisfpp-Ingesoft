@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
@@ -10,16 +11,20 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
-import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -39,13 +44,14 @@ public class MVCrudProyecto {
 	@Init
 	@NotifyChange({ "modo", "creando", "editando", "ver", "titulo","item" })
 	public void init() throws Exception {
+		log = UtilGisfpp.getLogger();
 		servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
 				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) map.get("modo");
 		if (modo.equals(UtilGisfpp.MOD_NUEVO)) {
-			item = new Proyecto("", "", "", "", null, null, null, "", null, null);
+			item = new Proyecto("", "", "", "", null, null, null, "", null, null,null);
 			creando = true;
 			editando = false;
 			ver = false;
@@ -83,10 +89,6 @@ public class MVCrudProyecto {
 		return item;
 	}
 
-	public void setItem(Proyecto proyecto) {
-		item = proyecto;
-	}
-
 	public Boolean getCreando() {
 		return creando;
 	}
@@ -102,7 +104,7 @@ public class MVCrudProyecto {
 	@Command("nuevoProyecto")
 	@NotifyChange({ "item", "creando" })
 	public void nuevoProyecto() {
-		item = new Proyecto("", "", "", "", null, null, null, "", null, null);
+		item = new Proyecto("", "", "", "", null, null, null, "", null, null,null);
 		creando = true;
 		editando = false;
 		ver = false;
@@ -189,5 +191,59 @@ public class MVCrudProyecto {
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
 	}
+	
+	@Command("lkpDemandante")
+	public void verDlgLkpDemandante(){
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgLkpDemandante.zul", null, null);
+		dlg.doModal();
+	}
+	
+	@GlobalCommand("obtenerLkpDemandante")
+	@NotifyChange("item")
+	public void obtenerLkpDemandante(@BindingParam("seleccion") Persona demandante){
+		item.getDemandantes().add(demandante);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
+	
+	@Command("quitarDemandante")
+	@NotifyChange("item")
+	public void quitarDemandante(@BindingParam("item") Persona demandante){
+		item.getDemandantes().remove(demandante);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
+	
+	@Command("verDlgStaffProyecto")
+	public void verDlgStaffProyecto(@BindingParam("modo")String arg1, @BindingParam("itemStaff") MiembroStaffProyecto arg2){
+		Map<String, Object> args = new HashMap<>();
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			args.put("modo", UtilGisfpp.MOD_NUEVO);
+		}else {
+			args.put("modo", UtilGisfpp.MOD_EDICION);
+			args.put("itemStaff", arg2);
+		}
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgStaffProyecto.zul", null, args);
+		dlg.doModal();
+	}
+	
+	@GlobalCommand("retornoDlgStaffProyecto")
+	@NotifyChange("item")
+	public void retornoDlgStaffProyecto(@BindingParam("modo")String arg1, @BindingParam("newItem") MiembroStaffProyecto arg2){
+		if (arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			arg2.setProyecto(item);
+			item.getStaff().add(arg2);
+		}
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
+	
+	@Command("quitarMiembroSatff")
+	@NotifyChange("item")
+	public void quitarMiembroStaff(@BindingParam("itemStaff") MiembroStaffProyecto arg1){
+		item.getStaff().remove(arg1);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
 
-}
+}//fin de la clase

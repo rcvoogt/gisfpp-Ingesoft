@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.staff.IDaoStaffFI;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 
 @Service("servStaffFI")
@@ -56,6 +57,13 @@ public class ServiciosStaff implements IServiciosStaffFI {
 	@Transactional(readOnly=true)
 	public List<StaffFI> getListado() throws Exception {
 		return dao.recuperarTodo();
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<PersonaFisica> getListadoStaffPersonas() throws Exception {
+		return dao.getListadoPersonas();
 	}
 	
 	

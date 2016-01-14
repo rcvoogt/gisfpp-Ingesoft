@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 
 @Service("servPersonaFisica")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -69,7 +70,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<PersonaFisica> getxIdentificador(String campo, String patronValor) throws Exception {
+	public List<PersonaFisica> getxIdentificador(TIdentificador campo, String patronValor) throws Exception {
 		return dao.getxIdentificador(campo, patronValor);
 	}
 

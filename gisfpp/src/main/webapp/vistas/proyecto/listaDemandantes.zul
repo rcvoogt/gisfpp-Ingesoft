@@ -2,7 +2,7 @@
 	<div class="btn-toolbar pull-right">
 		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
 			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un Demandante del Proyecto"
-				onClick="@command('verDlgBusqueda', modo='NUEVO', valor=null)"> Agregar</a>
+				onClick="@command('lkpDemandante')"> Agregar</a>
 	</div>
 	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
 		model="@load(vm.item.demandantes)" mold="paging" autopaging="true"
@@ -22,7 +22,7 @@
 				<label value="@load(each.cuit)"/>
 				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar Demandante"
 					disabled="@load((not vm.creando) and (not vm.editando))"
-						onClick="@command('quitarDemandante', valor= each)"/>
+						onClick="@command('quitarDemandante', item= each)"/>
 			</row>
 		</template>
 	</grid>

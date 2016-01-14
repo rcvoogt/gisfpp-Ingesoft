@@ -1,0 +1,84 @@
+<window id="dlgLkpDemandante" title="Buscar/Seleccionar Demandante" border="normal"
+	width="850px" height="450px" closable="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgLkpDemandante')">
+	<tabbox vflex="1" hflex="1">
+		<tabs>
+			<tab label="Personas"/>
+			<tab label="Organizaciones"/>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vbox hflex="1" vflex="1">
+					<hbox spacing="5px">
+						<combobox id="cmbbxPersona" placeholder="Seleccionar campo..."
+							width="80%" constraint="no empty: Debe especificar un valor de la lista para poder realizar la busqueda.">
+							<comboitem label="Nombre y Apellido"/>
+							<comboitem label="DNI"/>
+							<comboitem label="CUIL"/>
+							<comboitem label="N° Legajo"/>
+							<comboitem label="N° Matricula"/>
+						</combobox>
+						<textbox id="txtPersona" placeholder="Criterio de busqueda" maxlength="80" width="100%" 
+							onOK="@command('buscarPF', campoLkp= cmbbxPersona.value, valorLkp = self.value)" class="form-control"/>
+						<toolbarbutton tooltiptext="Aplicar filtro" onClick="@command('buscarPF', campoLkp=cmbbxPersona.value, valorLkp=txtPersona.value)"
+							image="recursos/img/icon-lupa.png" class="btn btn-success btn-sm"/>
+					</hbox>
+					<grid style="border: 2px solid #80ccff; border-radius: 5px;" vflex="1" hflex="1"
+						emptyMessage="@load(vm.mensjPF)"
+							model="@load(vm.resultPF)" mold="paging" autopaging="true">
+						<columns sizable="true">
+							<column label="Nombre y Apellido" sort="auto" width="32%"/>
+							<column label="DNI" width="17%"/>
+							<column label="CUIT" width="17%"/>
+							<column label="N° Legajo" width="17%"/>
+							<column label="N° Matricula" width="17%"/>
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@load(each.nombre)" onDoubleClick="@command('seleccion', item=each)"/>
+								<label value="@load(each.dni)"/>
+								<label value="@load(each.cuil)"/>
+								<label value="@load(each.legajo)"/>
+								<label value="@load(each.matricula)"/>
+							</row>
+						</template>
+					</grid>
+					<label value="Doble click en el nombre de la Persona para seleccionarla"
+						style="color: #0000ff; font-size: 10px; font-style: italic;"/>
+				</vbox>
+			</tabpanel>
+			<tabpanel>
+				<vbox hflex="1" vflex="1">
+					<hbox spacing="5px">
+						<combobox id="cmbbxOrganizacion" placeholder="Seleccionar campo..."
+							width="80%" constraint="no empty: Debe especificar un valor de la lista para poder realizar la busqueda.">
+							<comboitem label="Razon Social"/>
+							<comboitem label="CUIT"/>
+						</combobox>
+						<textbox id="txtOrganizacion" placeholder="Criterio de busqueda" maxlength="80" width="100%" 
+							onOK="@command('buscarPJ', campoLkp=cmbbxOrganizacion.value, valorLkp= self.value)" class="form-control"/>
+						<toolbarbutton tooltiptext="Aplicar filtro" 
+							onClick="@command('buscarPJ', campoLkp=cmbbxOrganizacion.value, valorLkp=txtOrganizacion.value)"
+								image="recursos/img/icon-lupa.png" class="btn btn-success btn-sm"/>
+					</hbox>
+					<grid style="border: 2px solid #80ccff; border-radius: 5px;" vflex="1" hflex="1"
+						emptyMessage="@load(vm.mensjPJ)" model="@load(vm.resultPJ)" mold="paging" autopaging="true">
+						<columns>
+							<column label="Razon Social" sort="auto" width="45%"/>
+							<column label="CUIT" width="35%"/>
+							<column width="20%"/>
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@load(each.nombre)" onDoubleClick="@command('seleccion', item =each)"/>
+								<label value="@load(each.cuit)"/>
+							</row>
+						</template>
+					</grid>
+					<label value="Doble click en el nombre de la Organizacion para seleccionarla"
+						style="color: #0000ff; font-size: 10px; font-style: italic;"/>
+				</vbox>	
+			</tabpanel>
+		</tabpanels>
+	</tabbox>	
+</window>

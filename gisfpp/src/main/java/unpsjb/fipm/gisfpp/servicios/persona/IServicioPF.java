@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.servicios.persona;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
 public interface IServicioPF extends IServicioGenerico<PersonaFisica, Integer> {
@@ -23,5 +24,5 @@ public interface IServicioPF extends IServicioGenerico<PersonaFisica, Integer> {
 	 * @return (List<PersonaFisica>) Listado de personas resultado de la busqueda.
 	 * @throws Exception
 	 */
-	public List<PersonaFisica> getxIdentificador(String campo, String patronValor) throws Exception;
+	public List<PersonaFisica> getxIdentificador(TIdentificador campo, String patronValor) throws Exception;
 }

@@ -70,7 +70,7 @@ public class MVListarProyectos {
 	@Command("nuevoProyecto")
 	public void nuevoProyecto() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("item", null);
+		map.put("idItem", 0);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
 	}
@@ -95,8 +95,7 @@ public class MVListarProyectos {
 	@Command("eliminarProyecto")
 	@NotifyChange("listaProyectos")
 	public void eliminarProyecto(@BindingParam("item") Proyecto item) throws Exception {
-		if (isAutorizadoEliminar()) {
-			Messagebox.show("Desea realmente eliminar este Proyecto?", "Gisfpp: Eliminando Proyecto",
+		Messagebox.show("Desea realmente eliminar este Proyecto?", "Gisfpp: Eliminando Proyecto",
 					Messagebox.YES + Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
 
 						public void onEvent(Event event) throws Exception {
@@ -116,11 +115,7 @@ public class MVListarProyectos {
 							}
 						}
 					});
-		} else {
-			Messagebox.show("No posee los permisos suficientes para eliminar este Proyecto.",
-					"Gisfpp: Eliminando Proyecto", Messagebox.OK, Messagebox.ERROR);
 		}
-	}
 
 
 	//Inicio Bloque "Aplicacion Filtro de Listado"
@@ -154,30 +149,6 @@ public class MVListarProyectos {
 		// Limpiamos los argumentos de listadoFiltrado de la sesion.
 		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
 	}
-	//Fin de bloque "Aplicacion de Filtro a Listado"
-
-		
-	@NotifyChange("autorizadoCrear")
-	public boolean isAutorizadoCrear() {
-		Boolean autorizado = UtilGisfpp.rolStaffFi(ECargosStaffFi.COORDINADOR.toString()) ||
-				UtilGisfpp.rolStaffFi(ECargosStaffFi.DELEGADO.toString())|| UtilGisfpp.rolStaffFi(ECargosStaffFi.PROFESOR.toString());
-		if(autorizado){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	private boolean isAutorizadoEliminar() {
-		if (UtilGisfpp.rolStaffFi(ECargosStaffFi.COORDINADOR.toString())
-				|| UtilGisfpp.rolStaffFi(ECargosStaffFi.DELEGADO.toString())
-				|| UtilGisfpp.rolStaffFi(ECargosStaffFi.PROFESOR.toString())) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean isFiltrado() {
 		return listadoFiltrado;
 	}

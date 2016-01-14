@@ -23,9 +23,10 @@
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" 
 							role="button" aria-expanded="false" style="height:58px">
-							<label value="@load(vm.usuario.persona.nombre)" style="font-size: 14px;"/> 
+							<label value="${sec:getNombreUsuario()}" style="font-size: 14px;"/> 
 								<n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
+								<n:li><a>Perfil</a></n:li>
 								<n:li><a>Datos Personales</a></n:li>
 								<n:li><a href="logout-gisfpp">Salir</a></n:li>
 							</n:ul>

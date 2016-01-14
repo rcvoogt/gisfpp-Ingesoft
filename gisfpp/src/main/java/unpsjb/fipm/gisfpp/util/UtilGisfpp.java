@@ -32,7 +32,6 @@ public class UtilGisfpp {
 
 		return new String(acumulados);
 	}
-
 	public static Logger getLogger() {
 		if (logger == null) {
 			logger = LoggerFactory.getLogger("log_gisfpp");
@@ -40,23 +39,5 @@ public class UtilGisfpp {
 		return logger;
 	}
 
-	/**
-	 * Comprueba si el usuario actualmente conectado posee el rol en el Staff-Fi
-	 * pasado como parámetro.
-	 * 
-	 * @param rol
-	 * @return "True" si el usuario posee el rol en el Staff-Fi, "false" si no
-	 *         lo posee.
-	 */
-	public static boolean rolStaffFi(String rol) {
-		List<SimpleGrantedAuthority> autorizaciones = (List<SimpleGrantedAuthority>) SecurityContextHolder.getContext()
-				.getAuthentication().getAuthorities();
-		for (SimpleGrantedAuthority autorizacion : autorizaciones) {
-			if ((autorizacion.getAuthority().contains("Staff-Fi")) && (autorizacion.getAuthority().contains(rol))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
+	
 }// fin de la clase
