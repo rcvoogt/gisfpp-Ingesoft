@@ -2,8 +2,12 @@
 <?taglib uri="/WEB-INF/tld/security.tld" prefix="sec"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/gisfpp.css"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
-<?link rel='stylesheet prefetch' href='recursos/css/font-awesome.min.css'?>
+<?link rel="stylesheet" href="recursos/css/font-awesome.min.css"?>
 <?link rel="stylesheet" type="text/css" href="recursos/bootstrap/css/bootstrap.min.css"?>
+
+<?script type="text/javascript" src="recursos/js/jquery-1.12.0.min.js"?>
+<?script type="text/javascript" src="recursos/bootstrap/js/bootstrap.min.js"?>
+
 
 <zk>
 
@@ -45,7 +49,7 @@
 					<h2>Datos de Registro</h2>
 					<form>
 						<input type="text" placeholder="Nombre y Apellido"/>
-						<input type="text" placeholder="DNI"/>
+						<input type="text" placeholder="E-Mail"/>
 						<input type="text" placeholder="Nombre de Usuario"/>
 						<input type="password" placeholder="Contraseña"/>
 						<input type="password" placeholder="Repetir Contraseña"/>
@@ -53,13 +57,10 @@
 					</form> 
 				</div>
 				<div class="cta"><a href="">Olvidaste tu contraseña?</a></div>
-			</div>]]>
+			</div>
+			<script type="text/javascript" src="recursos/js/index.js"></script>
+			]]>
 					
 		</html>
 	</popup>
-
-<!-- Archivos javascript utilizados en la app -->
-<?script type="text/javascript" src="recursos/js/jquery.min.js"?>
-<?script type="text/javascript" src="recursos/js/index.js"?>
-<?script type="text/javascript" src="recursos/bootstrap/js/bootstrap.min.js"?>	
 </zk>

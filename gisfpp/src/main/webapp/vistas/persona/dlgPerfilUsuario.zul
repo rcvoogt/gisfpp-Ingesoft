@@ -1,0 +1,27 @@
+<zk>
+	<window id="dlgPerfilUsuario" title="Resumen Perfil de Usuario" border="normal"
+		closable="true" width="700px" height="350px">
+		<vbox spacing="8px" hflex="true" vflex="true">
+			<label class="form-label">
+				Usuario: ${sec:getNombreUsuario()}
+			</label>
+			<grid mold="paging" autopaging="true" vflex="true"
+				style="border: 2px solid #80ccff; border-radius: 5px;"
+				emptyMessage="No posee ningun rol asigando.">
+				<columns sizable="true">
+					<column label="Rol" width="30%" />
+					<column label="En" width="50%" />
+					<column label="Tipo" width="20%" />
+				</columns>
+				<rows vflex="true">
+					<row forEach="${sec:getRoles()}">
+						<label value="${each.rol}" />
+						<label value="${each.en}" />
+						<label value="${each.tabla}" />
+					</row>
+				</rows>
+			</grid>
+		</vbox>
+	</window>
+</zk>
+

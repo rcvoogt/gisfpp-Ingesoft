@@ -10,7 +10,7 @@
 		<tabbox id="tbbxSP" vflex="true" hflex="true">
 			<tabs>
 				<tab label="Datos Generales"/>
-				<tab label="ISFPP" />
+				<tab label="ISFPP" visible="@load(vm.modo ne 'NUEVO')"/>
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png"

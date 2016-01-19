@@ -45,4 +45,12 @@
 			Devuelve el nombre del Usuario conectado.
 		</description>
 	</function>
+	<function>
+		<name>getRoles</name>
+		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
+		<function-signature><![CDATA[List<RolUsuario> getRoles()]]></function-signature>
+		<description>
+			Devuelve una lista con los roles que posee el usuario actualmente conectado.
+		</description>
+	</function>
 </taglib>

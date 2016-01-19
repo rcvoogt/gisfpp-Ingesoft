@@ -124,7 +124,7 @@
 							<row>
 								<div>
 									<label value="Detalle" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.descripcion)" width="95%" class="form-control"
+									<textbox value="@bind(vm.item.detalle)" width="95%" class="form-control"
 										maxlength="2000" cols="50" rows="6" 
 											readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>

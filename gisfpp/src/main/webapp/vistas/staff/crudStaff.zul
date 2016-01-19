@@ -59,7 +59,7 @@
 					<row>
 						<div>
 							<label value="Cargo" class="form-label" width="45%"/>
-							<combobox model="@load(vm.cargos)" width="45%" selectedItem="@bind(vm.item.rol)"
+							<combobox model="@load(vm.cargos)" width="50%" selectedItem="@bind(vm.item.rol)"
 								disabled="@load((not vm.creando) and (not vm.editando))">
 							<template name="model">
 								<comboitem label="@load(each.titulo)" value="@load(each)"/>

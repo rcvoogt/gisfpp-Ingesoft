@@ -1,5 +1,7 @@
 package unpsjb.fipm.gisfpp.util.security;
 
+import java.util.List;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffProyecto;
@@ -32,6 +34,15 @@ public class UtilSecurity {
 		}else{
 			return "Anonimo";
 		}
+	}
+	
+	/**
+	 * Devuelve una lista con los roles que posee el usuario actualmente conectado.
+	 * @return List<RolUsuario>
+	 */
+	public static List<RolUsuario> getRoles(){
+		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return detalle.getRoles();
 	}
 	
 	/**
@@ -92,9 +103,11 @@ public class UtilSecurity {
 	 */
 	private static boolean isRolStaffFI(ECargosStaffFi cargo){
 		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		for (RolUsuario rol : detalle.getRoles()) {
-			if(rol.getTabla().equals("staff_fi") && rol.getRol().equals(cargo.name())){
-				return true;
+		if (detalle.getRoles()!=null && !detalle.getRoles().isEmpty()) {
+			for (RolUsuario rol : detalle.getRoles()) {
+				if(rol.getTabla().equals("staff_fi") && rol.getRol().equals(cargo.name())){
+					return true;
+				}
 			}
 		}
 		return false;
@@ -110,10 +123,12 @@ public class UtilSecurity {
 	 */
 	private static boolean isRolStaffProyecto(ERolStaffProyecto rol, int idProyecto){
 		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		for (RolUsuario auxRol : detalle.getRoles()) {
-			if(auxRol.getTabla().equals("proyecto") && auxRol.getRol().equals(rol.name())
-					&& auxRol.getIdTabla() == idProyecto){
-				return true;
+		if(detalle.getRoles() !=null && !detalle.getRoles().isEmpty()){
+			for (RolUsuario auxRol : detalle.getRoles()) {
+				if(auxRol.getTabla().equals("proyecto") && auxRol.getRol().equals(rol.name())
+						&& auxRol.getIdTabla() == idProyecto){
+					return true;
+				}
 			}
 		}
 		return false;
