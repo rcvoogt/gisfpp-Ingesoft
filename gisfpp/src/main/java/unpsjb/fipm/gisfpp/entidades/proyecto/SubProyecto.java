@@ -29,7 +29,7 @@ public class SubProyecto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "proyectoId", nullable = false)
 	private Proyecto perteneceA;
 

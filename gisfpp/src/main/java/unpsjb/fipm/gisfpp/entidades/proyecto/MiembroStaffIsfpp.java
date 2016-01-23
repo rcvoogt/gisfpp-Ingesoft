@@ -17,34 +17,34 @@ import javax.persistence.Table;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
-@Table(name="staff_proyecto")
-public class MiembroStaffProyecto implements Serializable{
-	
+@Table(name="staff_isfpp")
+public class MiembroStaffIsfpp implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="idStaffProyecto")
+	@Column(name="idStaffIsfpp")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
-	@JoinColumn(name="proyectoId")
-	private Proyecto proyecto;
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
+	@JoinColumn(name="isfppId")
+	private Isfpp isfpp;
 	
 	@ManyToOne(fetch=FetchType.EAGER, optional=false)
 	@JoinColumn(name="personaId")
 	private PersonaFisica miembro;
 	
 	@Enumerated(EnumType.STRING)
-	private ERolStaffProyecto rol;
+	private ERolStaffIsfpp rol;
 
-	public MiembroStaffProyecto() {
+	public MiembroStaffIsfpp() {
 		super();
 	}
 
-	public MiembroStaffProyecto(Proyecto proyecto, PersonaFisica miembro, ERolStaffProyecto rol) {
+	public MiembroStaffIsfpp(Isfpp isfpp, PersonaFisica miembro, ERolStaffIsfpp rol) {
 		super();
-		this.proyecto = proyecto;
+		this.isfpp = isfpp;
 		this.miembro = miembro;
 		this.rol = rol;
 	}
@@ -57,12 +57,12 @@ public class MiembroStaffProyecto implements Serializable{
 		this.id = id;
 	}
 
-	public Proyecto getProyecto() {
-		return proyecto;
+	public Isfpp getIsfpp() {
+		return isfpp;
 	}
 
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
+	public void setIsfpp(Isfpp isfpp) {
+		this.isfpp = isfpp;
 	}
 
 	public PersonaFisica getMiembro() {
@@ -73,13 +73,13 @@ public class MiembroStaffProyecto implements Serializable{
 		this.miembro = miembro;
 	}
 
-	public ERolStaffProyecto getRol() {
+	public ERolStaffIsfpp getRol() {
 		return rol;
 	}
 
-	public void setRol(ERolStaffProyecto rol) {
+	public void setRol(ERolStaffIsfpp rol) {
 		this.rol = rol;
 	}
 	
-	
-}//fin de la clase
+		
+}//fin de la clase.

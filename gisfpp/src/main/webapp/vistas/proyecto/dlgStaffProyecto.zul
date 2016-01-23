@@ -1,32 +1,43 @@
-<window id="dlgStaffProyecto" title="@load(vm.titulo)" border="normal" height="250px" width="400px"
-	apply="org.zkoss.bind.BindComposer" closable="true"
+<zk>
+	<window id="dlgStaffProyecto" title="@load(vm.titulo)"
+		border="normal" height="250px" width="400px"
+		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgStaffProyecto')">
-	<vbox spacing="18px" hflex="1" vflex="1"> 
-		<div>
-			<label value="Miembro" class="form-label" width="45%"/>
-			<combobox width="95%" model="@load(vm.staffFI)"
-				selectedItem="@bind(vm.item.miembro)" disabled="@load(vm.modo eq 'EDICION')">
-				<template name="model">
-					<comboitem>
-						<attribute name="label">${each.nombre} (DNI:${each.dni})</attribute>
-					</comboitem>
-				</template>
-			</combobox>
-		</div>
-		<div>
-			<label value="Rol" class="form-label" width="45%"/>
-			<combobox width="95%" model="@load(vm.rolesStaff)"
-				selectedItem="@bind(vm.item.rol)">
-				<template name="model">
-					<comboitem label="@load(each.titulo)"/>
-				</template>
-			</combobox>
-		</div>
-		<hbox spacing="8px" pack="center" align="center" hflex="1" vflex="1">
-			<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
-				onClick="@command('aceptar')" > Aceptar</a>
-			<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
-				onClick="@command('cancelar')"> Cancelar</a>
-		</hbox>
-	</vbox>
-</window>
+		<vbox spacing="18px" hflex="1" vflex="1">
+			<div>
+				<label value="Rol" class="form-label" width="45%" />
+				<combobox width="95%" model="@load(vm.rolesStaff)"
+					selectedItem="@bind(vm.item.rol)">
+					<template name="model">
+						<comboitem label="@load(each.titulo)" />
+					</template>
+				</combobox>
+			</div>
+			<div>
+				<label value="Miembro" class="form-label" width="45%" />
+				<combobox width="95%" model="@load(vm.staffFI)"
+					selectedItem="@bind(vm.item.miembro)"
+					disabled="@load(vm.modo eq 'EDICION')">
+					<template name="model">
+						<comboitem>
+							<attribute name="label">${each.nombre} (DNI:${each.dni})</attribute>
+						</comboitem>
+					</template>
+				</combobox>
+			</div>
+			<hbox spacing="8px" pack="center" align="center" hflex="1"
+				vflex="1">
+				<a class="btn btn-success btn-sm"
+					image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptar')">
+					Aceptar
+				</a>
+				<a class="btn btn-success btn-sm"
+					image="recursos/img/icon-remove-sign.png"
+					onClick="@command('cancelar')">
+					Cancelar
+				</a>
+			</hbox>
+		</vbox>
+	</window>
+</zk>

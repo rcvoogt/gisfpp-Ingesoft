@@ -11,7 +11,9 @@ import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.impl.BindContextUtil;
@@ -20,9 +22,13 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
+import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -49,19 +55,21 @@ public class MVCrudIsfpp {
 		modo = (String) args.get("modo");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "");
+			item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "",null, null);
 			creando = true;
 			editando = (ver = false);
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
 			item = servicio.getInstancia((Integer) args.get("idItem"));
+			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			item = servicio.getInstancia((Integer) args.get("idItem"));
+			item.setPerteneceA(perteneceA);
 			creando = (editando = false);
 			ver = true;
 		}
@@ -104,7 +112,7 @@ public class MVCrudIsfpp {
 			}
 			if (editando) {
 				servicio.editar(item);
-				Clients.showNotification("Se guardaron los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null,
+				Clients.showNotification("ISFPP actualizada.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
 			}
 			creando = editando = false;
@@ -124,7 +132,7 @@ public class MVCrudIsfpp {
 	@Command("nuevaIsfpp")
 	@NotifyChange({ "item", "creando", "editando", "ver" })
 	public void nuevaIsfpp() {
-		item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "");
+		item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "",null, null);
 		creando = true;
 		editando = (ver = false);
 	}
@@ -154,6 +162,34 @@ public class MVCrudIsfpp {
 		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
 		Tab tab = (Tab) args.get("tab");
 		tab.close();
+	}
+	
+	@Command("verDlgStaff")
+	public void verDlgStaff(@BindingParam("modo") String arg1, @BindingParam("itemStaff") MiembroStaffIsfpp arg2){
+		Map<String, Object> args = new HashMap<>();
+		args.put("modo", arg1);
+		args.put("item", arg2);
+		args.put("de", item);
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgStaffIsfpp.zul", null, args);
+		dlg.doModal();
+	}
+	
+	@GlobalCommand("retornoDlgStaffIsfpp"	)
+	@NotifyChange("item")
+	public void retornoDlgStaffIsfpp(@BindingParam("modo")String arg1, @BindingParam("newItem") MiembroStaffIsfpp arg2){
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			item.getStaff().add(arg2);
+		}
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
+	
+	@Command("quitarMiembroSatff")
+	@NotifyChange("item")
+	public void quitarMiembroStaff(@BindingParam("itemStaff") MiembroStaffIsfpp arg1){
+		item.getStaff().remove(arg1);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
 	}
 
 }// fin de la clase

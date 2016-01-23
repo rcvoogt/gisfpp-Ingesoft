@@ -7,7 +7,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -65,7 +67,7 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	@Override
 	@Transactional(readOnly = true)
 	public Isfpp recuperarxId(Integer id) throws DataAccessException {
-		String query = "select isfpp from Isfpp as isfpp inner join fetch isfpp.perteneceA sp inner join fetch sp.perteneceA where isfpp.id = ?";
+		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff  left join fetch isfpp.practicantes  where isfpp.id = ?";
 		List<Isfpp> result;
 		try {
 			result = (List<Isfpp>) getHibernateTemplate().find(query, id);
@@ -74,6 +76,12 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 			throw e;
 		}
 		if (result != null && !result.isEmpty()) {
+			for (MiembroStaffIsfpp miembroStaff : result.get(0).getStaff()) {
+				getHibernateTemplate().initialize(miembroStaff.getMiembro().getIdentificadores());
+			}
+			for (PersonaFisica persona : result.get(0).getPracticantes()) {
+				getHibernateTemplate().initialize(persona.getIdentificadores());
+			}
 			return result.get(0);
 		} else {
 			return null;
@@ -84,7 +92,7 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception {
-		String query = "from Isfpp as isfpp where isfpp.perteneceA=?";
+		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff where isfpp.perteneceA=?";
 		try {
 			return (List<Isfpp>) getHibernateTemplate().find(query, sp);
 		} catch (Exception e) {

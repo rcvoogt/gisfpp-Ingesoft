@@ -37,7 +37,7 @@
 				<toolbarbutton label=" Volver" disabled="@load(vm.creando or vm.editando)"
 					class="btn btn-success btn-xs"
 					image="recursos/img/icon-arrow-left.png"
-					onClick="@command('volver')" />
+					onClick="@command('volver')" tooltiptext="Volver al listado de Proyectos"/>
 				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
 					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando)"
 						onClick="@command('salir')"/>	

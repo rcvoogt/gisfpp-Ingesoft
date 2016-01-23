@@ -29,7 +29,7 @@
 					onClick="@command('cancelar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" />
 				<toolbarbutton image="recursos/img/icon-arrow-left.png"
-					label="Volver" onClick="@command('volver')" 
+					label="Volver" onClick="@command('volver')" tooltiptext="Volver al Proyecto"
 						class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando or vm.toolbar_disabled)"/>
 				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
 					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando or vm.toolbar_disabled)"

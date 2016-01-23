@@ -89,5 +89,11 @@
 				</rows>
 			</grid>
 		</tabpanel>
+		<tabpanel id="tabStaff">
+			<include src="vistas/proyecto/listaStaffIsfpp.zul"/>
+		</tabpanel>
+		<tabpanel id="tabPracticantes">
+			<include src="vistas/proyecto/listaPracticantes.zul"/>
+		</tabpanel>
 	</tabpanels>
 </tabbox>

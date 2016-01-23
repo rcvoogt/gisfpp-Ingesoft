@@ -139,6 +139,30 @@ public abstract class Persona implements Serializable {
 	public void removerIdentificador(Identificador identificador) {
 		identificadores.remove(identificador);
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Persona))
+			return false;
+		Persona other = (Persona) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }// Fin de la clase Entity Persona

@@ -128,7 +128,7 @@ public class MVCrudProyecto {
 						3500);
 			} else if (editando) {
 				servicio.editar(item);
-				Clients.showNotification("Se han guardado los cambios efectuados.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+				Clients.showNotification("Proyecto actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
 			}
 			creando=(editando=false);

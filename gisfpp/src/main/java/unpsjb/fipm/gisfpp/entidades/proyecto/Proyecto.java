@@ -78,7 +78,7 @@ public class Proyecto implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private Set<SubProyecto> subProyectos;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId"), inverseJoinColumns=@JoinColumn(name="personaId"))
 	private Set <Persona> demandantes; 
 	
@@ -111,7 +111,7 @@ public class Proyecto implements Serializable {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	protected void setId(Integer id) {
 		this.id = id;
 	}
 

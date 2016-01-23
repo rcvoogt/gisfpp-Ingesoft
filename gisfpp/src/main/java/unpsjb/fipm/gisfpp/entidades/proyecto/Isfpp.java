@@ -2,6 +2,8 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +27,8 @@ import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
 @Table(name = "isfpp")
@@ -50,18 +57,26 @@ public class Isfpp implements Serializable {
 	@Lob
 	private String detalle;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "subProyectoId", nullable = false)
 	private SubProyecto perteneceA;
 
 	@Enumerated(EnumType.STRING)
 	private EEstadosIsfpp estado;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
+	private Set<MiembroStaffIsfpp> staff;
+	
+	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL)
+	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId"))
+	private Set<PersonaFisica> practicantes;
 
 	public Isfpp() {
 		super();
 	}
 
-	public Isfpp(SubProyecto perteneceA, String titulo, String objetivos, Date inicio, Date fin, String detalle) {
+	public Isfpp(SubProyecto perteneceA, String titulo, String objetivos, Date inicio, Date fin, String detalle
+			, Set<MiembroStaffIsfpp> staff, Set<PersonaFisica> practicantes) {
 		super();
 		this.titulo = titulo;
 		this.objetivos = objetivos;
@@ -70,6 +85,8 @@ public class Isfpp implements Serializable {
 		this.detalle = detalle;
 		this.perteneceA = perteneceA;
 		this.estado = EEstadosIsfpp.GENERADA;
+		this.staff = (staff == null)? new HashSet<>(): staff;
+		this.practicantes = (practicantes==null)? new HashSet<>(): practicantes;
 	}
 
 	public Integer getId() {
@@ -147,6 +164,22 @@ public class Isfpp implements Serializable {
 			return false;
 		}
 	}
+	
+	public Set<MiembroStaffIsfpp> getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Set<MiembroStaffIsfpp> staff) {
+		this.staff = staff;
+	}
+	
+	public Set<PersonaFisica> getPracticantes() {
+		return practicantes;
+	}
+
+	public void setPracticantes(Set<PersonaFisica> practicantes) {
+		this.practicantes = practicantes;
+	}
 
 	@AssertTrue(message = "La \"fecha de finalizacion\" de la ISFPP debe ser anterior a la fecha de finalizacion del Proyecto.")
 	private boolean isFechaFinValida2() {
@@ -157,4 +190,29 @@ public class Isfpp implements Serializable {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Isfpp))
+			return false;
+		Isfpp other = (Isfpp) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }// fin de la clase

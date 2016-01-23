@@ -66,7 +66,7 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	@Override
 	@Transactional(readOnly = true)
 	public SubProyecto recuperarxId(Integer id) throws DataAccessException {
-		String query = "from SubProyecto as sp left join fetch sp.instanciasIsfpp where sp.id=?";
+		String query = "select sp from SubProyecto as sp left join fetch sp.instanciasIsfpp where sp.id=?";
 		List<SubProyecto> result;
 		try {
 			result = (List<SubProyecto>) getHibernateTemplate().find(query, id);

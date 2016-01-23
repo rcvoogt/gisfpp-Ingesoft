@@ -1,0 +1,33 @@
+<vbox spacing="6px" hflex="true" vflex="true">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un nuevo miembro al Staff de la Isfpp"
+				onClick="@command('verDlgStaff', modo='NUEVO', itemStaff =null)"> Agregar</a>
+	</div>
+	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+		model="@load(vm.item.staff)" mold="paging" autopaging="true"
+		 emptyMessage="No hay ningún miembro asignado al Staff de esta Isfpp.">
+		 <columns>
+		 	<column label="Nombre y Apellido"  width="35%"/>
+		 	<column label="DNI" width="17%"/>
+		 	<column label="CUIL" width="17%"/>
+		 	<column label="Rol" width="17%"/>
+		 	<column label="Editar" width="7%" align="center"/>
+		 	<column label="Quitar" width="7%" align="center"/>
+		 </columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.miembro.nombre)"/>
+				<label value="@load(each.miembro.dni)"/>
+				<label value="@load(each.miembro.cuil)"/>
+				<label value="@load(each.rol.titulo)"/>
+				<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar Rol miembro Staff"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('verDlgStaff', modo='EDICION', itemStaff= each)"/>
+				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar miembro del Staff"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('quitarMiembroSatff', itemStaff= each)"/>
+			</row>
+		</template>
+	</grid>
+</vbox>
