@@ -45,32 +45,35 @@ public class MVDlgLkpPersona {
 			switch (campoLookup) {
 			case ("Nombre y Apellido"): {
 				resultado = servicio.getxNombre(valorLookup);
-				if(resultado==null || resultado.isEmpty()){
+				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;
 			}
 			case ("DNI"): {
 				resultado = servicio.getxIdentificador(TIdentificador.DNI, valorLookup);
-				if(resultado==null || resultado.isEmpty()){
+				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;
 			}
 			case ("CUIL"): {
 				resultado = servicio.getxIdentificador(TIdentificador.CUIL, valorLookup);
+				if(resultado == null){
+					mensaje="La consulta no arrojo ningun resultado.";
+				}
 				break;
 			}
 			case("N° Legajo"):{
 				resultado =servicio.getxIdentificador(TIdentificador.LEGAJO, valorLookup);
-				if(resultado==null || resultado.isEmpty()){
+				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;
 			}
 			case("N° Matricula"):{
 				resultado = servicio.getxIdentificador(TIdentificador.MATRICULA, valorLookup);
-				if(resultado==null || resultado.isEmpty()){
+				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
 				break;

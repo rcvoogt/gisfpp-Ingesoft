@@ -2,7 +2,7 @@
 	<div class="btn-toolbar pull-right">
 		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
 			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un Practicante a la Isfpp"
-				onClick="@command('lkpPracticante')"> Agregar</a>
+				onClick="@command('verDlgLkpPracticante')"> Agregar</a>
 	</div>
 	<grid hflex="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
 		model="@load(vm.item.practicantes)" mold="paging" autopaging="true"
@@ -22,7 +22,7 @@
 				<label value="@load(each.matricula)"/>
 				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar Practicante"
 					disabled="@load((not vm.creando) and (not vm.editando))"
-						onClick="@command('quitarPracticante', item= each)"/>
+						onClick="@command('quitarPracticante', practicante= each)"/>
 			</row>
 		</template>
 	</grid>

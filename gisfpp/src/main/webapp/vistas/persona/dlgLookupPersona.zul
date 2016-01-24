@@ -1,7 +1,7 @@
 <window id="dlgLkpPersona" title="Busqueda de Persona"
-	border="normal" width="760px" closable="true" apply="org.zkoss.bind.BindComposer"
+	border="normal" width="800px" height="450px" closable="true" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgLkpPersona')">
-	<vbox>
+	<vbox vflex="true" hflex="true" spacing="6px">
 		<hbox spacing="5px">
 			<combobox placeholder="Seleccionar campo..." value="@bind(vm.campoLookup)"
 				width="80%" constraint="no empty: Debe especificar un valor de la lista para poder realizar la busqueda.">
@@ -16,21 +16,27 @@
 			<toolbarbutton tooltiptext="Aplicar filtro" onClick="@command('buscar')"
 				image="recursos/img/icon-lupa.png" class="btn btn-success btn-sm"/>
 		</hbox>
-		<listbox rows="8" hflex="1" vflex="1" model="@load(vm.resultado)"
-			style="border: 2px solid #80ccff; border-radius: 5px;"
+		<grid hflex="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+			model="@load(vm.resultado)" mold="paging" autopaging="true"
 				emptyMessage="@load(vm.mensaje)">
-			<listhead>
-				<listheader label="Nombre y Apellido" sort="auto" width="44%"/>
-				<listheader label="DNI" width="28%"/>
-				<listheader label="CUIL" width="28%"/>
-			</listhead>
+			<columns sizable="true">
+				<column label="Nombre y Apellido" sort="auto" width="40%"/>
+				<column label="DNI" width="15%"/>
+				<column label="CUIT" width="15%"/>
+				<column label="N° Matricula" width="15%"/>
+				<column label="N° Legajo" width="15%"/>
+			</columns>
 			<template name="model">
-				<listitem>
-					<listcell label="@load(each.nombre)" onDoubleClick="@command('seleccion', item=each)"/>
-					<listcell label="@load(each.dni)" onDoubleClick="@command('seleccion', item=each)"/>
-					<listcell label="@load(each.cuil)" onDoubleClick="@command('seleccion', item=each)"/>
-				</listitem>
+				<row>
+					<label value="@load(each.nombre)" onDoubleClick="@command('seleccion', item=each)"/>
+					<label value="@load(each.dni)"/>
+					<label value="@load(each.cuit)"/>
+					<label value="@load(each.matricula)"/>
+					<label value="@load(each.legajo)"/>
+				</row>
 			</template>
-		</listbox>
+		</grid>
+		<label value="Doble click en el nombre de la Persona para seleccionarla"
+						style="color: #0000ff; font-size: 10px; font-style: italic;"/>
 	</vbox>
 </window>

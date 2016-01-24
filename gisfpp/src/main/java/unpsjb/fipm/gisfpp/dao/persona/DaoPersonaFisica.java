@@ -128,10 +128,14 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 			//La consulta devuelve Personas duplicadas segun la cantidad de identificadores
 			//registrados que tenga. Por eso se utiliza este truco de pasar la lista resultado a un Set que 
 			//por definicion no permite duplicados, eliminando dichos elementos duplicados de la lista
-			Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(result);
-			result.clear();
-			result.addAll(listaSinDuplicados);
- 			return result;
+			if(result != null && !result.isEmpty()){
+				Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(result);
+				result.clear();
+				result.addAll(listaSinDuplicados);
+	 			return result;
+			}else{
+				return null;
+			}
 		}catch(Exception e){
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -146,10 +150,14 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, tipo,patron);
 			//Al no poder inicializar la coleccion de identificadores en la consulta anterior (no se pudo usar inner join fetch)
 			//se inicializa los identificadores de las personas resultado de la consulta manualmente.
-			for (PersonaFisica persona : result) {
-				getHibernateTemplate().initialize(persona.getIdentificadores());
+			if(result!=null && !result.isEmpty()){
+				for (PersonaFisica persona : result) {
+					getHibernateTemplate().initialize(persona.getIdentificadores());
+				}
+				return result;
+			}else{
+				return null;
 			}
-			return result;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;

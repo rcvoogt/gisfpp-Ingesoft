@@ -43,7 +43,8 @@
 								<textbox value="@load(vm.item.miembro.nombre)" readonly="true" width="95%"
 									class="form-control"/>
 								<toolbarbutton image="recursos/img/icon-findfriends.png" tooltiptext="Buscar Persona"
-									onClick="@command('verDlgLookupPersona')" class="btn btn-success btn-sm"/>
+									onClick="@command('verDlgLookupPersona')" class="btn btn-success btn-sm"
+										disabled="@load((not vm.creando) and (not vm.editando))"/>
 							</hbox>	
 						</div>
 					</row>

@@ -191,5 +191,27 @@ public class MVCrudIsfpp {
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
 	}
+	
+	@Command("verDlgLkpPracticante")
+	public void verDlgLkpPracticante(){
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgLookupPersona.zul", null, null);
+		dlg.doModal();
+	}
+	
+	@GlobalCommand("obtenerLkpPersona")
+	@NotifyChange("item")
+	public void retornoLkpPracticante(@BindingParam("seleccion")PersonaFisica arg1){
+		item.getPracticantes().add(arg1);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
+	
+	@Command("quitarPracticante")
+	@NotifyChange("item")
+	public void quitarPracticante(@BindingParam("practicante") PersonaFisica arg1){
+		item.getPracticantes().remove(arg1);
+		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
+				"top_right", 4000);
+	}
 
 }// fin de la clase
