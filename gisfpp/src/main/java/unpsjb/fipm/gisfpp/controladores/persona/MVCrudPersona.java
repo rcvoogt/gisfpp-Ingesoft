@@ -48,7 +48,7 @@ public class MVCrudPersona {
 		log = UtilGisfpp.getLogger();
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new PersonaFisica("");
+			item = new PersonaFisica();
 			creando = true;
 			titulo = "Nueva Persona";
 			break;

@@ -17,52 +17,27 @@ import unpsjb.fipm.gisfpp.util.security.RolUsuario;
 
 public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 
-	Logger log = UtilGisfpp.getLogger();
+	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
 	public Integer crear(Usuario instancia) throws DataAccessException {
-		try {
-			getHibernateTemplate().save(instancia);
-		} catch (DataIntegrityViolationException | ConstraintViolationException
-				| javax.validation.ConstraintViolationException integridadExc) {
-			throw integridadExc;
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
-		}
-		return instancia.getId();
+		return null;
 	}
 
 	@Override
 	public void actualizar(Usuario instancia) throws DataAccessException {
-		try {
-			getHibernateTemplate().update(instancia);
-		} catch (DataIntegrityViolationException | ConstraintViolationException
-				| javax.validation.ConstraintViolationException integridadExc) {
-			throw integridadExc;
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
-		}
+		
 	}
 
 	@Override
 	public void eliminar(Usuario instancia) throws DataAccessException {
-		try {
-			getHibernateTemplate().delete(instancia);
-		} catch (DataIntegrityViolationException | ConstraintViolationException
-				| javax.validation.ConstraintViolationException integridadExc) {
-			throw integridadExc;
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
-		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> recuperarTodo() throws DataAccessException {
-		String query = "from Usuario as u inner join fetch u.persona";
+		String query = "select u from Usuario as u inner join fetch u.persona";
 		try {
 			return (List<Usuario>) getHibernateTemplate().find(query, null);
 		} catch (DataIntegrityViolationException | ConstraintViolationException
@@ -76,8 +51,11 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 
 	@Override
 	public Usuario recuperarxId(Integer id) throws DataAccessException {
+		Usuario result;
 		try {
-			return getHibernateTemplate().get(Usuario.class, id);
+			result = getHibernateTemplate().get(Usuario.class, id);
+			getHibernateTemplate().initialize(result.getPersona());
+			 return result;
 		} catch (DataIntegrityViolationException | ConstraintViolationException
 				| javax.validation.ConstraintViolationException integridadExc) {
 			throw integridadExc;
@@ -92,7 +70,7 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 	public Usuario getxPersona(PersonaFisica persona) throws DataAccessException {
 		List<Usuario> resultQuery = null;
 		Usuario usuario = null;
-		String query = "from Usuario as u inner join fetch u.permisos where u.persona.id = ?";
+		String query = "select u from Usuario as u inner join u.persona where u.persona.id = ?";
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, persona.getId());
 		} catch (DataAccessException | HibernateException exc) {
@@ -104,6 +82,7 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 		}
 		if ((resultQuery != null) && (!resultQuery.isEmpty())) {
 			usuario = resultQuery.get(0);
+			getHibernateTemplate().initialize(usuario.getPersona());
 		}
 		return usuario;
 	}
@@ -112,7 +91,7 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 	@Override
 	public Usuario getxNombreUsuario(String nickname) throws DataAccessException {
 		List<Usuario> resultQuery = null;
-		String query = "from Usuario as u inner join fetch u.persona where u.nickname = ?";
+		String query = "select u from Usuario as u inner join fetch u.persona where u.nickname = ?";
 		Usuario usuario = null;
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, nickname);

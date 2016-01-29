@@ -16,7 +16,6 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.bind.impl.BindContextUtil;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.Clients;
@@ -28,7 +27,6 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -212,6 +210,15 @@ public class MVCrudIsfpp {
 		item.getPracticantes().remove(arg1);
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
+	}
+	
+	//Dialogo para ver los datos de contacto de una persona
+	@Command("dlgVerDatosContacto")
+	public void verDlgVerDatosContacto(@BindingParam("itemPersona") PersonaFisica arg1) {
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("itemPersona", arg1);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgVerDatosContacto.zul", null, map);
+		dlg.doModal();
 	}
 
 }// fin de la clase

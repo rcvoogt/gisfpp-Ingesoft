@@ -2,10 +2,10 @@ package unpsjb.fipm.gisfpp.entidades.persona;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +26,8 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "personaId", referencedColumnName = "idPersona")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="personaId", nullable=false, foreignKey=@ForeignKey(name="fk_persona"))
 	private PersonaFisica persona;
 
 	@Column(unique = true, nullable = false, length = 50)
@@ -40,13 +40,17 @@ public class Usuario implements Serializable {
 
 	public Usuario() {
 		super();
+		this.nickname="";
+		this.password="";
+		this.activo=false;
+		this.persona=null;
 	}
 
 	public Usuario(PersonaFisica persona, String nickname, String password, Boolean activo) {
 		super();
-		this.persona = persona;
-		this.nickname = nickname;
-		this.password = password;
+		this.persona=persona;
+		this.nickname = (nickname==null)?"":nickname;
+		this.password = (password==null)?"":password;
 		this.activo = activo;
 	}
 
@@ -76,7 +80,7 @@ public class Usuario implements Serializable {
 		this.nickname = nickname;
 	}
 
-	@Length(max = 50, message = "La \"Contraseï¿½a\" no puede ser mayor a 50 caracteres.")
+	@Length(max = 50, message = "La \"Contraseña\" no puede ser mayor a 50 caracteres.")
 	public String getPassword() {
 		return password;
 	}

@@ -7,7 +7,7 @@
 		</n:h3>
 	</div>
 	<div class="panel-body" vflex="true">
-		<vbox hflex="1" vflex="1" spacing="6px">
+		<vbox vflex="1" spacing="6px">
 			<div class="btn-toolbar pull-right">
 				<a image="recursos/img/icon-portrait.png" class="btn btn-success btn-sm"
 					onClick="@command('nuevaPersona')" 
@@ -19,18 +19,22 @@
 				emptyMessage="No hay Personas registradas."
 				vflex="1" model="@load(vm.personas)">
 				<columns>
-					<column label="Nombre y Apellido" width="35%" sort="auto(nombre)"/>
+					<column label="Nombre y Apellido" width="30%" sort="auto(nombre)"/>
 					<column label="DNI" />
 					<column label="CUIL" />
-					<column label="Ver" align="center" width="7%" />
-					<column label="Editar" align="center" width="7%" />
-					<column label="Baja" align="center" width="7%" />
+					<column label="N° Legajo"/>
+					<column label="N° Matricula"/>
+					<column label="Ver" align="center" width="5%" />
+					<column label="Editar" align="center" width="5%" />
+					<column label="Baja" align="center" width="5%" />
 				</columns>
 				<template name="model">
 					<row>
-						<label value="@load(each.nombre)" />
+						<label value="@load(each.nombre)"/>
 						<label value="@load(each.dni)" />
 						<label value="@load(each.cuil)" />
+						<label value="@load(each.legajo)"/>
+						<label value="@load(each.matricula)"/>
 						<toolbarbutton
 							image="recursos/img/icon-preview.png" tooltip="Ver detalle"
 							onClick="@command('verPersona', item=each)" />

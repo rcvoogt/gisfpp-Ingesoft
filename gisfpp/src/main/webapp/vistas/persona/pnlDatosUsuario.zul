@@ -1,0 +1,38 @@
+<grid hflex="true" vflex="true" sclass="fgrid">
+	<columns>
+		<column width="33%"/>
+		<column width="33%"/>
+		<column width="34%"/>
+	</columns>
+	<rows>
+		<row height="15px"/>
+		<row>
+			<div>
+				<label value="Nombre de Usuario" class="form-label" width="45%"/>
+				<textbox value="@bind(vm.item.usuario.nickname)" width="80%" class="form-control" 
+					readonly="@load((not vm.creando) and (not vm.editando))" maxlength="50"/>
+			</div>
+			<div>
+				<checkbox label="Activo" checked="@bind(vm.item.usuario.activo)"
+					disabled="@load((not vm.creando) and (not vm.editando))"/>
+			</div>
+		</row>
+		<row height="15px"/>
+		<row>
+			<div>
+				<label value="Contraseña" class="form-label" width="45%"/>
+				<textbox id="txtContrasenia" value="@bind(vm.item.usuario.password)" width="60%" class="form-control" 
+					readonly="@load((not vm.creando) and (not vm.editando))" maxlength="50" type="password"
+						onChanging="txtRepetirContrasenia.setReadonly(false)"/>
+			</div>
+		</row>
+		<row height="15px"/>
+		<row>
+			<div>
+				<label value="Repita la Contraseña" class="form-label" width="45%"/>
+				<textbox id="txtRepetirContrasenia" width="60%" class="form-control" 
+					readonly="true" maxlength="50" type="password"/>
+			</div>	
+		</row>
+	</rows>
+</grid>

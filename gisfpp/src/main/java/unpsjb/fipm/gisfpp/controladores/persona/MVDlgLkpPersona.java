@@ -1,12 +1,9 @@
 package unpsjb.fipm.gisfpp.controladores.persona;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
-import org.springframework.jca.cci.object.EisOperation;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -14,7 +11,6 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.spring.SpringUtil;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;

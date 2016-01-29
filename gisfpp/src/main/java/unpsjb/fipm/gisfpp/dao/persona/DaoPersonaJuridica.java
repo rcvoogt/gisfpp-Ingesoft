@@ -74,7 +74,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 			}else{
 				getHibernateTemplate().initialize(result.get(0).getContactos());
 				for (PersonaFisica persona : result.get(0).getContactos()) {
-					getHibernateTemplate().initialize(persona.getDatosDeContacto());
 					getHibernateTemplate().initialize(persona.getIdentificadores());
 				}
 				getHibernateTemplate().initialize(result.get(0).getDatosDeContacto());

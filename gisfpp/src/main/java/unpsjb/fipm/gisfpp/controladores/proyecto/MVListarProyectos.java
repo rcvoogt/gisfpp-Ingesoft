@@ -19,7 +19,6 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
-import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;

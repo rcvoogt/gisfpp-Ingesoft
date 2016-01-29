@@ -15,7 +15,7 @@
 		</columns>
 		<template name="model">
 			<row>
-				<label value="@load(each.nombre)" onClick="@command('dlgVerDatosContacto', item= each)"/>
+				<label value="@load(each.nombre)" onClick="@command('dlgVerDatosContacto', itemPersona= each)"/>
 				<label value="@load(each.dni)"/>
 				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="eliminar persona de contacto"
 					disabled="@load((not vm.creando) and (not vm.editando))"

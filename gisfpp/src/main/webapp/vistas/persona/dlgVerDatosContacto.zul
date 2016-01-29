@@ -1,19 +1,21 @@
 <window title="Ver Datos de Contacto" border="normal" closable="true" 
-	height="35%" width="30%">
+	height="35%" width="30%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgVerDatosContacto')">
 	<vbox spacing="8px" vflex="true">
-		<label value="${arg.item.nombre}" style="font-weight: bold;"/>	
+		<label value="@load(vm.persona.nombre)" style="font-weight: bold;"/>	
 		<grid hflex="true" vflex="true" emptyMessage="Esta Persona no posee datos de contacto"
-			style="border: 2px solid #80ccff; border-radius: 5px;">
+			style="border: 2px solid #80ccff; border-radius: 5px;" mold="paging" autopaging="true"
+				model="@load(vm.persona.datosDeContacto)">
 			<columns sizable="true">
 				<column label="Tipo" width="40%"/>
 				<column label="Valor" width="60%"/>
 			</columns>
-			<rows>
-				<row forEach="${arg.item.datosDeContacto}">
+			<template name="model">
+				<row>
 					<label value="${each.tipo.titulo}"/>
 					<label value="${each.valor}"/>
 				</row>
-			</rows>
+			</template>
 		</grid>
 	</vbox>
 </window>

@@ -153,9 +153,9 @@ public class MVCrudOrganizacion {
 	//Dialogo para ver los datos de contacto de una persona
 	//de contacto de la Organizacion
 	@Command("dlgVerDatosContacto")
-	public void verDlgVerDatosContacto(@BindingParam("item") PersonaFisica arg1) {
+	public void verDlgVerDatosContacto(@BindingParam("itemPersona") PersonaFisica arg1) {
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("item", arg1);
+		map.put("itemPersona", arg1);
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgVerDatosContacto.zul", null, map);
 		dlg.doModal();
 	}

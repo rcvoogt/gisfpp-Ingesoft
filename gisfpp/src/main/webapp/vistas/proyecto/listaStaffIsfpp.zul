@@ -17,7 +17,7 @@
 		 </columns>
 		<template name="model">
 			<row>
-				<label value="@load(each.miembro.nombre)"/>
+				<label value="@load(each.miembro.nombre)" onDoubleClick="@command('dlgVerDatosContacto', itemPersona= each.miembro)"/>
 				<label value="@load(each.miembro.dni)"/>
 				<label value="@load(each.miembro.cuil)"/>
 				<label value="@load(each.rol.titulo)"/>
@@ -30,4 +30,6 @@
 			</row>
 		</template>
 	</grid>
+	<label value="Doble Click sobre el Nombre y Apellido de un Miembro del Staff para ver sus datos de contacto"
+		style="color: #0000ff; font-size: 10px; font-style: italic;"/>
 </vbox>

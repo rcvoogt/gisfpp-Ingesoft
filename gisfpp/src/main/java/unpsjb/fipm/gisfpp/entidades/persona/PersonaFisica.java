@@ -3,9 +3,8 @@ package unpsjb.fipm.gisfpp.entidades.persona;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.AssertTrue;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,19 +15,26 @@ public class PersonaFisica extends Persona {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="persona")
 	private Usuario usuario;
 
 	public PersonaFisica() {
-		super();
+		this.nombre="";
+		this.usuario = new Usuario();
 	}
 
 	public PersonaFisica(String nombre) {
-		super(nombre);
+		this.nombre=(nombre==null)?"":nombre;
+		this.usuario = new Usuario();
+	}
+	
+	public PersonaFisica(String nombre, Usuario usuario){
+		this.nombre=(nombre==null)?"":nombre;
+		this.usuario = (usuario==null)? new Usuario(): usuario;
 	}
 
 	@Override
-	@NotBlank(message = "Debe indicar \"Nombrey Apellido\" para la Persona.")
+	@NotBlank(message = "Debe indicar \"Nombre y Apellido\" para la Persona.")
 	@Length(max = 80, message = "El \"Nombre y Apellido\" de la Persona no debe ser mayor a 80 caracteres.")
 	public String getNombre() {
 		return nombre;

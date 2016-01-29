@@ -13,6 +13,7 @@
 				<tab label="N° de Identificacion"/>
 				<tab label="Datos de Contacto"/>
 				<tab label="Domicilios"/>
+				<tab label="Datos Usuario"/>
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-plus-sign.png" label="Nuevo" disabled="@load(vm.creando)"
@@ -59,6 +60,9 @@
 				</tabpanel>
 				<tabpanel id="tabDomicilios">
 					<include src="vistas/persona/pnlDomicilios.zul"/>
+				</tabpanel>
+				<tabpanel>
+					<include src="vistas/persona/pnlDatosUsuario.zul"/>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>

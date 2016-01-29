@@ -1,13 +1,44 @@
 package unpsjb.fipm.gisfpp.util.security;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 
 public class UtilSecurity {
+	
+	/**
+	 * Método utilizado para generar un usuario por defecto para la persona
+	 * pasada como parámetro. Se utiliza el numero de documento como "nickname"
+	 * o si la persona no tiene establecido un numero de doc. se genera un "nickname"
+	 * con el primer nombre de la Persona mas un número aleatorio. La contraseña
+	 * por defecto es "gisfpp".
+	 * @param persona (PersonaFisica)
+	 * @return usuario default (Usuario)
+	 */
+	public static Usuario generarUsuario(PersonaFisica persona){
+		Usuario usuarioGenerado = new Usuario();
+		if(persona!=null){
+			if((persona.getDni()!=null) && (!persona.getDni().isEmpty())){
+				usuarioGenerado.setNickname(persona.getDni());
+			}else{
+				String nicknameDefault ="";
+				int aleatorio = (int)(Math.random()*1000);
+				StringTokenizer tokens = new StringTokenizer(persona.getNombre());
+				nicknameDefault = tokens.nextToken().toLowerCase() + aleatorio;
+				usuarioGenerado.setNickname(nicknameDefault);
+			}
+			usuarioGenerado.setPassword("gisfpp");
+			return usuarioGenerado;
+		}else{
+			return null;
+		}
+	}
 	
 	/**
 	 * Devuelve Verdadero (true) si el usuario se ha

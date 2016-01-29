@@ -38,7 +38,7 @@ public class MVCrudSubProyecto {
 	private boolean creando;
 	private boolean editando;
 	private boolean ver;
-	private boolean toolbar_disabled=false;
+	private boolean tabIsfppCreado=false;
 	private String modo;
 	private String titulo;
 	private HashMap<String, Object> map;
@@ -155,8 +155,8 @@ public class MVCrudSubProyecto {
 		return titulo;
 	}
 	
-	public boolean isToolbar_disabled() {
-		return toolbar_disabled;
+	public boolean isTabIsfppCreado() {
+		return tabIsfppCreado;
 	}
 
 	public List<Isfpp> getInstanciasIsfpp() {
@@ -164,30 +164,30 @@ public class MVCrudSubProyecto {
 	}
 
 	@Command("nuevaIsfpp")
-	@NotifyChange("toolbar_disabled")
+	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {
 		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
-		toolbar_disabled=true;
+		tabIsfppCreado=true;
 	}
 
 	@Command("editarIsfpp")
-	@NotifyChange("toolbar_disabled")
+	@NotifyChange("tabIsfppCreado")
 	public void editarIsfpp(@BindingParam("idItem") Integer id) {
 		crearTab(UtilGisfpp.MOD_EDICION, "Editar Isfpp", id);
-		toolbar_disabled = true;
+		tabIsfppCreado = true;
 	}
 
 	@Command("verIsfpp")
-	@NotifyChange("toolbar_disabled")
+	@NotifyChange("tabIsfppCreado")
 	public void verIsfpp(@BindingParam("idItem") Integer id) {
 		crearTab(UtilGisfpp.MOD_VER, "Ver Isfpp", id);
-		toolbar_disabled = true;
+		tabIsfppCreado = true;
 	}
 	
 	@GlobalCommand("cerrandoTab")
-	@NotifyChange({"toolbar_disabled","item","instanciasIsfpp"})
+	@NotifyChange({"tabIsfppCreado","item","instanciasIsfpp"})
 	public void cerrandoTab(@BindingParam ("actualizar") boolean actualizar) throws Exception{
-		toolbar_disabled = false;
+		tabIsfppCreado = false;
 		if (actualizar){
 			item = servicio.getInstancia(item.getId());
 		}

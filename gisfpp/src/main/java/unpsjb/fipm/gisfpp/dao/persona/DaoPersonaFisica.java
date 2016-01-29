@@ -3,9 +3,6 @@ package unpsjb.fipm.gisfpp.dao.persona;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
-
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -13,40 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
-import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
 
-	private IDaoUsuario daoUsuario;
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
 	@Transactional(readOnly=false)
 	public Integer crear(PersonaFisica instancia) throws DataAccessException {
-		Usuario usuario;
-		// si la persona a crear no tiene un usuario establecido se le crea uno
-		// por defecto con dni como nickname(si no posee dni, se crea un
-		// nickname por defecto) y password por defecto "unpsjbfipm"
-		if (instancia.getUsuario() == null) {
-			usuario = new Usuario();
-			String nickDefault;
-			if (instancia.getDni() == null || instancia.getDni().isEmpty()) {
-				int aleatorio = (int) (Math.random() * 100);
-				StringTokenizer tokens = new StringTokenizer(instancia.getNombre());
-				nickDefault = tokens.nextToken() + aleatorio;
-			} else {
-				nickDefault = instancia.getDni();
-			}
-			usuario.setNickname(nickDefault);
-			usuario.setPassword("unpsjbfipm");
-			usuario.setActivo(true);
-			instancia.setUsuario(usuario);
-			usuario.setPersona(instancia);
-		} else {
-			usuario = instancia.getUsuario();
-			usuario.setPersona(instancia);
-		}
 		try {
 			getHibernateTemplate().save(instancia);
 			return instancia.getId();
@@ -102,9 +74,8 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	@Override
 	@Transactional(readOnly = true)
 	public PersonaFisica recuperarxId(Integer id) throws DataAccessException {
-		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores	where pf.id = ?";
+		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores	left join fetch pf.usuario where pf.id = ?";
 		try {
-			getHibernateTemplate().setCacheQueries(true);
 			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, id);
 			if(result ==null || result.isEmpty()){
 				return null;
@@ -164,9 +135,5 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		}
 	}
 
-	public void setDaoUsuario(IDaoUsuario daoUsuario) {
-		this.daoUsuario = daoUsuario;
-	}
-
-			
+				
 }// fin de la clase
