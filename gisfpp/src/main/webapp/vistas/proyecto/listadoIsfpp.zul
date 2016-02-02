@@ -15,12 +15,12 @@
 			<column label="Fecha Fin" width="16%"/>
 			<column label="Ver" width="7%" align="center"/>
 			<column label="Editar" width="7%" align="center"/>
-			<column label="Baja" width="7%" align="center"/>
+			<column label="Eliminar" width="7%" align="center"/>
 		</columns>
 		<template name="model">
 			<row>
 				<label value="@load(each.titulo)"/>
-				<label value="@load(each.estado)"/>
+				<label value="@load(each.estado.titulo)"/>
 				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
 				<toolbarbutton image="recursos/img/icon-preview.png" disabled="@load(vm.tabIsfppCreado)"
@@ -28,8 +28,8 @@
 				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load(not vm.editando or vm.tabIsfppCreado)"
 					tooltiptext="Editar datos" onClick="@command('editarIsfpp', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png" disabled="@load(not vm.editando or vm.tabIsfppCreado)"
-					tooltiptext="Dar de baja"
-					onClick="" />				
+					tooltiptext="Eliminar la Isfpp"
+					onClick="@command('eliminarIsfpp',item =each)"/>				
 			</row>
 		</template>
 	</grid>

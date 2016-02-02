@@ -68,24 +68,19 @@ public class MVDlgDatosContacto {
 
 	@Command("aceptar")
 	public void aceptar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("modo", modo);
-		map.put("opcion", Messagebox.OK);
+		HashMap<String, Object> argsRetorno = new HashMap<>();
+		argsRetorno.put("modo", modo);
 		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			copiar(datosContacto, aux);
-			map.put("datosContacto", aux);
 		} else {
-			map.put("datosContacto", datosContacto);
+			argsRetorno.put("newItem", datosContacto);
 		}
-		BindUtils.postGlobalCommand(null, null, "retornoDlgDatosContacto", map);
+		BindUtils.postGlobalCommand(null, null, "retornoDlgDatosContacto", argsRetorno);
 		cerrar();
 	}
 
 	@Command("cancelar")
 	public void cancelar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("opcion", Messagebox.CANCEL);
-		BindUtils.postGlobalCommand(null, null, "retornoDlgDatosContacto", map);
 		cerrar();
 	}
 

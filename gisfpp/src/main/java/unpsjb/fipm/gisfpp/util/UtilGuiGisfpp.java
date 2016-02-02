@@ -35,10 +35,26 @@ public class UtilGuiGisfpp {
 
 	public static void loadPnlCentral(String pnl) {
 		Include include = (Include) Path.getComponent("/panelCentro");
+		Component panel = include.getFirstChild();
+		if(panel!=null){
+			panel.detach();
+		}
 		include.setSrc(null);
 		include.setSrc(pnl);
 	}
 
+	public static void loadPnlCentral(String pnl, Map parametros){
+		Sessions.getCurrent().setAttribute(PRM_PNL_CENTRAL, parametros);
+		
+		Include include = (Include) Path.getComponent("/panelCentro");
+		Component panel = include.getFirstChild();
+		if(panel!=null){
+			panel.detach();
+		}
+		include.setSrc(null);
+		include.setSrc(pnl);
+	}
+	
 	public static void quitarPnlCentral(String pnl) {
 		Component panel = (Component) Path.getComponent(pnl);
 		Include include = (Include) Path.getComponent("/panelCentro");

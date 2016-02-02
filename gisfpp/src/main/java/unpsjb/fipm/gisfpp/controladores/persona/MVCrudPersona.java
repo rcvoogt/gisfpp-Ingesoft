@@ -36,6 +36,8 @@ public class MVCrudPersona {
 	private boolean ver = false;
 	private String modo;
 	private String titulo;
+	private boolean contraseniaModificada;
+	private String repeticionContrasenia;
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -68,7 +70,6 @@ public class MVCrudPersona {
 			break;
 		}
 		}
-		Sessions.getCurrent().removeAttribute("opcCrudPersona");
 	}// fin del método init
 
 	@Command("volver")
@@ -83,8 +84,15 @@ public class MVCrudPersona {
 	}
 
 	@Command("guardar")
-	@NotifyChange({ "item","creando", "editando", "ver" })
+	@NotifyChange({ "item","creando", "editando", "ver", "contraseniaModificada" })
 	public void guardar() throws Exception {
+		if(isContraseniaModificada()){
+			if(!item.getUsuario().getPassword().equals(repeticionContrasenia)){
+				Messagebox.show("Las contraseñas ingresadas no coinciden. Vuelva a ingresarlas por favor", "Validacion de contraseñas", Messagebox.OK, 
+						Messagebox.ERROR);
+				return;
+			}
+		}
 		try {
 			if(creando){
 				servPF.persistir(item);
@@ -97,6 +105,7 @@ public class MVCrudPersona {
 			}
 			creando = editando = false;
 			ver = true;
+			contraseniaModificada=false;
 		} catch (ConstraintViolationException cve) {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
@@ -127,11 +136,12 @@ public class MVCrudPersona {
 	}
 
 	@Command("cancelar")
-	@NotifyChange({ "creando", "editando", "ver", "item" })
+	@NotifyChange({ "creando", "editando", "ver", "item","contraseniaModificada"})
 	public void cancelar() {
 			creando = false;
 			editando = false;
 			ver = true;
+			contraseniaModificada=false;
 	}
 
 	//Dialogo para agregar o editar un Numero de Identificacion 
@@ -145,22 +155,15 @@ public class MVCrudPersona {
 	}
 
 	@GlobalCommand("retornoDlgIdentificacion")
-	@NotifyChange({ "item" })
-	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
-			@BindingParam("valor") Identificador arg3) {
+	@NotifyChange("item")
+	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("itemNew") Identificador arg2) {
 		try{
-			if (arg2 == Messagebox.OK) {
-				if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-					item.agregarIdentificador(arg3);//Si el numero de identificacion ya existe se lanza una ConstraintViolationException 
-					Clients.showNotification("Guarde cambios para confirmar el registro del nuevo N° de Identificacion.", 
-							Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-				}
-				if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-					item.getIdentificadores().indexOf(arg3);
-					Clients.showNotification("Guarde cambios para confirmar la modificacion del N° de Identificacion.", 
-							Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-				}
+			if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+				item.agregarIdentificador(arg2);//Este metodo lanza una ConstraintViolationException si la Persona ya posee este identificador. 
 			}
+			Clients.showNotification("Guarde cambios para confirmar la operacion.", 
+					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
+			
 		}catch(ConstraintViolationException cve){
 			Messagebox.show(cve.getMessage(), "Error: validacion de datos", Messagebox.OK, Messagebox.ERROR);
 		}
@@ -179,20 +182,13 @@ public class MVCrudPersona {
 
 	@GlobalCommand("retornoDlgDatosContacto")
 	@NotifyChange("item")
-	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
-			@BindingParam("datosContacto") DatoDeContacto arg3) {
-		if (arg2 == Messagebox.OK) {
-			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-				item.getDatosDeContacto().add(arg3);
-				Clients.showNotification("Guarde cambios para confirmar el registro del nuevo Dato de Contacto.", 
-						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-			}
-			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-				item.getDatosDeContacto().indexOf(arg3);
-				Clients.showNotification("Guarde cambios para confirmar la modificacion del Dato de Contacto.", 
-						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-			}
+	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("newItem") DatoDeContacto arg2) {
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			item.getDatosDeContacto().add(arg2);
 		}
+		Clients.showNotification("Guarde cambios para confirmar la operación.", 
+				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
+			
 	}
 	//Dialogo Dato de Contacto
 	
@@ -209,20 +205,12 @@ public class MVCrudPersona {
 	
 	@GlobalCommand("retornoDlgDomicilios")
 	@NotifyChange("item")
-	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
-			@BindingParam("domicilio") Domicilio arg3) {
-		if (arg2 == Messagebox.OK) {
-			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-				item.getDomicilios().add(arg3);
-				Clients.showNotification("Guarde cambios para confirmar el registro del nuevo Domicilio.", 
-						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-			}
-			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-				item.getDomicilios().indexOf(arg3);
-				Clients.showNotification("Guarde cambios para confirmar la modificacion del Domicilio.", 
-						Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
-			}
+	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("newItem") Domicilio arg2) {
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			item.getDomicilios().add(arg2);
 		}
+		Clients.showNotification("Guarde cambios para confirmar la operación.", 
+				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 	}
 	//Dialogo Domicilio
 	
@@ -275,4 +263,23 @@ public class MVCrudPersona {
 		return modo;
 	}
 
+	public boolean isContraseniaModificada() {
+		return contraseniaModificada;
+	}
+
+	//Metodo llamado desde la vista "pnlDatosUsuario.zul"
+	@Command("setContraseniaModificada")
+	@NotifyChange("contraseniaModificada")
+	public void setContraseniaModificada(@BindingParam("opcion") boolean arg1) {
+		this.contraseniaModificada = arg1;
+	}
+
+	public String getRepeticionContrasenia() {
+		return repeticionContrasenia;
+	}
+
+	public void setRepeticionContrasenia(String repeticionContrasenia) {
+		this.repeticionContrasenia = repeticionContrasenia;
+	}
+	
 }// Fin de la clase MVCrudPersona

@@ -23,11 +23,11 @@
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" 
 							role="button" aria-expanded="false" style="height:58px">
-							<label value="${sec:getNombreUsuario()}" style="font-size: 14px;"/> 
+							<label value="${sec:getPersonaUsuarioConectado().getNombre()}" style="font-size: 14px;"/> 
 								<n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verDlgPerfilUsuario')">Perfil</a></n:li>
-								<n:li><a>Datos Personales</a></n:li>
+								<n:li><a onClick="@command('verPnlDatosPersonales')">Datos Personales</a></n:li>
 								<n:li><a href="logout-gisfpp">Salir</a></n:li>
 							</n:ul>
 					</n:li>

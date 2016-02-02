@@ -23,15 +23,15 @@
 				<label value="Contraseña" class="form-label" width="45%"/>
 				<textbox id="txtContrasenia" value="@bind(vm.item.usuario.password)" width="60%" class="form-control" 
 					readonly="@load((not vm.creando) and (not vm.editando))" maxlength="50" type="password"
-						onChanging="txtRepetirContrasenia.setReadonly(false)"/>
+						onChange="@command('setContraseniaModificada', opcion = true)"/>
 			</div>
 		</row>
 		<row height="15px"/>
 		<row>
 			<div>
 				<label value="Repita la Contraseña" class="form-label" width="45%"/>
-				<textbox id="txtRepetirContrasenia" width="60%" class="form-control" 
-					readonly="true" maxlength="50" type="password"/>
+				<textbox id="txtRepetirContrasenia" width="60%" class="form-control" value="@bind(vm.repeticionContrasenia)"
+					readonly="@load(not vm.contraseniaModificada)" maxlength="50" type="password"/>
 			</div>	
 		</row>
 	</rows>

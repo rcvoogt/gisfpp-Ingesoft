@@ -55,15 +55,15 @@ public class UtilSecurity {
 	}
 	
 	/**
-	 * Devuelve el nombre del Usuario conectado
-	 * @return nombre del Usuario: String
+	 * Devuelve el objeto Persona que representa al Usuario actualmente conectado.
+	 * @return entidad Persona: Persona
 	 */
-	public static String getNombreUsuario(){
+	public static PersonaFisica getPersonaUsuarioConectado(){
 		if(isLogueado()){
 			DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			return detalle.getUsuario().getPersona().getNombre();
+			return detalle.getUsuario().getPersona();
 		}else{
-			return "Anonimo";
+			return null;
 		}
 	}
 	

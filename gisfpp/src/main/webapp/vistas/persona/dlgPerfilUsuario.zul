@@ -3,7 +3,7 @@
 		closable="true" width="700px" height="350px">
 		<vbox spacing="8px" hflex="true" vflex="true">
 			<label class="form-label">
-				Usuario: ${sec:getNombreUsuario()}
+				Usuario: ${sec:getPersonaUsuarioConectado().getNombre()}
 			</label>
 			<grid mold="paging" autopaging="true" vflex="true"
 				style="border: 2px solid #80ccff; border-radius: 5px;"

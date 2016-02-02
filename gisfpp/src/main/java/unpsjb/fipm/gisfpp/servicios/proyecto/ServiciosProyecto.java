@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 
 @Service("servProyecto")
@@ -42,15 +43,11 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	@Override
 	@Transactional(readOnly = false)
 	public void eliminar(Proyecto instancia) throws Exception {
-		if (instancia.getSubProyectos()==null || instancia.getSubProyectos().isEmpty()) {
-			try {
-				dao.eliminar(instancia);
-			} catch (Exception e) {
-				throw e;
-			}
-		} else {
-			throw new GisfppException("No se puede eliminar el Proyecto,"
-					+ " el mismo tiene Sub-Proyectos asignados.");
+		ResultadoValidacion resultado = ValidacionesProyecto.eliminarProyecto(instancia);
+		if(resultado.isValido()){
+			dao.eliminar(instancia);
+		}else{
+			throw new GisfppException(resultado.getMensaje());
 		}
 	}
 

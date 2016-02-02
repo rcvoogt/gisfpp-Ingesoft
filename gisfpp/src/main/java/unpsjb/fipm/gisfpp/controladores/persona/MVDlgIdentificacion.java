@@ -69,26 +69,19 @@ public class MVDlgIdentificacion {
 
 	@Command("aceptar")
 	public void aceptar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("modo", modo);
-		map.put("opcion", Messagebox.OK);
+		HashMap<String, Object> argsRetorno = new HashMap<>();
+		argsRetorno.put("modo", modo);
 		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			copiar(identificador, aux);
-			map.put("valor", aux);
 		} else {
-			map.put("valor", identificador);
+			argsRetorno.put("itemNew", identificador);
 		}
-		BindUtils.postGlobalCommand(null, null, "retornoDlgIdentificacion", map);
+		BindUtils.postGlobalCommand(null, null, "retornoDlgIdentificacion", argsRetorno);
 		cerrar();
 	}
 
 	@Command("cancelar")
 	public void cancelar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("modo", null);
-		map.put("opcion", Messagebox.CANCEL);
-		map.put("valor", null);
-		BindUtils.postGlobalCommand(null, null, "retornoDlgIdentificacion", map);
 		cerrar();
 	}
 

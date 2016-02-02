@@ -27,8 +27,9 @@
 				<toolbarbutton image="recursos/img/icon-remove-sign.png" label="Cancelar" class="btn btn-success btn-xs"
 					disabled="@load((not vm.creando) and (not vm.editando))" onClick="@command('cancelar')"/>
 				<space bar="true" spacing="10px"/>
-				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver"
-					onClick="@command('volver')" class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando)"/>
+				<toolbarbutton image="recursos/img/icon-arrow-left.png" label="Volver" 
+					visible="${sessionScope.prmPnlCentral.btnVolverVisible}"
+						onClick="@command('volver')" class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando)"/>
 				<toolbarbutton image="recursos/img/icon-exit.png" class="btn btn-success btn-xs"
 					label="Salir" onClick="@command('salir')" disabled="@load(vm.creando or vm.editando)"/>	
 			</toolbar>

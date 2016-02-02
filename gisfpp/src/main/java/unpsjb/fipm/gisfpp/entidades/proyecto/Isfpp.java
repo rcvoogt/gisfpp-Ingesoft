@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,7 +60,7 @@ public class Isfpp implements Serializable {
 	private String detalle;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "subProyectoId", nullable = false)
+	@JoinColumn(name = "subProyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_sub_proyecto"))
 	private SubProyecto perteneceA;
 
 	@Enumerated(EnumType.STRING)
@@ -67,8 +69,9 @@ public class Isfpp implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
 	private Set<MiembroStaffIsfpp> staff;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId"))
+	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId", foreignKey=@ForeignKey(name="fk_isfpp_2")), 
+		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_2")))
 	private Set<PersonaFisica> practicantes;
 
 	public Isfpp() {
@@ -166,19 +169,49 @@ public class Isfpp implements Serializable {
 	}
 	
 	public Set<MiembroStaffIsfpp> getStaff() {
-		return staff;
+		if(staff!=null){
+			return Collections.unmodifiableSet(staff);
+		}
+		return null;
 	}
 
-	public void setStaff(Set<MiembroStaffIsfpp> staff) {
+	protected void setStaff(Set<MiembroStaffIsfpp> staff) {
 		this.staff = staff;
 	}
 	
+	public void addMiembroStaff(MiembroStaffIsfpp miembro){
+		if(miembro!=null){
+			staff.add(miembro);
+		}
+	}
+	
+	public void removerMiembroStaff(MiembroStaffIsfpp miembro){
+		if(miembro!=null){
+			staff.remove(miembro);
+		}
+	}
+	
 	public Set<PersonaFisica> getPracticantes() {
-		return practicantes;
+		if(practicantes!=null){
+			return Collections.unmodifiableSet(practicantes);
+		}
+		return null;
 	}
 
-	public void setPracticantes(Set<PersonaFisica> practicantes) {
+	protected void setPracticantes(Set<PersonaFisica> practicantes) {
 		this.practicantes = practicantes;
+	}
+	
+	public void addPracticante(PersonaFisica practicante){
+		if(practicante!=null){
+			practicantes.add(practicante);
+		}
+	}
+	
+	public void removerPracticante(PersonaFisica practicante){
+		if(practicante!=null){
+			practicantes.remove(practicante);
+		}
 	}
 
 	@AssertTrue(message = "La \"fecha de finalizacion\" de la ISFPP debe ser anterior a la fecha de finalizacion del Proyecto.")

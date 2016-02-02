@@ -176,7 +176,7 @@ public class MVCrudIsfpp {
 	@NotifyChange("item")
 	public void retornoDlgStaffIsfpp(@BindingParam("modo")String arg1, @BindingParam("newItem") MiembroStaffIsfpp arg2){
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.getStaff().add(arg2);
+			item.addMiembroStaff(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
@@ -185,7 +185,7 @@ public class MVCrudIsfpp {
 	@Command("quitarMiembroSatff")
 	@NotifyChange("item")
 	public void quitarMiembroStaff(@BindingParam("itemStaff") MiembroStaffIsfpp arg1){
-		item.getStaff().remove(arg1);
+		item.removerMiembroStaff(arg1);
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
 	}
@@ -199,7 +199,7 @@ public class MVCrudIsfpp {
 	@GlobalCommand("obtenerLkpPersona")
 	@NotifyChange("item")
 	public void retornoLkpPracticante(@BindingParam("seleccion")PersonaFisica arg1){
-		item.getPracticantes().add(arg1);
+		item.addPracticante(arg1);
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
 	}
@@ -207,7 +207,7 @@ public class MVCrudIsfpp {
 	@Command("quitarPracticante")
 	@NotifyChange("item")
 	public void quitarPracticante(@BindingParam("practicante") PersonaFisica arg1){
-		item.getPracticantes().remove(arg1);
+		item.removerPracticante(arg1);
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
 	}

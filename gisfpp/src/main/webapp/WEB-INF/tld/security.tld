@@ -38,11 +38,11 @@
 		</description>
 	</function>
 	<function>
-		<name>getNombreUsuario</name>
+		<name>getPersonaUsuarioConectado</name>
 		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
-		<function-signature>String getNombreUsuario()</function-signature>
+		<function-signature>PersonaFisica getPersonaUsuarioConectado()</function-signature>
 		<description>
-			Devuelve el nombre del Usuario conectado.
+			Devuelve el objeto Persona que representa al Usuario actualmente conectado.
 		</description>
 	</function>
 	<function>

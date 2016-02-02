@@ -15,6 +15,8 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
@@ -26,6 +28,8 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
@@ -182,6 +186,34 @@ public class MVCrudSubProyecto {
 	public void verIsfpp(@BindingParam("idItem") Integer id) {
 		crearTab(UtilGisfpp.MOD_VER, "Ver Isfpp", id);
 		tabIsfppCreado = true;
+	}
+	
+	@Command("eliminarIsfpp")
+	@NotifyChange("item.instanciasIsfpp")
+	public void eliminarIsfpp(@BindingParam("item") Isfpp arg1) throws Exception{
+		Messagebox.show("Desea realmente eliminar esta Isfpp?", "Gisfpp: Eliminando Isfpp", 
+				Messagebox.YES+Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if(event.getName().equals(Messagebox.ON_YES)){
+							try {
+								IServiciosIsfpp servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
+								servicio.eliminar(arg1);
+								Clients.showNotification("Isfpp eliminada.", Clients.NOTIFICATION_TYPE_INFO, null, 
+										"top_right", 3500);
+							}
+							catch (GisfppException excpt){
+								Messagebox.show(excpt.getMessage(), "Gisfpp: Eliminando Isfpp", 
+										Messagebox.OK, Messagebox.ERROR);
+							}
+							catch (Exception e) {
+								log.error(this.getClass().getName(), e);
+								throw e;
+							}
+							
+						}
+					}
+				});
 	}
 	
 	@GlobalCommand("cerrandoTab")

@@ -40,6 +40,7 @@ public class MVListarPersonas {
 	public void nuevaPersona() {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
+		map.put("btnVolverVisible", true);
 		
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaPersonas", "vistas/persona/crudPersona.zul", map);
 	}
@@ -49,6 +50,7 @@ public class MVListarPersonas {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_EDICION);
 		map.put("idItem", arg1.getId());
+		map.put("btnVolverVisible", true);
 		
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaPersonas", "vistas/persona/crudPersona.zul", map);
 	}
@@ -58,6 +60,7 @@ public class MVListarPersonas {
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", UtilGisfpp.MOD_VER);
 		map.put("idItem", arg1.getId());
+		map.put("btnVolverVisible", true);
 		
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaPersonas", "vistas/persona/crudPersona.zul", map);
 	}

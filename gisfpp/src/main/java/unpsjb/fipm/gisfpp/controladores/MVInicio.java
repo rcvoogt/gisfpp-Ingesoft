@@ -1,11 +1,16 @@
 package unpsjb.fipm.gisfpp.controladores;
 
+import java.util.HashMap;
+
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
+import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVInicio {
 
@@ -38,6 +43,17 @@ public class MVInicio {
 	public void verDlgPerfilUsuario(){
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgPerfilUsuario.zul", null, null);
 		dlg.doModal();
+	}
+	
+	@Command("verPnlDatosPersonales")
+	public void verPnlCrudPersona(){
+		PersonaFisica usuarioConectado = UtilSecurity.getPersonaUsuarioConectado();
+		final HashMap<String, Object> argsLlamada = new HashMap<String, Object>();
+		argsLlamada.put("modo", UtilGisfpp.MOD_VER);
+		argsLlamada.put("idItem", usuarioConectado.getId());
+		argsLlamada.put("btnVolverVisible", false);
+		
+		UtilGuiGisfpp.loadPnlCentral("vistas/persona/crudPersona.zul", argsLlamada);
 	}
 	
 }// fin de la clase

@@ -173,16 +173,12 @@ public class MVCrudOrganizacion {
 
 	@GlobalCommand("retornoDlgDatosContacto")
 	@NotifyChange("item")
-	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
-			@BindingParam("datosContacto") DatoDeContacto arg3) {
-		if (arg2 == Messagebox.OK) {
-			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-				item.getDatosDeContacto().add(arg3);
-			}
-			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-				item.getDatosDeContacto().indexOf(arg3);
-			}
+	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("newItem") DatoDeContacto arg2) {
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			item.getDatosDeContacto().add(arg2);
 		}
+		Clients.showNotification("Guarde cambios para confirmar la operación.", 
+				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
 	}
 	//cuadro de dialogo dato de contacto
 	
@@ -198,16 +194,12 @@ public class MVCrudOrganizacion {
 
 	@GlobalCommand("retornoDlgDomicilios")
 	@NotifyChange("item")
-	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("opcion") int arg2,
-			@BindingParam("domicilio") Domicilio arg3) {
-		if (arg2 == Messagebox.OK) {
-			if (arg1.equals(UtilGisfpp.MOD_NUEVO)) {
-				item.getDomicilios().add(arg3);
-			}
-			if (arg1.equals(UtilGisfpp.MOD_EDICION)) {
-				item.getDomicilios().indexOf(arg3);
-			}
+	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("newItem") Domicilio arg2) {
+		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+			item.getDomicilios().add(arg2);
 		}
+		Clients.showNotification("Guarde cambios para confirmar la operación.", 
+				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);	
 	}
 	//Dialogo Domicilio
 

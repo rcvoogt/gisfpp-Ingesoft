@@ -203,7 +203,7 @@
 	</welcome-file-list>
 
 	<error-page>
-		<exception-type>java.lang.RuntimeException</exception-type>
+		<exception-type>java.lang.Exception</exception-type>
 		<location>/vistas/error/error.zul</location>
 	</error-page>
 </web-app>

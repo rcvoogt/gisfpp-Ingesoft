@@ -18,7 +18,7 @@ public class MVDlgDomicilios {
 
 	private String modo;
 	private Domicilio domicilio;
-	private Domicilio aux;
+	private Domicilio original;
 	private String titulo;
 
 	@SuppressWarnings("unchecked")
@@ -34,9 +34,9 @@ public class MVDlgDomicilios {
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
-			aux = (Domicilio) map.get("domicilio");
+			original = (Domicilio) map.get("domicilio");
 			domicilio = new Domicilio();
-			copiar(aux, domicilio);
+			copiar(original, domicilio);
 			titulo = "Editar Domicilio";
 			break;
 		}
@@ -66,24 +66,19 @@ public class MVDlgDomicilios {
 
 	@Command("aceptar")
 	public void aceptar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("modo", modo);
-		map.put("opcion", Messagebox.OK);
+		HashMap<String, Object> argsRetorno = new HashMap<>();
+		argsRetorno.put("modo", modo);
 		if (modo.equals(UtilGisfpp.MOD_EDICION)) {
-			copiar(domicilio, aux);
-			map.put("domicilio", aux);
+			copiar(domicilio, original);
 		} else {
-			map.put("domicilio", domicilio);
+			argsRetorno.put("newItem", domicilio);
 		}
-		BindUtils.postGlobalCommand(null, null, "retornoDlgDomicilios", map);
+		BindUtils.postGlobalCommand(null, null, "retornoDlgDomicilios", argsRetorno);
 		cerrar();
 	}
 
 	@Command("cancelar")
 	public void cancelar() {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("opcion", Messagebox.CANCEL);
-		BindUtils.postGlobalCommand(null, null, "retornoDlgDomicilios", map);
 		cerrar();
 	}
 

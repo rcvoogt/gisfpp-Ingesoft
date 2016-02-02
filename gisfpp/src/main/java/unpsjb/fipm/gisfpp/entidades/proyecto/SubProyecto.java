@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class SubProyecto implements Serializable {
 	private Integer Id;
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "proyectoId", nullable = false)
+	@JoinColumn(name = "proyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_proyecto"))
 	private Proyecto perteneceA;
 
 	@Column(length = 80, name = "titulo", nullable = false)
@@ -70,7 +71,7 @@ public class SubProyecto implements Serializable {
 		this.perteneceA = proyecto;
 	}
 
-	@NotBlank(message = "Debe especificarle un \"t�tulo\" al Sub-Proyecto.")
+	@NotBlank(message = "Debe especificarle un \"titulo\" al Sub-Proyecto.")
 	@Length(max = 80, message = "El \"t�tulo\" del Sub-Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;

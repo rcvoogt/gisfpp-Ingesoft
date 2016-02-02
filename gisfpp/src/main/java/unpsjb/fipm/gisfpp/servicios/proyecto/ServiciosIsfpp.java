@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
+import unpsjb.fipm.gisfpp.util.GisfppException;
 
 @Service("servIsfpp")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -33,7 +35,12 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Override
 	@Transactional(readOnly = false)
 	public void eliminar(Isfpp instancia) throws Exception {
-		dao.eliminar(instancia);
+		ResultadoValidacion resultado = ValidacionesProyecto.eliminarIsfpp(instancia);
+		if(resultado.isValido()){
+			dao.eliminar(instancia);
+		}else{
+			throw new GisfppException(resultado.getMensaje());
+		}
 	}
 
 	@Override
