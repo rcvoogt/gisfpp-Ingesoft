@@ -163,10 +163,7 @@ public class MVCrudSubProyecto {
 		return tabIsfppCreado;
 	}
 
-	public List<Isfpp> getInstanciasIsfpp() {
-		return item.getInstanciasIsfpp();
-	}
-
+	
 	@Command("nuevaIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {
@@ -189,7 +186,7 @@ public class MVCrudSubProyecto {
 	}
 	
 	@Command("eliminarIsfpp")
-	@NotifyChange("item.instanciasIsfpp")
+	@NotifyChange({"item"})
 	public void eliminarIsfpp(@BindingParam("item") Isfpp arg1) throws Exception{
 		Messagebox.show("Desea realmente eliminar esta Isfpp?", "Gisfpp: Eliminando Isfpp", 
 				Messagebox.YES+Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
@@ -217,7 +214,7 @@ public class MVCrudSubProyecto {
 	}
 	
 	@GlobalCommand("cerrandoTab")
-	@NotifyChange({"tabIsfppCreado","item","instanciasIsfpp"})
+	@NotifyChange({"tabIsfppCreado","item"})
 	public void cerrandoTab(@BindingParam ("actualizar") boolean actualizar) throws Exception{
 		tabIsfppCreado = false;
 		if (actualizar){

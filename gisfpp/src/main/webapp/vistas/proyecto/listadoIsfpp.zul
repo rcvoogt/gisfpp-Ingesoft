@@ -2,12 +2,12 @@
 	<div class="btn-toolbar pull-right">
 		<a image="recursos/img/icon-createfile.png" tooltiptext="Crear y asignar una nueva Isfpp"
 			class="btn btn-success btn-xs" onClick="@command('nuevaIsfpp')"
-				disabled="@load(not vm.editando or vm.tabIsfppCreado)"> Nueva Isfpp</a>
+				disabled="@load(vm.tabIsfppCreado)"> Nueva Isfpp</a>
 	</div>
 	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
 	 	style="border: 2px solid #80ccff; border-radius: 5px;"
 			emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." 
-				model="@load(vm.instanciasIsfpp)">
+				model="@load(vm.item.instanciasIsfpp)">
 		<columns>
 			<column label="Titulo" width="32%"/>
 			<column label="Estado" width="15%"/>
@@ -25,9 +25,9 @@
 				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
 				<toolbarbutton image="recursos/img/icon-preview.png" disabled="@load(vm.tabIsfppCreado)"
 					tooltip="Ver detalle" onClick="@command('verIsfpp', idItem=each.id)"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load(not vm.editando or vm.tabIsfppCreado)"
+				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load(vm.tabIsfppCreado)"
 					tooltiptext="Editar datos" onClick="@command('editarIsfpp', idItem=each.id)" />
-				<toolbarbutton image="recursos/img/icon-trash.png" disabled="@load(not vm.editando or vm.tabIsfppCreado)"
+				<toolbarbutton image="recursos/img/icon-trash.png" disabled="@load(vm.tabIsfppCreado)"
 					tooltiptext="Eliminar la Isfpp"
 					onClick="@command('eliminarIsfpp',item =each)"/>				
 			</row>

@@ -5,7 +5,7 @@
 				onClick="@command('verDlgDatosContacto', modo='NUEVO', item=null)"> Agregar</a>
 	</div>
 	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
-		emptyMessage="Esta persona no tiene datos de contacto registrados."
+		emptyMessage="Sin datos de contacto."
 			model="@load(vm.item.datosDeContacto)" mold="paging" autopaging="true">
 			<columns>
 				<column label="Tipo" width="15%" />

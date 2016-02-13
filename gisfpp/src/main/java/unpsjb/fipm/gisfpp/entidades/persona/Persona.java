@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.persona;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,15 +42,15 @@ public abstract class Persona implements Serializable {
 	protected String nombre;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "personaId")
+	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_domicilio"))
 	private List<Domicilio> domicilios;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "personaId")
+	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_dato_contacto"))
 	private List<DatoDeContacto> datosDeContacto;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "personaId")
+	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_identificador"))
 	private List<Identificador> identificadores;
 
 	public Persona() {
@@ -86,8 +88,20 @@ public abstract class Persona implements Serializable {
 		return domicilios;
 	}
 
-	public void setDomicilios(List<Domicilio> domicilios) {
+	protected void setDomicilios(List<Domicilio> domicilios) {
 		this.domicilios = domicilios;
+	}
+	
+	public void addDomicilio (Domicilio domicilio){
+		if(domicilio!=null){
+			domicilios.add(domicilio);
+		}
+	}
+	
+	public void removerDomicilio(Domicilio domicilio){
+		if(domicilio!=null){
+			domicilios.remove(domicilio);
+		}
 	}
 
 	@Valid
@@ -95,20 +109,52 @@ public abstract class Persona implements Serializable {
 		return datosDeContacto;
 	}
 
-	public void setDatosDeContacto(List<DatoDeContacto> datosDeContacto) {
+	protected void setDatosDeContacto(List<DatoDeContacto> datosDeContacto) {
 		this.datosDeContacto = datosDeContacto;
+	}
+	
+	public void addDatoDeContacto(DatoDeContacto dato){
+		if(dato!=null){
+			datosDeContacto.add(dato);
+		}
+	}
+	
+	public void removerDatoDeContacto(DatoDeContacto dato){
+		if (dato!=null) {
+			datosDeContacto.remove(dato);
+		}
 	}
 
 	@Valid
 	public List<Identificador> getIdentificadores() {
-		return identificadores;
+		if(identificadores!=null){
+			return Collections.unmodifiableList(identificadores);
+		}
+		return null;
 	}
 
 	protected void setIdentificadores(List<Identificador> identificadores) {
 		this.identificadores = identificadores;
 	}
 
-	public String getValorIdentificador(TIdentificador tipo) {
+	public void addIdentificador(Identificador identificador) throws ConstraintViolationException {
+		if (identificador!=null) {
+			for (Identificador iden : identificadores) {
+				if (iden.getTipo().equals(identificador.getTipo())) {
+					throw new ConstraintViolationException("Error: Tipo de identificador duplicado.", null);
+				}
+			}
+			identificadores.add(identificador);
+		}
+	}
+	
+	public void removerIdentificador(Identificador identificador) {
+		if (identificador!=null) {
+			identificadores.remove(identificador);
+		}
+	}
+	
+	protected String getValorIdentificador(TIdentificador tipo) {
 		for (Identificador identificador : identificadores) {
 			if (identificador.getTipo().equals(tipo)) {
 				return identificador.getValor();
@@ -126,19 +172,6 @@ public abstract class Persona implements Serializable {
 	public abstract String getMatricula();
 
 	public abstract String getLegajo();
-
-	public void agregarIdentificador(Identificador identificador) throws ConstraintViolationException {
-		for (Identificador iden : identificadores) {
-			if (iden.getTipo().equals(identificador.getTipo())) {
-				throw new ConstraintViolationException("Error: Tipo de identificador duplicado.", null);
-			}
-		}
-		identificadores.add(identificador);
-	}
-
-	public void removerIdentificador(Identificador identificador) {
-		identificadores.remove(identificador);
-	}
 
 	@Override
 	public int hashCode() {

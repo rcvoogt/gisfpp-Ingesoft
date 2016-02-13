@@ -31,7 +31,7 @@ public class SubProyecto implements Serializable {
 	private Integer Id;
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "proyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_proyecto"))
+	@JoinColumn(name = "proyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_proyecto_subproyecto"))
 	private Proyecto perteneceA;
 
 	@Column(length = 80, name = "titulo", nullable = false)
@@ -71,8 +71,8 @@ public class SubProyecto implements Serializable {
 		this.perteneceA = proyecto;
 	}
 
-	@NotBlank(message = "Debe especificarle un \"titulo\" al Sub-Proyecto.")
-	@Length(max = 80, message = "El \"tï¿½tulo\" del Sub-Proyecto no debe ser mayor a 80 caracteres.")
+	@NotBlank(message = "Debe especificarle un \"título\" al Sub-Proyecto.")
+	@Length(max = 80, message = "El \"título\" del Sub-Proyecto no debe ser mayor a 80 caracteres.")
 	public String getTitulo() {
 		return titulo;
 	}

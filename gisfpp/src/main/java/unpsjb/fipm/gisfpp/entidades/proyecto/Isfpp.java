@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -60,7 +61,7 @@ public class Isfpp implements Serializable {
 	private String detalle;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "subProyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_sub_proyecto"))
+	@JoinColumn(name = "subProyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_subproyecto_isfpp"))
 	private SubProyecto perteneceA;
 
 	@Enumerated(EnumType.STRING)
@@ -70,12 +71,16 @@ public class Isfpp implements Serializable {
 	private Set<MiembroStaffIsfpp> staff;
 	
 	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId", foreignKey=@ForeignKey(name="fk_isfpp_2")), 
-		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_2")))
+	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId", foreignKey=@ForeignKey(name="fk_practicante_isfpp")), 
+		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_practicante_persona")))
 	private Set<PersonaFisica> practicantes;
 
 	public Isfpp() {
-		super();
+		inicio = new Date();
+		fin = new Date();
+		estado = EEstadosIsfpp.GENERADA;
+		staff = new HashSet<MiembroStaffIsfpp>();
+		practicantes = new HashSet<PersonaFisica>();
 	}
 
 	public Isfpp(SubProyecto perteneceA, String titulo, String objetivos, Date inicio, Date fin, String detalle
@@ -83,8 +88,8 @@ public class Isfpp implements Serializable {
 		super();
 		this.titulo = titulo;
 		this.objetivos = objetivos;
-		this.inicio = inicio;
-		this.fin = fin;
+		this.inicio = (inicio==null)?new Date():inicio;
+		this.fin = (fin==null)?new Date():fin;
 		this.detalle = detalle;
 		this.perteneceA = perteneceA;
 		this.estado = EEstadosIsfpp.GENERADA;
@@ -143,6 +148,7 @@ public class Isfpp implements Serializable {
 		this.detalle = detalle;
 	}
 
+	@NotNull(message="El Sub-Proyecto debe tener un Proyecto asignado.")
 	public SubProyecto getPerteneceA() {
 		return perteneceA;
 	}

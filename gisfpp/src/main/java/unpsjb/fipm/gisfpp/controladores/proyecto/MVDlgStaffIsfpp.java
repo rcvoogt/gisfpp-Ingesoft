@@ -119,7 +119,7 @@ public class MVDlgStaffIsfpp {
 	@Command("onChangeCmbxRol")
 	@NotifyChange("listaPersonas")
 	public void onChangeCombxRol(@BindingParam("rol") ERolStaffIsfpp arg1){
-		if (arg1 == ERolStaffIsfpp.RESPONSABLE || arg1 == ERolStaffIsfpp.TUTOR_ACADEMICO){
+		if (arg1 == ERolStaffIsfpp.TUTOR_ACADEMICO){
 			listaPersonas = listaPFStaffProyecto;
 		}else {
 			listaPersonas = listaPF;

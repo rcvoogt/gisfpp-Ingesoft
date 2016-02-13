@@ -31,7 +31,7 @@
 			<div>
 				<label value="Repita la Contraseña" class="form-label" width="45%"/>
 				<textbox id="txtRepetirContrasenia" width="60%" class="form-control" value="@bind(vm.repeticionContrasenia)"
-					readonly="@load(not vm.contraseniaModificada)" maxlength="50" type="password"/>
+					readonly="@load((not vm.creando) and (not vm.editando))" maxlength="50" type="password"/>
 			</div>	
 		</row>
 	</rows>

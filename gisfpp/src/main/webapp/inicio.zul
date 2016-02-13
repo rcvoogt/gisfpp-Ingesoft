@@ -9,11 +9,10 @@
 <?script type="text/javascript" src="recursos/bootstrap/js/bootstrap.min.js"?>
 
 
-<zk>
-
-	<borderlayout id="zonas" apply="org.zkoss.bind.BindComposer"
+<zk xmlns:n="native">
+	<borderlayout id="layout" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')" vflex="true" hflex="true">
-		<north height="8%" style="overflow: visible;">
+		<north Id="cabecera" height="9%" style="overflow: visible;">
 			<div>
 				<div hflex="1" if="${not sec:isLogueado()}" vflex="true">
 					<include src="/vistas/navDesconectado.zul"/>
@@ -23,10 +22,19 @@
 				</div>
 			</div>
 		</north>
-		<center id="zonaCentro" vflex="true" class="container" style="padding-top:8px">
-			<include id="panelCentro"/>
+		<center id="centro" class="container" style="padding-top:6px">
+			<div vflex="true">
+				<include id="panelCentro" if="${param.login==1}"/>
+				<include src="/vistas/error/loguin_error.zul" if="${param.login == 0}"/>
+			</div>
 		</center>
-		<south id="ZonaSur" height="4%"></south>
+		<south id="pie" height="5%">
+			<div style="text-align: center; padding: 6px">
+				<n:a href="http://www.madryn.unp.edu.ar/index.php/facultad-ingenieria"
+					style="font-size:12px; font-family: Arial, Verdana;">
+					<![CDATA[UNPSJB - Facultad de Ingenier&iacute;a. Sede: Puerto Madryn(Chubut)]]></n:a>
+			</div>
+		</south>
 	</borderlayout>
 	<popup id="dlgLogin" width="300px">
 		<html>

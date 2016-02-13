@@ -1,0 +1,14 @@
+drop table usuario;
+drop table staff_isfpp;
+drop table staff_proyecto;
+drop table staff_fi;
+drop table practicantes;
+drop table persona_contacto;
+drop table datos_contacto;
+drop table demandantes;
+drop table domicilio;
+drop table identificador;
+drop table isfpp;
+drop table sub_proyecto;
+drop table proyecto;
+drop table persona;

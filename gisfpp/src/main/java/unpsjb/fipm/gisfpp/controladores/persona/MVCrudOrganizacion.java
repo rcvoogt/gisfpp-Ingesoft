@@ -20,6 +20,7 @@ import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPJ;
@@ -140,14 +141,14 @@ public class MVCrudOrganizacion {
 	@GlobalCommand("obtenerLkpPersona")
 	@NotifyChange("item")
 	public void obtPersonaLookup(@BindingParam("seleccion") PersonaFisica arg1) throws Exception {
-		item.getContactos().add(arg1);
+		item.addContacto(arg1);
 	}
 	//Dialogo de busqueda de una persona
 	
 	@Command("quitarPersonaContacto")
 	@NotifyChange("item")
 	public void quitarPersonaContacto(@BindingParam("valor") PersonaFisica arg1) throws Exception {
-		item.getContactos().remove(arg1);
+		item.removerContacto(arg1);
 	}
 	
 	//Dialogo para ver los datos de contacto de una persona
@@ -175,7 +176,7 @@ public class MVCrudOrganizacion {
 	@NotifyChange("item")
 	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("newItem") DatoDeContacto arg2) {
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.getDatosDeContacto().add(arg2);
+			item.addDatoDeContacto(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operación.", 
 				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
@@ -196,23 +197,59 @@ public class MVCrudOrganizacion {
 	@NotifyChange("item")
 	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("newItem") Domicilio arg2) {
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.getDomicilios().add(arg2);
+			item.addDomicilio(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operación.", 
 				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);	
 	}
-	//Dialogo Domicilio
+	//Dialogo para agregar o editar un Numero de Identificacion
+	@Command("verDlgIdentificacion")
+	public void verDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("valor") Identificador arg2) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", arg1);
+		map.put("valor", arg2);
+		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgIdentificacion.zul", null, map);
+		dlg.doModal();
+	}
+	
+	@GlobalCommand("retornoDlgIdentificacion")
+	@NotifyChange("item")
+	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("itemNew") Identificador arg2) {
+		try{
+			if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
+				item.addIdentificador(arg2);//Para una Organizacion solo se puede agregar el Cuit como numero de identificacion. 
+			}
+			Clients.showNotification("Guarde cambios para confirmar la operacion.", 
+					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
+			
+		}catch(ConstraintViolationException cve){
+			Messagebox.show(cve.getMessage(), "Error: validacion de datos", Messagebox.OK, Messagebox.ERROR);
+		}
+	}
+	
+	//Dialogo Identificaciones
+	
+	
+	//Dialogo Identificaciones
 
 	@Command("quitarDomicilio")
 	@NotifyChange("item")
 	public void quitarDomicilios(@BindingParam("valor") Domicilio arg1) {
-		item.getDomicilios().remove(arg1);
+		item.removerDomicilio(arg1);
 	}
 
 	@Command("quitarDatosContacto")
 	@NotifyChange("item")
-	public void quitarDatosContacto(@BindingParam("index") int index) {
-		item.getDatosDeContacto().remove(index);
+	public void quitarDatosContacto(@BindingParam("item") DatoDeContacto dato) {
+		item.removerDatoDeContacto(dato);
+	}
+	
+	@Command("quitarIdentificador")
+	@NotifyChange("item")
+	public void quitarIdentificacion(@BindingParam("valor") Identificador valor) {
+		item.removerIdentificador(valor);
+		Clients.showNotification("Guarde cambios para confirmar eliminacion del N° de Identificacion", Clients.NOTIFICATION_TYPE_WARNING, 
+				null, "top_right", 4000);
 	}
 
 	public PersonaJuridica getItem() {

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class StaffFI implements Serializable {
 	private Integer id;
 
 	@ManyToOne(fetch=FetchType.LAZY, optional = false)
-	@JoinColumn(name = "personaId")
+	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_staffFi_persona"))
 	private PersonaFisica miembro;
 
 	@Enumerated(EnumType.STRING)

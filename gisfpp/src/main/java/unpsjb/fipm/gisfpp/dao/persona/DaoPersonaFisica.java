@@ -74,14 +74,14 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	@Override
 	@Transactional(readOnly = true)
 	public PersonaFisica recuperarxId(Integer id) throws DataAccessException {
-		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores	left join fetch pf.usuario where pf.id = ?";
+		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores left join fetch pf.usuario where pf.id = ?";
 		try {
 			List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, id);
 			if(result ==null || result.isEmpty()){
 				return null;
 			}else{
-				getHibernateTemplate().initialize(result.get(0).getDatosDeContacto());
 				getHibernateTemplate().initialize(result.get(0).getDomicilios());
+				getHibernateTemplate().initialize(result.get(0).getDatosDeContacto());
 				return result.get(0);
 			}
 		} catch (Exception e) {

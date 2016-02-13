@@ -86,7 +86,7 @@ public class MVCrudPersona {
 	@Command("guardar")
 	@NotifyChange({ "item","creando", "editando", "ver", "contraseniaModificada" })
 	public void guardar() throws Exception {
-		if(isContraseniaModificada()){
+		if(contraseniaModificada){
 			if(!item.getUsuario().getPassword().equals(repeticionContrasenia)){
 				Messagebox.show("Las contraseñas ingresadas no coinciden. Vuelva a ingresarlas por favor", "Validacion de contraseñas", Messagebox.OK, 
 						Messagebox.ERROR);
@@ -106,13 +106,11 @@ public class MVCrudPersona {
 			creando = editando = false;
 			ver = true;
 			contraseniaModificada=false;
-		} catch (ConstraintViolationException cve) {
+		}catch(ConstraintViolationException cve){
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
-		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
-			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
-					Messagebox.ERROR);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
@@ -159,7 +157,7 @@ public class MVCrudPersona {
 	public void retornoDlgIdentificacion(@BindingParam("modo") String arg1, @BindingParam("itemNew") Identificador arg2) {
 		try{
 			if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-				item.agregarIdentificador(arg2);//Este metodo lanza una ConstraintViolationException si la Persona ya posee este identificador. 
+				item.addIdentificador(arg2);//Este metodo lanza una ConstraintViolationException si la Persona ya posee este identificador. 
 			}
 			Clients.showNotification("Guarde cambios para confirmar la operacion.", 
 					Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
@@ -184,7 +182,7 @@ public class MVCrudPersona {
 	@NotifyChange("item")
 	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("newItem") DatoDeContacto arg2) {
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.getDatosDeContacto().add(arg2);
+			item.addDatoDeContacto(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operación.", 
 				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
@@ -207,7 +205,7 @@ public class MVCrudPersona {
 	@NotifyChange("item")
 	public void retornoDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("newItem") Domicilio arg2) {
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.getDomicilios().add(arg2);
+			item.addDomicilio(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operación.", 
 				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
@@ -217,7 +215,7 @@ public class MVCrudPersona {
 	@Command("quitarDomicilio")
 	@NotifyChange("item")
 	public void quitarDomicilio(@BindingParam("valor") Domicilio valor) {
-		item.getDomicilios().remove(valor);
+		item.removerDomicilio(valor);
 		Clients.showNotification("Guarde cambios para confirmar eliminacion del Domicilio", Clients.NOTIFICATION_TYPE_WARNING, 
 				null, "top_right", 4000);
 	}
@@ -226,7 +224,7 @@ public class MVCrudPersona {
 	@Command("quitarDatosContacto")
 	@NotifyChange("item")
 	public void quitarDatosContacto(@BindingParam("item") DatoDeContacto dato) {
-		item.getDatosDeContacto().remove(dato);
+		item.removerDatoDeContacto(dato);
 		Clients.showNotification("Guarde cambios para confirmar eliminacion del Dato de Contacto", Clients.NOTIFICATION_TYPE_WARNING, 
 				null, "top_right", 4000);
 	}
@@ -263,13 +261,8 @@ public class MVCrudPersona {
 		return modo;
 	}
 
-	public boolean isContraseniaModificada() {
-		return contraseniaModificada;
-	}
-
 	//Metodo llamado desde la vista "pnlDatosUsuario.zul"
 	@Command("setContraseniaModificada")
-	@NotifyChange("contraseniaModificada")
 	public void setContraseniaModificada(@BindingParam("opcion") boolean arg1) {
 		this.contraseniaModificada = arg1;
 	}

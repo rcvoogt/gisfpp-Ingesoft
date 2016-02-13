@@ -1,0 +1,11 @@
+<?page title="Login Incorrecto!" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+	<div class="panel panel-danger" width="450px" height="120px" style="margin: 50px auto; box-shadow: 10px 10px 20px #ffb3b3;">
+		<div class="panel-heading">
+			<n:h3 class="panel-title">Login incorrecto.</n:h3>
+		</div>
+		<div class="panel-body">
+			<n:p class="text-danger">Nombre de usuario o contraseña incorrectas. Intentelo otra vez por favor.</n:p>
+		</div>
+	</div>
+</zk>

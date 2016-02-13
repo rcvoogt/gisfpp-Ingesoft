@@ -10,6 +10,7 @@
 		<tabbox hflex="1" vflex="1">
 			<tabs>
 				<tab label="Datos Basicos"/>
+				<tab label="N° de Identificacion"/>
 				<tab label="Datos de Contacto"/>
 				<tab label="Domicilios"/>
 				<tab label="Personas de Contacto"/>
@@ -51,16 +52,11 @@
 								</div>
 							</row>
 							<row height="15px"/>
-							<row>
-								<div>
-									<label value="CUIT" sclass="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.cuit)" width="95%" 
-										readonly="@load((not vm.creando) and (not vm.editando))"
-											class="form-control" maxlength="80"/>
-								</div>
-							</row>
 						</rows>
 					</grid>
+				</tabpanel>
+				<tabpanel>
+					<include src="vistas/persona/pnlIdentificaciones.zul"/>
 				</tabpanel>
 				<tabpanel id="tabDatosContacto" hflex="1" vflex="1">
 					<include src="vistas/persona/pnlDatosContacto.zul"/>

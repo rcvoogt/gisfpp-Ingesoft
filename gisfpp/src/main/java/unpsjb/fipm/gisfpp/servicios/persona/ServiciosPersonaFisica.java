@@ -30,6 +30,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 	@Override
 	@Transactional(readOnly=false)
 	public Integer persistir(PersonaFisica instancia) throws Exception {
+		isPersonaNull(instancia);
 		if ((instancia.getUsuario()==null) || (instancia.getUsuario().getNickname().isEmpty())){
 			Usuario usuarioDefault = UtilSecurity.generarUsuario(instancia);
 			instancia.setUsuario(usuarioDefault);
@@ -42,6 +43,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 	@Override
 	@Transactional(readOnly=false)
 	public void editar(PersonaFisica instancia) throws Exception {
+		isPersonaNull(instancia);
 		dao.actualizar(instancia);		
 	}
 
@@ -49,8 +51,8 @@ public class ServiciosPersonaFisica implements IServicioPF {
 	@Override
 	@Transactional(readOnly=false)
 	public void eliminar(PersonaFisica instancia) throws Exception {
+		isPersonaNull(instancia);
 		dao.eliminar(instancia);
-		
 	}
 
 
@@ -85,5 +87,10 @@ public class ServiciosPersonaFisica implements IServicioPF {
 		return dao.getxIdentificador(campo, patronValor);
 	}
 
+	private void isPersonaNull(PersonaFisica referencia) throws NullPointerException{
+		if(referencia==null){
+			throw new NullPointerException("Persona: referencia null");
+		}
+	}
 	
 }//fin de la clase

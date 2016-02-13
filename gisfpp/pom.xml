@@ -175,27 +175,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sql-maven-plugin</artifactId>
-				<version>1.5</version>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<driver>com.mysql.jdbc.Driver</driver>
-					<url>jdbc:mysql://localhost:3306/gisfpp</url>
-					<username>user_gisfpp</username>
-					<password>unpsjbfipm</password>
-				</configuration>
-				<executions>
-					<execution>
-					</execution>
-				</executions>
-			</plugin> -->
 		</plugins>
 	</build>
 	

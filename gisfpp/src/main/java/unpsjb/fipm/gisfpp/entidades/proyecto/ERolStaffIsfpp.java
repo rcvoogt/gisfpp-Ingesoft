@@ -2,7 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 public enum ERolStaffIsfpp {
 	
-	RESPONSABLE("Responsable de Isfpp"), TUTOR_ACADEMICO("Tutor Académico"), TUTOR_EXTERNO("Tutor Externo");
+	TUTOR_ACADEMICO("Tutor Académico"), TUTOR_EXTERNO("Tutor Externo");
 	
 	private String titulo;
 

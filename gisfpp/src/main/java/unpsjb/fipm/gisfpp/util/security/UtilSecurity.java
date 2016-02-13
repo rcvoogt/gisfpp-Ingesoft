@@ -29,7 +29,8 @@ public class UtilSecurity {
 			}else{
 				String nicknameDefault ="";
 				int aleatorio = (int)(Math.random()*1000);
-				StringTokenizer tokens = new StringTokenizer(persona.getNombre());
+				String nombre = (persona.getNombre() == null || persona.getNombre().isEmpty())?"gisfpp":persona.getNombre();
+				StringTokenizer tokens = new StringTokenizer(nombre);
 				nicknameDefault = tokens.nextToken().toLowerCase() + aleatorio;
 				usuarioGenerado.setNickname(nicknameDefault);
 			}

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -60,29 +61,35 @@ public class Proyecto implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private Set<SubProyecto> subProyectos;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId"), inverseJoinColumns=@JoinColumn(name="personaId"))
+	@ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId", foreignKey=@ForeignKey(name="fk_proyecto_demandante")), 
+		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_demandante")))
 	private Set <Persona> demandantes; 
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
 	private Set<MiembroStaffProyecto> staff;
 
 	protected Proyecto() {
-		super();
+		tipo=TipoProyecto.INTERNO;
+		estado=EstadoProyecto.GENERADO;
+		fecha_inicio = new Date();
+		fecha_fin = new Date();
+		subProyectos = new HashSet<SubProyecto>();
+		demandantes = new HashSet<Persona>();
+		staff = new HashSet<MiembroStaffProyecto>();
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
 			Date fecha_inicio, Date fecha_fin, String detalle, Set<SubProyecto> subProyectos, 
 				Set<Persona> demandantes, Set<MiembroStaffProyecto> staff) {
-		super();
 		this.codigo = codigo;
 		this.resolucion = resolucion;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-		this.tipo = tipo;
+		this.tipo = (tipo==null)?TipoProyecto.INTERNO:tipo;
 		this.estado = EstadoProyecto.GENERADO;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
+		this.fecha_inicio = (fecha_inicio==null)?new Date():fecha_inicio;
+		this.fecha_fin = (fecha_fin==null)?new Date():fecha_fin;
 		this.detalle = detalle;
 		this.subProyectos =(subProyectos==null)? new HashSet<>(): subProyectos;
 		this.demandantes = (demandantes==null)? new HashSet<>(): demandantes;
@@ -142,14 +149,16 @@ public class Proyecto implements Serializable {
 		this.tipo = tipo;
 	}
 
+	@NotNull(message="Debe especificarle una \"fecha de inicio\" al Proyecto.")
 	public Date getFecha_inicio() {
 		return fecha_inicio;
 	}
-
+	
 	public void setFecha_inicio(Date fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
 	}
 
+	@NotNull(message="Debe especificarle una \"fecha de finalización\" al Proyecto.")
 	public Date getFecha_fin() {
 		return fecha_fin;
 	}
@@ -200,11 +209,40 @@ public class Proyecto implements Serializable {
 
 	@AssertTrue(message = "La Fecha de finalizacion del proyecto debe ser posterior a la fecha de inicio.")
 	private boolean isFechaFinValida() {
-		if (fecha_fin.after(fecha_inicio)) {
-			return true;
-		} else {
-			return false;
+		if(fecha_inicio!=null && fecha_fin!=null){
+			if (fecha_fin.after(fecha_inicio)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Proyecto other = (Proyecto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 }// Fin de la clase Entity Proyecto

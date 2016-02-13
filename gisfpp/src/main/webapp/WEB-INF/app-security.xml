@@ -13,8 +13,8 @@
 		<security:intercept-url pattern="/zkau/**" access="permitAll"/>
 		<security:intercept-url pattern="/inicio.zul" access="permitAll"/>
 		<security:intercept-url pattern="/**" access="isAuthenticated()"/>
-		<security:form-login login-page="/inicio.zul" default-target-url="/inicio.zul" login-processing-url="/login-gisfpp" 
-			authentication-failure-url="/inicio.zul?login_error=1"/>
+		<security:form-login login-page="/inicio.zul" default-target-url="/inicio.zul?login=1" login-processing-url="/login-gisfpp" 
+			authentication-failure-url="/inicio.zul?login=0"/>
 		<security:logout logout-url="/logout-gisfpp" logout-success-url="/inicio.zul" invalidate-session="true"/>
 		<security:csrf disabled="true"/>	
 	</security:http>

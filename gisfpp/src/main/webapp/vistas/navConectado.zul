@@ -1,5 +1,5 @@
 <div xmlns:n="native">
-	<n:nav class="navbar navbar-default" style="height:60px">
+	<n:nav class="navbar navbar-default" style="height:70px">
 		<n:div class="container-fluid">
 			<n:div class="navbar-header">
 				<n:a class="navbar-brand">GISFPP</n:a>
@@ -7,10 +7,10 @@
 			<n:div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
 				<n:ul class="nav navbar-nav">
 					<n:li><a onClick="@command('verListaProyectos')" 
-						style="font-size: 14px; height:58px">Proyectos</a></n:li>
+						style="font-size: 14px; height:68px">Proyectos</a></n:li>
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-								role="button" aria-expanded="false" style="height:58px">
+								role="button" aria-expanded="false" style="height:68px">
 									Entidades <n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verListaPersonas')">Personas</a></n:li>
@@ -22,7 +22,7 @@
 				<n:ul class="nav navbar-nav navbar-right">
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" 
-							role="button" aria-expanded="false" style="height:58px">
+							role="button" aria-expanded="false" style="height:68px">
 							<label value="${sec:getPersonaUsuarioConectado().getNombre()}" style="font-size: 14px;"/> 
 								<n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">

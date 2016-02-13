@@ -1,12 +1,14 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -22,7 +24,8 @@ public class PersonaJuridica extends Persona {
 	private static final long serialVersionUID = 1L;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinTable(name = "persona_contacto", joinColumns = @JoinColumn(name = "organizacionId") , inverseJoinColumns = @JoinColumn(name = "personaId") )
+	@JoinTable(name = "persona_contacto", joinColumns = @JoinColumn(name = "organizacionId", foreignKey=@ForeignKey(name="fk_organizacion_contacto")) , 
+		inverseJoinColumns = @JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_contacto")))
 	private List<PersonaFisica> contactos;
 
 	public PersonaJuridica() {
@@ -86,11 +89,26 @@ public class PersonaJuridica extends Persona {
 	}
 
 	public List<PersonaFisica> getContactos() {
-		return contactos;
+		if(contactos!=null){
+			return Collections.unmodifiableList(contactos);
+		}
+		return null;
 	}
 
-	public void setContactos(List<PersonaFisica> contactos) {
+	protected void setContactos(List<PersonaFisica> contactos) {
 		this.contactos = contactos;
+	}
+	
+	public void addContacto(PersonaFisica contacto) {
+		if(contacto!=null){
+			contactos.add(contacto);
+		}
+	}
+	
+	public void removerContacto(PersonaFisica contacto) {
+		if(contacto!=null){
+			contactos.remove(contacto);
+		}
 	}
 
 }// Fin de la clase PersonaJuridica
