@@ -20,7 +20,7 @@ public class ServicioPersona implements IServicioPersona {
 	IDaoPersona dao;
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer nuevaPersona(Persona persona) throws Exception {
 		try {
 			return dao.crear(persona);
@@ -30,7 +30,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void actualizarPersona(Persona persona) throws Exception {
 		try {
 			dao.actualizar(persona);
@@ -41,7 +41,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminarPersona(Persona persona) throws Exception {
 		try {
 			dao.eliminar(persona);
@@ -51,7 +51,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<Persona> recuperarTodo() throws Exception {
 		try {
 			return dao.recuperarTodo();
@@ -62,7 +62,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Persona recuperarxId(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
@@ -72,7 +72,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp",readOnly = true)
 	public List<PersonaFisica> recuperarSoloPF() throws Exception {
 		try {
 			return dao.getPersonasFisicas();
@@ -82,7 +82,7 @@ public class ServicioPersona implements IServicioPersona {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<PersonaJuridica> recuperarSoloPJ() throws Exception {
 		try {
 			return dao.getPersonasJuridicas();

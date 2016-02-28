@@ -182,7 +182,7 @@ public class MVCrudPersona {
 	@NotifyChange("item")
 	public void retornoDlgDatosContacto(@BindingParam("modo") String arg1, @BindingParam("newItem") DatoDeContacto arg2) {
 		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.addDatoDeContacto(arg2);
+			item.getDatosDeContacto().add(arg2);
 		}
 		Clients.showNotification("Guarde cambios para confirmar la operación.", 
 				Clients.NOTIFICATION_TYPE_WARNING,	null, "top_right", 4000);
@@ -224,7 +224,7 @@ public class MVCrudPersona {
 	@Command("quitarDatosContacto")
 	@NotifyChange("item")
 	public void quitarDatosContacto(@BindingParam("item") DatoDeContacto dato) {
-		item.removerDatoDeContacto(dato);
+		item.getDatosDeContacto().remove(dato);
 		Clients.showNotification("Guarde cambios para confirmar eliminacion del Dato de Contacto", Clients.NOTIFICATION_TYPE_WARNING, 
 				null, "top_right", 4000);
 	}

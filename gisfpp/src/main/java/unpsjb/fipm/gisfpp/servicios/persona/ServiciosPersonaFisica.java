@@ -28,7 +28,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public Integer persistir(PersonaFisica instancia) throws Exception {
 		isPersonaNull(instancia);
 		if ((instancia.getUsuario()==null) || (instancia.getUsuario().getNickname().isEmpty())){
@@ -41,7 +41,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public void editar(PersonaFisica instancia) throws Exception {
 		isPersonaNull(instancia);
 		dao.actualizar(instancia);		
@@ -49,7 +49,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public void eliminar(PersonaFisica instancia) throws Exception {
 		isPersonaNull(instancia);
 		dao.eliminar(instancia);
@@ -57,7 +57,7 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public PersonaFisica getInstancia(Integer id) throws Exception {
 		PersonaFisica pf = dao.recuperarxId(id);
 		if(pf.getUsuario()==null){
@@ -68,21 +68,21 @@ public class ServiciosPersonaFisica implements IServicioPF {
 
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaFisica> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaFisica> getxNombre(String patronNombre) throws Exception {
 		return dao.getxNombre(patronNombre);
 	}
 
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaFisica> getxIdentificador(TIdentificador campo, String patronValor) throws Exception {
 		return dao.getxIdentificador(campo, patronValor);
 	}

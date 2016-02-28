@@ -52,7 +52,7 @@ public class Isfpp implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_inicio")
 	private Date inicio;
-
+                                                                                                                       
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_fin")
 	private Date fin;
@@ -97,144 +97,16 @@ public class Isfpp implements Serializable {
 		this.practicantes = (practicantes==null)? new HashSet<>(): practicantes;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	protected void setId(Integer id) {
-		this.id = id;
-	}
-
-	@NotBlank(message = "Debe especificarle un \"Ti­tulo\" a la ISFPP.")
-	@Length(max = 80, message = "El \"Titulo\" de la ISFPP no debe superar los 80 caracteres.")
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	@Length(max = 500, message = "El campo \"Objetivos\" de la ISFPP no debe superar los 500 caracteres.")
-	public String getObjetivos() {
-		return objetivos;
-	}
-
-	public void setObjetivos(String objetivos) {
-		this.objetivos = objetivos;
-	}
-
-	public Date getInicio() {
-		return inicio;
-	}
-
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
-	}
-
-	public Date getFin() {
-		return fin;
-	}
-
-	public void setFin(Date fin) {
-		this.fin = fin;
-	}
-
-	public String getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
-	}
-
-	@NotNull(message="El Sub-Proyecto debe tener un Proyecto asignado.")
-	public SubProyecto getPerteneceA() {
-		return perteneceA;
-	}
-
-	public void setPerteneceA(SubProyecto sp) {
-		this.perteneceA = sp;
-	}
-
-	public EEstadosIsfpp getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EEstadosIsfpp estado) {
-		this.estado = estado;
-	}
-
-	@AssertTrue(message = "La \"fecha fin\" debe ser posterior a la \"fecha inicio\".")
-	private boolean isFechaFinValida1() {
-		if (fin.after(inicio)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public Set<MiembroStaffIsfpp> getStaff() {
-		if(staff!=null){
-			return Collections.unmodifiableSet(staff);
-		}
-		return null;
-	}
-
-	protected void setStaff(Set<MiembroStaffIsfpp> staff) {
-		this.staff = staff;
-	}
-	
 	public void addMiembroStaff(MiembroStaffIsfpp miembro){
 		if(miembro!=null){
 			staff.add(miembro);
 		}
 	}
-	
-	public void removerMiembroStaff(MiembroStaffIsfpp miembro){
-		if(miembro!=null){
-			staff.remove(miembro);
-		}
-	}
-	
-	public Set<PersonaFisica> getPracticantes() {
-		if(practicantes!=null){
-			return Collections.unmodifiableSet(practicantes);
-		}
-		return null;
-	}
 
-	protected void setPracticantes(Set<PersonaFisica> practicantes) {
-		this.practicantes = practicantes;
-	}
-	
 	public void addPracticante(PersonaFisica practicante){
 		if(practicante!=null){
 			practicantes.add(practicante);
 		}
-	}
-	
-	public void removerPracticante(PersonaFisica practicante){
-		if(practicante!=null){
-			practicantes.remove(practicante);
-		}
-	}
-
-	@AssertTrue(message = "La \"fecha de finalizacion\" de la ISFPP debe ser anterior a la fecha de finalizacion del Proyecto.")
-	private boolean isFechaFinValida2() {
-		if (fin.before(perteneceA.getPerteneceA().getFecha_fin())) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
 	}
 
 	@Override
@@ -252,6 +124,134 @@ public class Isfpp implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public EEstadosIsfpp getEstado() {
+		return estado;
+	}
+
+	public Date getFin() {
+		return fin;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Date getInicio() {
+		return inicio;
+	}
+
+	@Length(max = 500, message = "El campo \"Objetivos\" de la ISFPP no debe superar los 500 caracteres.")
+	public String getObjetivos() {
+		return objetivos;
+	}
+
+	@NotNull(message="El Sub-Proyecto debe tener un Proyecto asignado.")
+	public SubProyecto getPerteneceA() {
+		return perteneceA;
+	}
+
+	public Set<PersonaFisica> getPracticantes() {
+		if(practicantes!=null){
+			return Collections.unmodifiableSet(practicantes);
+		}
+		return null;
+	}
+
+	public Set<MiembroStaffIsfpp> getStaff() {
+		if(staff!=null){
+			return Collections.unmodifiableSet(staff);
+		}
+		return null;
+	}
+
+	@NotBlank(message = "Debe especificarle un \"Ti­tulo\" a la ISFPP.")
+	@Length(max = 80, message = "El \"Titulo\" de la ISFPP no debe superar los 80 caracteres.")
+	public String getTitulo() {
+		return titulo;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@AssertTrue(message = "La \"fecha fin\" debe ser posterior a la \"fecha inicio\".")
+	private boolean isFechaFinValida1() {
+		if (fin.after(inicio)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@AssertTrue(message = "La \"fecha de finalizacion\" de la ISFPP debe ser anterior a la fecha de finalizacion del Proyecto.")
+	private boolean isFechaFinValida2() {
+		if (fin.before(perteneceA.getPerteneceA().getFecha_fin())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void removerMiembroStaff(MiembroStaffIsfpp miembro){
+		if(miembro!=null){
+			staff.remove(miembro);
+		}
+	}
+	
+	public void removerPracticante(PersonaFisica practicante){
+		if(practicante!=null){
+			practicantes.remove(practicante);
+		}
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
+	}
+	
+	public void setEstado(EEstadosIsfpp estado) {
+		this.estado = estado;
+	}
+	
+	public void setFin(Date fin) {
+		this.fin = fin;
+	}
+	
+	protected void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setInicio(Date inicio) {
+		this.inicio = inicio;
+	}
+	
+	public void setObjetivos(String objetivos) {
+		this.objetivos = objetivos;
+	}
+	
+	public void setPerteneceA(SubProyecto sp) {
+		this.perteneceA = sp;
+	}
+
+	protected void setPracticantes(Set<PersonaFisica> practicantes) {
+		this.practicantes = practicantes;
+	}
+
+	protected void setStaff(Set<MiembroStaffIsfpp> staff) {
+		this.staff = staff;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	
 }// fin de la clase

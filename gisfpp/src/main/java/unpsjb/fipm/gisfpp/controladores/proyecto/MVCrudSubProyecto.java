@@ -13,6 +13,7 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
@@ -23,6 +24,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
+import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -167,8 +169,10 @@ public class MVCrudSubProyecto {
 	@Command("nuevaIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {
-		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
-		tabIsfppCreado=true;
+		//crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
+		//tabIsfppCreado=true;
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/crudIsfpp2.zul", null, null);
+		dlg.doHighlighted();
 	}
 
 	@Command("editarIsfpp")

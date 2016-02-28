@@ -23,43 +23,43 @@ public class ServicioPersonaJuridica implements IServicioPJ {
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public Integer persistir(PersonaJuridica instancia) throws Exception {
 		return dao.crear(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public void editar(PersonaJuridica instancia) throws Exception {
 		dao.actualizar(instancia);		
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(value="gisfpp", readOnly=false)
 	public void eliminar(PersonaJuridica instancia) throws Exception {
 		dao.eliminar(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public PersonaJuridica getInstancia(Integer id) throws Exception {
 		return dao.recuperarxId(id);
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaJuridica> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaJuridica> getxNombre(String patronNombre) throws Exception {
 		return dao.getxNombre(patronNombre);
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaJuridica> getxCuit(String patronValor) throws Exception {
 		return dao.getxCuit(patronValor);
 	}

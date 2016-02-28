@@ -21,19 +21,19 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	private IDaoIsfpp dao;
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Isfpp instancia) throws Exception {
 		return dao.crear(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Isfpp instancia) throws Exception {
 		dao.actualizar(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(Isfpp instancia) throws Exception {
 		ResultadoValidacion resultado = ValidacionesProyecto.eliminarIsfpp(instancia);
 		if(resultado.isValido()){
@@ -44,19 +44,19 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Isfpp getInstancia(Integer id) throws Exception {
 		return dao.recuperarxId(id);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<Isfpp> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception {
 		return dao.getIsfpps(sp);
 	}

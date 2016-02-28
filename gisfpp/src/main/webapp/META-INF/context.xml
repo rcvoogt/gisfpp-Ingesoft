@@ -21,9 +21,14 @@
 	<!-- url: The JDBC connection url for connecting to your MySQL database. -->
 
 	<Resource name="jdbc/gisfpp" auth="Container" type="javax.sql.DataSource"
-		maxTotal="80" maxIdle="30" maxWaitMillis="10000" username="jdevia"
+		maxTotal="50" maxIdle="20" maxWaitMillis="10000" username="jdevia"
 		password="jdevia" driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/gisfpp"/>
 
+	<Resource name="jdbc/gisfpp_activiti" auth="Container" type="javax.sql.DataSource"
+		maxTotal="50" maxIdle="20" maxWaitMillis="10000" username="jdevia"
+		password="jdevia" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/gisfpp_activiti"/>
+	
 
 </Context>

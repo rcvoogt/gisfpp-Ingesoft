@@ -13,10 +13,16 @@
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
 	
+	<tx:annotation-driven/>
+	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
+		<qualifier value="gisfpp"/>
 	</bean>
 	
-	<tx:annotation-driven/>
+	<bean id="transactionManager2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="pool2" />
+    	 <qualifier value="activiti"/>
+  	</bean>
 	
 </beans>

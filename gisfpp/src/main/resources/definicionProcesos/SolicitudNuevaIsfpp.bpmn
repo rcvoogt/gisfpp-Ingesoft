@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="solicitudNuevaIsfpp" name="Solicitud de Nueva Isfpp" isExecutable="true">
+    <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp" activiti:initiator="${usuarioSolicitante}">
+      <documentation>Inicio del proceso "Solicitud de Nueva Isfpp".</documentation>
+    </startEvent>
+    <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D">
+      <documentation>El usuario ${nombreSolicitante} ha generado una nueva Isfpp con titulo "${tituloIsfpp}", perteneciente a "{perteneceA}".
+Aprueba dicha solicitud?</documentation>
+      <extensionElements>
+        <activiti:formProperty id="continuar" name="Continuar" type="boolean" default="true" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${responsableProyecto}" activiti:dueDate="P15D">
+      <documentation>Reunión con ${nombreSolicitante}, para acordar condiciones sobre la Isfpp ${tituloIsfpp} perteneciente a {perteneceA}.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="isfppAprobada" name="Aprobar Isfpp" type="boolean" default="true" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='true'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="tkMlNotRechazo" name="Notificar Rechazo" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailSolicitante}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Solicitud de nueva Isfpp rechazada - Gestión de Instancias Supervisadas de Formación Práctica Profesional.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p style="font-weight: bold;">Su solicitud de nueva Isfpp ha sido rechazada.</p>
+    <span style="text-decoration: underline;">Datos de la Isfpp:</span>
+    <ul>
+      <li>Solicitante: ${nombreSolicitante}</li>
+      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Pertenece a: ${perteneceA}</li>
+      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+      <li>Motivo del rechazo: ${motivoRechazo}</li>
+    </ul>
+    <br/>
+    <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
+    <br/>
+    <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
+  </body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Su solicitud de nueva Isfpp ha sido rechazada.
+
+- Solicitante: ${nombreSolicitante}
+- Titulo Isfpp: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}
+- Responsable de Proyecto: ${nombreResponsableProy}
+- Motivo del rechazo: ${motivoRechazo}
+
+Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
+        </activiti:field>
+        <activiti:executionListener event="start" class="unpsjb.fipm.gisfpp.servicios.workflow.listeners.IsfppRechazada"></activiti:executionListener>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="tkMlNotRechazo">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <serviceTask id="tkMlNotAceptacion" name="Notificar Aceptación" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailSolicitante}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Solicitud de Nueva Isfpp Aprobada - Gestión de Instancias Supervisadas de Formación Práctica Profesional]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p style="font-weight: bold;">Su solicitud de nueva Isfpp ha sido aprobada.</p>
+    <span style="text-decoration: underline;">Datos de la Isfpp:</span>
+    <ul>
+      <li>Solicitante: ${nombreSolicitante}</li>
+      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Pertenece a: ${perteneceA}</li>
+      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+      </ul>
+    <br/>
+    <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
+    <br/>
+    <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
+  </body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Su solicitud de nueva Isfpp ha sido aprobada.
+
+- Solicitante: ${nombreSolicitante}
+- Titulo Isfpp: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}
+- Responsable de Proyecto: ${nombreResponsableProy}    
+
+Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow5" sourceRef="exclusivegateway2" targetRef="tkMlNotAceptacion">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isfppAprobada=='true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="exclusivegateway2" targetRef="tkMlNotRechazo">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isfppAprobada=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="tkUsReuEstCondiciones" targetRef="exclusivegateway2"></sequenceFlow>
+    <endEvent id="evtFin1" name="Fin"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="tkMlNotAceptacion" targetRef="evtFin1"></sequenceFlow>
+    <endEvent id="evtFin2" name="Fin"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="tkMlNotRechazo" targetRef="evtFin2"></sequenceFlow>
+    <serviceTask id="tkMlNotReunion" name="Notificar Reunion" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailSolicitante}; ${mailRespProyecto}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Llevar a cabo reunión para establecer condiciones de Isfpp - Gestión de Instancias Supervisadas de Formación Practica Profesional.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p style="font-weight: bold;">Programar reunión para establecer condiciones de la Isfpp.</p>
+    <span style="text-decoration: underline;">Datos de la Isfpp:</span>
+    <ul>
+      <li>Solicitante: ${nombreSolicitante}</li>
+      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Pertenece a: ${perteneceA}</li>
+      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+    </ul>
+    <br/>
+    <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
+    <br/>
+    <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
+  </body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Programar reunión para establecer condiciones de la Isfpp.
+
+- Solicitante: ${nombreSolicitante}
+- Titulo Isfpp: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}
+- Responsable de Proyecto: ${nombreResponsableProy}
+
+Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow10" sourceRef="tkMlNotReunion" targetRef="tkUsReuEstCondiciones"></sequenceFlow>
+    <serviceTask id="tkMlNotNueIsfpp" name="Notificar Nueva Isfpp" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailRespProyecto}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Tarea pendiente: Revisar Solicitud Nueva Isfpp - Gestión de Instancias Supervisadas de Formación Práctica Profesional]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <p style="font-weight: bold;">
+    Tiene una tarea pendiente. Revise su bandeja de tareas por favor.<br/>
+    Tarea: "Revisar Solicitud Nueva Isfpp".
+  </p>
+  <span style="text-decoration: underline;">Datos de la Isfpp:</span>
+  <ul>
+    <li>Solicitante: ${nombreSolicitante}</li>
+    <li>Titulo Isfpp: ${tituloIsfpp}</li>
+    <li>Pertenece a: ${perteneceA}</li>
+  </ul>
+  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <br/>
+  <br/>
+  <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
+  <br/>
+  <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Tiene una tarea pendiente. Revise su bandeja de tareas por favor.
+Tarea: "Revisar Solicitud Nueva Isfpp".
+
+- Solicitante: ${nombreSolicitante}
+- Titulo Isfpp: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}
+
+Acceder a Gisfpp: http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul
+
+Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow11" sourceRef="tkMlNotNueIsfpp" targetRef="tkUsRevSolNueIsfpp"></sequenceFlow>
+    <textAnnotation id="anotacion">
+      <text>Variables del proceso:
+- {nombreSolicitante}: Nombres y Apellido del Profesor solicitante de la Isfpp. Tutor académico asignado.
+- {usuarioSolicitante}: Nombre de usuario del solicitante.
+- {nombreResponsableProy}: Nombres y Apellido del Responsable del Proyecto.
+- {usuarioResponsable}: Nombre de usuario del Responsable del Proyecto.
+- {perteneceA}: Sub-Proyecto / Proyecto.
+- {tituloIsfpp}: Titulo de la Isfpp.
+- {mailSolicitante}
+- {mailRespProyecto}
+- {isfppAprobada}
+- {motivoRechazo}
+- {continuar}</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_solicitudNuevaIsfpp">
+    <bpmndi:BPMNPlane bpmnElement="solicitudNuevaIsfpp" id="BPMNPlane_solicitudNuevaIsfpp">
+      <bpmndi:BPMNShape bpmnElement="evtIniSolNueIsfpp" id="BPMNShape_evtIniSolNueIsfpp">
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkUsRevSolNueIsfpp" id="BPMNShape_tkUsRevSolNueIsfpp">
+        <omgdc:Bounds height="65.0" width="105.0" x="230.0" y="325.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="358.0" y="337.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkUsReuEstCondiciones" id="BPMNShape_tkUsReuEstCondiciones">
+        <omgdc:Bounds height="61.0" width="105.0" x="578.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkMlNotRechazo" id="BPMNShape_tkMlNotRechazo">
+        <omgdc:Bounds height="55.0" width="105.0" x="418.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="724.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkMlNotAceptacion" id="BPMNShape_tkMlNotAceptacion">
+        <omgdc:Bounds height="55.0" width="105.0" x="798.0" y="223.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="evtFin1" id="BPMNShape_evtFin1">
+        <omgdc:Bounds height="35.0" width="35.0" x="936.0" y="233.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="evtFin2" id="BPMNShape_evtFin2">
+        <omgdc:Bounds height="35.0" width="35.0" x="936.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkMlNotReunion" id="BPMNShape_tkMlNotReunion">
+        <omgdc:Bounds height="55.0" width="105.0" x="418.0" y="223.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tkMlNotNueIsfpp" id="BPMNShape_tkMlNotNueIsfpp">
+        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="anotacion" id="BPMNShape_anotacion">
+        <omgdc:Bounds height="211.0" width="301.0" x="22.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="45.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="335.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="358.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="378.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="378.0" y="248.0"></omgdi:waypoint>
+        <omgdi:waypoint x="418.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="378.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="377.0" y="455.0"></omgdi:waypoint>
+        <omgdi:waypoint x="418.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="764.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="798.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="744.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="683.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="724.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="903.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="936.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="523.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="936.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="523.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="578.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="185.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

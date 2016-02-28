@@ -18,7 +18,6 @@ public class DaoPersona extends HibernateDaoSupport implements IDaoPersona {
 	private Logger log = UtilGisfpp.getLogger();
 	
 	@Override
-	@Transactional(readOnly=false)
 	public Integer crear(Persona instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);

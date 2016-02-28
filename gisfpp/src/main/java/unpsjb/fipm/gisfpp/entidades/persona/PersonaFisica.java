@@ -80,7 +80,7 @@ public class PersonaFisica extends Persona {
 	//tambien validar el correcto formato del mismo.
 	@NotBlank(message="Debe indicar al menos un \"e-mail\" para registrar esta Persona.")
 	@Email(message="Formato de \"e-mail\" incorrecto.")
-	private String getEmail(){
+	public String getEmail(){
 		for(DatoDeContacto contacto: getDatosDeContacto()){
 			if (contacto.getTipo().equals(TDatosContacto.EMAIL)){
 				return contacto.getValor();

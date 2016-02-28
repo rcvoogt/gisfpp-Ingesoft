@@ -30,7 +30,7 @@ public class UtilGisfpp {
 	}
 	public static Logger getLogger() {
 		if (logger == null) {
-			logger = LoggerFactory.getLogger("log_gisfpp");
+			logger = LoggerFactory.getLogger("logger_gisfpp");
 		}
 		return logger;
 	}

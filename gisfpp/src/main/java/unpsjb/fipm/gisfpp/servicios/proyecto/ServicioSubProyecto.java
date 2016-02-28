@@ -20,7 +20,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	private IDaoSubProyecto dao;
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(SubProyecto instancia) throws Exception {
 		try {
 			dao.crear(instancia);
@@ -31,7 +31,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(SubProyecto instancia) throws Exception {
 		try {
 			dao.actualizar(instancia);
@@ -41,7 +41,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(SubProyecto instancia) throws Exception {
 		if (instancia.getInstanciasIsfpp()==null || instancia.getInstanciasIsfpp().isEmpty()) {
 			try {
@@ -56,7 +56,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public SubProyecto getInstancia(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
@@ -66,7 +66,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<SubProyecto> getListado() throws Exception {
 		try {
 			return dao.recuperarTodo();
@@ -76,7 +76,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<SubProyecto> getSubProyectos(Proyecto proyecto) throws Exception {
 		try {
 			return dao.listadoSubProyectos(proyecto);

@@ -113,18 +113,6 @@ public abstract class Persona implements Serializable {
 		this.datosDeContacto = datosDeContacto;
 	}
 	
-	public void addDatoDeContacto(DatoDeContacto dato){
-		if(dato!=null){
-			datosDeContacto.add(dato);
-		}
-	}
-	
-	public void removerDatoDeContacto(DatoDeContacto dato){
-		if (dato!=null) {
-			datosDeContacto.remove(dato);
-		}
-	}
-
 	@Valid
 	public List<Identificador> getIdentificadores() {
 		if(identificadores!=null){

@@ -18,7 +18,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
-	@Transactional(readOnly = false)
 	public Integer crear(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);
@@ -30,7 +29,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void actualizar(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -41,7 +39,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void eliminar(Isfpp instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -53,7 +50,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<Isfpp> recuperarTodo() throws DataAccessException {
 		String query = "from Isfpp as isffpp inner join fecth isfpp.perteneceA";
 		try {
@@ -65,7 +61,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Isfpp recuperarxId(Integer id) throws DataAccessException {
 		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff  left join fetch isfpp.practicantes  where isfpp.id = ?";
 		List<Isfpp> result;
@@ -90,7 +85,6 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception {
 		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff where isfpp.perteneceA=?";
 		try {

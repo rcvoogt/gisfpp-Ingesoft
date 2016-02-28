@@ -2,7 +2,8 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 public enum EEstadosIsfpp {
 
-	GENERADA("Generada"), ACTIVA("Activa"), SUSPENDIDA("Suspendida"), CANCELADA("Cancelada"), CONCLUIDA("Concluida");
+	GENERADA("Generada"), RECHAZADA("Rechazada"),ACTIVA("Activa"), SUSPENDIDA("Suspendida"), 
+	CANCELADA("Cancelada"),CONCLUIDA("Concluida");
 
 	private String titulo;
 

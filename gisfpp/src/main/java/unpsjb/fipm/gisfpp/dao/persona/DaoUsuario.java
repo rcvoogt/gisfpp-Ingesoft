@@ -70,19 +70,16 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 	public Usuario getxPersona(PersonaFisica persona) throws DataAccessException {
 		List<Usuario> resultQuery = null;
 		Usuario usuario = null;
-		String query = "select u from Usuario as u inner join u.persona where u.persona.id = ?";
+		String query = "select u from Usuario as u inner join fetch u.persona where u.persona.id = ?";
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, persona.getId());
-		} catch (DataAccessException | HibernateException exc) {
-			log.error(this.getClass().getName(), exc);
-			throw exc;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
 		if ((resultQuery != null) && (!resultQuery.isEmpty())) {
+			getHibernateTemplate().initialize(resultQuery.get(0).getPersona().getDatosDeContacto());
 			usuario = resultQuery.get(0);
-			getHibernateTemplate().initialize(usuario.getPersona());
 		}
 		return usuario;
 	}
@@ -95,19 +92,18 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 		Usuario usuario = null;
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, nickname);
-		} catch (DataAccessException | HibernateException excDb) {
-			log.error(this.getClass().getName(), excDb);
-			throw excDb;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
 		if ((resultQuery != null) && (!resultQuery.isEmpty())) {
+			getHibernateTemplate().initialize(resultQuery.get(0).getPersona().getDatosDeContacto());
 			usuario = resultQuery.get(0);
 		}
 		return usuario;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<RolUsuario> getRoles(Usuario usuario) throws Exception {
 		String queryNativo = "select * from roles_usuario as ru where ru.PersonaId = " + usuario.getPersona().getId();

@@ -16,7 +16,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
-	@Transactional(readOnly=false)
 	public Integer crear(PersonaJuridica instancia) throws DataAccessException {
 		try{
 			getHibernateTemplate().save(instancia);
@@ -29,7 +28,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly=false)
 	public void actualizar(PersonaJuridica instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -40,7 +38,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly=false)
 	public void eliminar(PersonaJuridica instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -51,7 +48,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<PersonaJuridica> recuperarTodo() throws DataAccessException {
 		String query ="select pj from PersonaJuridica pj left join fetch pj.identificadores";
 		try {
@@ -63,7 +59,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public PersonaJuridica recuperarxId(Integer id) throws DataAccessException {
 		String query ="select pj from PersonaJuridica pj left join fetch pj.identificadores where pj.id=?";
 		try {
@@ -87,7 +82,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly=true)
 	public List<PersonaJuridica> getxNombre(String patron) throws Exception {
 		String query ="select pj from PersonaJuridica as pj left join fetch pj.identificadores where pj.nombre like concat('%', ?, '%') ";
 		try {
@@ -99,7 +93,6 @@ public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPerso
 	}
 
 	@Override
-	@Transactional(readOnly=true)
 	public List<PersonaJuridica> getxCuit(String patron) throws Exception {
 		String query ="select pj from PersonaJuridica as pj inner join pj.identificadores as id where id.tipo='CUIT' and id.valor like concat('%',?,'%')";
 		try {

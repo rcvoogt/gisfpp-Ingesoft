@@ -59,13 +59,21 @@ public class UtilSecurity {
 	 * Devuelve el objeto Persona que representa al Usuario actualmente conectado.
 	 * @return entidad Persona: Persona
 	 */
-	public static PersonaFisica getPersonaUsuarioConectado(){
+	public static Usuario getUsuarioConectado(){
 		if(isLogueado()){
 			DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			return detalle.getUsuario().getPersona();
+			return detalle.getUsuario();
 		}else{
 			return null;
 		}
+	}
+	
+	/**
+	 * Devuelve el nickname (Nombre de Usuario) del usuario actualmente conectado.
+	 * @return nickname (String)
+	 */
+	public static String getNickName() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 	
 	/**

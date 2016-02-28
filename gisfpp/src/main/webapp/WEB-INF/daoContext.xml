@@ -11,10 +11,10 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<jee:jndi-lookup id="poolDataSource" jndi-name="java:comp/env/jdbc/gisfpp"/>
+	<jee:jndi-lookup id="pool1" jndi-name="java:comp/env/jdbc/gisfpp"/>
 	
 	<bean id="sessionFactoryHB" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="poolDataSource"/>
+		<property name="dataSource" ref="pool1"/>
 		<property name="packagesToScan">
 			<list>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>

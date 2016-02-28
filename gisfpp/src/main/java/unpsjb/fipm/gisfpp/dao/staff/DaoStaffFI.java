@@ -22,7 +22,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
-	@Transactional(readOnly = false)
 	public Integer crear(StaffFI instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);
@@ -37,7 +36,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void actualizar(StaffFI instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -51,7 +49,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void eliminar(StaffFI instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -65,7 +62,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<StaffFI> recuperarTodo() throws DataAccessException {
 		String query = "select stf from StaffFI as stf left join fetch stf.miembro as p left join fetch p.identificadores";
 		try {
@@ -85,7 +81,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public StaffFI recuperarxId(Integer id) throws DataAccessException {
 		String query = "select stf from StaffFI as stf left join fetch stf.miembro p left join fetch p.identificadores where stf.id=?";
 		List<StaffFI> result;
@@ -102,7 +97,6 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
 	public List<PersonaFisica> getListadoPersonas() throws Exception {
 		String query = "select pf from PersonaFisica pf, StaffFI stf left join fetch pf.identificadores where stf.miembro.id = pf.id";
 		List<PersonaFisica> result;

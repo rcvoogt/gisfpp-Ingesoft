@@ -16,7 +16,6 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 
 	private Logger log = UtilGisfpp.getLogger();
 
-	@Transactional(readOnly = false)
 	public Integer crear(Proyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);
@@ -27,7 +26,6 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 		}
 	}
 
-	@Transactional(readOnly = false)
 	public void actualizar(Proyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -37,7 +35,6 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 		}
 	}
 
-	@Transactional(readOnly = false)
 	public void eliminar(Proyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -48,7 +45,6 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true)
 	public List<Proyecto> recuperarTodo() throws DataAccessException {
 		String query = "select p from Proyecto as p";
 		try {
@@ -60,7 +56,6 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true)
 	public Proyecto recuperarxId(Integer id) throws DataAccessException {
 		String query = "select p from Proyecto as p left join fetch p.subProyectos left join fetch p.demandantes"
 				+ " left join fetch p.staff where p.id=?";

@@ -15,4 +15,7 @@ public class GisfppException extends Exception {
 		super(mensaje);
 	}
 
+	public GisfppException(String mensaje, Throwable exc){
+		super(mensaje, exc);
+	}
 }

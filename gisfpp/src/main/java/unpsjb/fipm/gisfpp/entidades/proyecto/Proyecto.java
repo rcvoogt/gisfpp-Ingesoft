@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
 @Table(name = "proyecto")
@@ -132,7 +133,7 @@ public class Proyecto implements Serializable {
 		this.titulo = titulo;
 	}
 
-	@Length(max = 500, message = "\"La Descripcio\" del Proyecto no debe ser mayor a 500 caracteres")
+	@Length(max = 500, message = "\"La Descripcion\" del Proyecto no debe ser mayor a 500 caracteres")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -244,5 +245,13 @@ public class Proyecto implements Serializable {
 		return true;
 	}
 	
+	public PersonaFisica getResponsable(){
+		for (MiembroStaffProyecto miembro : staff) {
+			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE){
+				return miembro.getMiembro();
+			}
+		}
+		return null;
+	}
 	
 }// Fin de la clase Entity Proyecto

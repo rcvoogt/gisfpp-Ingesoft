@@ -20,7 +20,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	private DaoProyecto dao;
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Proyecto instancia) throws Exception {
 		try {
 			dao.crear(instancia);
@@ -31,7 +31,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Proyecto instancia) throws Exception {
 		try {
 			dao.actualizar(instancia);
@@ -41,7 +41,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(Proyecto instancia) throws Exception {
 		ResultadoValidacion resultado = ValidacionesProyecto.eliminarProyecto(instancia);
 		if(resultado.isValido()){
@@ -52,7 +52,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Proyecto getInstancia(Integer id) throws Exception {
 		try {
 			return dao.recuperarxId(id);
@@ -62,7 +62,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<Proyecto> getListado() throws Exception {
 		try {
 			return dao.recuperarTodo();

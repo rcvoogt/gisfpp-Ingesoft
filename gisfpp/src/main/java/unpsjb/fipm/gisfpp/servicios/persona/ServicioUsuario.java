@@ -20,50 +20,50 @@ public class ServicioUsuario implements IServicioUsuario {
 	private IDaoUsuario dao;
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Usuario instancia) throws Exception {
 		dao.crear(instancia);
 		return instancia.getId();
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Usuario instancia) throws Exception {
 		dao.actualizar(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(Usuario instancia) throws Exception {
 		dao.eliminar(instancia);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Usuario getInstancia(Integer id) throws Exception {
 		return getInstancia(id);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<Usuario> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Usuario getUsuario(PersonaFisica persona) throws Exception {
 		return dao.getxPersona(persona);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public Usuario getUsuario(String nickname) throws Exception {
 		return dao.getxNombreUsuario(nickname);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional(value="gisfpp", readOnly = true)
 	public List<RolUsuario> getRoles(Usuario usuario) throws Exception {
 		return dao.getRoles(usuario);
 	}

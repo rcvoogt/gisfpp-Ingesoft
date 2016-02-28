@@ -17,7 +17,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
-	@Transactional(readOnly = false)
 	public Integer crear(SubProyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().save(instancia);
@@ -29,7 +28,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void actualizar(SubProyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().update(instancia);
@@ -41,7 +39,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void eliminar(SubProyecto instancia) throws DataAccessException {
 		try {
 			getHibernateTemplate().delete(instancia);
@@ -51,8 +48,8 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(readOnly = true)
 	public List<SubProyecto> recuperarTodo() throws DataAccessException {
 		String query = "form SubProyecto as sp inner join fetch sp.perteneceA";
 		try {
@@ -64,7 +61,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public SubProyecto recuperarxId(Integer id) throws DataAccessException {
 		String query = "select sp from SubProyecto as sp left join fetch sp.instanciasIsfpp where sp.id=?";
 		List<SubProyecto> result;
@@ -83,7 +79,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional(readOnly = true)
 	public List<SubProyecto> listadoSubProyectos(Proyecto proyecto) throws DataAccessException, HibernateException {
 		String query = "from SubProyecto as sp where sp.perteneceA = ?";
 		try {
