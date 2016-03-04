@@ -1,5 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.persona;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "datos_contacto")
-public class DatoDeContacto {
+public class DatoDeContacto  implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

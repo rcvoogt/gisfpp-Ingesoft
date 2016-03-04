@@ -1,0 +1,26 @@
+<grid mold="paging" autopaging="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+	emptyMessage="Sin tareas propuestas."
+		model="@load(vm.tareasDelegadas)">
+		<columns>
+			<column label="Nombre" width="25%"/>
+			<column label="Categoria" width="10%"/>
+			<column label="Prioridad" width="10%"/>
+			<column label="Vence" width="10%"/>
+			<column label="Proceso" width="25%"/>
+			<column label="Accion 1" width="10%"/>
+			<column label="Accion 2" width="10%"/>
+		</columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)"/>
+				<label value="@load(each.categoria)"/>
+				<label value="@load(each.prioridad)"/>
+				<label value="@load(each.fecha_vencimiento)"/>
+				<label value="@load(each.nombreProceso)"/>
+				<a label="Aceptar" class="btn btn-success btn-sm"
+					onClick=""/>
+				<a label="Rechazar" class="btn btn-danger btn-sm"
+					onClick=""/>	
+			</row>
+		</template>
+</grid>

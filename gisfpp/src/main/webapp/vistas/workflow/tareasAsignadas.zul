@@ -1,0 +1,26 @@
+<grid mold="paging" autopaging="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+	emptyMessage="Sin tareas asignadas."
+		model="@load(vm.tareasAsignadas)">
+		<columns>
+			<column label="Nombre" width="25%"/>
+			<column label="Categoria" width="10%"/>
+			<column label="Prioridad" width="10%"/>
+			<column label="Vence" width="10%"/>
+			<column label="Proceso" width="25%"/>
+			<column label="Accion 1" width="10%"/>
+			<column label="Accion 2" width="10%"/>
+		</columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)"/>
+				<label value="@load(each.categoria)"/>
+				<label value="@load(each.prioridad)"/>
+				<label value="@load(each.fecha_vencimiento) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+				<label value="@load(each.nombreProceso)"/>
+				<a label="Realizar" class="btn btn-success btn-sm"
+					onClick="@command('realizarTarea', item = each)"/>
+				<a label="Delegar" class="btn btn-primary btn-sm"
+					onClick=""/>
+				</row>
+		</template>
+</grid>

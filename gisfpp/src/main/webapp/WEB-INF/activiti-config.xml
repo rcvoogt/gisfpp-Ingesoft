@@ -36,6 +36,6 @@
 	<bean id="repoService" factory-bean="processEngine" factory-method="getRepositoryService"/>
 	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
 	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
-	
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
 	
 </beans>

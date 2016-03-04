@@ -169,10 +169,10 @@ public class MVCrudSubProyecto {
 	@Command("nuevaIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {
-		//crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
-		//tabIsfppCreado=true;
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/crudIsfpp2.zul", null, null);
-		dlg.doHighlighted();
+		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
+		tabIsfppCreado=true;
+		//Window dlg = (Window) Executions.createComponents("vistas/proyecto/crudIsfpp2.zul", null, null);
+		//dlg.doHighlighted();
 	}
 
 	@Command("editarIsfpp")

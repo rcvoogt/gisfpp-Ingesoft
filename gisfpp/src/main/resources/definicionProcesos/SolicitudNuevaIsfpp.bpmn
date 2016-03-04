@@ -4,9 +4,9 @@
     <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp" activiti:initiator="${usuarioSolicitante}">
       <documentation>Inicio del proceso "Solicitud de Nueva Isfpp".</documentation>
     </startEvent>
-    <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D">
-      <documentation>El usuario ${nombreSolicitante} ha generado una nueva Isfpp con titulo "${tituloIsfpp}", perteneciente a "{perteneceA}".
-Aprueba dicha solicitud?</documentation>
+    <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul">
+      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}", perteneciente a "{perteneceA}".
+Desea "Continuar" con la generación de esta nueva Isfpp? Si "Rechaza" la misma, esta será eliminada del sistema.</documentation>
       <extensionElements>
         <activiti:formProperty id="continuar" name="Continuar" type="boolean" default="true" required="true"></activiti:formProperty>
       </extensionElements>
@@ -14,8 +14,9 @@ Aprueba dicha solicitud?</documentation>
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${responsableProyecto}" activiti:dueDate="P15D">
-      <documentation>Reunión con ${nombreSolicitante}, para acordar condiciones sobre la Isfpp ${tituloIsfpp} perteneciente a {perteneceA}.</documentation>
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${responsableProyecto}" activiti:dueDate="P15D" activiti:formKey="dlgReunionEstCondiciones.zul">
+      <documentation>Reunión con ${nombreSolicitante}, para acordar condiciones sobre la Isfpp ${tituloIsfpp} perteneciente a {perteneceA}.
+Teniendo en cuenta los resultados de esta reunión, "Aprueba" la Nueva Isfpp para continuar con su curso de acción o "Rechaza" la misma?</documentation>
       <extensionElements>
         <activiti:formProperty id="isfppAprobada" name="Aprobar Isfpp" type="boolean" default="true" required="true"></activiti:formProperty>
       </extensionElements>

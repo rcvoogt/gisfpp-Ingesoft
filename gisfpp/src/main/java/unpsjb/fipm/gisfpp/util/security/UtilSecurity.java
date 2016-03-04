@@ -42,6 +42,19 @@ public class UtilSecurity {
 	}
 	
 	/**
+	 * Devuelve el objeto Persona que representa al Usuario actualmente conectado.
+	 * @return entidad Persona: Persona
+	 */
+	public static Usuario getUsuarioConectado(){
+		if(isLogueado()){
+			DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			return detalle.getUsuario();
+		}else{
+			return null;
+		}
+	}
+	
+	/**
 	 * Devuelve Verdadero (true) si el usuario se ha
 	 * autenticado e iniciado sesion exitosamente.
 	 * @return Verdadero o Falso.
@@ -52,19 +65,6 @@ public class UtilSecurity {
 			return false;
 		}else{
 			return true;
-		}
-	}
-	
-	/**
-	 * Devuelve el objeto Persona que representa al Usuario actualmente conectado.
-	 * @return entidad Persona: Persona
-	 */
-	public static Usuario getUsuarioConectado(){
-		if(isLogueado()){
-			DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			return detalle.getUsuario();
-		}else{
-			return null;
 		}
 	}
 	

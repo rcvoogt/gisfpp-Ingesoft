@@ -39,6 +39,11 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listadoOrganizaciones.zul");
 	}
 	
+	@Command("verBandejaTareas")
+	public void verBandejaTareas(){
+		UtilGuiGisfpp.loadPnlCentral("vistas/workflow/bandejaTareas.zul");
+	}
+	
 	@Command("verDlgPerfilUsuario")
 	public void verDlgPerfilUsuario(){
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgPerfilUsuario.zul", null, null);
@@ -47,7 +52,7 @@ public class MVInicio {
 	
 	@Command("verPnlDatosPersonales")
 	public void verPnlCrudPersona(){
-		PersonaFisica usuarioConectado = UtilSecurity.getPersonaUsuarioConectado();
+		PersonaFisica usuarioConectado = UtilSecurity.getUsuarioConectado().getPersona();
 		final HashMap<String, Object> argsLlamada = new HashMap<String, Object>();
 		argsLlamada.put("modo", UtilGisfpp.MOD_VER);
 		argsLlamada.put("idItem", usuarioConectado.getId());

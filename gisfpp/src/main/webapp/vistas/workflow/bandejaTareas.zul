@@ -1,0 +1,30 @@
+<div id="pnlBandejaTareas" class="panel panel-primary" xmlns:n="native"
+	hflex="true" vflex="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.MVBandejaTareas')">
+		<div class="panel-heading">
+			<n:h3 class="panel-title">
+				<label value="Mi Bandeja de Tareas" style="font-size: 14px;" />
+			</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<tabbox hflex="true" vflex="true">
+			<tabs>
+				<tab tooltiptext="Tareas en las cuales el usuario es el asignado para realizarlas."
+					label="@load(vm.tituloTabAsignadas)"/>
+				<tab label="@load(vm.tituloTabPropuestas)" tooltiptext="Tareas en las cuales el usuario es candidato para su realización."/>
+				<tab label="@load(vm.tituloTabDelegadas)" tooltiptext="Tareas delegadas al usuario para su realización."/>
+				<tab label="@load(vm.tituloTabRealizadas)" tooltiptext="Historial de tareas ya realizadas por el usuario."/>
+			</tabs>
+			<toolbar>
+				<toolbarbutton image="recursos/img/icon-exit.png"
+					label="Salir" onClick="@command('salir')" class="btn btn-success btn-xs"/>
+			</toolbar>
+			<tabpanels>
+				<tabpanel><include src="vistas/workflow/tareasAsignadas.zul"/></tabpanel>
+				<tabpanel><include src="vistas/workflow/tareasPropuestas.zul"/></tabpanel>
+				<tabpanel><include src="vistas/workflow/tareasDelegadas.zul"/></tabpanel>
+				<tabpanel><include src="vistas/workflow/tareasRealizadas.zul"/></tabpanel>
+			</tabpanels>
+		</tabbox>
+	</div>
+</div>

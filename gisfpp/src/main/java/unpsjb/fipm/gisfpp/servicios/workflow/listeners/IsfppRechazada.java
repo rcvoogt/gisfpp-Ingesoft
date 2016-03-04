@@ -4,9 +4,11 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.servicios.workflow.SolicitudNuevaIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppRechazada implements ExecutionListener {
@@ -19,7 +21,9 @@ public class IsfppRechazada implements ExecutionListener {
 	public void notify(DelegateExecution execution) throws Exception {
 		try {
 			Isfpp isfppRechazada = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
+			String motivo  = (String) execution.getVariable(SolicitudNuevaIsfpp.VAR_MOTIVO_RECHAZO);
 			isfppRechazada.setEstado(EEstadosIsfpp.RECHAZADA);
+			isfppRechazada.setDetalle(motivo);
 			servIsfpp.editar(isfppRechazada);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);

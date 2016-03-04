@@ -18,12 +18,21 @@
 								<n:li><a onClick="@command('verListaStaff')">Staff-FI</a></n:li>
 							</n:ul>
 					</n:li>
+					<n:li class="dropdown">
+						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-expanded="false" style="height: 68px;">
+							Tareas <n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li><a onClick="@command('verBandejaTareas')">Bandeja de Tareas</a></n:li>
+						</n:ul>
+					</n:li>
 				</n:ul>
 				<n:ul class="nav navbar-nav navbar-right">
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" 
 							role="button" aria-expanded="false" style="height:68px">
-							<label value="${sec:getPersonaUsuarioConectado().getNombre()}" style="font-size: 14px;"/> 
+							<label value="${sec:getUsuarioConectado().getPersona().getNombre()}" style="font-size: 14px;"/> 
 								<n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verDlgPerfilUsuario')">Perfil</a></n:li>

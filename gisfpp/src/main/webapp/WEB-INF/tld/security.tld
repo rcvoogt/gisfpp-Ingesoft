@@ -38,9 +38,9 @@
 		</description>
 	</function>
 	<function>
-		<name>getPersonaUsuarioConectado</name>
+		<name>getUsuarioConectado</name>
 		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
-		<function-signature>PersonaFisica getPersonaUsuarioConectado()</function-signature>
+		<function-signature>Usurio getUsuarioConectado()</function-signature>
 		<description>
 			Devuelve el objeto Persona que representa al Usuario actualmente conectado.
 		</description>

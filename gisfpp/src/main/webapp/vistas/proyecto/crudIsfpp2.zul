@@ -1,7 +1,7 @@
 <zk>
-	<window title="" border="normal" height="400px" width="350px"
-		sizable="true" closable="true" apply="org.zkoss.bind.BindComposer">
-		<tabbox hflex="true" vflex="true" orient="left">
+	<window title="Crud Isfpp" border="normal" height="60%" width="65%"
+		sizable="false" closable="true" apply="org.zkoss.bind.BindComposer">
+		<tabbox hflex="true" vflex="true">
 			<tabs>
 				<tab label="Datos Generales" selected="true" />
 				<tab label="Staff" />
@@ -32,67 +32,82 @@
 					class="btn btn-success btn-xs"
 					disabled="@load(vm.creando or vm.editando)" />
 			</toolbar>
+			<tabpanels hflex="true" vflex="true">
+				<tabpanel id="tabDatosGen" hflex="true" vflex="true">
+					<grid hflex="true" vflex="true" sclass="fgrid">
+						<columns>
+							<column width="40%" />
+							<column width="40%" />
+							<column width="20%" />
+						</columns>
+						<rows>
+							<row width="10px" />
+							<row>
+								<div>
+									<label value="Titulo"
+										sclass="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.titulo)" width="90%" maxlength="80"
+										class="form-control"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+								<div>
+									<label value="Estado"
+										sclass="form-label" width="45%" />
+									<combobox model="@load(vm.estados)"
+										selectedItem="@bind(vm.item.estado)" width="45%"
+										disabled="@load((not vm.creando) and (not vm.editando) or (vm.modo eq 'NUEVO'))">
+										<template name="model">
+											<comboitem
+												label="@load(each.titulo)" />
+										</template>
+									</combobox>
+								</div>
+							</row>
+							<row height="10px" />
+							<row>
+								<div>
+									<label value="Objetivos"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.objetivos)" class="form-control"
+										cols="60" rows="5" maxlength="500" width="95%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="10px" />
+							<row>
+								<div>
+									<label value="Fecha inicio"
+										class="form-label" width="45%" />
+									<datebox
+										value="@bind(vm.item.inicio)" buttonVisible="true" width="35%"
+										format="dd/MM/yyyy"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+								<div>
+									<label value="Fecha fin"
+										class="form-label" width="45%" />
+									<datebox value="@bind(vm.item.fin)"
+										buttonVisible="true" width="35%" format="dd/MM/yyyy"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="10px" />
+							<row>
+								<div>
+									<label value="Detalle"
+										sclass="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.detalle)" class="form-control" cols="60"
+										rows="6" maxlength="2000" width="95%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+			</tabpanels>
 		</tabbox>
-		<tabpanel id="tabDatosGen">
-			<grid hflex="true" vflex="true" sclass="fgrid">
-				<columns>
-					<column width="33%" />
-					<column width="33%" />
-					<column width="34%" />
-				</columns>
-				<rows>
-					<row width="10px"/>
-					<row>
-						<div>
-							<label value="Titulo" sclass="form-label" width="45%"/>	
-							<textbox value="@bind(vm.item.titulo)"
-								width="95%" maxlength="80" class="form-control"
-									readonly="@load((not vm.creando) and (not vm.editando))"/>	
-						</div>
-						<div>
-							<label value="Estado" sclass="form-label" width="45%"/>
-							<combobox model="@load(vm.estados)"
-								selectedItem="@bind(vm.item.estado)" width="45%"
-									disabled="@load((not vm.creando) and (not vm.editando) or (vm.modo eq 'NUEVO'))">
-								<template name="model">
-									<comboitem label="@load(each.titulo)"/>
-								</template>
-							</combobox>	
-						</div>
-					</row>
-					<row height="10px" />
-					<row>
-						<div>
-							<label value="Objetivos" class="form-label" width="45%"/>
-							<textbox value="@bind(vm.item.objetivos)"
-								class="form-control" cols="60" rows="5" maxlength="500" width="95%"
-									readonly="@load((not vm.creando) and (not vm.editando))" />		
-						</div>
-					</row>
-					<row height="10px" />
-					<row>
-						<div>
-							<label value="Fecha inicio" class="form-label" width="45%"/>
-							<datebox value="@bind(vm.item.inicio)" buttonVisible="true" width="35%"
-								format="dd/MM/yyyy" disabled="@load((not vm.creando) and (not vm.editando))"/>		
-						</div>
-						<div>
-							<label value="Fecha fin" class="form-label" width="45%"/>
-							<datebox value="@bind(vm.item.fin)" buttonVisible="true" width="35%"
-								format="dd/MM/yyyy" disabled="@load((not vm.creando) and (not vm.editando))"/>	
-						</div>
-					</row>
-					<row height="10px" />
-					<row>
-						<div>
-							<label value="Detalle" sclass="form-label" width="45%"/>
-						<textbox value="@bind(vm.item.detalle)" class="form-control"
-							cols="60" rows="6" maxlength="2000"
-								width="95%" readonly="@load((not vm.creando) and (not vm.editando))"/>
-						</div>
-					</row>
-				</rows>
-			</grid>
-		</tabpanel>
 	</window>
 </zk>
