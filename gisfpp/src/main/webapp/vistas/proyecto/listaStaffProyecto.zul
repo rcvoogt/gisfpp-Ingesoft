@@ -6,7 +6,7 @@
 	</div>
 	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
 		model="@load(vm.item.staff)" mold="paging" autopaging="true"
-		 emptyMessage="">
+		 emptyMessage="Este proyecto no tiene miembros en su Staff.">
 		 <columns>
 		 	<column label="Nombre y Apellido"  width="35%"/>
 		 	<column label="DNI" width="17%"/>

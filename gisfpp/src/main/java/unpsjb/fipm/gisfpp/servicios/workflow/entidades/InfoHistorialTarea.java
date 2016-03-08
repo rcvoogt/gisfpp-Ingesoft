@@ -12,7 +12,7 @@ public class InfoHistorialTarea extends InfoTarea {
 	/**
 	 * Fecha en la que se finalizo la ejecucion de la tarea.
 	 */
-	private Date fecha_conluida;
+	private Date fecha_concluida;
 	
 	/**
 	 * Fecha en la que se reclamo la tarea.
@@ -41,7 +41,7 @@ public class InfoHistorialTarea extends InfoTarea {
 		super(id, nombre, descripcion, fecha_vencimiento, prioridad, categoria,
 				asignado, duenio, fecha_creacion, idInstanciaProceso, nombreProceso, formulario);
 		this.fecha_inicio = fecha_inicio;
-		this.fecha_conluida = fecha_conluida;
+		this.fecha_concluida = fecha_conluida;
 		this.fecha_reclamada = fecha_reclamada;
 		this.duracion_total = duracion_total;
 		this.duracion_atendida = duracion_atendida;
@@ -55,12 +55,12 @@ public class InfoHistorialTarea extends InfoTarea {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	public Date getFecha_conluida() {
-		return fecha_conluida;
+	public Date getFecha_concluida() {
+		return fecha_concluida;
 	}
 
-	public void setFecha_conluida(Date fecha_conluida) {
-		this.fecha_conluida = fecha_conluida;
+	public void setFecha_concluida(Date fecha_conluida) {
+		this.fecha_concluida = fecha_conluida;
 	}
 
 	public Date getFecha_reclamada() {

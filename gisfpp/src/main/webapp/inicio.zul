@@ -1,5 +1,6 @@
 <?page id="appGISFPP" title="GISFPP" contentType="text/html;charset=UTF-8"?>
 <?taglib uri="/WEB-INF/tld/security.tld" prefix="sec"?>
+<?taglib uri="/WEB-INF/tld/util.tld" prefix="util"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/gisfpp.css"?>
 <?link rel="stylesheet" type="text/css" href="recursos/css/style.css"?>
 <?link rel="stylesheet" href="recursos/css/font-awesome.min.css"?>
@@ -24,7 +25,7 @@
 		</north>
 		<center id="centro" class="container" style="padding-top:6px">
 			<div vflex="true">
-				<include id="panelCentro" if="${param.login==1}"/>
+				<include id="panelCentro" visible="${param.login != 0}"/>
 				<include src="/vistas/error/loguin_error.zul" if="${param.login == 0}"/>
 			</div>
 		</center>

@@ -72,11 +72,9 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			servTask.complete(idTarea);
 		}catch(ActivitiObjectNotFoundException ecx1){
 			throw new GisfppWorkflowException("La tarea que intenta realizar no existe.");
-		}catch (ActivitiException exc2) {
-			throw new GisfppWorkflowException("No se puede completar la tarea, la misma se encuentra en estado \"Delegada\".");
-		}catch (Exception exc3) {
-			log.error(this.getClass().getName(), exc3);
-			throw new GisfppWorkflowException("Se ha producido una Excepción al intertar completar la tarea.", exc3);
+		}catch (Exception exc2) {
+			throw new GisfppWorkflowException("Se ha producido un error al  intentar realizar la tarea.\n"
+					+ exc2.getLocalizedMessage(), exc2);
 		}
 	}
 
@@ -87,11 +85,9 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			servTask.complete(idTarea, variables);
 		} catch(ActivitiObjectNotFoundException ecx1){
 			throw new GisfppWorkflowException("La tarea que intenta realizar no existe.");
-		}catch (ActivitiException exc2) {
-			throw new GisfppWorkflowException("No se puede completar la tarea, la misma se encuentra en estado \"Delegada\".");
-		}catch (Exception exc3) {
-			log.error(this.getClass().getName(), exc3);
-			throw new GisfppWorkflowException("Se ha producido una Excepción al intertar completar la tarea.", exc3);
+		}catch (Exception exc2) {
+			throw new GisfppWorkflowException("Se ha producido un error al intentar realizar la tarea.\n"
+					+ exc2.getLocalizedMessage(), exc2);
 		}
 		
 	}
@@ -107,7 +103,8 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			throw new GisfppWorkflowException("La tarea que intenta reclamar ya ha sido reclamada por otro usuario.");
 		}catch (Exception exc3) {
 			log.error(this.getClass().getName(), exc3);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea.", exc3);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea.\n"
+					+ exc3.getLocalizedMessage(), exc3);
 		}
 		
 	}
@@ -120,7 +117,8 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			throw new GisfppWorkflowException("La tarea a la que intenta renunciar no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar renunciar a la tarea.", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar renunciar a la tarea.\n"
+					+ exc2.getLocalizedMessage(), exc2);
 		}
 		
 	}
@@ -134,7 +132,8 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			throw new GisfppWorkflowException("La tarea que intenta delegar no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea.", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea.\n"
+					+ exc2.getLocalizedMessage(), exc2);
 		}
 		
 	}
@@ -147,7 +146,8 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			throw new GisfppWorkflowException("La tarea que intenta resolver no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.\n"
+					+ exc2.getLocalizedMessage(), exc2);
 		}
 		
 	}
@@ -161,7 +161,8 @@ public abstract class ProcesoGisfppImpl implements ProcesoGisfpp{
 			throw new GisfppWorkflowException("La tarea que intenta resolver no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.\n"
+					+exc2.getLocalizedMessage(), exc2);
 		}
 		
 	}

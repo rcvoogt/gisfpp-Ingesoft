@@ -2,25 +2,25 @@
 	emptyMessage="Sin tareas asignadas."
 		model="@load(vm.tareasAsignadas)">
 		<columns>
-			<column label="Nombre" width="25%"/>
-			<column label="Categoria" width="10%"/>
-			<column label="Prioridad" width="10%"/>
-			<column label="Vence" width="10%"/>
-			<column label="Proceso" width="25%"/>
-			<column label="Accion 1" width="10%"/>
-			<column label="Accion 2" width="10%"/>
+			<column label="Nombre" width="29%"/>
+			<column label="Categoria" width="12%"/>
+			<column label="Prioridad" width="6%"/>
+			<column label="Vence" width="12%"/>
+			<column label="Proceso" width="29%"/>
+			<column label="Atender" width="6%" align="center"/>
+			<column label="Delegar" width="6%" align="center"/>
 		</columns>
 		<template name="model">
 			<row>
 				<label value="@load(each.nombre)"/>
 				<label value="@load(each.categoria)"/>
-				<label value="@load(each.prioridad)"/>
+				<label value="@load(util:traducirPrioridad(each.prioridad))"/>
 				<label value="@load(each.fecha_vencimiento) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.nombreProceso)"/>
-				<a label="Realizar" class="btn btn-success btn-sm"
+				<toolbarbutton image="recursos/img/icon-ok-sign.png" tooltiptext="Atender la tarea asignada."
 					onClick="@command('realizarTarea', item = each)"/>
-				<a label="Delegar" class="btn btn-primary btn-sm"
+				<toolbarbutton image="recursos/img/icon-ok-sign.png" tooltiptext="Delegar la tarea asignada."
 					onClick=""/>
-				</row>
+			</row>
 		</template>
 </grid>

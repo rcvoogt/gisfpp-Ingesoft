@@ -1,16 +1,19 @@
 <zk>
 <window id="dlgRevSolNuevaIsfpp" title="Tarea: Revisar Solicitud Nueva Isfpp" border="normal" 	
-	width="25%" height="10%" apply="org.zkoss.bind.BindComposer" closable="true"
+	width="35%" height="46%" apply="org.zkoss.bind.BindComposer" closable="true" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgRevSolNuevaIsfpp')">
-	<vbox spacing="10px">
-		<div>
-			<label value="@load(vm.tarea.descripcion)" multiline="true" maxlength="60"/>
+	<vbox spacing="5px">
+			<div style="overflow:auto;">
+				<label value="@load(vm.tarea.descripcion)" multiline="true" maxlength="50"/>
+			</div>
+			<label style="font-style: italic; font-weight: bold;" multiline="true" maxlength="50">
+				Desea "Continuar" con el tratamiento de esta nueva Isfpp? Si "Rechaza" continuar con su tratamiento, por favor	indique el motivo del rechazo.
+			</label>
 			<div>
 				<label value="Motivo de Rechazo:" class="form-label" width="45%"/>
 				<textbox class="form-control" width="95%" maxlength="1000" cols="40" rows="5"
-					id="txtMotivoRechazo"/>
+					id="txtMotivoRechazo" multiline="true"/>
 			</div>
-		</div>
 		<hbox hflex="true" align="center" pack="center" spacing="8px">
 			<a class="btn btn-success btn-sm" 
 				onClick="@command('completar', continuar=true, motivo =' ')">Continuar</a>

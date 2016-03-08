@@ -174,7 +174,7 @@ public class BandejaDeTareas {
 		infoTarea.setAsignado(historialTarea.getAssignee());
 		infoTarea.setNombreProceso(definicionProceso.getName());
 		infoTarea.setFecha_inicio(historialTarea.getStartTime());
-		infoTarea.setFecha_conluida(historialTarea.getEndTime());
+		infoTarea.setFecha_concluida(historialTarea.getEndTime());
 		infoTarea.setFecha_reclamada(historialTarea.getClaimTime());
 		infoTarea.setDuracion_total(historialTarea.getDurationInMillis());
 		infoTarea.setDuracion_atendida(historialTarea.getWorkTimeInMillis());

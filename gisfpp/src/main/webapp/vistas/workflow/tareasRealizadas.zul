@@ -7,8 +7,8 @@
 			<column label="Inicia" width="10%"/>
 			<column label="Finaliza" width="10%"/>
 			<column label="Se Reclama" width="10%"/>
-			<column label="Duracion Total (Días)"	 width="11%" style="font-size: 12px;"/>
-			<column label="Duracion Realizacion (Días)" width="11%" style="font-size: 12px;"/>
+			<column label="Duracion Total"	 width="11%" tooltiptext="Duración total de la tarea, desde que se inicia hasta su finalización."/>
+			<column label="Duracion Tratamiento" width="11%" tooltiptext="Duración parcial de la tarea, desde que es reclamada hasta su finalización."/>
 		</columns>
 		<template name="model">
 			<row>
@@ -17,8 +17,8 @@
 				<label value="@load(each.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.fecha_concluida) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.fecha_reclamada) @converter('formatedDate', format ='dd/MM/yyyy')"/>
-				<label value="@load(each.duracion_total)"/>
-				<label value="@load(each.duracion_atendida)"/>
+				<label value="@load(util:formatearTiempo(each.duracion_total))"/>
+				<label value="@load(util:formatearTiempo(each.duracion_atendida))"/>
 			</row>
 		</template>
 </grid>

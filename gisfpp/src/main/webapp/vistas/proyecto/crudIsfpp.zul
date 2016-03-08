@@ -1,9 +1,9 @@
 <tabbox width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudIsfpp')">
 	<tabs>
-		<tab label="Datos Generales" selected="true" />
-		<tab label="Staff" />
-		<tab label="Practicantes" />
+		<tab label="Datos Generales" selected="true"/>
+		<tab label="Staff" visible="@load(vm.modo ne 'NUEVO')"/>
+		<tab label="Practicantes" visible="@load(vm.modo ne 'NUEVO')"/>
 	</tabs>
 	<toolbar>
 		<toolbarbutton image="recursos/img/icon-plus-sign.png"

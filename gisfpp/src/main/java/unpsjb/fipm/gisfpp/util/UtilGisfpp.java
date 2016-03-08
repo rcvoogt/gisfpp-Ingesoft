@@ -34,6 +34,53 @@ public class UtilGisfpp {
 		}
 		return logger;
 	}
+	
+	/**
+	 * Devuelve el periodo de tiempo pasado como parámetro en milisegundos, en un formato de dias, horas y minutos.
+	 * @param periodo en milisegundos (Integer)
+	 * @return periodo representado en días, horas y minutos como String.
+	 */
+	public static String formatearTiempo(Long periodo){
+		int dias, horas, minutos;
+		int restoDias, restoHoras;
+		
+		if(periodo!=null){
+			dias = (int) (periodo/86400000);
+			restoDias = (int) (periodo%86400000);
+			
+			horas = restoDias/3600000;
+			restoHoras = restoDias%3600000;
+			
+			minutos = restoHoras/60000;
+			
+			return (dias + " días, " + horas + " horas, " + minutos+" minutos.");
+		}
+		else{
+			return "";
+		}
+	}
+	
+	public static String traducirPrioridad(int prioridad){
+		String resultado=null;
+		switch (prioridad) {
+		case 50:{
+			 resultado = "Alta";
+			break;
+		}	
+		case 25:{
+			resultado ="Media";
+			break;
+		}
+		case 1:{
+			resultado ="Baja";
+			break;
+		}
+		default:
+			resultado="Indefinida";
+			break;
+		}
+		return resultado;
+	}
 
 	
 }// fin de la clase

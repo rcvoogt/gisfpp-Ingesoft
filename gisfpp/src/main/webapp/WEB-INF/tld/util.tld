@@ -1,0 +1,17 @@
+<taglib>
+	<function>
+		<name>formatearTiempo</name>
+		<function-class>unpsjb.fipm.gisfpp.util.UtilGisfpp</function-class>
+		<function-signature>String formatearTiempo(Long)</function-signature>
+		<description>
+			 Devuelve el periodo de tiempo pasado como parámetro en milisegundos, en un formato de dias, horas y minutos.
+		</description>
+	</function>
+	<function>
+		<name>traducirPrioridad</name>
+		<function-class>unpsjb.fipm.gisfpp.util.UtilGisfpp</function-class>
+		<function-signature>String traducirPrioridad(int)</function-signature>
+		<description>
+		</description>
+	</function>
+</taglib>

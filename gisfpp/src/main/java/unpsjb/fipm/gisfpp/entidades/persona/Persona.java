@@ -115,10 +115,7 @@ public abstract class Persona implements Serializable {
 	
 	@Valid
 	public List<Identificador> getIdentificadores() {
-		if(identificadores!=null){
-			return Collections.unmodifiableList(identificadores);
-		}
-		return null;
+		return identificadores;
 	}
 
 	protected void setIdentificadores(List<Identificador> identificadores) {

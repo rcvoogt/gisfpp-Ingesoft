@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="solicitudNuevaIsfpp" name="Solicitud de Nueva Isfpp" isExecutable="true">
-    <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp" activiti:initiator="${usuarioSolicitante}">
+    <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp" activiti:initiator="usuarioSolicitante">
       <documentation>Inicio del proceso "Solicitud de Nueva Isfpp".</documentation>
     </startEvent>
     <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul">
-      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}", perteneciente a "{perteneceA}".
-Desea "Continuar" con la generación de esta nueva Isfpp? Si "Rechaza" la misma, esta será eliminada del sistema.</documentation>
+      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
       <extensionElements>
         <activiti:formProperty id="continuar" name="Continuar" type="boolean" default="true" required="true"></activiti:formProperty>
       </extensionElements>
@@ -14,9 +13,8 @@ Desea "Continuar" con la generación de esta nueva Isfpp? Si "Rechaza" la misma,
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${responsableProyecto}" activiti:dueDate="P15D" activiti:formKey="dlgReunionEstCondiciones.zul">
-      <documentation>Reunión con ${nombreSolicitante}, para acordar condiciones sobre la Isfpp ${tituloIsfpp} perteneciente a {perteneceA}.
-Teniendo en cuenta los resultados de esta reunión, "Aprueba" la Nueva Isfpp para continuar con su curso de acción o "Rechaza" la misma?</documentation>
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:formKey="dlgReunionEstCondiciones.zul">
+      <documentation>Reunión con "${nombreSolicitante}" para acordar condiciones sobre la nueva Isfpp "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
       <extensionElements>
         <activiti:formProperty id="isfppAprobada" name="Aprobar Isfpp" type="boolean" default="true" required="true"></activiti:formProperty>
       </extensionElements>
@@ -119,6 +117,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:executionListener event="start" class="unpsjb.fipm.gisfpp.servicios.workflow.listeners.IsfppAprobada"></activiti:executionListener>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway2" targetRef="tkMlNotAceptacion">
@@ -135,7 +134,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <serviceTask id="tkMlNotReunion" name="Notificar Reunion" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${mailSolicitante}; ${mailRespProyecto}]]></activiti:expression>
+          <activiti:expression><![CDATA[${mailSolicitante}, ${mailRespProyecto}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Llevar a cabo reunión para establecer condiciones de Isfpp - Gestión de Instancias Supervisadas de Formación Practica Profesional.]]></activiti:string>

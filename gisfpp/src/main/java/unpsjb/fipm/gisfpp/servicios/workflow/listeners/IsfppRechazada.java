@@ -3,7 +3,7 @@ package unpsjb.fipm.gisfpp.servicios.workflow.listeners;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.zkoss.spring.SpringUtil;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -13,14 +13,16 @@ import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppRechazada implements ExecutionListener {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8431893449601330763L;
 	private IServiciosIsfpp servIsfpp;
 	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
 		try {
-			Isfpp isfppRechazada = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
+			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
+			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
+			Isfpp isfppRechazada = servIsfpp.getInstancia(idIsfpp);
 			String motivo  = (String) execution.getVariable(SolicitudNuevaIsfpp.VAR_MOTIVO_RECHAZO);
 			isfppRechazada.setEstado(EEstadosIsfpp.RECHAZADA);
 			isfppRechazada.setDetalle(motivo);
@@ -32,9 +34,5 @@ public class IsfppRechazada implements ExecutionListener {
 		
 	}
 
-	@Autowired(required=true)
-	public void setServIsfpp(IServiciosIsfpp servIsfpp) {
-		this.servIsfpp = servIsfpp;
-	}
-	
+			
 }

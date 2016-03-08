@@ -100,10 +100,11 @@ public class MVListarProyectos {
 						public void onEvent(Event event) throws Exception {
 							if (event.getName().equals(Messagebox.ON_YES)) {
 								try {
+									int index = listaProyectos.indexOf(item);
 									servicio.eliminar(item);
 									Clients.showNotification("Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO,
 											null, "top_right", 3500);
-									listaProyectos.remove(item);
+									listaProyectos.remove(index);
 								} catch (GisfppException exc) {
 									Messagebox.show(exc.getMessage(), "Gisfpp: Eliminando Proyecto", Messagebox.OK,
 											Messagebox.ERROR);

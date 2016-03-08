@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto {
@@ -46,7 +47,7 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 
 	@SuppressWarnings("unchecked")
 	public List<Proyecto> recuperarTodo() throws DataAccessException {
-		String query = "select p from Proyecto as p";
+		String query = "select p from Proyecto as p left join fetch p.subProyectos";
 		try {
 			return (List<Proyecto>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {
@@ -69,7 +70,8 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 					getHibernateTemplate().initialize(demandante.getIdentificadores());
 				}
 				for(MiembroStaffProyecto miembroStaff: result.get(0).getStaff()){
-					getHibernateTemplate().initialize(miembroStaff.getMiembro().getIdentificadores());
+					PersonaFisica persona= miembroStaff.getMiembro();
+					getHibernateTemplate().initialize(persona.getIdentificadores());
 				}
 				return result.get(0);
 			}

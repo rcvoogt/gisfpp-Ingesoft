@@ -7,19 +7,19 @@
 			<column label="Prioridad" width="10%"/>
 			<column label="Vence" width="10%"/>
 			<column label="Proceso" width="25%"/>
-			<column label="Accion 1" width="10%"/>
-			<column label="Accion 2" width="10%"/>
+			<column label="Resolver" width="10%" align="center"/>
+			<column label="Delegar" width="10%" align="center"/>
 		</columns>
 		<template name="model">
 			<row>
 				<label value="@load(each.nombre)"/>
 				<label value="@load(each.categoria)"/>
-				<label value="@load(each.prioridad)"/>
+				<label value="@load(util:traducirPrioridad(each.prioridad))"/>
 				<label value="@load(each.fecha_vencimiento)"/>
 				<label value="@load(each.nombreProceso)"/>
-				<a label="Aceptar" class="btn btn-success btn-sm"
-					onClick=""/>
-				<a label="Rechazar" class="btn btn-danger btn-sm"
+				<toolbarbutton image="recursos/img/icon-ok-sign.png" tooltiptext="Resolver la tarea delegada."
+					onClick="@command('realizarTarea', item = each)"/>
+				<toolbarbutton image="recursos/img/icon-ok-sign.png" tooltiptext="Delegar nuevamente la tarea."
 					onClick=""/>	
 			</row>
 		</template>

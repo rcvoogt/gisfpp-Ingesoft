@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
@@ -36,6 +37,7 @@ public class VMDlgReuEstCondiciones {
 		return tarea;
 	}
 
+	@Command("completar")
 	public void completarTarea(@BindingParam("aprobar") boolean arg1, 
 			@BindingParam("motivo") String motivoRechazo) throws GisfppWorkflowException{
 		Map<String, Object> args = new HashMap<String, Object>();
@@ -47,6 +49,11 @@ public class VMDlgReuEstCondiciones {
 		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
+		cerrar();
+	}
+	
+	@Command("cancelar")
+	public void cancelarTratamientoTarea(){
 		cerrar();
 	}
 	

@@ -109,23 +109,6 @@ public class Isfpp implements Serializable {
 		}
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Isfpp))
-			return false;
-		Isfpp other = (Isfpp) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
 	public String getDetalle() {
 		return detalle;
 	}
@@ -151,23 +134,17 @@ public class Isfpp implements Serializable {
 		return objetivos;
 	}
 
-	@NotNull(message="El Sub-Proyecto debe tener un Proyecto asignado.")
+	@NotNull(message="La Isfpp debe estar asignada a un \"Sub-Proyecto\".")
 	public SubProyecto getPerteneceA() {
 		return perteneceA;
 	}
 
 	public Set<PersonaFisica> getPracticantes() {
-		if(practicantes!=null){
-			return Collections.unmodifiableSet(practicantes);
-		}
-		return null;
+		return practicantes;
 	}
 
 	public Set<MiembroStaffIsfpp> getStaff() {
-		if(staff!=null){
-			return Collections.unmodifiableSet(staff);
-		}
-		return null;
+		return staff;
 	}
 
 	@NotBlank(message = "Debe especificarle un \"Ti­tulo\" a la ISFPP.")
@@ -175,14 +152,7 @@ public class Isfpp implements Serializable {
 	public String getTitulo() {
 		return titulo;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+	
 
 	@AssertTrue(message = "La \"fecha fin\" debe ser posterior a la \"fecha inicio\".")
 	private boolean isFechaFinValida1() {
@@ -252,6 +222,31 @@ public class Isfpp implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Isfpp))
+			return false;
+		Isfpp other = (Isfpp) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }// fin de la clase
