@@ -12,13 +12,14 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.task.DelegationState;
 import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskInfo;
 import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoHistorialTarea;
+import unpsjb.fipm.gisfpp.servicios.workflow.entidades.EstadosTarea;
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 
 @Service("servBandejaTareas")
@@ -61,7 +62,7 @@ public class BandejaDeTareas {
 			}
 		}
 		
-		return convertirListaInfoTarea(resultadoConsulta);
+		return convertirListaInfoTarea(resultadoConsulta, EstadosTarea.ASIGNADA);
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class BandejaDeTareas {
 		}
 	}
 		
-		return convertirListaInfoTarea(resultadoQuery);
+		return convertirListaInfoTarea(resultadoQuery, EstadosTarea.PROPUESTA);
 	}
 	
 	/**
@@ -100,12 +101,12 @@ public class BandejaDeTareas {
 	 * @param usuario (String)
 	 * @return Lista de tareas concluidas, ordenadas por fecha de conclusion en forma descendente.
 	 */
-	public List<InfoHistorialTarea> getTareasConcluidas(String usuario) {
+	public List<InfoTarea> getTareasConcluidas(String usuario) {
 		HistoricTaskInstanceQuery query = historyServicio.createHistoricTaskInstanceQuery();
 		List<HistoricTaskInstance> resultadoQuery = query.finished().taskDeleteReason("completed").taskAssignee(usuario)
 				.orderByHistoricTaskInstanceEndTime().desc().list();
 				
-		return convertirListaInfoHistorialTarea(resultadoQuery);
+		return convertirListaInfoTarea(resultadoQuery, EstadosTarea.REALIZADA);
 	}
 	
 	/**
@@ -117,33 +118,21 @@ public class BandejaDeTareas {
 		TaskQuery query = taskServicio.createTaskQuery();
 		List<Task> resultadoQuery = query.taskDelegationState(DelegationState.PENDING).taskAssignee(usuario)
 				.orderByDueDateNullsLast().asc().list();
-		return convertirListaInfoTarea(resultadoQuery);
+		return convertirListaInfoTarea(resultadoQuery, EstadosTarea.DELEGADA);
 	}
 	
-	private List<InfoTarea> convertirListaInfoTarea(List<Task> lista) {
+	private List<InfoTarea> convertirListaInfoTarea(List<? extends TaskInfo> lista, EstadosTarea estado) {
 		List<InfoTarea> tareas = new ArrayList<InfoTarea>();
 				
 		if(lista!=null && !lista.isEmpty()){
-			for (Task task : lista) {
-				tareas.add(convertirTarea(task));
+			for (TaskInfo task : lista) {
+				tareas.add(convertirTarea(task, estado));
 			}
 		}
 		return tareas;
 	}
 	
-	private List<InfoHistorialTarea> convertirListaInfoHistorialTarea(List<HistoricTaskInstance> lista){
-		List<InfoHistorialTarea> tareas = new ArrayList<InfoHistorialTarea>();
-		
-		if (lista!=null && !lista.isEmpty()) {
-			for (HistoricTaskInstance infoHistorial : lista) {
-				tareas.add(convertirTarea(infoHistorial));
-			}
-		}
-		
-		return tareas;
-	}
-	
-	private InfoTarea convertirTarea (Task tarea){
+	private InfoTarea convertirTarea (TaskInfo tarea, EstadosTarea estado){
 		ProcessDefinitionQuery query = repoServicio.createProcessDefinitionQuery();
 		ProcessDefinition definicionProceso = query.processDefinitionId(tarea.getProcessDefinitionId()).singleResult();
 		InfoTarea infoTarea = new InfoTarea();
@@ -151,34 +140,23 @@ public class BandejaDeTareas {
 		infoTarea.setId(tarea.getId());
 		infoTarea.setNombre(tarea.getName());
 		infoTarea.setDescripcion(tarea.getDescription());
+		infoTarea.setNombreProceso(definicionProceso.getName());
+		infoTarea.setEstado(estado);
+		
+		if (tarea instanceof HistoricTaskInstance) {
+			infoTarea.setFecha_inicio(((HistoricTaskInstance)tarea).getStartTime());
+			infoTarea.setFecha_concluida(((HistoricTaskInstance)tarea).getEndTime());
+			infoTarea.setFecha_reclamada(((HistoricTaskInstance)tarea).getClaimTime());
+			return infoTarea;
+		}
+		
 		infoTarea.setAsignado(tarea.getAssignee());
 		infoTarea.setCategoria(tarea.getCategory());
 		infoTarea.setFecha_vencimiento(tarea.getDueDate());
 		infoTarea.setDuenio(tarea.getOwner());
-		infoTarea.setFecha_creacion(tarea.getCreateTime());
 		infoTarea.setPrioridad(tarea.getPriority());
-		infoTarea.setNombreProceso(definicionProceso.getName());
 		infoTarea.setIdFormulario(tarea.getFormKey());
 		infoTarea.setIdInstanciaProceso(tarea.getProcessInstanceId());
-		
-		return infoTarea;
-	}
-	
-	private InfoHistorialTarea convertirTarea(HistoricTaskInstance historialTarea){
-		ProcessDefinitionQuery query = repoServicio.createProcessDefinitionQuery();
-		ProcessDefinition definicionProceso = query.processDefinitionId(historialTarea.getProcessDefinitionId()).singleResult();
-		InfoHistorialTarea infoTarea = new InfoHistorialTarea();
-		
-		infoTarea.setId(historialTarea.getId());
-		infoTarea.setNombre(historialTarea.getName());
-		infoTarea.setAsignado(historialTarea.getAssignee());
-		infoTarea.setNombreProceso(definicionProceso.getName());
-		infoTarea.setFecha_inicio(historialTarea.getStartTime());
-		infoTarea.setFecha_concluida(historialTarea.getEndTime());
-		infoTarea.setFecha_reclamada(historialTarea.getClaimTime());
-		infoTarea.setDuracion_total(historialTarea.getDurationInMillis());
-		infoTarea.setDuracion_atendida(historialTarea.getWorkTimeInMillis());
-		
 		return infoTarea;
 	}
 	

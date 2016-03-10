@@ -16,8 +16,6 @@ import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.servicios.workflow.BandejaDeTareas;
-import unpsjb.fipm.gisfpp.servicios.workflow.SolicitudNuevaIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoHistorialTarea;
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -29,19 +27,19 @@ public class MVBandejaTareas {
 	private List<InfoTarea> tareasAsignadas;
 	private List<InfoTarea> tareasPropuestas;
 	private List<InfoTarea> tareasDelegadas;
-	private List<InfoHistorialTarea> tareasRealizadas;
+	private List<InfoTarea> tareasRealizadas;
+	private List<InfoTarea> tareas;
+	
+	private InfoTarea itemSeleccionado;
 	
 	private Logger log;
 	private Usuario usuarioConectado;
 	
-	private String tituloTabAsignadas;
-	private String tituloTabPropuestas;
-	private String tituloTabDelegadas;
-	private String tituloTabRealizadas;
+	private String tituloPnlLista;
 	
 	@Init
 	@NotifyChange({"tareasAsignadas", "tareasPropuestas", "tareasDelegadas", "tareasRealizadas"
-		, "tituloPanel", "tituloTabAsignadas", "tituloTabPropuestas", "tituloTabDelegadas", "tituloTabRealizadas"})
+		, "tituloBtnAsignadas", "tituloBtnPropuestas", "tituloBtnDelegadas", "tituloBtnRealizadas"})
 	public void init(){
 		
 		usuarioConectado = UtilSecurity.getUsuarioConectado();
@@ -53,73 +51,102 @@ public class MVBandejaTareas {
 		tareasDelegadas = servBandejaTareas.getTareasDelegadas(usuarioConectado.getNickname());
 		tareasRealizadas = servBandejaTareas.getTareasConcluidas(usuarioConectado.getNickname());
 		
-		tituloTabAsignadas = "Asignadas " + "(" + tareasAsignadas.size() + ")";
-		tituloTabPropuestas = "Propuestas " + "(" + tareasPropuestas.size() + ")";
-		tituloTabDelegadas = "Delegadas " + "(" + tareasDelegadas.size() + ")";
-		tituloTabRealizadas = "Realizadas " + "(" + tareasRealizadas.size() + ")";
-		
+		tareas = null;
+		tituloPnlLista = "Tareas";
+		itemSeleccionado = null;
 	}
 
-	public List<InfoTarea> getTareasAsignadas() {
-		return tareasAsignadas;
+	public List<InfoTarea> getTareas() {
+		return tareas;
+	}
+	
+	public InfoTarea getItemSeleccionado() {
+		return itemSeleccionado;
 	}
 
-	public List<InfoTarea> getTareasPropuestas() {
-		return tareasPropuestas;
+	public int getCantTareasAsignadas() {
+		return tareasAsignadas.size();
 	}
 
-	public List<InfoTarea> getTareasDelegadas() {
-		return tareasDelegadas;
+	public int getCantTareasPropuestas() {
+		return tareasPropuestas.size();
 	}
 
-	public List<InfoHistorialTarea> getTareasRealizadas() {
-		return tareasRealizadas;
+	public int getCantTareasDelegadas() {
+		return tareasDelegadas.size();
 	}
 
-	public String getTituloTabAsignadas() {
-		return tituloTabAsignadas;
+	public int getCantTareasRealizadas() {
+		return tareasRealizadas.size();
+	}
+	
+	public String getTituloPnlLista() {
+		return tituloPnlLista;
 	}
 
-	public String getTituloTabPropuestas() {
-		return tituloTabPropuestas;
+	@Command("seleccionarLista")
+	@NotifyChange({"tareas", "tituloPnlLista"})
+	public void actualizarListaSeleccionada(@BindingParam ("opcion") int arg1){
+		switch (arg1) {
+		case 1:{
+			tareas = tareasAsignadas;
+			tituloPnlLista = "Tareas Asignadas: " + getCantTareasAsignadas();
+			break;
+		}
+		case 2:{
+			tareas = tareasPropuestas;
+			tituloPnlLista = "Tareas Propuestas: " + getCantTareasPropuestas();
+			break;
+		}
+		case 3:{
+			tareas = tareasDelegadas;
+			tituloPnlLista = "Tareas Delegadas: " + getCantTareasDelegadas();
+			break;
+		}
+		case 4:{
+			tareas = tareasRealizadas;
+			tituloPnlLista = "Tareas Realizadas: " + getCantTareasRealizadas();
+			break;
+		}
+		default:{
+			tareas = null;
+			tituloPnlLista = "Tareas";
+			break;
+		}
+			
+		}
 	}
-
-	public String getTituloTabDelegadas() {
-		return tituloTabDelegadas;
-	}
-
-	public String getTituloTabRealizadas() {
-		return tituloTabRealizadas;
+	
+	@Command("actualizarItem")
+	@NotifyChange("itemSeleccionado")
+	public void actualizarItem(@BindingParam("item") InfoTarea arg1){
+		itemSeleccionado = arg1;
 	}
 	
 	@GlobalCommand("refrescarTareasAsignadas")
-	@NotifyChange({"tareasAsignadas", "tituloTabAsignadas"})
+	@NotifyChange({"tareasAsignadas", "cantTareasAsignadas"})
 	public void refrescarTareasAsignadas(){
 		tareasAsignadas = servBandejaTareas.getTareasAsignado(usuarioConectado.getNickname(), 
 				BandejaDeTareas.ORDEN_FECHA_VENC, true);
-		tituloTabAsignadas = "Asignadas " + "(" + tareasAsignadas.size() + ")";
 	}
 	
 	@GlobalCommand("refrescarTareasPropuestas")
-	@NotifyChange({"tareasPropuestas", "tituloTabPropuestas"})
+	@NotifyChange({"tareasPropuestas", "cantTareasPropuestas"})
 	public void refrescarTareasPropuestas(){
 		tareasPropuestas = servBandejaTareas.getTareasCandidato(usuarioConectado.getNickname(), 
 				BandejaDeTareas.ORDEN_FECHA_VENC, true);
-		tituloTabPropuestas = "Propuestas " + "(" + tareasPropuestas.size() + ")";
 	}
 	
 	@GlobalCommand("refrescarTareasDelegadas")
-	@NotifyChange({"tareasDelegadas", "tituloTabDelegadas"})
+	@NotifyChange({"tareasDelegadas", "cantTareasDelegadas"})
 	public void refrescarTareasDelegadas(){
 		tareasDelegadas = servBandejaTareas.getTareasDelegadas(usuarioConectado.getNickname());
-		tituloTabDelegadas = "Delegadas " + "(" + tareasDelegadas.size() + ")";
 	}
 	
 	@GlobalCommand("refrescarTareasRealizadas")
-	@NotifyChange({"tareasRealizadas", "tituloTabRealizadas"})
+	@NotifyChange({"tareasRealizadas", "cantTareasRealizadas"})
 	public void refrescarTareasRealizadas(){
 		tareasRealizadas = servBandejaTareas.getTareasConcluidas(usuarioConectado.getNickname());
-		tituloTabRealizadas = "Realizadas " + "(" + tareasRealizadas.size() + ")";
 	}
 	
 	@Command("realizarTarea")

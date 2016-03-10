@@ -12,32 +12,37 @@ public class InfoTarea {
 	private String categoria;
 	private String asignado;
 	private String duenio;
-	private Date fecha_creacion;
-	private String idformulario;
+	private String idFormulario;
 	private String idInstanciaProceso;
-	private String nombreProceso;	
+	private String nombreProceso;
+	private EstadosTarea estado;
+		
+	/**
+	 * Fecha de inicio de ejecucion de la tarea.
+	 */
+	protected Date fecha_inicio;
+	/**
+	 * Fecha en la que se finalizo la ejecucion de la tarea.
+	 */
+	protected Date fecha_concluida;
+	/**
+	 * Fecha en la que se reclamo la tarea.
+	 */
+	protected Date fecha_reclamada;	
 	
 	public InfoTarea() {
 	
 	}
 
 	public InfoTarea(String id, String nombre, String descripcion,
-			Date fecha_vencimiento, int prioridad, String categoria,
-			String asignado, String duenio, Date fecha_creacion,
-			String idInstanciaProceso, String nombreProceso, String formulario) {
+			String idInstanciaProceso) {
+		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.fecha_vencimiento = fecha_vencimiento;
-		this.prioridad = prioridad;
-		this.categoria = categoria;
-		this.asignado = asignado;
-		this.duenio = duenio;
-		this.fecha_creacion = fecha_creacion;
 		this.idInstanciaProceso = idInstanciaProceso;
-		this.nombreProceso = nombreProceso;
-		this.idformulario = formulario;
 	}
+
 
 	public String getId() {
 		return id;
@@ -103,28 +108,12 @@ public class InfoTarea {
 		this.duenio = duenio;
 	}
 
-	public Date getFecha_creacion() {
-		return fecha_creacion;
-	}
-
-	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
-	}
-
 	public String getNombreProceso() {
 		return nombreProceso;
 	}
 
 	public void setNombreProceso(String nombreProceso) {
 		this.nombreProceso = nombreProceso;
-	}
-
-	public String getIdFormulario() {
-		return idformulario;
-	}
-
-	public void setIdFormulario(String idFormulario) {
-		this.idformulario = idFormulario;
 	}
 
 	public String getIdInstanciaProceso() {
@@ -134,6 +123,59 @@ public class InfoTarea {
 	public void setIdInstanciaProceso(String idInstanciaProceso) {
 		this.idInstanciaProceso = idInstanciaProceso;
 	}
+
+	public String getIdFormulario() {
+		return idFormulario;
+	}
+
+	public void setIdFormulario(String idformulario) {
+		this.idFormulario = idformulario;
+	}
+
+	public EstadosTarea getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadosTarea estado) {
+		this.estado = estado;
+	}
+
+	public Date getFecha_inicio() {
+		return fecha_inicio;
+	}
+
+	public void setFecha_inicio(Date fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
+	}
+
+	public Date getFecha_concluida() {
+		return fecha_concluida;
+	}
+
+	public void setFecha_concluida(Date fecha_concluida) {
+		this.fecha_concluida = fecha_concluida;
+	}
+
+	public Date getFecha_reclamada() {
+		return fecha_reclamada;
+	}
+
+	public void setFecha_reclamada(Date fecha_reclamada) {
+		this.fecha_reclamada = fecha_reclamada;
+	}
 	
+	public Long getDuracionTotal(){
+		if (fecha_inicio!=null && fecha_concluida!=null) {
+			return (fecha_concluida.getTime() - fecha_inicio.getTime());
+		}
+		return null;
+	}
+	
+	public Long getDuracionRealizacion(){
+		if (fecha_reclamada != null && fecha_concluida != null) {
+			return (fecha_concluida.getTime() - fecha_reclamada.getTime());
+		}
+		return null;
+	}
 				
 }//fin de la clase
