@@ -1,12 +1,12 @@
 <zk>
 <window id="dlgReunionEstCondiciones" title="Tarea: Reunión para establecer condiciones de la nueva Isfpp." border="normal"
-	closable="true" width="35%" height="46%" apply="org.zkoss.bind.BindComposer" sizable="true"
+	closable="true" width="35%" height="52%" apply="org.zkoss.bind.BindComposer" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgReuEstCondiciones')">
-	<vbox spacing="5px" style="overflow: scroll;">
-		<div style="overflow:auto;">
-			<label value="@load(vm.tarea.descripcion)" maxlength="50" multiline="true"/>
+	<vbox spacing="5px">
+		<div style="overflow:auto;" height="25%">
+			<label value="@load(vm.tarea.descripcion)" multiline="true"/>
 		</div>
-		<label style="font-style: italic;  font-weight: bold;" multiline="true" maxlength="50">
+		<label style="font-style: italic;  font-weight: bold;" multiline="true">
 			Teniendo en cuenta los resultados de esta reunión, "Aprueba" la Nueva Isfpp para continuar con su curso de acción o "Rechaza" la misma?
 		</label>
 		<div>

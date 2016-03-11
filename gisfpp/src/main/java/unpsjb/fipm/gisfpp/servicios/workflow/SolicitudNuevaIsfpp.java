@@ -67,12 +67,12 @@ public class SolicitudNuevaIsfpp extends ProcesoGisfppImpl {
 			return instancia.getProcessInstanceId();
 			
 		}catch(ActivitiObjectNotFoundException exc1){
-			throw new GisfppWorkflowException("La definición del proceso que se quiere instanciar no existe.");
+			throw new GisfppWorkflowException("La definición del proceso que se quiere instanciar no existe.\n");
 		}
 		catch (Exception exc2) {
 			 log.error(this.getClass().getName(), exc2);
 			 throw new GisfppWorkflowException("Se ha producido un error al intentar generar una instancia del proceso "
-				 		+ "\"Solicitud Nueva Isfpp\". ", exc2);
+				 		+ "\"Solicitud Nueva Isfpp\". \nMensaje: " +exc2.getLocalizedMessage());
 			 
 		}
 	
@@ -90,7 +90,7 @@ public class SolicitudNuevaIsfpp extends ProcesoGisfppImpl {
 		catch (Exception exc2) {
 			 log.error(this.getClass().getName(), exc2);
 			 throw new GisfppWorkflowException("Se ha producido un error al intentar generar una instancia del proceso "
-				 		+ "\"Solicitud Nueva Isfpp\". ", exc2);
+				 		+ "\"Solicitud Nueva Isfpp\". \nMensaje: "+ exc2.getLocalizedMessage());
 		}
 	}
 

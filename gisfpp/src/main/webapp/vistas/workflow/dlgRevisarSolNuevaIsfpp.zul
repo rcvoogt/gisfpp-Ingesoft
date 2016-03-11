@@ -1,9 +1,9 @@
 <zk>
 <window id="dlgRevSolNuevaIsfpp" title="Tarea: Revisar Solicitud Nueva Isfpp" border="normal" 	
-	width="35%" height="46%" apply="org.zkoss.bind.BindComposer" closable="true" sizable="true"
+	width="35%" height="52%" apply="org.zkoss.bind.BindComposer" closable="true" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgRevSolNuevaIsfpp')">
 	<vbox spacing="5px">
-			<div style="overflow:auto;">
+			<div style="overflow:auto;" height="25%">
 				<label value="@load(vm.tarea.descripcion)" multiline="true" maxlength="50"/>
 			</div>
 			<label style="font-style: italic; font-weight: bold;" multiline="true" maxlength="50">

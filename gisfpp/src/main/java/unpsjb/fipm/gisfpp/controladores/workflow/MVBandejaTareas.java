@@ -85,32 +85,37 @@ public class MVBandejaTareas {
 	}
 
 	@Command("seleccionarLista")
-	@NotifyChange({"tareas", "tituloPnlLista"})
+	@NotifyChange({"tareas", "tituloPnlLista", "itemSeleccionado"})
 	public void actualizarListaSeleccionada(@BindingParam ("opcion") int arg1){
 		switch (arg1) {
 		case 1:{
 			tareas = tareasAsignadas;
 			tituloPnlLista = "Tareas Asignadas: " + getCantTareasAsignadas();
+			itemSeleccionado = null;
 			break;
 		}
 		case 2:{
 			tareas = tareasPropuestas;
 			tituloPnlLista = "Tareas Propuestas: " + getCantTareasPropuestas();
+			itemSeleccionado = null;
 			break;
 		}
 		case 3:{
 			tareas = tareasDelegadas;
 			tituloPnlLista = "Tareas Delegadas: " + getCantTareasDelegadas();
+			itemSeleccionado = null;
 			break;
 		}
 		case 4:{
 			tareas = tareasRealizadas;
 			tituloPnlLista = "Tareas Realizadas: " + getCantTareasRealizadas();
+			itemSeleccionado = null;
 			break;
 		}
 		default:{
 			tareas = null;
 			tituloPnlLista = "Tareas";
+			itemSeleccionado = null;
 			break;
 		}
 			
@@ -124,36 +129,45 @@ public class MVBandejaTareas {
 	}
 	
 	@GlobalCommand("refrescarTareasAsignadas")
-	@NotifyChange({"tareasAsignadas", "cantTareasAsignadas"})
+	@NotifyChange({"tareasAsignadas", "cantTareasAsignadas", "itemSeleccionado","tareas"})
 	public void refrescarTareasAsignadas(){
 		tareasAsignadas = servBandejaTareas.getTareasAsignado(usuarioConectado.getNickname(), 
 				BandejaDeTareas.ORDEN_FECHA_VENC, true);
+		itemSeleccionado = null;
+		tareas = null;
 	}
 	
 	@GlobalCommand("refrescarTareasPropuestas")
-	@NotifyChange({"tareasPropuestas", "cantTareasPropuestas"})
+	@NotifyChange({"tareasPropuestas", "cantTareasPropuestas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasPropuestas(){
 		tareasPropuestas = servBandejaTareas.getTareasCandidato(usuarioConectado.getNickname(), 
 				BandejaDeTareas.ORDEN_FECHA_VENC, true);
+		itemSeleccionado = null;
+		tareas = null;
 	}
 	
 	@GlobalCommand("refrescarTareasDelegadas")
-	@NotifyChange({"tareasDelegadas", "cantTareasDelegadas"})
+	@NotifyChange({"tareasDelegadas", "cantTareasDelegadas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasDelegadas(){
 		tareasDelegadas = servBandejaTareas.getTareasDelegadas(usuarioConectado.getNickname());
+		itemSeleccionado = null;
+		tareas = null;
 	}
 	
 	@GlobalCommand("refrescarTareasRealizadas")
-	@NotifyChange({"tareasRealizadas", "cantTareasRealizadas"})
+	@NotifyChange({"tareasRealizadas", "cantTareasRealizadas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasRealizadas(){
 		tareasRealizadas = servBandejaTareas.getTareasConcluidas(usuarioConectado.getNickname());
+		itemSeleccionado = null;
+		tareas = null;
 	}
 	
 	@Command("realizarTarea")
-	public void realizarTarea(@BindingParam ("item") InfoTarea tarea){
+	public void realizarTarea(){
+		InfoTarea item = getItemSeleccionado();
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("tarea", tarea);
-		Window dlg = (Window) Executions.createComponents("vistas/workflow/"+tarea.getIdFormulario(), null, parametros);
+		parametros.put("tarea", item);
+		Window dlg = (Window) Executions.createComponents("vistas/workflow/"+item.getIdFormulario(), null, parametros);
 		dlg.doModal();
 	}
 	

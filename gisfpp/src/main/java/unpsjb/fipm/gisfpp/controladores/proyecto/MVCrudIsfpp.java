@@ -130,6 +130,9 @@ public class MVCrudIsfpp {
 		}catch (GisfppWorkflowException wfe) {
 			try {
 				servicio.eliminar(item);
+				creando = editando = false;
+				ver=true;
+				throw wfe;
 			} catch (Exception e) {
 				log.error(this.getClass().getName(), wfe);
 				throw wfe;
