@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<procesos>
+	<categoria  nombre="Isfpp">
+		<operacion nombre="Crear">
+			<workflow id="solicitudNuevaIsfpp"/>
+		</operacion>
+		<operacion nombre="Editar">
+		</operacion>
+		<operacion nombre="Eliminar">
+		</operacion>
+	</categoria>
+</procesos>

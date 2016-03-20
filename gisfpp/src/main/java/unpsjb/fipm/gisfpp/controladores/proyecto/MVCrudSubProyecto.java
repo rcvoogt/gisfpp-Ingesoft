@@ -165,7 +165,10 @@ public class MVCrudSubProyecto {
 		return tabIsfppCreado;
 	}
 
-	
+	public Proyecto getPerteneceA() {
+		return perteneceA;
+	}
+
 	@Command("nuevaIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {

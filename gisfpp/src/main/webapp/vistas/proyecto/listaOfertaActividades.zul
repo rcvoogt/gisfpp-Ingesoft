@@ -1,0 +1,45 @@
+<div id="pnlListOfertaActividades" xmlns:n="native" hflex="1" vflex="1"
+	class="panel panel-primary" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListOfertasActividades')">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.tituloPanel)" style="font-size: 14px;"/>
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="1">
+		<vbox spacing="5px" vflex="1" hflex="1">
+			<div class="btn-toolbar pull-right">
+				<div class="btn-group">
+					<a image="recursos/img/icon-filter.png" class="btn btn-success btn-sm"
+						onClick="" tooltiptext="Aplicar filtros al listado"> Filtrar</a>
+					<a image="recursos/img/icon-remove-sign.png" class="btn btn-success btn-sm"
+						onClick="" tooltiptext="Quitar filtros aplicados al listado"
+							style="margin-left:2px"> Quitar Filtro</a>
+				</div>
+				<a image="recursos/img/icon-exit.png"
+					class="btn btn-success btn-sm" onClick="@command('salir')"	> 	Salir</a>
+			</div>
+			<grid mold="paging" autopaging="true" vflex="1" hflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+				emptyMessage="No existe Ofertas de Actividades para mostrar." model="@load(vm.items)">
+				<columns>
+					<column label="Titulo Sub-Proyecto" width="36%" sort="auto"/>
+					<column label="Cod. Proyecto" width="16%"/>
+					<column label="Título Proyecto" width="36%" sort="auto"/>
+					<column label="Ver" width="6%" align="center"/>
+					<column label="Editar" width="6%" align="center"/>
+				</columns>
+				<template name="model">
+					<row >
+						<label value="@load(each.titulo)"/>
+						<label value="@load(each.perteneceA.codigo)"/>
+						<label value="@load(each.perteneceA.titulo)"/>
+						<toolbarbutton image="recursos/img/icon-preview.png" onClick="@command('tratarSP', item = each, modo='VER')"
+							tooltiptext="Ver detalle del Sub-Proyecto"/>
+						<toolbarbutton image="recursos/img/icon-edit.png" onClick="@command('tratarSP', item = each, modo='EDICION')"
+							tooltiptext="Editar Sub-Proyecto"/>
+					</row>
+				</template>
+			</grid>
+		</vbox>
+	</div>
+</div>

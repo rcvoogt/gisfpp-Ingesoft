@@ -7,7 +7,7 @@ package unpsjb.fipm.gisfpp.util;
  *
  */
 
-public class GisfppException extends Exception {
+public class GisfppException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

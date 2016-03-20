@@ -29,7 +29,7 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 
 	public void actualizar(Proyecto instancia) throws DataAccessException {
 		try {
-			getHibernateTemplate().update(instancia);
+			getHibernateTemplate().saveOrUpdate(instancia);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -72,6 +72,7 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 				for(MiembroStaffProyecto miembroStaff: result.get(0).getStaff()){
 					PersonaFisica persona= miembroStaff.getMiembro();
 					getHibernateTemplate().initialize(persona.getIdentificadores());
+					getHibernateTemplate().initialize(persona.getDatosDeContacto());
 				}
 				return result.get(0);
 			}

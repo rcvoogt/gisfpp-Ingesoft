@@ -30,7 +30,7 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	@Override
 	public void actualizar(SubProyecto instancia) throws DataAccessException {
 		try {
-			getHibernateTemplate().update(instancia);
+			getHibernateTemplate().saveOrUpdate(instancia);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -79,7 +79,7 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<SubProyecto> listadoSubProyectos(Proyecto proyecto) throws DataAccessException, HibernateException {
+	public List<SubProyecto> listadoSubProyectos(Proyecto proyecto) throws DataAccessException {
 		String query = "from SubProyecto as sp where sp.perteneceA = ?";
 		try {
 			return (List<SubProyecto>) getHibernateTemplate().find(query, proyecto);
@@ -87,6 +87,19 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
+	}
+	
+	@Override
+	public List <SubProyecto> listadoOfertasActividades() throws DataAccessException{
+		String query = "select sp from SubProyecto as sp inner join fetch sp.perteneceA as p where p.estado = 'ACTIVO'";
+		List<SubProyecto> resultado;
+		try {
+			resultado = (List<SubProyecto>) getHibernateTemplate().find(query, null);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
+		return resultado;
 	}
 
 }// fin de la clase

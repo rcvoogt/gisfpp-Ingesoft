@@ -9,5 +9,7 @@ import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 public interface IServicioSubProyecto extends IServicioGenerico<SubProyecto, Integer> {
 
 	public List<SubProyecto> getSubProyectos(Proyecto proyecto) throws Exception;
+	
+	public List<SubProyecto> getOfertasActividades() throws Exception;	
 
 }

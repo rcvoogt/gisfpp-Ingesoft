@@ -21,7 +21,7 @@ public interface ProcesoGisfpp {
 	 * Isfpp.
 	 * @param variables: variables utilizadas a traves de la ejecución del proceso.
 	 * @return "Id" (String) que identifica de forma unívoca la instancia creada del proceso.
-	 * @throws GisfppWorkflowException TODO
+	 * @throws GisfppWorkflowException
 	 * @throws GisfppException
 	 */
 	public String instanciarProceso(String keyBusiness, Map<String, Object> variables) throws GisfppWorkflowException; 

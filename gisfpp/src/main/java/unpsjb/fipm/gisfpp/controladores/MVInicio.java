@@ -28,6 +28,11 @@ public class MVInicio {
 	public void verListaProyectos() {
 		UtilGuiGisfpp.loadPnlCentral("vistas/proyecto/listadoProyectos.zul");
 	}
+	
+	@Command("verListaOfertasActividades")
+	public void verListaOfertasActividades(){
+		UtilGuiGisfpp.loadPnlCentral("vistas/proyecto/listaOfertaActividades.zul");
+	}
 
 	@Command("verListaStaff")
 	public void verListaStaff() {

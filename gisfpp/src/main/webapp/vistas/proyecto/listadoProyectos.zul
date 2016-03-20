@@ -18,7 +18,7 @@
 				<n:div class="btn-group">
 					<a image="recursos/img/icon-filter.png"
 						class="btn btn-success btn-sm" onClick="@command('dlgFiltro')"
-						tooltiptext="Aplicar filtro al Listado">
+						tooltiptext="Aplicar filtros al Listado">
 						Filtrar
 					</a>
 					<a image="recursos/img/icon-remove-sign.png"
@@ -58,9 +58,9 @@
 						</columns>
 						<template name="model">
 							<row>
-								<label value="@load(each.codigo)" />
+								<label value="@load(each.codigo)"/>
 								<label value="@load(each.resolucion)" />
-								<label value="@load(each.titulo)" />
+								<label value="@load(each.titulo)"/>
 								<label
 									value="@load(each.tipo.descripcion)" />
 								<label

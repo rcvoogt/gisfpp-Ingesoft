@@ -22,33 +22,22 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(SubProyecto instancia) throws Exception {
-		try {
-			dao.crear(instancia);
-			return instancia.getId();
-		} catch (Exception e) {
-			throw e;
-		}
+		dao.crear(instancia);
+		return instancia.getId();
 	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(SubProyecto instancia) throws Exception {
-		try {
-			dao.actualizar(instancia);
-		} catch (Exception e) {
-			throw e;
-		}
+		dao.actualizar(instancia);
+		
 	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(SubProyecto instancia) throws Exception {
 		if (instancia.getInstanciasIsfpp()==null || instancia.getInstanciasIsfpp().isEmpty()) {
-			try {
-				dao.eliminar(instancia);
-			} catch (Exception e) {
-				throw e;
-			}
+			dao.eliminar(instancia);
 		} else {
 			throw new GisfppException("No se puede eliminar el Sub-Proyecto, "
 					+ "el mismo tiene ISFPP's asignadas.");
@@ -58,33 +47,27 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	@Override
 	@Transactional(value="gisfpp", readOnly = true)
 	public SubProyecto getInstancia(Integer id) throws Exception {
-		try {
-			return dao.recuperarxId(id);
-		} catch (Exception e) {
-			throw e;
-		}
+		return dao.recuperarxId(id);
 	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = true)
 	public List<SubProyecto> getListado() throws Exception {
-		try {
-			return dao.recuperarTodo();
-		} catch (Exception e) {
-			throw e;
-		}
+		return dao.recuperarTodo();
 	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = true)
 	public List<SubProyecto> getSubProyectos(Proyecto proyecto) throws Exception {
-		try {
-			return dao.listadoSubProyectos(proyecto);
-		} catch (Exception e) {
-			throw e;
-		}
+		return dao.listadoSubProyectos(proyecto);
 	}
 
+	@Override
+	@Transactional(value="gisfpp", readOnly = true)
+	public List<SubProyecto> getOfertasActividades() throws Exception {
+		return dao.listadoOfertasActividades();
+	}
+	
 	@Autowired(required = true)
 	public void setDao(IDaoSubProyecto dao) {
 		this.dao = dao;

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,7 +39,10 @@ public class SubProyecto implements Serializable {
 	private String titulo;
 
 	@Column(length = 500)
-	private String observaciones;
+	private String descripcion;
+	
+	@Lob
+	private String detalle;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private List<Isfpp> instanciasIsfpp;
@@ -47,11 +51,11 @@ public class SubProyecto implements Serializable {
 		super();
 	}
 
-	public SubProyecto(Proyecto proyecto, String titulo, String observaciones) {
+	public SubProyecto(Proyecto proyecto, String titulo, String descripcion) {
 		super();
 		this.perteneceA = proyecto;
 		this.titulo = titulo;
-		this.observaciones = observaciones;
+		this.descripcion = descripcion;
 		this.instanciasIsfpp = new ArrayList<>();
 	}
 
@@ -81,13 +85,13 @@ public class SubProyecto implements Serializable {
 		this.titulo = titulo;
 	}
 
-	@Length(message = "Las \"observaciones\" del Sub-Proyecto no debe superar los 500 caracteres.")
-	public String getObservaciones() {
-		return observaciones;
+	@Length(message = "Las \"descripcion\" del Sub-Proyecto no debe superar los 500 caracteres.")
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public List<Isfpp> getInstanciasIsfpp() {
@@ -98,4 +102,13 @@ public class SubProyecto implements Serializable {
 		this.instanciasIsfpp = instanciasIsfpp;
 	}
 
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
+	}
+	
+	
 }// fin de la entidad SubProyecto

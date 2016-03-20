@@ -20,7 +20,7 @@
 			<row>
 				<label  value="@load(each.id)" />
 				<label value="@load(each.titulo)" />
-				<label value="@load(each.observaciones)"/>
+				<label value="@load(each.descripcion)"/>
 				<toolbarbutton image="recursos/img/icon-preview.png"
 					tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load((not vm.creando) and (not vm.editando))"

@@ -49,17 +49,17 @@ public class SolicitudNuevaIsfpp extends ProcesoGisfppImpl {
 		try {
 			Usuario usuarioConectado = UtilSecurity.getUsuarioConectado();
 			Isfpp isfpp = (Isfpp) entidad;
-			Usuario usuarioResponsableProyecto = servUsuario.getUsuario(isfpp.getPerteneceA().getPerteneceA().getResponsable());
+			//Usuario usuarioResponsableProyecto = servUsuario.getUsuario(isfpp.getPerteneceA().getPerteneceA().getResponsable());
 			String perteneceA = isfpp.getPerteneceA().getTitulo() + " / (" +isfpp.getPerteneceA().getPerteneceA().getCodigo()+ ") "
 					+ isfpp.getPerteneceA().getPerteneceA().getTitulo();
 			
 			Map<String, Object> variables = new HashMap<String, Object>();
 			variables.put(VAR_NOMBRE_SOLICITANTE, usuarioConectado.getPersona().getNombre());
 			variables.put(VAR_USUARIO_SOLICITANTE, usuarioConectado.getNickname());
-			variables.put(VAR_NOMBRE_RESPONSABLE, usuarioResponsableProyecto.getPersona().getNombre());
-			variables.put(VAR_USUARIO_RESPONSABLE, usuarioResponsableProyecto.getNickname());
+			//variables.put(VAR_NOMBRE_RESPONSABLE, usuarioResponsableProyecto.getPersona().getNombre());
+			//variables.put(VAR_USUARIO_RESPONSABLE, usuarioResponsableProyecto.getNickname());
 			variables.put(VAR_MAIL_SOLICITANTE, usuarioConectado.getPersona().getEmail());
-			variables.put(VAR_MAIL_RESPONSABLE, usuarioResponsableProyecto.getPersona().getEmail());
+			//variables.put(VAR_MAIL_RESPONSABLE, usuarioResponsableProyecto.getPersona().getEmail());
 			variables.put(VAR_PERTENECE_A, perteneceA);
 			variables.put(VAR_TITULO_ISFPP, isfpp.getTitulo());
 			

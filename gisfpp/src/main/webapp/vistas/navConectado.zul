@@ -6,8 +6,15 @@
 			</n:div>
 			<n:div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
 				<n:ul class="nav navbar-nav">
-					<n:li><a onClick="@command('verListaProyectos')" 
-						style="font-size: 14px; height:68px">Proyectos</a></n:li>
+					<n:li class="dropdown">
+						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown"
+							role="button" aria-expanded="false"  style="height:68px">
+								Proyectos <n:span class="caret"></n:span></n:a>
+						<n:ul class="dropdown-menu" role="menu">
+								<n:li><a onClick="@command('verListaProyectos')">Listado de Proyectos</a></n:li>
+								<n:li><a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a></n:li>
+						</n:ul>		
+					</n:li>	
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" 
 								role="button" aria-expanded="false" style="height:68px">

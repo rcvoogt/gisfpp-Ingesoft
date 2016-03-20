@@ -1,8 +1,10 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -245,13 +247,14 @@ public class Proyecto implements Serializable {
 		return true;
 	}
 	
-	public PersonaFisica getResponsable(){
+	public List<PersonaFisica> getResponsables(){
+		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
 		for (MiembroStaffProyecto miembro : staff) {
 			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE){
-				return miembro.getMiembro();
+				resultado.add(miembro.getMiembro());
 			}
 		}
-		return null;
+		return resultado;
 	}
 	
 }// Fin de la clase Entity Proyecto
