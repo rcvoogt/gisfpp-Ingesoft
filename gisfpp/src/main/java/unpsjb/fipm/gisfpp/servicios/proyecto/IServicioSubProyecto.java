@@ -10,6 +10,14 @@ public interface IServicioSubProyecto extends IServicioGenerico<SubProyecto, Int
 
 	public List<SubProyecto> getSubProyectos(Proyecto proyecto) throws Exception;
 	
-	public List<SubProyecto> getOfertasActividades() throws Exception;	
+	public List<SubProyecto> getOfertasActividades() throws Exception;
+	
+	/**
+	 * Devuelve el "Proyecto" al cual pertenece el "SubProyecto" pasado como parámetro.
+	 * @param instancia de SubProyecto.
+	 * @return instancia de Proyecto.
+	 * @throws Exception
+	 */
+	public Proyecto getPerteneceA(SubProyecto instancia) throws Exception;
 
 }

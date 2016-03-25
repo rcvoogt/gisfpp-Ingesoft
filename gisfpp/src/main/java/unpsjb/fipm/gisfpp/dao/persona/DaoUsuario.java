@@ -73,15 +73,14 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 		String query = "select u from Usuario as u inner join fetch u.persona where u.persona.id = ?";
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, persona.getId());
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		} catch (Exception exc1) {
+			log.error("Clase: "+this.getClass().getName()+"- Metodo: getxPersona(persona)", exc1);
+			throw exc1;
 		}
 		if ((resultQuery != null) && (!resultQuery.isEmpty())) {
-			getHibernateTemplate().initialize(resultQuery.get(0).getPersona().getDatosDeContacto());
-			usuario = resultQuery.get(0);
+			return resultQuery.get(0);
 		}
-		return usuario;
+		return new Usuario();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,6 +97,7 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 		}
 		if ((resultQuery != null) && (!resultQuery.isEmpty())) {
 			getHibernateTemplate().initialize(resultQuery.get(0).getPersona().getDatosDeContacto());
+			getHibernateTemplate().initialize(resultQuery.get(0).getPersona().getIdentificadores());
 			usuario = resultQuery.get(0);
 		}
 		return usuario;

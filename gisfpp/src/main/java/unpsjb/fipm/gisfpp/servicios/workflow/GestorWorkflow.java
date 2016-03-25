@@ -1,7 +1,14 @@
 package unpsjb.fipm.gisfpp.servicios.workflow;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
 public interface GestorWorkflow {
@@ -35,13 +42,22 @@ public interface GestorWorkflow {
 	public void setVariables(String idInstanciaProceso, Map<String, Object> variables) throws GisfppWorkflowException;
 	
 	/**
-	 * Devuelve el "Id" de la instancia del proceso asociado con el "keyBusiness" pasado como parámetro.	
-	 * @param keyBusiness: clave del negocio que se asocia de forma univoca con la instancia del proceso. Por ejemplo: "id" de la 
+	 * Devuelve el "Id" de la instancia del proceso asociado con el "keyBusiness" y el "idDefinicion"pasados como parámetro.	
+	 * @param keyBusiness(String): clave del negocio que se asocia de forma univoca con la instancia del proceso. Por ejemplo: "id" de la 
 	 * Isfpp.
+	 * @param idDefinicion(String): Identificador de la definicion del proceso.
 	 * @return "Id" (String) que identifica de forma unívoca una instancia ejecutable del proceso.
 	  */
-	public String getIdInstanciaProceso(String keyBusiness);
+	public String getIdInstanciaProceso(String keyBusiness, String idDefinicion);
 	
 	public String getKeyBusiness(String idInstanciaProceso);
+	
+	public List<String> consultarProcesosAsociados(String categoria, String operacion) throws ParserConfigurationException, SAXException, IOException;
+	
+	public List<InstanciaProceso> getInstanciasProcesos(String keyBusiness) throws GisfppWorkflowException;
+	
+	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
+	
+	public String getIniciadorProceso(String idInstancia) throws GisfppWorkflowException;
 	
 }

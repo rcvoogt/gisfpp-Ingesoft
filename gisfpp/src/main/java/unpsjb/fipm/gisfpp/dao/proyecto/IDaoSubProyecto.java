@@ -14,5 +14,7 @@ public interface IDaoSubProyecto extends DaoGenerico<SubProyecto, Integer> {
 	public List<SubProyecto> listadoSubProyectos(Proyecto proyecto) throws DataAccessException;
 	
 	public List<SubProyecto> listadoOfertasActividades()  throws DataAccessException;
+	
+	public Proyecto getPerteneceA(SubProyecto instancia) throws DataAccessException;
 
 }

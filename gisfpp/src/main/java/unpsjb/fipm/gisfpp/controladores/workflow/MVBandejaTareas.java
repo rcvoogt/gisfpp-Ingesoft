@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
-import unpsjb.fipm.gisfpp.servicios.workflow.BandejaDeTareas;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -23,7 +23,7 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVBandejaTareas {
 
-	private BandejaDeTareas servBandejaTareas ;
+	private GestorTareas servGTareas;
 	private List<InfoTarea> tareasAsignadas;
 	private List<InfoTarea> tareasPropuestas;
 	private List<InfoTarea> tareasDelegadas;
@@ -45,11 +45,11 @@ public class MVBandejaTareas {
 		usuarioConectado = UtilSecurity.getUsuarioConectado();
 		log = UtilGisfpp.getLogger();
 		
-		servBandejaTareas = (BandejaDeTareas) SpringUtil.getBean("servBandejaTareas");
-		tareasAsignadas = servBandejaTareas.getTareasAsignado(usuarioConectado.getNickname(), BandejaDeTareas.ORDEN_FECHA_VENC, true);
-		tareasPropuestas = servBandejaTareas.getTareasCandidato(usuarioConectado.getNickname(), BandejaDeTareas.ORDEN_FECHA_VENC, true);
-		tareasDelegadas = servBandejaTareas.getTareasDelegadas(usuarioConectado.getNickname());
-		tareasRealizadas = servBandejaTareas.getTareasConcluidas(usuarioConectado.getNickname());
+		servGTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
+		tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
+		tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
+		tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
+		tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
 		
 		tareas = null;
 		tituloPnlLista = "Tareas";
@@ -131,8 +131,8 @@ public class MVBandejaTareas {
 	@GlobalCommand("refrescarTareasAsignadas")
 	@NotifyChange({"tareasAsignadas", "cantTareasAsignadas", "itemSeleccionado","tareas"})
 	public void refrescarTareasAsignadas(){
-		tareasAsignadas = servBandejaTareas.getTareasAsignado(usuarioConectado.getNickname(), 
-				BandejaDeTareas.ORDEN_FECHA_VENC, true);
+		tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), 
+				GestorTareas.ORDEN_FECHA_VENC, true);
 		itemSeleccionado = null;
 		tareas = null;
 	}
@@ -140,8 +140,8 @@ public class MVBandejaTareas {
 	@GlobalCommand("refrescarTareasPropuestas")
 	@NotifyChange({"tareasPropuestas", "cantTareasPropuestas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasPropuestas(){
-		tareasPropuestas = servBandejaTareas.getTareasCandidato(usuarioConectado.getNickname(), 
-				BandejaDeTareas.ORDEN_FECHA_VENC, true);
+		tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), 
+				GestorTareas.ORDEN_FECHA_VENC, true);
 		itemSeleccionado = null;
 		tareas = null;
 	}
@@ -149,7 +149,8 @@ public class MVBandejaTareas {
 	@GlobalCommand("refrescarTareasDelegadas")
 	@NotifyChange({"tareasDelegadas", "cantTareasDelegadas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasDelegadas(){
-		tareasDelegadas = servBandejaTareas.getTareasDelegadas(usuarioConectado.getNickname());
+		tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC
+				, true);
 		itemSeleccionado = null;
 		tareas = null;
 	}
@@ -157,7 +158,7 @@ public class MVBandejaTareas {
 	@GlobalCommand("refrescarTareasRealizadas")
 	@NotifyChange({"tareasRealizadas", "cantTareasRealizadas", "itemSeleccionado", "tareas"})
 	public void refrescarTareasRealizadas(){
-		tareasRealizadas = servBandejaTareas.getTareasConcluidas(usuarioConectado.getNickname());
+		tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
 		itemSeleccionado = null;
 		tareas = null;
 	}

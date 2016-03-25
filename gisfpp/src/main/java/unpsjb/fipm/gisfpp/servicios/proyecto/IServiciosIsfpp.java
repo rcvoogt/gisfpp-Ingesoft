@@ -17,5 +17,13 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	 * @throws Exception
 	 */
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception;
+	
+	/**
+	 * Devuelve el SubProyecto al cual pertenece la Isfpp pasada como parámetro;
+	 * @param isfpp
+	 * @return SubProyecto
+	 * @throws Exception
+	 */
+	public SubProyecto getPerteneceA(Isfpp instancia) throws Exception; 
 
 }

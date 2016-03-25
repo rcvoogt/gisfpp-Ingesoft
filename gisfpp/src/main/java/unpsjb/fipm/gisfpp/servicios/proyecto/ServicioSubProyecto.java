@@ -68,9 +68,15 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 		return dao.listadoOfertasActividades();
 	}
 	
+	@Override
+	@Transactional(value="gisfpp", readOnly=true)
+	public Proyecto getPerteneceA(SubProyecto instancia) throws Exception {
+		return dao.getPerteneceA(instancia);
+	}
+	
 	@Autowired(required = true)
 	public void setDao(IDaoSubProyecto dao) {
 		this.dao = dao;
 	}
-
+	
 }// fin de la clase

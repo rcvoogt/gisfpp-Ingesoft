@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="solicitudNuevaIsfpp" name="Solicitud de Nueva Isfpp" isExecutable="true">
-    <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp" activiti:initiator="usuarioSolicitante">
+    <startEvent id="evtIniSolNueIsfpp" name="Solicitud Nueva Isfpp">
       <documentation>Inicio del proceso "Solicitud de Nueva Isfpp".</documentation>
-    </startEvent>
-    <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul">
-      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
       <extensionElements>
-        <activiti:formProperty id="continuar" name="Continuar" type="boolean" default="true" required="true"></activiti:formProperty>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.listeners.InitSolicitudNuevaIsfpp"></activiti:executionListener>
       </extensionElements>
+    </startEvent>
+    <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:candidateUsers="${usuariosResponsablesProyecto}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul" activiti:priority="25">
+      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" activiti:async="true"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:formKey="dlgReunionEstCondiciones.zul">
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
       <documentation>Reunión con "${nombreSolicitante}" para acordar condiciones sobre la nueva Isfpp "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
-      <extensionElements>
-        <activiti:formProperty id="isfppAprobada" name="Aprobar Isfpp" type="boolean" default="true" required="true"></activiti:formProperty>
-      </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='true'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="tkMlNotRechazo" name="Notificar Rechazo" activiti:type="mail">
+    <serviceTask id="tkMlNotRechazo" name="Notificar Rechazo" activiti:async="true" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression><![CDATA[${mailSolicitante}]]></activiti:expression>
@@ -45,7 +42,7 @@
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
       <li>Pertenece a: ${perteneceA}</li>
-      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+      <li>Responsable de Proyecto: ${nombreResponsable}</li>
       <li>Motivo del rechazo: ${motivoRechazo}</li>
     </ul>
     <br/>
@@ -61,7 +58,7 @@
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
-- Responsable de Proyecto: ${nombreResponsableProy}
+- Responsable de Proyecto: ${nombreResponsable}
 - Motivo del rechazo: ${motivoRechazo}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
@@ -73,8 +70,8 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="tkMlNotRechazo">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='false'}]]></conditionExpression>
     </sequenceFlow>
-    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <serviceTask id="tkMlNotAceptacion" name="Notificar Aceptación" activiti:type="mail">
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway" activiti:async="true"></exclusiveGateway>
+    <serviceTask id="tkMlNotAceptacion" name="Notificar Aceptación" activiti:async="true" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression><![CDATA[${mailSolicitante}]]></activiti:expression>
@@ -97,7 +94,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
       <li>Pertenece a: ${perteneceA}</li>
-      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+      <li>Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}</li>
       </ul>
     <br/>
     <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -112,7 +109,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
-- Responsable de Proyecto: ${nombreResponsableProy}    
+- Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}    
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -131,10 +128,10 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <sequenceFlow id="flow8" sourceRef="tkMlNotAceptacion" targetRef="evtFin1"></sequenceFlow>
     <endEvent id="evtFin2" name="Fin"></endEvent>
     <sequenceFlow id="flow9" sourceRef="tkMlNotRechazo" targetRef="evtFin2"></sequenceFlow>
-    <serviceTask id="tkMlNotReunion" name="Notificar Reunion" activiti:type="mail">
+    <serviceTask id="tkMlNotReunion" name="Notificar Reunion" activiti:async="true" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${mailSolicitante}, ${mailRespProyecto}]]></activiti:expression>
+          <activiti:expression><![CDATA[${mailSolicitante}, ${mailResponsable}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Llevar a cabo reunión para establecer condiciones de Isfpp - Gestión de Instancias Supervisadas de Formación Practica Profesional.]]></activiti:string>
@@ -154,7 +151,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
       <li>Pertenece a: ${perteneceA}</li>
-      <li>Responsable de Proyecto: ${nombreResponsableProy}</li>
+      <li>Responsable de Proyecto: ${nombreResponsable}</li>
     </ul>
     <br/>
     <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -169,7 +166,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
-- Responsable de Proyecto: ${nombreResponsableProy}
+- Responsable de Proyecto: ${nombreResponsable}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -177,10 +174,10 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow10" sourceRef="tkMlNotReunion" targetRef="tkUsReuEstCondiciones"></sequenceFlow>
-    <serviceTask id="tkMlNotNueIsfpp" name="Notificar Nueva Isfpp" activiti:type="mail">
+    <serviceTask id="tkMlNotNueIsfpp" name="Notificar Nueva Isfpp" activiti:async="true" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${mailRespProyecto}]]></activiti:expression>
+          <activiti:expression><![CDATA[${mailsResponsablesProyecto}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Tarea pendiente: Revisar Solicitud Nueva Isfpp - Gestión de Instancias Supervisadas de Formación Práctica Profesional]]></activiti:string>
@@ -233,15 +230,22 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <text>Variables del proceso:
 - {nombreSolicitante}: Nombres y Apellido del Profesor solicitante de la Isfpp. Tutor académico asignado.
 - {usuarioSolicitante}: Nombre de usuario del solicitante.
-- {nombreResponsableProy}: Nombres y Apellido del Responsable del Proyecto.
-- {usuarioResponsable}: Nombre de usuario del Responsable del Proyecto.
-- {perteneceA}: Sub-Proyecto / Proyecto.
-- {tituloIsfpp}: Titulo de la Isfpp.
 - {mailSolicitante}
-- {mailRespProyecto}
-- {isfppAprobada}
+- {usuariosResponsablesProyecto}: Nickname de los Responsables del Proyecto.
+- {mailsResponsablesProyecto}
+- {tituloIsfpp}: Titulo de la Isfpp.
+- {perteneceA}: Sub-Proyecto / Proyecto.
+- {nombreResponsable}: Nombre y Apellido del Responsable del Proyecto quien reclama y completa la tarea "Revisar Solicitud Nueva Isfpp".
+-{usuarioResponsable}
+-{mailResponsable}
+- {continuar}
 - {motivoRechazo}
-- {continuar}</text>
+- {isfppAprobada}
+
+
+
+
+</text>
     </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_solicitudNuevaIsfpp">
@@ -280,7 +284,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="anotacion" id="BPMNShape_anotacion">
-        <omgdc:Bounds height="211.0" width="301.0" x="22.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="251.0" width="301.0" x="22.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="45.0" y="357.0"></omgdi:waypoint>

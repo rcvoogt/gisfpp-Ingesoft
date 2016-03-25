@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
-import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.BindUtils;
@@ -30,7 +29,6 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.ProcesoGisfpp;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -39,7 +37,6 @@ public class MVCrudIsfpp {
 	private Logger log;
 	private Isfpp item;
 	private IServiciosIsfpp servicio;
-	private ProcesoGisfpp servProceso;
 	private SubProyecto perteneceA;
 	private String modo;
 	private boolean creando;
@@ -52,7 +49,6 @@ public class MVCrudIsfpp {
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-		servProceso = (ProcesoGisfpp) SpringUtil.getBean("servSolicitudNuevaIsfpp");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
 		perteneceA = (SubProyecto) args.get("perteneceA");
 		modo = (String) args.get("modo");
@@ -110,7 +106,6 @@ public class MVCrudIsfpp {
 		try {
 			if (creando) {
 				servicio.persistir(item);
-				servProceso.instanciarProceso(item);
 				Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
 			}

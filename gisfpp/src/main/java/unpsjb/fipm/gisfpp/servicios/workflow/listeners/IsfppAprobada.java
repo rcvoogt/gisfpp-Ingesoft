@@ -11,7 +11,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.SolicitudNuevaIsfpp;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -20,6 +20,7 @@ public class IsfppAprobada implements ExecutionListener {
 	private static final long serialVersionUID = 7829415302817324108L;
 	private IServicioUsuario servUsuario;
 	private IServiciosIsfpp servIsfpp;
+	private GestorWorkflow servGWorkflow;
 	private Isfpp isfpp;
 	private PersonaFisica persona;
 	private MiembroStaffIsfpp miembroStaff;
@@ -30,11 +31,12 @@ public class IsfppAprobada implements ExecutionListener {
 		try {
 			log = UtilGisfpp.getLogger();
 			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
+			servGWorkflow = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
 			isfpp = servIsfpp.getInstancia(idIsfpp);
 			
 			servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
-			String usuarioSolicitante = (String) execution.getVariable(SolicitudNuevaIsfpp.VAR_USUARIO_SOLICITANTE);
+			String usuarioSolicitante = servGWorkflow.getIniciadorProceso(execution.getProcessInstanceId());
 			persona = servUsuario.getUsuario(usuarioSolicitante).getPersona();
 			
 			miembroStaff = new MiembroStaffIsfpp(isfpp, persona, ERolStaffIsfpp.TUTOR_ACADEMICO);

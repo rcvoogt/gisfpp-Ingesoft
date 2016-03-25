@@ -95,4 +95,22 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 		}
 	}
 
+	@Override
+	public SubProyecto getPerteneceA(Isfpp isfpp) throws Exception {
+		String query = "select sp from SubProyecto as sp inner join sp.instanciasIsfpp as ins where ins.id = ?";
+		List<SubProyecto> resulQuery;
+		try {
+			resulQuery= (List<SubProyecto>) getHibernateTemplate().find(query, isfpp.getId());
+		} catch (Exception exc1) {
+			log.error("Clase: "+this.getClass().getName()+"- Método: getPerteneceA(isfpp)", exc1);
+			throw exc1;
+		}
+		if(resulQuery!=null && !resulQuery.isEmpty()){
+			return resulQuery.get(0);
+		}
+		return null;
+	}
+	
+	
+
 }// fin de la clase

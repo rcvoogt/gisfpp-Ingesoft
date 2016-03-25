@@ -13,14 +13,13 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Window;
 
-import unpsjb.fipm.gisfpp.servicios.workflow.ProcesoGisfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.SolicitudNuevaIsfpp;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
 public class VMDlgReuEstCondiciones {
 	
-	private ProcesoGisfpp servProceso;
+	private GestorTareas servGTareas;
 	private InfoTarea tarea;
 	
 		
@@ -30,7 +29,7 @@ public class VMDlgReuEstCondiciones {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> args = (Map<String, Object>) Executions.getCurrent().getArg();
 		tarea = (InfoTarea) args.get("tarea");
-		servProceso = (ProcesoGisfpp) SpringUtil.getBean("servSolicitudNuevaIsfpp");
+		servGTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
 	}
 
 	public InfoTarea getTarea() {
@@ -41,10 +40,10 @@ public class VMDlgReuEstCondiciones {
 	public void completarTarea(@BindingParam("aprobar") boolean arg1, 
 			@BindingParam("motivo") String motivoRechazo) throws GisfppWorkflowException{
 		Map<String, Object> args = new HashMap<String, Object>();
-		args.put(SolicitudNuevaIsfpp.VAR_ISFPP_APROBADA, arg1);
-		args.put(SolicitudNuevaIsfpp.VAR_MOTIVO_RECHAZO, motivoRechazo);
+		args.put("isfppAprobada", arg1);
+		args.put("motivoRechazo", motivoRechazo);
 		
-		servProceso.completarTarea(tarea.getId(), args);
+		servGTareas.completarTarea(tarea.getId(), args);
 		
 		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);

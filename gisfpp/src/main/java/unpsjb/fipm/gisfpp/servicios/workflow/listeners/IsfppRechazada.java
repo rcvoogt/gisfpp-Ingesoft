@@ -8,7 +8,6 @@ import org.zkoss.spring.SpringUtil;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.SolicitudNuevaIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppRechazada implements ExecutionListener {
@@ -23,7 +22,7 @@ public class IsfppRechazada implements ExecutionListener {
 			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
 			Isfpp isfppRechazada = servIsfpp.getInstancia(idIsfpp);
-			String motivo  = (String) execution.getVariable(SolicitudNuevaIsfpp.VAR_MOTIVO_RECHAZO);
+			String motivo  = (String) execution.getVariable("motivoRechazo");
 			isfppRechazada.setEstado(EEstadosIsfpp.RECHAZADA);
 			isfppRechazada.setDetalle(motivo);
 			servIsfpp.editar(isfppRechazada);

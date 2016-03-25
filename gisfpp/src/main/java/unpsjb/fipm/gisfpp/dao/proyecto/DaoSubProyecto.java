@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -102,4 +103,24 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 		return resultado;
 	}
 
+	@Override
+	public Proyecto getPerteneceA(SubProyecto instancia)
+			throws DataAccessException {
+		String query = "select p from Proyecto as p left join fetch p.staff inner join p.subProyectos as sp where sp.id = ?";
+		List<Proyecto> resulQuery;
+		try {
+			resulQuery =  (List<Proyecto>) getHibernateTemplate().find(query, instancia.getId());
+			if (resulQuery!=null && !resulQuery.isEmpty()) {
+				for (MiembroStaffProyecto miembro : resulQuery.get(0).getStaff()) {
+					getHibernateTemplate().initialize(miembro.getMiembro().getDatosDeContacto());
+					getHibernateTemplate().initialize(miembro.getMiembro().getIdentificadores());
+				}
+				return resulQuery.get(0);
+			}
+			return null;
+		} catch (Exception exc1) {
+			log.error("Clase: "+this.getClass().getName()+"- Metodo: getPerteneceA(subproyecto)", exc1);
+			throw exc1;
+		}
+	}
 }// fin de la clase

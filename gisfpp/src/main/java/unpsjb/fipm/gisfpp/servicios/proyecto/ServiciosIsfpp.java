@@ -12,18 +12,24 @@ import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppException;
+import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 @Service("servIsfpp")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServiciosIsfpp implements IServiciosIsfpp {
 
 	private IDaoIsfpp dao;
+	private GestorWorkflow servGWkFl;
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Isfpp instancia) throws Exception {
-		return dao.crear(instancia);
+		int idIsfpp = dao.crear(instancia);
+		servGWkFl.instanciarProceso("Isfpp", "Crear", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
+		return idIsfpp;
 	}
 
 	@Override
@@ -61,9 +67,20 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		return dao.getIsfpps(sp);
 	}
 
+	@Override
+	@Transactional(value="gisfpp", readOnly=true)
+	public SubProyecto getPerteneceA(Isfpp instancia) throws Exception {
+		return dao.getPerteneceA(instancia);
+	}
+	
 	@Autowired(required = true)
 	protected void setDao(IDaoIsfpp dao) {
 		this.dao = dao;
 	}
 
+	@Autowired(required=true)
+	public void setServGWkFl(GestorWorkflow servGWkFl) {
+		this.servGWkFl = servGWkFl;
+	}
+	
 }// fin de la clase
