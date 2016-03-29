@@ -16,9 +16,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
+import org.activiti.engine.history.HistoricIdentityLink;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -27,6 +34,8 @@ import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -35,6 +44,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.DefinicionProceso;
+import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaActividad;
 import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -44,19 +54,17 @@ import unpsjb.fipm.gisfpp.util.UtilGisfpp;
  *
  */
 @Service("servGestionWorkflow")
+@Scope(proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class GestorWorkflowImp implements GestorWorkflow {
 	
 	private RuntimeService rtService;
 	private RepositoryService repoService;
+	private HistoryService historyService;
 	private Logger log;
-	private ProcessInstanceQuery queryProInst;
-	private ProcessDefinitionQuery queryProDef;
 	
 	@PostConstruct
 	public void init(){
 		log = UtilGisfpp.getLogger();
-		queryProInst = rtService.createProcessInstanceQuery();
-		queryProDef = repoService.createProcessDefinitionQuery();		
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 					}).start();*/
 					Map<String, Object> variables = new HashMap<String, Object>();
 					variables.put("usuarioSolicitante", iniciador);
-					ProcessInstance instancia = rtService.startProcessInstanceByKey(idProceso, keyBusiness, variables);
+					rtService.startProcessInstanceByKey(idProceso, keyBusiness, variables);
 				}
 			}
 		} catch (Exception exc1) {
@@ -155,13 +163,15 @@ public class GestorWorkflowImp implements GestorWorkflow {
 
 	@Override
 	public String getIdInstanciaProceso(String keyBusiness, String idDefinicion) {
-		ProcessInstance instancia = queryProInst.processInstanceBusinessKey(keyBusiness, idDefinicion).singleResult();
+		ProcessInstanceQuery query = rtService.createProcessInstanceQuery(); 
+		ProcessInstance instancia = query.processInstanceBusinessKey(keyBusiness, idDefinicion).singleResult();
 		return instancia.getProcessInstanceId();
 	}
 
 	@Override
 	public String getKeyBusiness(String idInstanciaProceso) {
-		ProcessInstance instancia = queryProInst.processInstanceId(idInstanciaProceso).singleResult();
+		ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
+		ProcessInstance instancia = query.processInstanceId(idInstanciaProceso).singleResult();
 		return instancia.getBusinessKey();
 	}
 	
@@ -198,9 +208,10 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	@Override
 	public List<InstanciaProceso> getInstanciasProcesos(String keyBusiness)
 			throws GisfppWorkflowException {
+		ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
 		List<InstanciaProceso> resultado = new ArrayList<InstanciaProceso>();
 		try {
-			List<ProcessInstance> resultQuery = queryProInst.processInstanceBusinessKey(keyBusiness).list();
+			List<ProcessInstance> resultQuery = query.processInstanceBusinessKey(keyBusiness).list();
 			if (resultQuery!=null && !resultQuery.isEmpty()) {
 				for (ProcessInstance instance : resultQuery) {
 					resultado.add(convertir(instance));
@@ -219,7 +230,8 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			throws GisfppWorkflowException {
 		ProcessInstance instancia;
 		try {
-			instancia = queryProInst.processInstanceId(idInstancia).singleResult();
+			ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
+			instancia = query.processInstanceId(idInstancia).singleResult();
 		} catch (Exception exc1) {
 			log.error(this.getClass().getName(), exc1);
 			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName()+" Método: "
@@ -235,8 +247,8 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	public String getIniciadorProceso(String idInstancia)
 			throws GisfppWorkflowException {
 		try {
-			List<IdentityLink> identidades = rtService.getIdentityLinksForProcessInstance(idInstancia);
-			for (IdentityLink identity : identidades) {
+			List<HistoricIdentityLink> identidades = historyService.getHistoricIdentityLinksForProcessInstance(idInstancia);
+			for (HistoricIdentityLink identity : identidades) {
 				if (identity.getType().equals(IdentityLinkType.STARTER)) {
 					return identity.getUserId();
 				}
@@ -249,25 +261,127 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		return "";
 	}
 	
-	private InstanciaProceso convertir (ProcessInstance item){
-		ProcessDefinition processDef = queryProDef.processDefinitionKey(item.getProcessDefinitionKey()).singleResult();
+	@Override
+	public List<InstanciaProceso> getProcesosActivos(String idUsuario)
+			throws GisfppWorkflowException {
+		List<InstanciaProceso> procesos = new ArrayList<InstanciaProceso>();
+		try {
+			HistoricProcessInstanceQuery qry = historyService.createHistoricProcessInstanceQuery();
+			List<HistoricProcessInstance> resultQuery = qry.involvedUser(idUsuario).unfinished()
+					.orderByProcessInstanceStartTime().desc().list();
+			for (HistoricProcessInstance instancia : resultQuery) {
+				procesos.add(convertir2(instancia));
+			}
+		}catch(GisfppWorkflowException exc1){
+			log.error("Clase:" +this.getClass().getName()+"- Metodo: getProcesosActivos(String)", exc1);
+			throw new GisfppWorkflowException("Se ha generado un error al intertar recuperar los procesos activos en los cuales"
+					+ " el usuario "+idUsuario+" tiene algún grado de participación.");
+		}
+		catch (Exception exc2) {
+			log.error("Clase:" +this.getClass().getName()+"- Metodo: getProcesosActivos(String)", exc2);
+			throw new GisfppWorkflowException("Se ha generado un error al intertar recuperar los procesos activos en los cuales"
+					+ " el usuario "+idUsuario+" tiene algún grado de participación.", exc2);
+		}
+		return procesos;
+	}
+
+	@Override
+	public List<InstanciaProceso> getProcesosFinalizados(String idUsuario)
+			throws GisfppWorkflowException {
+		List<InstanciaProceso> procesos = new ArrayList<InstanciaProceso>();
+		try {
+			HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery();
+			List<HistoricProcessInstance> resulQry = query.involvedUser(idUsuario).finished().
+					orderByProcessInstanceStartTime().desc().list();
+			for (HistoricProcessInstance instance : resulQry) {
+				procesos.add(convertir2(instance));
+			}
+		}catch(GisfppWorkflowException exc1){
+			log.error("Clase:" +this.getClass().getName()+"- Metodo: getProcesosFinalizados(idUsuario)", exc1);
+			throw new GisfppWorkflowException("Se ha generado un error al intertar recuperar los procesos finalizados en los cuales"
+					+ " el usuario "+idUsuario+" tuvo algún grado de participación.");
+		}
+		catch (Exception exc2) {
+			log.error("Clase:" +this.getClass().getName()+"- Metodo: getProcesosFinalizados(idUsuario)", exc2);
+			throw new GisfppWorkflowException("Se ha generado un error al intertar recuperar los procesos finalizados en los cuales"
+					+ " el usuario "+idUsuario+" tuvo algún grado de participación.", exc2);
+		}
+		return procesos;
+	}
+	
+	private InstanciaProceso convertir (ProcessInstance item) throws ActivitiException{
+		HistoricProcessInstanceQuery qry = historyService.createHistoricProcessInstanceQuery();
+		HistoricProcessInstance histProcIns = qry.processInstanceId(item.getId()).singleResult();
 		
 		InstanciaProceso itemConvertido = new InstanciaProceso();
-		DefinicionProceso definicion = new DefinicionProceso();
 		
-		definicion.setIdDefinicion(processDef.getKey());
-		definicion.setNombre(processDef.getName());
-		definicion.setDescripcion(processDef.getDescription());
-		definicion.setCategoria(processDef.getCategory());
-		definicion.setVersion(processDef.getVersion());
+		itemConvertido.setIdInstancia(item.getId());
+		itemConvertido.setKeyBusiness(item.getBusinessKey());
+		itemConvertido.setSuspendido(item.isSuspended());
+		itemConvertido.setInicia(histProcIns.getStartTime());
+		itemConvertido.setFinaliza(histProcIns.getEndTime());
+		itemConvertido.setFinalizada((histProcIns.getEndTime()==null)?false:true);
+		itemConvertido.setIniciador(getIniciadorProceso(item.getId()));
+				
+		return itemConvertido;
+	}
+	
+	private InstanciaProceso convertir2 (HistoricProcessInstance item) throws ActivitiException, GisfppWorkflowException{
+		ProcessInstanceQuery qryProcInst = rtService.createProcessInstanceQuery();
+		ProcessInstance procInst = qryProcInst.processInstanceId(item.getId()).singleResult(); 
+		HistoricActivityInstanceQuery qryHisInsActv = historyService.createHistoricActivityInstanceQuery();
 		
+		InstanciaProceso itemConvertido = new InstanciaProceso();
+		DefinicionProceso definicion = cargarDefinicionProceso(item.getProcessDefinitionId());
+		
+		List<HistoricActivityInstance> instancesActv = qryHisInsActv.processInstanceId(item.getId()).list(); 
+		List<InstanciaActividad> historialActividades = new ArrayList<InstanciaActividad>();
+		if (instancesActv!=null && !instancesActv.isEmpty()) {
+			for (HistoricActivityInstance instance : instancesActv) {
+				historialActividades.add(cargarInstanciaActividad(instance));
+			}
+		}
+		
+		itemConvertido.setActividades(historialActividades);
 		itemConvertido.setDefinicion(definicion);
 		itemConvertido.setIdInstancia(item.getId());
 		itemConvertido.setKeyBusiness(item.getBusinessKey());
-		itemConvertido.setNombre(item.getName());
-		itemConvertido.setSuspendido(item.isSuspended());
-				
+		itemConvertido.setIniciador(getIniciadorProceso(item.getId()));
+		itemConvertido.setInicia(item.getStartTime());
+		itemConvertido.setFinaliza(item.getEndTime());
+		itemConvertido.setSuspendido((procInst==null)?false:procInst.isSuspended());
+		itemConvertido.setFinalizada((item.getEndTime()==null)?false:true);
+		
 		return itemConvertido;
+	}
+	
+	private DefinicionProceso cargarDefinicionProceso(String idDefProc){
+		ProcessDefinitionQuery queryProcDef = repoService.createProcessDefinitionQuery();
+		ProcessDefinition procDef = queryProcDef.processDefinitionId(idDefProc).singleResult();
+		
+		DefinicionProceso definicion = new DefinicionProceso();
+		
+		definicion.setIdDefinicion(procDef.getKey());
+		definicion.setNombre(procDef.getName());
+		definicion.setDescripcion(procDef.getDescription());
+		definicion.setVersion(procDef.getVersion());
+		
+		return definicion;
+	}
+	
+	private InstanciaActividad cargarInstanciaActividad(HistoricActivityInstance histInstActv){
+		InstanciaActividad instancia = new InstanciaActividad();
+	
+		instancia.setIdActividad(histInstActv.getActivityId());
+		instancia.setIdInstanciaProceso(histInstActv.getProcessInstanceId());
+		instancia.setIdTarea(histInstActv.getTaskId());
+		instancia.setAsignado(histInstActv.getAssignee());
+		instancia.setNombre(histInstActv.getActivityName());
+		instancia.setTipo(histInstActv.getActivityType());
+		instancia.setInicia(histInstActv.getStartTime());
+		instancia.setFinaliza(histInstActv.getEndTime());
+		
+		return instancia;
 	}
 	
 	@Autowired(required=true)
@@ -280,5 +394,9 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		this.repoService = repoService;
 	}
 
+	@Autowired(required=true)
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
+	}
 					
 }//fin de la clase

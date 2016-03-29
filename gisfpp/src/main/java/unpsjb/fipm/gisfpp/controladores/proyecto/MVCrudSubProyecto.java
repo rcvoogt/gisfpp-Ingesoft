@@ -203,6 +203,7 @@ public class MVCrudSubProyecto {
 							try {
 								IServiciosIsfpp servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 								servicio.eliminar(arg1);
+								item.getInstanciasIsfpp().remove(arg1);
 								Clients.showNotification("Isfpp eliminada.", Clients.NOTIFICATION_TYPE_INFO, null, 
 										"top_right", 3500);
 							}

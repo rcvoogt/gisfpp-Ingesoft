@@ -1,0 +1,115 @@
+<div class="panel panel-info" hflex="1" vflex="1" xmlns:n="native">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">Info Proceso</n:h3>
+	</div>
+	<div class="panel-body" height="25%" style="overflow: auto;">
+		<vbox>
+			<n:h4 style="margin-top: 5px; line-height: 0.5; margin-bottom: 5px;">Definición de Proceso</n:h4>
+			<grid sclass="fgrid">
+				<columns>
+					<column width="50%"/>
+					<column width="25%"/>
+					<column width="25%"/>
+				</columns>
+				<rows>
+					<row>
+						<div>
+							<label value="Nombre: " style="font-weight: bold;"/>
+							<label value="@load(vm.procesoSeleccionado.definicion.nombre)"/>
+						</div>
+						<div>
+							<label value="Versión: " style="font-weight: bold;"/>
+							<label value="@load(vm.procesoSeleccionado.definicion.version)"/>
+						</div>
+					</row>
+					<row spans="3">
+						<div>
+							<label value="Descripción: " style="font-weight: bold;"/>
+							<n:p>
+								<label value="@load(vm.procesoSeleccionado.definicion.descripcion)"/>
+							</n:p>
+						</div>
+					</row>
+				</rows>
+			</grid>
+		</vbox>
+	</div>
+	<div class="list-group" vflex="true">
+		<div class="list-group-item" height="40%"
+			style="overflow: auto;">
+			<vbox>
+				<n:h4 style="margin-top: 5px; line-height: 0.5; margin-bottom: 5px;">Detalle Instancia Proceso</n:h4>
+				<grid sclass="fgrid">
+					<columns>
+						<column width="33%"/>
+						<column width="33%"/>
+						<column width="34%"/>
+					</columns>
+					<rows>
+						<row spans="1,2">
+							<div>
+								<label value="Clave (KeyBusiness): " style="font-weight: bold;"/>
+								<label value="@load(vm.procesoSeleccionado.keyBusiness)"/>
+							</div>
+							<div>
+								<label value="Título: " style="font-weight: bold;"/>
+								<label value="@load(util:getTituloIsfpp(vm.procesoSeleccionado.keyBusiness))"/>
+							</div>
+						</row>
+						<row>
+							<div>
+								<label value="Iniciador (Usuario): " style="font-weight: bold;"/>
+								<label value="@load(vm.procesoSeleccionado.iniciador)"/>
+							</div>
+							<div>
+								<label value="Inicia: " style="font-weight: bold;"/>
+								<label value="@load(vm.procesoSeleccionado.inicia) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+							</div>
+							<div>
+								<label value="Finaliza: " style="font-weight: bold;"/>
+								<label value="@load(vm.procesoSeleccionado.finaliza) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+							</div>
+						</row>
+						<row>
+							<div>
+								<label value="Duración: " style="font-weight: bold;"/>
+								<label value="@load(util:formatearTiempo(vm.procesoSeleccionado.duracion))"/>
+							</div>
+							<div>
+								<label value="Suspendido: " style="font-weight: bold;"/>
+								<label value="@load(vm.procesoSeleccionado.suspendido?'Si':'No')"/>
+							</div>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+		</div>
+		<div class="list-group-item" height="60%"
+			style="overflow: auto;">
+			<vbox vflex="1">
+				<n:h4 style="margin-top: 5px; line-height: 0.5; margin-bottom: 5px;">Actividades</n:h4>
+				<grid hflex="1" vflex="1" emptyMessage="Sin actividades." style="border: 2px solid #80ccff; border-radius: 5px;"
+					model="@load(vm.procesoSeleccionado.actividades)">
+					<columns>
+						<column label="Nombre" width="34%"/>
+						<column label="Tipo"/>
+						<column label="Asignado" width="12%"/>
+						<column label="Inicia" width="8%"/>
+						<column label="Finaliza" width="8%"/>
+						<column label="Duración"/> 
+					</columns>
+					<template name="model">
+						<row>
+							<label value="@load(each.nombre)"/>
+							<label value="@load(each.tipo)"/>
+							<label value="@load(each.asignado)"/>
+							<label value="@load(each.inicia) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+							<label value="@load(each.finaliza) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+							<label value="@load(util:formatearTiempo(each.duracion))"/>
+						</row>
+					</template>
+				</grid>
+			</vbox>
+		</div>
+	</div>
+</div>

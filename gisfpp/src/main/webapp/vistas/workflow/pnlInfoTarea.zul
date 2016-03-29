@@ -1,0 +1,119 @@
+<div class="panel panel-info" hflex="1" vflex="1" xmlns:n="native">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">Info Tarea</n:h3>
+	</div>
+	<div class="panel-body" height="30%" style="overflow: auto;">
+		<label value="@load(vm.tareaSeleccionada.nombre)" sclass="h3" />
+		<n:p style="margin-top: 5px;">
+			<label value="@load(vm.tareaSeleccionada.descripcion)" />
+		</n:p>
+	</div>
+	<div class="list-group" vflex="true">
+		<div class="list-group-item" height="70%"
+			style="overflow: auto;">
+			<n:h4 style="margin-top: 4px;">Datos</n:h4>
+			<grid sclass="fgrid">
+				<columns>
+					<column width="35%" />
+					<column width="35%" />
+					<column width="30%" />
+				</columns>
+				<rows>
+					<row>
+						<div>
+							<label value="Categoría: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.categoria)" />
+						</div>
+						<div>
+							<label value="Prioridad: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(util:traducirPrioridad(vm.tareaSeleccionada.prioridad))" />
+						</div>
+						<div>
+							<label value="Vencimiento: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.fecha_vencimiento) @converter('formatedDate', format ='dd/MM/yyyy')" />
+						</div>
+					</row>
+					<row spans="3">
+						<div>
+							<label value="Proceso: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.nombreProceso)" />
+						</div>
+					</row>
+					<row>
+						<div>
+							<label value="Propietario: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.duenio)" />
+						</div>
+						<div>
+							<label value="Asignado a: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.asignado)" />
+						</div>
+					</row>
+					<row>
+						<div>
+							<label value="Inicia: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')" />
+						</div>
+						<div>
+							<label value="Finaliza: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.fecha_concluida) @converter('formatedDate', format ='dd/MM/yyyy')" />
+						</div>
+						<div>
+							<label value="Se Reclama: "
+								style="font-weight: bold;" />
+							<label
+								value="@load(vm.tareaSeleccionada.fecha_reclamada) @converter('formatedDate', format ='dd/MM/yyyy')" />
+						</div>
+					</row>
+					<row>
+						<div>
+							<label
+								value="Duración (Inicio - Finalización): "
+								style="font-weight: bold;" />
+							<label
+								value="@load(util:formatearTiempo(vm.tareaSeleccionada.duracionTotal))" />
+						</div>
+						<div>
+							<label
+								value="Duración (Reclamo - Finalización): "
+								style="font-weight: bold;" />
+							<label
+								value="@load(util:formatearTiempo(vm.tareaSeleccionada.duracionRealizacion))" />
+						</div>
+					</row>
+				</rows>
+			</grid>
+		</div>
+		<div class="list-group-item" height="30%">
+			<n:h4 style="margin-top: 4px;">Acciones</n:h4>
+			<hbox spacing="8px">
+				<a label="Realizar" class="btn btn-primary btn-sm"
+					onClick="@command('realizarTarea')"
+					disabled="@load(vm.tareaSeleccionada.estado.titulo ne 'Asignada')" />
+				<a label="Delegar" class="btn btn-primary btn-sm"
+					disabled="@load( vm.tareaSeleccionada.estado.titulo ne 'Asignada')" />
+				<a label="Reclamar" class="btn btn-primary btn-sm"
+					onClick="@command('reclamarTarea')"
+					disabled="@load(vm.tareaSeleccionada.estado.titulo ne 'Propuesta')" />
+				<a label="Resolver" class="btn btn-primary btn-sm"
+					disabled="@load(vm.tareaSeleccionada.estado.titulo ne 'Delegada')" />
+			</hbox>
+		</div>
+	</div>
+</div>

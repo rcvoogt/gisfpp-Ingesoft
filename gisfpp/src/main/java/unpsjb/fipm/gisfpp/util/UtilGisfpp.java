@@ -5,6 +5,10 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.zkoss.spring.SpringUtil;
+
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 
 /**
  * @author Jose Devia
@@ -82,5 +86,21 @@ public class UtilGisfpp {
 		return resultado;
 	}
 
+	public static String getTituloIsfpp(String idIsfpp){
+		Isfpp isfpp;
+		if (idIsfpp==null || idIsfpp.isEmpty()) {
+			return "";
+		}
+		try {
+			IServiciosIsfpp serv = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
+			isfpp = serv.getInstancia(Integer.valueOf(idIsfpp));
+		} catch (Exception exc1) {
+			throw new GisfppException("Se ha generado un error al intentar recuperar el título de la Isfpp con id: "+idIsfpp, exc1);
+		}
+		if(isfpp!=null){
+			return isfpp.getTitulo();
+		}
+		return "";
+	}
 	
 }// fin de la clase

@@ -44,9 +44,9 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/persona/listadoOrganizaciones.zul");
 	}
 	
-	@Command("verBandejaTareas")
-	public void verBandejaTareas(){
-		UtilGuiGisfpp.loadPnlCentral("vistas/workflow/bandejaTareas.zul");
+	@Command("verBandejaWorkflow")
+	public void verBandejaActividades(){
+		UtilGuiGisfpp.loadPnlCentral("vistas/workflow/bandejaWorkflow.zul");
 	}
 	
 	@Command("verDlgPerfilUsuario")

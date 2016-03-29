@@ -164,18 +164,18 @@ public class InfoTarea {
 		this.fecha_reclamada = fecha_reclamada;
 	}
 	
-	public Long getDuracionTotal(){
+	public long getDuracionTotal(){
 		if (fecha_inicio!=null && fecha_concluida!=null) {
 			return (fecha_concluida.getTime() - fecha_inicio.getTime());
 		}
-		return null;
+		return 0;
 	}
 	
-	public Long getDuracionRealizacion(){
+	public long getDuracionRealizacion(){
 		if (fecha_reclamada != null && fecha_concluida != null) {
 			return (fecha_concluida.getTime() - fecha_reclamada.getTime());
 		}
-		return null;
+		return 0;
 	}
 				
 }//fin de la clase

@@ -1,0 +1,78 @@
+<div id="pnlBandejaTareas" class="panel panel-primary" xmlns:n="native"
+	hflex="true" vflex="true" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.MVBandejaWorkflow')">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="Bandeja de Actividades"
+				style="font-size: 14px;" />
+		</n:h3>
+	</div>
+	<div class="panel-body" vflex="true">
+		<borderlayout hflex="1" vflex="1">
+			<north border="none" size="8%" collapsible="true" style="overflow: visible;">
+				<n:ul class="nav nav-pills">
+					<n:li class="dropdown">
+						<n:a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"	>
+							Pendientes
+							<span class="badge">
+								<label
+									value="@load(vm.cantPendientes)" />
+							</span>
+							<span class="caret"></span>
+						</n:a>
+						<n:ul class="dropdown-menu">
+							<n:li><a label="@load(c:cat('Tareas asignadas: ',vm.cantTareasAsignadas))"
+								onClick="@command('establecerVista', opcion = 1)"/></n:li>
+							<n:li><a label="@load(c:cat('Tareas propuestas: ', vm.cantTareasPropuestas))"
+								onClick="@command('establecerVista', opcion= 2)"/></n:li>
+							<n:li><a label="@load(c:cat('Tareas delegadas: ', vm.cantTareasDelegadas))"
+								onClick="@command('establecerVista', opcion =3)"/></n:li>
+						</n:ul>
+					</n:li>
+					<n:li>
+						<a style="font-size: 14px;" onClick="@command('establecerVista', opcion= 4)">
+							Procesos
+							<span class="badge">
+								<label
+									value="@load(vm.cantProcesosActivos)" />
+							</span>
+						</a>
+					</n:li>
+					<n:li class="dropdown">
+						<n:a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+							Historial
+							<span class="badge">
+								<label
+									value="@load(vm.cantHistorial)" />
+							</span>
+							<span class="caret"></span>
+						</n:a>
+						<n:ul class="dropdown-menu">
+							<n:li><a label="@load(c:cat('Tareas realizadas: ', vm.cantTareasRealizadas))"
+								 onClick="@command('establecerVista', opcion= 5)"/></n:li>
+							<n:li><a label="@load(c:cat('Procesos finalizados: ', vm.cantProcesosFinalizados))" 
+								onClick="@command('establecerVista', opcion = 6)"/></n:li>
+						</n:ul>
+					</n:li>
+					<a class="btn btn-success btn-sm pull-right"
+						image="recursos/img/icon-exit.png" onClick="@command('salir')">
+						Salir
+					</a>
+				</n:ul>
+			</north>
+			<west title="@load(vm.tituloPnlLista)" size="320px"
+				maxsize="400" splittable="true" collapsible="true">
+				<div visible="@load(vm.vistaTareas or vm.vistaProcesos)" vflex="1">
+					<include src="vistas/workflow/pnlListaTareas.zul"  visible="@load(vm.vistaTareas)" vflex="1"/>
+					<include src="vistas/workflow/pnlListaProcesos.zul" visible="@load(vm.vistaProcesos)" vflex="1"/>
+				</div>
+			</west>
+			<center vflex="1">
+				<div visible="@load(vm.vistaTareas or vm.vistaProcesos)" vflex="1">
+					<include src="vistas/workflow/pnlInfoTarea.zul" visible="@load(vm.vistaTareas)" vflex="1"/>
+					<include src="vistas/workflow/pnlInfoProceso.zul" visible="@load(vm.vistaProcesos)" vflex="1"/>
+				</div>
+			</center>
+		</borderlayout>
+	</div>
+</div>

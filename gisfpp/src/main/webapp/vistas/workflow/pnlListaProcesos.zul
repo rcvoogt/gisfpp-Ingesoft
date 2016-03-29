@@ -1,0 +1,18 @@
+<panel vflex="1">
+	<toolbar>
+		<toolbarbutton image="recursos/img/icon-filter.png" />
+	</toolbar>
+	<panelchildren>
+		<listbox id="listaProcesos" vflex="1" model="@load(vm.procesos)">
+			<template name="model">
+				<listitem>
+					<listcell
+						onClick="@command('actualizarItemProceso', item = each)">
+						<span class="glyphicon glyphicon-triangle-right" />
+						<label value="@load(c:cat3(each.definicion.nombre, ' - ', each.idInstancia))" />
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</panelchildren>
+</panel>

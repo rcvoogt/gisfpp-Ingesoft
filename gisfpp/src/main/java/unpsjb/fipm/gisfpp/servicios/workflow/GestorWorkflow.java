@@ -60,4 +60,22 @@ public interface GestorWorkflow {
 	
 	public String getIniciadorProceso(String idInstancia) throws GisfppWorkflowException;
 	
+	/**
+	 * Devuelve el listado de procesos activos en los cuales el usuario pasado como parámetro tiene cierto 
+	 * grado de participación en los mismos.
+	 * @param "id" del usuario
+	 * @return listado de instancias de procesos.
+	 * @throws GisfppWorkflowException
+	 */
+	public List<InstanciaProceso> getProcesosActivos(String idUsuario) throws GisfppWorkflowException;
+	
+	/**
+	 * Devuelve el listado de procesos ya ejecutados en los cuales el usuario pasado como parametro tuvo algún grado
+	 * de participación.
+	 * @param "id" del usuario
+	 * @return listado de procesos ejecutados.
+	 * @throws GisfppWorkflowException
+	 */
+	public List<InstanciaProceso> getProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
+	
 }

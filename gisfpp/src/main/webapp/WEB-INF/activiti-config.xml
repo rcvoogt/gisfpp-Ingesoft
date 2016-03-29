@@ -27,6 +27,9 @@
 		<property name="mailServerUsername" value="isfpp.fipm.unpsjb@gmail.com"/>
 		<property name="mailServerPassword" value="gisfppfipm"/>
 		<property name="mailServerUseSSL" value="true"/>
+		
+		<property name="asyncExecutorEnabled" value="true"/>
+		<property name="asyncExecutorActivate" value="true"/>
 	</bean>
 	
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
