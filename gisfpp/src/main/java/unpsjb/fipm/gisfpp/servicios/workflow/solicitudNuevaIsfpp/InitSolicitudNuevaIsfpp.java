@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.listeners;
+package unpsjb.fipm.gisfpp.servicios.workflow.solicitudNuevaIsfpp;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,8 +9,6 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
-import org.zkoss.spring.SpringUtil;
-
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -19,7 +17,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
+import unpsjb.fipm.gisfpp.util.MySpringUtil;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class InitSolicitudNuevaIsfpp implements ExecutionListener {
@@ -49,10 +47,10 @@ public class InitSolicitudNuevaIsfpp implements ExecutionListener {
 	public void notify(DelegateExecution execution) throws Exception {
 		try {
 			log = UtilGisfpp.getLogger();
-			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-			servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
-			servSP = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
-			rtService = (RuntimeService) SpringUtil.getBean("runtimeService");
+			servIsfpp = MySpringUtil.getServicioIsfpp();
+			servUsuario = MySpringUtil.getServicioUsuario();
+			servSP = MySpringUtil.getServicioSubProyecto();
+			rtService = MySpringUtil.getRunTimeService();
 						
 			isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
 			sp = servIsfpp.getPerteneceA(isfpp);

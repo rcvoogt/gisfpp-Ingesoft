@@ -21,7 +21,7 @@
 					visible="@load(vm.modo eq 'NUEVO')"
 					onClick="@command('nuevoProyecto')" class="btn btn-success btn-xs" />
 				<toolbarbutton image="recursos/img/icon-edit.png"
-					label=" Editar" disabled="@load(vm.editando)" if="${sec:autorizadoEditarBajaProyecto(sessionScope.prmPnlCentral.idItem)}"
+					label=" Editar" disabled="@load(vm.editando)" if=""
 					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
 					onClick="@command('editar')" class="btn btn-success btn-xs" />
 				<space bar="true" spacing="10px" />

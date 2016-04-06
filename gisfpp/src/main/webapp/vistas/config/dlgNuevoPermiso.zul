@@ -1,0 +1,20 @@
+<zk>
+	<window id="dlgNuevoPermiso" title="@load(vm.titulo)" border="normal" closable="true"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.config.MVDlgNuevoPermiso')"
+			width="25%" height="20%">
+		<vbox hflex="1" spacing="8px" vflex="1" style="margin-top: 6px;">
+			<combobox id="cmbxOperaciones" readonly="true" model="@load(vm.operaciones)" hflex="1" 
+				placeholder="Operaciones...">
+				<template name="model">
+					<comboitem label="@load(each.name())" description="@load(each.titulo)"/>
+				</template>
+			</combobox>
+			<separator bar="true"/>
+			<hbox spacing="6px" align="center" pack="center" hflex="1">
+				<a class="btn btn-success btn-sm" 
+					onClick="@command('aceptar', operacion = cmbxOperaciones.selectedItem.value)">Aceptar</a>
+				<a class="btn btn-warning btn-sm" onClick="@command('cerrar')">Cancelar</a>
+			</hbox>
+		</vbox>
+	</window>
+</zk>

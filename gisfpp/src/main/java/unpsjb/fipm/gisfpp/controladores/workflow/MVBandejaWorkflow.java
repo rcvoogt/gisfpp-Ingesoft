@@ -15,10 +15,10 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
@@ -140,8 +140,8 @@ public class MVBandejaWorkflow {
 		return vistaProcesos;
 	}
 
-	@Command("establecerVista")
 	@NotifyChange({"vistaTareas", "vistaProcesos", "tareas", "procesos", "tituloPnlLista", "tareaSeleccionada", "procesoSeleccionado"})
+	@Command("establecerVista")
 	public void establecerVista(@BindingParam ("opcion") int arg1){
 		switch (arg1) {
 		case 1:{
@@ -187,6 +187,7 @@ public class MVBandejaWorkflow {
 			tituloPnlLista = "Tareas realizadas: " + getCantTareasRealizadas();
 			tareaSeleccionada = null;
 			procesoSeleccionado = null;
+			break;
 		}
 		case 6: {
 			vistaProcesos = true;
@@ -209,51 +210,73 @@ public class MVBandejaWorkflow {
 		}
 	}
 	
-	@Command("actualizarItemTarea")
 	@NotifyChange("tareaSeleccionada")
+	@Command("actualizarItemTarea")
 	public void actualizarItemTarea(@BindingParam("item") InfoTarea arg1){
 		tareaSeleccionada = arg1;
 	}
 	
-	@Command("actualizarItemProceso")
 	@NotifyChange("procesoSeleccionado")
+	@Command("actualizarItemProceso")
 	public void actualizarItemProcesos(@BindingParam("item") InstanciaProceso arg1) {
 		procesoSeleccionado = arg1;
 	}
 	
+	@NotifyChange({"cantTareasAsignadas", "tareaSeleccionada","tareas", "vistaTareas", "cantPendientes"})
 	@GlobalCommand("refrescarTareasAsignadas")
-	@NotifyChange({"tareasAsignadas", "cantTareasAsignadas", "tareaSeleccionada","tareas"})
 	public void refrescarTareasAsignadas(){
 		tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), 
 				GestorTareas.ORDEN_FECHA_VENC, true);
 		tareaSeleccionada = null;
 		tareas = null;
+		vistaTareas = false;
 	}
 	
+	@NotifyChange({"cantTareasPropuestas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
 	@GlobalCommand("refrescarTareasPropuestas")
-	@NotifyChange({"tareasPropuestas", "cantTareasPropuestas", "tareaSeleccionada", "tareas"})
 	public void refrescarTareasPropuestas(){
 		tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), 
 				GestorTareas.ORDEN_FECHA_VENC, true);
 		tareaSeleccionada = null;
 		tareas = null;
+		vistaTareas = false;
 	}
 	
+	@NotifyChange({"cantTareasDelegadas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
 	@GlobalCommand("refrescarTareasDelegadas")
-	@NotifyChange({"tareasDelegadas", "cantTareasDelegadas", "tareaSeleccionada", "tareas"})
 	public void refrescarTareasDelegadas(){
 		tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC
 				, true);
 		tareaSeleccionada = null;
 		tareas = null;
+		vistaTareas = false;
 	}
 	
+	@NotifyChange({"cantTareasRealizadas", "tareaSeleccionada", "tareas", "vistaTareas", "cantHistorial"})
 	@GlobalCommand("refrescarTareasRealizadas")
-	@NotifyChange({"tareasRealizadas", "cantTareasRealizadas", "tareaSeleccionada", "tareas"})
 	public void refrescarTareasRealizadas(){
 		tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
 		tareaSeleccionada = null;
 		tareas = null;
+		vistaTareas = false;
+	}
+	
+	@NotifyChange({"cantProcesosActivos", "procesoSeleccionado", "procesos", "vistaProcesos"})
+	@GlobalCommand("refrescarProcesosActivos")
+	public void refrescarProcesosActivos(){
+		procesosActivos = servGWorkflow.getProcesosActivos(usuarioConectado.getNickname());
+		procesoSeleccionado = null;
+		procesos = null;
+		vistaProcesos = false;
+	}
+	
+	@NotifyChange({"cantProcesosActivos", "procesoSeleccionado", "procesos", "vistaProcesos"})
+	@GlobalCommand("refrescarProcesosFinalizados")
+	public void refrescarProcesosFinalizados(){
+		procesosFinalizados = servGWorkflow.getProcesosFinalizados(usuarioConectado.getNickname());
+		procesoSeleccionado =null;
+		procesos=null;
+		vistaProcesos = false;
 	}
 	
 	@Command("realizarTarea")
@@ -265,12 +288,11 @@ public class MVBandejaWorkflow {
 		dlg.doModal();
 	}
 	
+	@NotifyChange({"cantTareasAsignadas", "cantTareasPropuestas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
 	@Command("reclamarTarea")
-	@NotifyChange({"tareasAsignadas", "tareasPropuestas", "cantTareasAsignadas", "cantTareasPropuestas"
-		, "tareaSeleccionada", "tareas"})
 	public void reclamarTarea(){
 		try {
-			servGTareas.reclamarTarea(getTareaSeleccionada().getId(), UtilSecurity.getNickName());
+			servGTareas.reclamarTarea(getTareaSeleccionada(), UtilSecurity.getNickName());
 			refrescarTareasAsignadas();
 			refrescarTareasPropuestas();
 		} catch (Exception exc1) {
@@ -278,6 +300,7 @@ public class MVBandejaWorkflow {
 			throw exc1;
 		}
 	}
+		
 	
 	@Command("salir")
 	public void salir(){

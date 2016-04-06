@@ -55,6 +55,12 @@ public class MVInicio {
 		dlg.doModal();
 	}
 	
+	@Command("verDlgPermisos")
+	public void verDlgPermisos(){
+		Window dlg = (Window) Executions.createComponents("vistas/config/dlgPermisos.zul", null, null);
+		dlg.doModal();
+	}
+	
 	@Command("verPnlDatosPersonales")
 	public void verPnlCrudPersona(){
 		PersonaFisica usuarioConectado = UtilSecurity.getUsuarioConectado().getPersona();

@@ -2,7 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 public enum ERolStaffProyecto {
 	
-	RESPONSABLE("Responsable de Proyecto"), MIEMBRO_STAFF("Miembro Staff");
+	RESPONSABLE_PROYECTO("Responsable de Proyecto"), MIEMBRO_STAFF_PROYECTO("Miembro Staff de Proyecto");
 	
 	private String titulo;
 

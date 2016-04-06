@@ -9,35 +9,6 @@
 		</description>
 	</function>
 	<function>
-		<name>autorizadoCrearProyecto</name>
-		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
-		<function-signature>boolean autorizadoCrearProyecto()</function-signature>
-		<description>
-			Metodo para determinar si el usuario actualmente conectado tiene autorizacion
-			(segun los roles que posee en la app) para poder crear un proyecto nuevo.
-		</description>
-	</function>
-	<function>
-		<name>autorizadoVerProyecto</name>
-		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
-		<function-signature>boolean autorizadoVerProyecto(int idProyecto)</function-signature>
-		<description>
-			Metodo para verificar si el usuario actualmente conectado posee
-	 		permiso para ver el detalle del Proyecto referenciado por el "id"
-	 		pasado como parametro.
-		</description>
-	</function>
-	<function>
-		<name>autorizadoEditarBajaProyecto</name>
-		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
-		<function-signature>boolean autorizadoEditarBajaProyecto(int idProyecto)</function-signature>
-		<description>
-			Metodo para verificar si el usuario actualmente conectado posee
-	 		permisos para editar o dar de baja el Proyecto referenciado por el "id"
-	 		pasado como parametro.
-		</description>
-	</function>
-	<function>
 		<name>getUsuarioConectado</name>
 		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
 		<function-signature>Usurio getUsuarioConectado()</function-signature>

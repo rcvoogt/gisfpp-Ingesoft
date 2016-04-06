@@ -3,7 +3,7 @@ package unpsjb.fipm.gisfpp.servicios.workflow;
 import java.util.List;
 import java.util.Map;
 
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
 public interface GestorTareas {
@@ -20,16 +20,12 @@ public interface GestorTareas {
 	
 	public List<InfoTarea> getTareasRealizadas (String usuario) throws GisfppWorkflowException;
 	
-	public void completarTarea(String idTarea) throws GisfppWorkflowException;
+	public void reclamarTarea(InfoTarea tarea, String usuario) throws GisfppWorkflowException;
 	
-	public void completarTarea(String idTarea, Map<String, Object> variables) throws GisfppWorkflowException;
+	public void delegarTarea(InfoTarea tarea, String usuarioDestino) throws GisfppWorkflowException;
 	
-	public void reclamarTarea(String idTarea, String usuario) throws GisfppWorkflowException;
+	public void tratarTarea(InfoTarea tarea) throws GisfppWorkflowException;
 	
-	public void delegarTarea(String idTarea, String usuarioDestino) throws GisfppWorkflowException;
-	
-	public void resolverTarea(String idTarea) throws GisfppWorkflowException;
-	
-	public void resolverTarea(String idTarea, Map<String, Object> variables) throws GisfppWorkflowException;
+	public void tratarTarea(InfoTarea tarea, Map<String, Object> variables) throws GisfppWorkflowException;
 	
 }

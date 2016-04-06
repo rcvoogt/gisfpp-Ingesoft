@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.entidades;
+package unpsjb.fipm.gisfpp.entidades.workflow;
 
 import java.util.Date;
 
@@ -55,7 +55,34 @@ public class InstanciaActividad {
 	}
 
 	public String getTipo() {
-		return tipo;
+		switch (tipo) {
+		case "startEvent":{
+			return "Evento Inicio";
+		}
+		case "userTask":{
+			return "Tarea de Usuario";
+		}
+		case "serviceTask":{
+			return "Tarea de Sistema";
+		}
+		case "endEvent":{
+			return"Evento Fin";
+		}
+		case "scriptTask":{
+			return "Script";
+		}
+		case "businessRuleTask":{
+			return "Regla de Negocio";
+		}
+		case "manualTask":{
+			return "Tarea Manual";
+		}
+		case "receiveTask":{
+			return "Recepción Mensaje";
+		}
+		default:
+			return tipo;
+		}
 	}
 
 	public void setTipo(String tipo) {

@@ -1,4 +1,4 @@
-<div class="panel panel-info" hflex="1" vflex="1" xmlns:n="native">
+<div class="panel panel-info" hflex="1" vflex="1" xmlns:n="native" style="margin-bottom: 1px;">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">Info Tarea</n:h3>
 	</div>
@@ -111,7 +111,7 @@
 				<a label="Reclamar" class="btn btn-primary btn-sm"
 					onClick="@command('reclamarTarea')"
 					disabled="@load(vm.tareaSeleccionada.estado.titulo ne 'Propuesta')" />
-				<a label="Resolver" class="btn btn-primary btn-sm"
+				<a label="Resolver" class="btn btn-primary btn-sm" onClick="@command('realizarTarea')" 
 					disabled="@load(vm.tareaSeleccionada.estado.titulo ne 'Delegada')" />
 			</hbox>
 		</div>

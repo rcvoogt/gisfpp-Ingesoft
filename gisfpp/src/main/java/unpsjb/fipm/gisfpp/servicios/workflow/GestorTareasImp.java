@@ -25,8 +25,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.EstadosTarea;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
+import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -192,86 +192,103 @@ public class GestorTareasImp implements GestorTareas {
 		}
 		return new ArrayList<InfoTarea>();
 	}
-
+	
 	@Override
-	public void completarTarea(String idTarea) throws GisfppWorkflowException {
-		try {
-			taskService.complete(idTarea);
-		} catch(ActivitiObjectNotFoundException exc1){
-			throw new GisfppWorkflowException("La tarea que intenta realizar no existe.", exc1);
-		}catch (Exception exc2) {
-			throw new GisfppWorkflowException("Se ha producido un error al  intentar realizar la tarea con id: "+idTarea+".", exc2);
+	public void tratarTarea(InfoTarea tarea) throws GisfppWorkflowException {
+		if (tarea.getEstado()==EstadosTarea.ASIGNADA) {
+			completarTarea(tarea);
+		}else if(tarea.getEstado()== EstadosTarea.DELEGADA){
+			resolverTarea(tarea);
 		}
+	}
+	
+	@Override
+	public void tratarTarea(InfoTarea tarea, Map<String, Object> variables)
+			throws GisfppWorkflowException {
+		if (tarea.getEstado()==EstadosTarea.ASIGNADA) {
+			completarTarea(tarea, variables);
+		}else if(tarea.getEstado()== EstadosTarea.DELEGADA){
+			resolverTarea(tarea, variables);
+		}
+		
 	}
 
 	@Override
-	public void completarTarea(String idTarea, Map<String, Object> variables)
+	public void reclamarTarea(InfoTarea tarea, String usuario)
 			throws GisfppWorkflowException {
 		try {
-			taskService.complete(idTarea, variables);
-		} catch(ActivitiObjectNotFoundException exc1){
-			throw new GisfppWorkflowException("La tarea que intenta realizar no existe.", exc1);
-		}catch (Exception exc2) {
-			throw new GisfppWorkflowException("Se ha producido un error al  intentar realizar la tarea con id: "+idTarea+".", exc2);
-		}
-	}
-
-	@Override
-	public void reclamarTarea(String idTarea, String usuario)
-			throws GisfppWorkflowException {
-		try {
-			taskService.claim(idTarea, usuario);
+			taskService.claim(tarea.getId(), usuario);
 		} catch (ActivitiObjectNotFoundException exc1) {
 			throw new GisfppWorkflowException("La tarea que se intenta reclamar no existe.");
 		}catch (ActivitiTaskAlreadyClaimedException exc2) {
 			throw new GisfppWorkflowException("La tarea que intenta reclamar ya ha sido reclamada por otro usuario.");
 		}catch (Exception exc3) {
 			log.error(this.getClass().getName(), exc3);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea con id: "+idTarea+".", exc3);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea con id: "+tarea.getId()+".", exc3);
 		}
 
 	}
 
 	@Override
-	public void delegarTarea(String idTarea, String usuarioDestino)
+	public void delegarTarea(InfoTarea tarea, String usuarioDestino)
 			throws GisfppWorkflowException {
 		try {
-			taskService.delegateTask(idTarea, usuarioDestino);
+			taskService.delegateTask(tarea.getId(), usuarioDestino);
 		} catch (ActivitiObjectNotFoundException exc1) {
 			throw new GisfppWorkflowException("La tarea que intenta delegar no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea.\n", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea.", exc2);
 		}
 
-	}
-
-	@Override
-	public void resolverTarea(String idTarea) throws GisfppWorkflowException {
+	} 
+	
+	private void completarTarea(InfoTarea tarea) throws GisfppWorkflowException {
 		try {
-			taskService.resolveTask(idTarea);
-		}  catch (ActivitiObjectNotFoundException exc1) {
-			throw new GisfppWorkflowException("La tarea que intenta resolver no existe.");
+			taskService.complete(tarea.getId());
+		} catch(ActivitiObjectNotFoundException exc1){
+			throw new GisfppWorkflowException("La tarea con Id. "+tarea.getId()+" que intenta completar no existe.", exc1);
 		}catch (Exception exc2) {
-			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.\n", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea con id: "+ tarea.getId()+".", exc2);
 		}
-		
 	}
 
-	@Override
-	public void resolverTarea(String idTarea, Map<String, Object> variables)
+	
+	private void completarTarea(InfoTarea tarea, Map<String, Object> variables)
 			throws GisfppWorkflowException {
 		try {
-			taskService.resolveTask(idTarea, variables);
-		} catch (ActivitiObjectNotFoundException exc1) {
-			throw new GisfppWorkflowException("La tarea que intenta resolver no existe.");
+			taskService.complete(tarea.getId(), variables);
+		} catch(ActivitiObjectNotFoundException exc1){
+			throw new GisfppWorkflowException("La tarea con Id. "+tarea.getId()+" que intenta completar no existe.", exc1);
 		}catch (Exception exc2) {
-			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea.\n", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea con id: "+ tarea.getId()+".", exc2);
 		}
 	}
 	
+	private void resolverTarea(InfoTarea tarea) throws GisfppWorkflowException {
+		try {
+			taskService.resolveTask(tarea.getId());
+		}  catch (ActivitiObjectNotFoundException exc1) {
+			throw new GisfppWorkflowException("La tarea con id. "+ tarea.getId()+" que intenta resolver no existe.");
+		}catch (Exception exc2) {
+			log.error(this.getClass().getName(), exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea con id. "+tarea.getId(), exc2);
+		}
+		
+	}
+	
+	private void resolverTarea(InfoTarea tarea, Map<String, Object> variables)
+			throws GisfppWorkflowException {
+		try {
+			taskService.resolveTask(tarea.getId(), variables);
+		} catch (ActivitiObjectNotFoundException exc1) {
+			throw new GisfppWorkflowException("La tarea con id. "+ tarea.getId()+" que intenta resolver no existe.");
+		}catch (Exception exc2) {
+			log.error(this.getClass().getName(), exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea con id. "+tarea.getId(), exc2);
+		}
+	}
+
 	private List<InfoTarea> convertirListaInfoTarea(List<? extends TaskInfo> lista, EstadosTarea estado) {
 		List<InfoTarea> tareas = new ArrayList<InfoTarea>();
 				
@@ -323,5 +340,6 @@ public class GestorTareasImp implements GestorTareas {
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
 	}
-	
+
+		
 }

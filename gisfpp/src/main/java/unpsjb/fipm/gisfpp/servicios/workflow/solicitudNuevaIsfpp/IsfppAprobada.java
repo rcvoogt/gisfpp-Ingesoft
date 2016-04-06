@@ -1,10 +1,8 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.listeners;
+package unpsjb.fipm.gisfpp.servicios.workflow.solicitudNuevaIsfpp;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
-import org.zkoss.spring.SpringUtil;
-
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -13,6 +11,7 @@ import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
+import unpsjb.fipm.gisfpp.util.MySpringUtil;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppAprobada implements ExecutionListener {
@@ -29,13 +28,13 @@ public class IsfppAprobada implements ExecutionListener {
 	@Override
 	public void notify(DelegateExecution execution) throws Exception, GisfppWorkflowException {
 		try {
+			servUsuario = MySpringUtil.getServicioUsuario();
+			servIsfpp = MySpringUtil.getServicioIsfpp();
+			servGWorkflow = MySpringUtil.getServicioGestorWkFl();
 			log = UtilGisfpp.getLogger();
-			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-			servGWorkflow = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
 			isfpp = servIsfpp.getInstancia(idIsfpp);
 			
-			servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 			String usuarioSolicitante = servGWorkflow.getIniciadorProceso(execution.getProcessInstanceId());
 			persona = servUsuario.getUsuario(usuarioSolicitante).getPersona();
 			
@@ -52,4 +51,5 @@ public class IsfppAprobada implements ExecutionListener {
 		
 	}
 
+	
 }

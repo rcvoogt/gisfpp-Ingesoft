@@ -13,8 +13,8 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
 public class VMDlgReuEstCondiciones {
@@ -43,11 +43,14 @@ public class VMDlgReuEstCondiciones {
 		args.put("isfppAprobada", arg1);
 		args.put("motivoRechazo", motivoRechazo);
 		
-		servGTareas.completarTarea(tarea.getId(), args);
+		servGTareas.tratarTarea(tarea, args);
 		
-		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
+		//Refrescamos las listas de tareas y procesos en la vista de la bandeja de actividades.
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarTareasDelegadas", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarProcesosActivos", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarProcesosFinalizados", null);
 		cerrar();
 	}
 	

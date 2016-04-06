@@ -7,7 +7,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +41,7 @@ public class Proyecto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id 
 	@Column(name = "idProyecto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -250,7 +268,7 @@ public class Proyecto implements Serializable {
 	public List<PersonaFisica> getResponsables(){
 		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
 		for (MiembroStaffProyecto miembro : staff) {
-			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE){
+			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE_PROYECTO){
 				resultado.add(miembro.getMiembro());
 			}
 		}

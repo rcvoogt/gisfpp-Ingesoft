@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javassist.ClassClassPath;
-
 import javax.annotation.PostConstruct;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,7 +28,6 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
-import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +40,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.DefinicionProceso;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaActividad;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InstanciaProceso;
+import unpsjb.fipm.gisfpp.entidades.workflow.DefinicionProceso;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaActividad;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -338,7 +335,9 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		List<InstanciaActividad> historialActividades = new ArrayList<InstanciaActividad>();
 		if (instancesActv!=null && !instancesActv.isEmpty()) {
 			for (HistoricActivityInstance instance : instancesActv) {
-				historialActividades.add(cargarInstanciaActividad(instance));
+				if(!instance.getActivityType().equals("exclusiveGateway")){
+					historialActividades.add(cargarInstanciaActividad(instance));
+				}
 			}
 		}
 		

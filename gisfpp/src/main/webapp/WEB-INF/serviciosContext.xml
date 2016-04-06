@@ -9,6 +9,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.proyecto"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
@@ -25,5 +26,7 @@
     	<property name="dataSource" ref="pool2" />
     	 <qualifier value="activiti"/>
   	</bean>
+  	
+  	<bean id="mySpringUtil" class="unpsjb.fipm.gisfpp.util.MySpringUtil"/>
 	
 </beans>

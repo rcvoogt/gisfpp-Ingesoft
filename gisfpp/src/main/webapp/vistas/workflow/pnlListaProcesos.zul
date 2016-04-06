@@ -9,7 +9,7 @@
 					<listcell
 						onClick="@command('actualizarItemProceso', item = each)">
 						<span class="glyphicon glyphicon-triangle-right" />
-						<label value="@load(c:cat3(each.definicion.nombre, ' - ', each.idInstancia))" />
+						<label value="@load(c:cat3(each.definicion.nombre, ':  ', each.idInstancia))" />
 					</listcell>
 				</listitem>
 			</template>

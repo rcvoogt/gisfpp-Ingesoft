@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.entidades;
+package unpsjb.fipm.gisfpp.entidades.workflow;
 
 import java.util.Date;
 import java.util.List;

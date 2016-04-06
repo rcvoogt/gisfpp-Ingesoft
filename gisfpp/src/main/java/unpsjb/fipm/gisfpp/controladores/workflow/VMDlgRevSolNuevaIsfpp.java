@@ -14,8 +14,8 @@ import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
-import unpsjb.fipm.gisfpp.servicios.workflow.entidades.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
@@ -41,18 +41,19 @@ public class VMDlgRevSolNuevaIsfpp {
 		
 	@Command("completar")
 	public void completarTarea(@BindingParam ("continuar")boolean arg1,
-			@BindingParam("motivo")String motivoRechazo) throws GisfppWorkflowException{
+			@BindingParam("motivo")String arg2) throws GisfppWorkflowException{
 		Usuario usuarioConectado = UtilSecurity.getUsuarioConectado();
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("continuar", arg1);
-		variables.put("motivoRechazo", motivoRechazo);
+		variables.put("motivoRechazo", arg2);
 		variables.put("usuarioResponsable", usuarioConectado.getNickname());
 		variables.put("nombreResponsable", usuarioConectado.getPersona().getNombre());
 		variables.put("mailResponsable", usuarioConectado.getPersona().getEmail());
-		servGTareas.completarTarea(tarea.getId(), variables);
+		servGTareas.tratarTarea(tarea, variables);
 		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarTareasDelegadas", null);
 		cerrar();
 	}
 	

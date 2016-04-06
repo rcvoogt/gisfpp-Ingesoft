@@ -27,7 +27,7 @@
 		<center id="centro" class="container" style="padding-top:6px">
 			<div vflex="true">
 				<include id="panelCentro" visible="${param.login != 0}"/>
-				<include src="/vistas/error/loguin_error.zul" if="${param.login == 0}"/>
+				<include src="/vistas/config/loguin_error.zul" if="${param.login == 0}"/>
 			</div>
 		</center>
 		<south id="pie" height="5%">

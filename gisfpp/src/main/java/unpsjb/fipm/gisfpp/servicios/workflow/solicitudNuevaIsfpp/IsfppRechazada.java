@@ -1,13 +1,13 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.listeners;
+package unpsjb.fipm.gisfpp.servicios.workflow.solicitudNuevaIsfpp;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.slf4j.Logger;
-import org.zkoss.spring.SpringUtil;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.util.MySpringUtil;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppRechazada implements ExecutionListener {
@@ -19,7 +19,7 @@ public class IsfppRechazada implements ExecutionListener {
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
 		try {
-			servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
+			servIsfpp = MySpringUtil.getServicioIsfpp();
 			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
 			Isfpp isfppRechazada = servIsfpp.getInstancia(idIsfpp);
 			String motivo  = (String) execution.getVariable("motivoRechazo");
@@ -32,6 +32,5 @@ public class IsfppRechazada implements ExecutionListener {
 		}
 		
 	}
-
-			
+	
 }

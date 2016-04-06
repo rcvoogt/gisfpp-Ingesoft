@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;

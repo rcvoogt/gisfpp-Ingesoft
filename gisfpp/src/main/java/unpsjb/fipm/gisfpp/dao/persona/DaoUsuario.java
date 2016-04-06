@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.dao.persona;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -117,7 +116,7 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 			throw e;
 		}
 		if (resultQuery == null || resultQuery.isEmpty()) {
-			return null;
+			return result;
 		}
 		for (Object[] row : resultQuery) {
 			result.add(new RolUsuario((Integer) row[0], (String) row[1], (String) row[2], (String) row[3],

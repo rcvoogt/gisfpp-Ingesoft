@@ -17,6 +17,7 @@
 		<property name="dataSource" ref="pool1"/>
 		<property name="packagesToScan">
 			<list>
+				<value>unpsjb.fipm.gisfpp.entidades</value>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
 				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
 				<value>unpsjb.fipm.gisfpp.entidades.staff</value>
@@ -63,5 +64,8 @@
 	<bean id="daoStaff" class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
-		
+	
+	<bean id="daoPermisos" class="unpsjb.fipm.gisfpp.dao.DaoPermisosImp">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>	
 </beans>

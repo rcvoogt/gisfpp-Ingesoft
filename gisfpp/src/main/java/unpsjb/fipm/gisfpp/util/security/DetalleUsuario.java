@@ -2,12 +2,15 @@ package unpsjb.fipm.gisfpp.util.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import unpsjb.fipm.gisfpp.entidades.Operaciones;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
 @SuppressWarnings("serial")
@@ -15,22 +18,21 @@ public class DetalleUsuario implements UserDetails {
 
 	private Usuario usuario;
 	private List<RolUsuario> roles;
+	private EnumSet<Operaciones> operacionesAutorizadas;
 
-	public DetalleUsuario(Usuario usuario, List<RolUsuario> roles) {
+	public DetalleUsuario(Usuario usuario, List<RolUsuario> roles,
+			EnumSet<Operaciones> operaciones) {
 		super();
 		this.usuario = usuario;
-		this.roles = roles;
+		this.roles = (roles==null)? new LinkedList<RolUsuario>():roles;
+		this.operacionesAutorizadas = (operaciones==null)?EnumSet.noneOf(Operaciones.class):operaciones;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> autorizaciones = new ArrayList<SimpleGrantedAuthority>();
-		if (roles == null || roles.isEmpty()) {
-			return autorizaciones;
-		}
-		for (RolUsuario rol : roles) {
-			autorizaciones.add(new SimpleGrantedAuthority(rol.getIdPersona() + "-" + rol.getRol() + "-" + rol.getEn()
-					+ "-" + rol.getTabla() + "-" + String.valueOf(rol.getIdTabla())));
+		for (Operaciones operacionAutorizada : operacionesAutorizadas) {
+			autorizaciones.add(new SimpleGrantedAuthority(operacionAutorizada.name()));
 		}
 		return autorizaciones;
 	}
@@ -81,4 +83,12 @@ public class DetalleUsuario implements UserDetails {
 		this.roles = roles;
 	}
 
+	public EnumSet<Operaciones> getOperacionesAutorizadas() {
+		return operacionesAutorizadas;
+	}
+
+	public void setOperacionesAutorizadas(EnumSet<Operaciones> operacionesAutorizadas) {
+		this.operacionesAutorizadas = operacionesAutorizadas;
+	}
+	
 }// fin de la clase

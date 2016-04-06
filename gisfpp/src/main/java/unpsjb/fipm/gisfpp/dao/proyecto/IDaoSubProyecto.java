@@ -2,7 +2,6 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.springframework.dao.DataAccessException;
 
 import unpsjb.fipm.gisfpp.dao.DaoGenerico;

@@ -11,7 +11,7 @@
 			<n:div class="btn-toolbar pull-right">
 				<a image="recursos/img/icon-addfolderalt.png"
 					class="btn btn-success btn-sm" tooltiptext="Crear nuevo Proyecto"
-					if="${sec:autorizadoCrearProyecto()}"
+					if=""
 					onClick="@command('nuevoProyecto')">
 					Nuevo Proyecto
 				</a>
@@ -69,18 +69,18 @@
 									value="@load(each.fecha_fin) @converter('formatedDate', format='dd/MM/yyyy')" />
 								<toolbarbutton
 									image="recursos/img/icon-preview.png"
-									tooltip="Ver datos del Proyeccto"
-									disabled="${not sec:autorizadoVerProyecto(each.id)}"
+									tooltip="Ver datos del Proyecto"
+									disabled=""
 									onClick="@command('verProyecto', item=each)" />
 								<toolbarbutton
 									image="recursos/img/icon-edit.png"
 									tooltiptext="Editar el Proyecto"
-									disabled="${not sec:autorizadoEditarBajaProyecto(each.id)}"
+									disabled=""
 									onClick="@command('editarProyecto', item=each)" />
 								<toolbarbutton
 									image="recursos/img/icon-trash.png"
 									tooltiptext="Eliminar Proyecto"
-									disabled="${not sec:autorizadoEditarBajaProyecto(each.id)}"
+									disabled=""
 									onClick="@command('eliminarProyecto', item = each)" />
 							</row>
 						</template>

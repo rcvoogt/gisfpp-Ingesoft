@@ -1,26 +1,29 @@
 <zk>
 <window id="dlgRevSolNuevaIsfpp" title="Tarea: Revisar Solicitud Nueva Isfpp" border="normal" 	
-	width="35%" height="52%" apply="org.zkoss.bind.BindComposer" closable="true" sizable="true"
+	width="26%" height="19%" apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgRevSolNuevaIsfpp')">
-	<vbox spacing="5px">
-			<div style="overflow:auto;" height="25%">
-				<label value="@load(vm.tarea.descripcion)" multiline="true" maxlength="50"/>
-			</div>
-			<label style="font-style: italic; font-weight: bold;" multiline="true" maxlength="50">
-				Desea "Continuar" con el tratamiento de esta nueva Isfpp? Si "Rechaza" continuar con su tratamiento, por favor	indique el motivo del rechazo.
-			</label>
-			<div>
-				<label value="Motivo de Rechazo:" class="form-label" width="45%"/>
-				<textbox class="form-control" width="95%" maxlength="1000" cols="40" rows="5"
-					id="txtMotivoRechazo" multiline="true"/>
-			</div>
+	<vbox spacing="8px">
+		<hbox spacing="8px">
+			<div class="z-messagebox-icon z-messagebox-question z-div"></div>
+			<label style="font-style: italic; font-weight: bold;">Desea "Continuar" con el tratamiento de esta nueva Isfpp?</label>
+		</hbox>
+		<separator bar="true"/>	
 		<hbox hflex="true" align="center" pack="center" spacing="8px">
 			<a class="btn btn-success btn-sm" 
 				onClick="@command('completar', continuar=true, motivo =' ')">Continuar</a>
 			<a class="btn btn-danger btn-sm" 
-				onClick="@command('completar', continuar=false, motivo = txtMotivoRechazo.value)">Rechazar</a>
+				popup="ppRechazo, position=after_start">Rechazar</a>
 			<a class="btn btn-warning btn-sm" onClick="@command('cancelar')">Cancelar</a>
 		</hbox>
 	</vbox>
+	<popup id="ppRechazo" width="370px">
+		<vbox>
+			<label value="Motivo del rechazo:" style="font-weight: bold;"/>
+			<textbox maxlength="1000" cols="45" rows="5" style="resize: none;"
+						id="txtMotivoRechazo" multiline="true"/>
+			<toolbarbutton label="Aceptar" 
+				onClick="@command('completar', continuar=false, motivo=txtMotivoRechazo.value)"/>			
+		</vbox>
+	</popup>
 </window>
 </zk>

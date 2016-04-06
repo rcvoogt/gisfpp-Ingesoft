@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<administradores-gisfpp>
+	<usuario nombre="Administrador 1" nombre_usuario="admin1" 
+		password="gisfpp" mail="jldevia81@gmail.com"/>
+	<usuario nombre="Administrador 2" nombre_usuario="admin2"
+		password="chelo" mail="jldevia81@gmail.com"/>	
+</administradores-gisfpp>
