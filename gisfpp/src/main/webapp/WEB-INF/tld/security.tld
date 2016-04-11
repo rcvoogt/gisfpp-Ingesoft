@@ -24,4 +24,30 @@
 			Devuelve una lista con los roles que posee el usuario actualmente conectado.
 		</description>
 	</function>
+	<function>
+		<name>getPermisos</name>
+		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
+		<function-signature><![CDATA[Set<Operaciones> getPermisos()]]></function-signature>
+		<description>
+			Devuelve una lista con los permisos que posee el usuario (actualmente conectado) sobre la aplicación.
+		</description>
+	</function>
+	<function>
+		<name>isAutorizado</name>
+		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
+		<function-signature>boolean isAutorizado(String)</function-signature>
+		<description>
+			Devuelve verdadero o falso dependiendo de si el usurio conectado posee el permiso correspondiente (según su rol) para
+	 		ejecutar la operación proporcionada como parámetro.
+		</description>
+	</function>
+	<function>
+		<name>isAutorizado2</name>
+		<function-class>unpsjb.fipm.gisfpp.util.security.UtilSecurity</function-class>
+		<function-signature>boolean isAutorizado2(String, String, Integer)</function-signature>
+		<description>
+			Devuelve "verdadero" o "falso" dependiendo de si el usuario conectado posee o no el permiso correspondiente para 
+	 		ejecutar la operación(parámetro) sobre la entidad(parámetro) con id(parámetro).
+		</description>
+	</function>
 </taglib>

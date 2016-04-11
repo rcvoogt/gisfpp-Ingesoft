@@ -15,5 +15,13 @@ public interface IDaoSubProyecto extends DaoGenerico<SubProyecto, Integer> {
 	public List<SubProyecto> listadoOfertasActividades()  throws DataAccessException;
 	
 	public Proyecto getPerteneceA(SubProyecto instancia) throws DataAccessException;
+	
+	/**
+	 * Devuelve la cantidad de Isfpp's que tiene asociadas este Sub-Proyecto.
+	 * @param idSP (Id del SubProyecto) Integer
+	 * @return cantidad de isfpp (long)
+	 * @throws DataAccessException
+	 */
+	public long cantIsfppAsociadas(Integer idSP) throws DataAccessException;
 
 }

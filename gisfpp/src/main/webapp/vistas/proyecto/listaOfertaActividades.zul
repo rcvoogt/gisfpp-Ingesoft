@@ -34,9 +34,9 @@
 						<label value="@load(each.perteneceA.codigo)"/>
 						<label value="@load(each.perteneceA.titulo)"/>
 						<toolbarbutton image="recursos/img/icon-preview.png" onClick="@command('tratarSP', item = each, modo='VER')"
-							tooltiptext="Ver detalle del Sub-Proyecto"/>
+							tooltiptext="Ver detalle del Sub-Proyecto" disabled="${not sec:isAutorizado('CONSULTAR_SUBPROYECTO') }"/>
 						<toolbarbutton image="recursos/img/icon-edit.png" onClick="@command('tratarSP', item = each, modo='EDICION')"
-							tooltiptext="Editar Sub-Proyecto"/>
+							tooltiptext="Editar Sub-Proyecto" disabled="${not(sec:isAutorizado2('MODIFICAR_PROYECTO', 'Proyecto', each.perteneceA.id))}"/>
 					</row>
 				</template>
 			</grid>

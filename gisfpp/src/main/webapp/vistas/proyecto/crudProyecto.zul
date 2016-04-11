@@ -16,24 +16,24 @@
 					visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
 			<toolbar>
-				<toolbarbutton image="recursos/img/icon-plus-sign.png"
+				<toolbarbutton id="btnNuevo" image="recursos/img/icon-plus-sign.png"
 					label=" Nuevo" disabled="@load(vm.creando)"
-					visible="@load(vm.modo eq 'NUEVO')"
+					visible="@load(sec:isAutorizado('CREAR_PROYECTO'))"
 					onClick="@command('nuevoProyecto')" class="btn btn-success btn-xs" />
-				<toolbarbutton image="recursos/img/icon-edit.png"
-					label=" Editar" disabled="@load(vm.editando)" if=""
-					visible="@load((vm.modo eq 'EDICION') or (vm.modo eq 'VER'))"
-					onClick="@command('editar')" class="btn btn-success btn-xs" />
-				<space bar="true" spacing="10px" />
+				<toolbarbutton id="btnEditar" image="recursos/img/icon-edit.png"
+					label=" Editar" disabled="@load(vm.editando)"
+					visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'Proyecto', vm.item.id) or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					onClick="@command('editar')" class="btn btn-success btn-xs"/>
+				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
 				<toolbarbutton image="recursos/img/icon-save.png"
-					label=" Guardar"
+					label=" Guardar" visible="@load(btnNuevo.visible or btnEditar.visible)"
 					disabled="@load((not vm.creando) and (not vm.editando))"
 					onClick="@command('guardar')" class="btn btn-success btn-xs" />
-				<toolbarbutton class="btn btn-success btn-xs"
+				<toolbarbutton class="btn btn-success btn-xs" visible="@load(btnNuevo.visible or btnEditar.visible)"
 					image="recursos/img/icon-remove-sign.png"
 					disabled="@load((not vm.creando) and (not vm.editando))"
 					onClick="@command('cancelar')" label=" Cancelar" />
-				<space bar="true" spacing="10px" />
+				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
 				<toolbarbutton label=" Volver" disabled="@load(vm.creando or vm.editando)"
 					class="btn btn-success btn-xs"
 					image="recursos/img/icon-arrow-left.png"
@@ -121,12 +121,12 @@
 								</div>
 							</row>
 							<row height="15px"/>
-							<row>
+							<row spans="2">
 								<div>
 									<label value="Detalle" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.detalle)" width="95%" class="form-control"
-										maxlength="2000" cols="50" rows="6" 
-											readonly="@load((not vm.creando) and (not vm.editando))" />
+									<ckeditor width="100%" value="@bind(vm.item.detalle)"
+											customConfigurationsPath="/recursos/js/ckeditor-config.js">
+									</ckeditor>
 								</div>
 							</row>
 						</rows>

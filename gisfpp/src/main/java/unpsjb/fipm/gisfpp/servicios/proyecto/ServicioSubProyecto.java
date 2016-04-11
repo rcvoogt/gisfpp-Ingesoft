@@ -36,7 +36,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(SubProyecto instancia) throws Exception {
-		if (instancia.getInstanciasIsfpp()==null || instancia.getInstanciasIsfpp().isEmpty()) {
+		if (dao.cantIsfppAsociadas(instancia.getId()) == 0) {
 			dao.eliminar(instancia);
 		} else {
 			throw new GisfppException("No se puede eliminar el Sub-Proyecto, "

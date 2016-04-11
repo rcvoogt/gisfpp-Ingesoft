@@ -1,10 +1,13 @@
 package unpsjb.fipm.gisfpp.util.security;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import unpsjb.fipm.gisfpp.entidades.Operaciones;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
@@ -81,6 +84,68 @@ public class UtilSecurity {
 	public static List<RolUsuario> getRoles(){
 		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return detalle.getRoles();
+	}
+	
+	/**
+	 * Devuelve una lista con los permisos que posee el usuario (actualmente conectado) sobre la aplicación.
+	 * @return conjunto de operaciones (Set)
+	 */
+	public static Set<Operaciones> getPermisos() {
+		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return detalle.getOperacionesAutorizadas();
+	}
+	
+	/**
+	 * Devuelve "verdadero" o "falso" dependiendo de si el usurio conectado posee el permiso correspondiente (según su rol) para
+	 * ejecutar la operación proporcionada como parámetro.
+	 * @param operacion a verificar
+	 * @return Verdadero o Falso.
+	 * @throws Exception
+	 */
+	public static boolean isAutorizado(String operacion) throws Exception{
+		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		EnumSet<Operaciones> autorizaciones = detalle.getOperacionesAutorizadas();
+		
+		return autorizaciones.contains(Operaciones.valueOf(operacion));
+	}
+	
+	/**
+	 * Devuelve "verdadero" o "falso" dependiendo de si el usuario conectado posee o no el permiso correspondiente para 
+	 * ejecutar la operación(parámetro) sobre la entidad(parámetro) con id(parámetro).
+	 * @param operacion (String)
+	 * @param entidad (String)
+	 * @param id (Integer)
+	 * @return True o False
+	 * @throws Exception
+	 */
+	public static boolean isAutorizado2(String operacion, String entidad, Integer id) throws Exception{
+		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<RolUsuario> roles = detalle.getRoles();
+		EnumSet<Operaciones> autorizaciones = detalle.getOperacionesAutorizadas();
+				
+		if (!autorizaciones.contains(Operaciones.valueOf(operacion))) {
+			return false;
+		}
+		
+		switch (entidad) {
+		case "Proyecto":{
+			for (RolUsuario rol : roles) {
+				if(rol.getTabla().equals("proyecto") && rol.getIdTabla()==id){
+					return true;
+				}
+			}
+			break;
+		}
+		case "Isfpp":{
+			for (RolUsuario rol : roles) {
+				if (rol.getTabla().equals("isfpp") && rol.getIdTabla() == id) {
+					return true;
+				}
+			}
+			break;
+		}
+		}
+		return false;
 	}
 	
 }//fin de la clase

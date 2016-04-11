@@ -1,13 +1,15 @@
 <zk>
 	<window id="dlgPerfilUsuario" title="Resumen Perfil de Usuario" border="normal"
-		closable="true" width="700px" height="350px">
+		closable="true" width="45%" height="65%">
 		<vbox spacing="8px" hflex="true" vflex="true">
 			<label class="form-label">
 				Usuario: ${sec:getUsuarioConectado().getPersona().getNombre()}
 			</label>
-			<grid mold="paging" autopaging="true" vflex="true"
-				style="border: 2px solid #80ccff; border-radius: 5px;"
-				emptyMessage="No posee ningun rol asigando.">
+			<groupbox vflex="true">
+				<caption label="Roles"/> 
+				<grid vflex="true"
+					style="border: 2px solid #80ccff; border-radius: 5px;"
+						emptyMessage="No posee ningun rol asigando.">
 				<columns sizable="true">
 					<column label="Rol" width="30%" />
 					<column label="En" width="50%" />
@@ -20,7 +22,25 @@
 						<label value="${each.tabla}" />
 					</row>
 				</rows>
-			</grid>
+			</grid>	
+			</groupbox>
+			<groupbox vflex="true">
+				<caption label="Permisos"/>
+				<grid  vflex="true"
+					style="border: 2px solid #80ccff; border-radius: 5px;"
+						emptyMessage="No posee ningún permiso.">
+					<columns sizable="true">
+						<column label="Nombre" width="40%"/>
+						<column label="Descripción" width="60%"/>
+					</columns>
+					<rows>
+						<row forEach="${sec:getPermisos()}">
+							<label value="${each.name() }"/>
+							<label value="${each.titulo }"/>
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
 		</vbox>
 	</window>
 </zk>

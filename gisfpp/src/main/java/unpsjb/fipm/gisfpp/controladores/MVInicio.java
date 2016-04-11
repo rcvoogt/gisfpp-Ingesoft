@@ -49,6 +49,11 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/workflow/bandejaWorkflow.zul");
 	}
 	
+	@Command("verPnlMantMotorBPM")
+	public void verPnlMantMotorBpm() {
+		UtilGuiGisfpp.loadPnlCentral("vistas/workflow/pnlMantMotorBpm.zul");
+	}
+	
 	@Command("verDlgPerfilUsuario")
 	public void verDlgPerfilUsuario(){
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgPerfilUsuario.zul", null, null);

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -32,6 +33,7 @@ public class MVListarProyectos {
 	private ServiciosProyecto servicio;
 	private Logger log = UtilGisfpp.getLogger();
 	private String titulo;
+	private MVListarProyectos autoRef;//autoreferencia utilizada en metodo eliminarProyecto
 
 	@Init
 	@NotifyChange({"titulo","listaProyectos"})
@@ -40,6 +42,7 @@ public class MVListarProyectos {
 			servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
 			recuperarTodo();
 			titulo = "Listado de Proyectos";
+			autoRef= this;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -92,7 +95,6 @@ public class MVListarProyectos {
 	}
 
 	@Command("eliminarProyecto")
-	@NotifyChange("listaProyectos")
 	public void eliminarProyecto(@BindingParam("item") Proyecto item) throws Exception {
 		Messagebox.show("Desea realmente eliminar este Proyecto?", "Gisfpp: Eliminando Proyecto",
 					Messagebox.YES + Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
@@ -100,11 +102,11 @@ public class MVListarProyectos {
 						public void onEvent(Event event) throws Exception {
 							if (event.getName().equals(Messagebox.ON_YES)) {
 								try {
-									int index = listaProyectos.indexOf(item);
 									servicio.eliminar(item);
 									Clients.showNotification("Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO,
 											null, "top_right", 3500);
-									listaProyectos.remove(index);
+									listaProyectos.remove(item);
+									BindUtils.postNotifyChange(null, null, autoRef, "listaProyectos");
 								} catch (GisfppException exc) {
 									Messagebox.show(exc.getMessage(), "Gisfpp: Eliminando Proyecto", Messagebox.OK,
 											Messagebox.ERROR);

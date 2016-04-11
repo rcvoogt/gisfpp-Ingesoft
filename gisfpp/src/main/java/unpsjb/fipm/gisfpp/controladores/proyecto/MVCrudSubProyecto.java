@@ -1,10 +1,12 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.HashMap;
+
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -21,6 +23,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
+
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -43,6 +46,7 @@ public class MVCrudSubProyecto {
 	private String modo;
 	private String titulo;
 	private HashMap<String, Object> map;
+	
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -169,8 +173,6 @@ public class MVCrudSubProyecto {
 	public void nuevaIsfpp() {
 		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
 		tabIsfppCreado=true;
-		//Window dlg = (Window) Executions.createComponents("vistas/proyecto/crudIsfpp2.zul", null, null);
-		//dlg.doHighlighted();
 	}
 
 	@Command("editarIsfpp")
@@ -188,7 +190,6 @@ public class MVCrudSubProyecto {
 	}
 	
 	@Command("eliminarIsfpp")
-	@NotifyChange({"item"})
 	public void eliminarIsfpp(@BindingParam("item") Isfpp arg1) throws Exception{
 		Messagebox.show("Desea realmente eliminar esta Isfpp?", "Gisfpp: Eliminando Isfpp", 
 				Messagebox.YES+Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
@@ -198,9 +199,10 @@ public class MVCrudSubProyecto {
 							try {
 								IServiciosIsfpp servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 								servicio.eliminar(arg1);
-								item.getInstanciasIsfpp().remove(arg1);
 								Clients.showNotification("Isfpp eliminada.", Clients.NOTIFICATION_TYPE_INFO, null, 
 										"top_right", 3500);
+								item.getInstanciasIsfpp().remove(arg1);
+								BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
 							}
 							catch (GisfppException excpt){
 								Messagebox.show(excpt.getMessage(), "Gisfpp: Eliminando Isfpp", 
@@ -253,6 +255,10 @@ public class MVCrudSubProyecto {
 	@Command("salir")
 	public void salir (){
 		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlCrudSP");
+	}
+	
+	public MVCrudSubProyecto getAutoReferencia(){
+		return this;
 	}
 
 }// fin de la clase

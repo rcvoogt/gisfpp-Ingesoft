@@ -78,12 +78,12 @@
 						</div>
 					</row>
 					<row height="15px" />
-					<row>
+					<row spans="2">
 						<div>
 							<label value="Detalle" sclass="form-label" width="45%"/>
-						<textbox value="@bind(vm.item.detalle)" class="form-control"
-							cols="60" rows="6" maxlength="2000"
-								width="95%" readonly="@load((not vm.creando) and (not vm.editando))"/>
+							<ckeditor width="100%" value="@bind(vm.item.detalle)"
+								customConfigurationsPath="/recursos/js/ckeditor-config.js">
+							</ckeditor>
 						</div>
 					</row>
 				</rows>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -117,6 +118,17 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 			return null;
 		} catch (Exception exc1) {
 			log.error("Clase: "+this.getClass().getName()+"- Metodo: getPerteneceA(subproyecto)", exc1);
+			throw exc1;
+		}
+	}
+
+	@Override
+	public long cantIsfppAsociadas(Integer idSP) throws DataAccessException {
+		String query = "select count(isfpp.id) from Isfpp as isfpp where isfpp.perteneceA.id = ?";
+		try {
+			return (long) getHibernateTemplate().find(query, idSP).get(0);
+		} catch (Exception exc1) {
+			log.error("Clase: "+this.getClass().getName()+"- Metodo: cantIsfppAsociadas(Integer idSP)", exc1);
 			throw exc1;
 		}
 	}

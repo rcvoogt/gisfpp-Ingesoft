@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.impl.BindSelectboxRenderer;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -29,10 +31,13 @@ public class MVDlgPermisos {
 
 	private IServiciosPermisos servPermisos;
 	private List<Permiso> permisos;
+	private MVDlgPermisos refDlgPermisos;//autoreferencia de esta clase utilizada en el método revocar permisos para poder
+	//actualizar la vista.
 	
 	@Init
 	public void init(){
 		servPermisos = (IServiciosPermisos) SpringUtil.getBean("servicioPermisos");
+		refDlgPermisos = this;
 	}
 	
 	public List<Roles> getRoles(){
@@ -51,6 +56,11 @@ public class MVDlgPermisos {
 	
 	@Command("concederPermiso")
 	public void concederPermiso(@BindingParam("rol") Roles arg1){
+		if (arg1==null) {
+			Messagebox.show("Seleccione el rol al cual le quiere conceder el permiso.", "Concediendo permiso"
+					, Messagebox.OK, Messagebox.EXCLAMATION);
+			return;
+		}
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("rol", arg1);
 		parametros.put("permisos", permisos);
@@ -66,7 +76,6 @@ public class MVDlgPermisos {
 		permisos.add(arg1);
 	}
 	
-	@NotifyChange("permisos")
 	@Command("revocarPermiso")
 	public void revocarPermiso(@BindingParam("item") Permiso arg1) throws Exception{
 		if(arg1==null){
@@ -81,11 +90,13 @@ public class MVDlgPermisos {
 					public void onEvent(ClickEvent event) throws Exception {
 						if (Messagebox.ON_YES.equals(event.getName())) {
 							servPermisos.eliminar(arg1);
-							permisos.remove(arg1);
 							Clients.alert("Permiso revocado", "Revocando Permiso", Messagebox.INFORMATION);
+							permisos.remove(arg1);
+							BindUtils.postNotifyChange(null, null, refDlgPermisos, "permisos");
 						}
-						
 					}
 				});
 	}
+	
+		
 }

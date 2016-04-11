@@ -17,7 +17,8 @@
 					</n:li>	
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-								role="button" aria-expanded="false" style="height:68px">
+								role="button" aria-expanded="false" style="height:68px" if="${sec:isAutorizado('CONSULTAR_ENTIDADES_AUX')
+									or sec:isAutorizado('CUD_ENTIDADES_AUX') or sec:isAutorizado('CONCEDER_REVOCAR_PERMISOS')}">
 									Configuración <n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verListaPersonas')">Personas</a></n:li>
@@ -33,6 +34,8 @@
 						</n:a>
 						<n:ul class="dropdown-menu" role="menu">
 							<n:li><a onClick="@command('verBandejaWorkflow')">Bandeja de Actividades</a></n:li>
+							<n:li><a onClick="@command('verPnlMantMotorBPM')"
+								visible="@load(sec:isAutorizado('MANTENIMIENTO_WORKFLOW'))">Mantenimiento Motor Workflow</a></n:li>
 						</n:ul>
 					</n:li>
 				</n:ul>

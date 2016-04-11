@@ -27,7 +27,7 @@
 					tooltiptext="Editar datos" onClick="@command('editarSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png"
 					tooltiptext="Dar de baja" disabled="@load((not vm.creando) and (not vm.editando))"
-					onClick="" />
+					onClick="@command('eliminarSP', item = each)" />
 			</row>
 		</template>
 	</grid>

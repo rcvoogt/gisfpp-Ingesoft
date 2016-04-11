@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -17,15 +18,20 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Messagebox.Button;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -192,6 +198,24 @@ public class MVCrudProyecto {
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
 	}
 	
+	@Command("eliminarSP")
+	public void eliminarSP(@BindingParam ("item") SubProyecto arg1) throws Exception{
+		Messagebox.show("Desea realmente eliminar este Sub-Proyecto?", "Gisfpp: Eliminando Sub-Proyecto", new Button []{Button.YES, Button.NO}
+			, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
+				
+				@Override
+				public void onEvent(ClickEvent event) throws Exception {
+					if (event.getName().equals(Messagebox.ON_YES)) {
+						IServicioSubProyecto servSP = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
+						servSP.eliminar(arg1);
+						Clients.showNotification("Sub-Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right", 3500);
+						item.getSubProyectos().remove(arg1);
+						BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
+					}
+				}
+			});
+	}
+	
 	@Command("lkpDemandante")
 	public void verDlgLkpDemandante(){
 		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgLkpDemandante.zul", null, null);
@@ -244,6 +268,10 @@ public class MVCrudProyecto {
 		item.getStaff().remove(arg1);
 		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
 				"top_right", 4000);
+	}
+	
+	private MVCrudProyecto getAutoReferencia(){
+		return this;
 	}
 
 }//fin de la clase
