@@ -2,6 +2,10 @@ package unpsjb.fipm.gisfpp.entidades;
 
 public enum Operaciones {
 	
+	/**
+	 * Listado de operaciones disponibles de la app. De ser necesario agregar mas operaciones, las mismas deben ser agregadas
+	 * al final del listado, ya que en la BD estas son referenciadas por su posición en este listado (Enum)
+	 */
 	CREAR_PROYECTO("Crear Proyecto"), 
 	MODIFICAR_PROYECTO("Modificar Proyecto y sus derivaciones (Sub-Proyectos e Isfpp's)"),
 	MODIFICAR_PROYECTOS("Modificar cualquier Proyecto y sus derivaciones (Sub-Proyectos e Isfpp's)"),
