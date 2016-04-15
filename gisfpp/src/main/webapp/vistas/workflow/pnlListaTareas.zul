@@ -8,6 +8,7 @@
 				<listitem>
 					<listcell
 						onClick="@command('actualizarItemTarea', item = each)">
+						<image src="${c:cat3('recursos/img/bullet_', util:getStatusVencimiento(each),'.png')}"/>
 						<span class="glyphicon glyphicon-triangle-right"/>
 						<label value="@load(c:cat3(each.nombre, ': ', each.id ))" />
 					</listcell>

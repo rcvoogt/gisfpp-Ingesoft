@@ -8,17 +8,13 @@
       </extensionElements>
     </startEvent>
     <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:candidateUsers="${usuariosResponsablesProyecto}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul" activiti:priority="25">
-      <documentation>El usuario "${nombreSolicitante}" ha generado una
-				nueva Isfpp con titulo "${tituloIsfpp}" perteneciente a
-				"${perteneceA}".</documentation>
+      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}" perteneciente  "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
-      <documentation>Reunión con "${nombreSolicitante}" para acordar
-				condiciones sobre la nueva Isfpp "${tituloIsfpp}" perteneciente a
-				"${perteneceA}".</documentation>
+      <documentation>Reunión con "${nombreSolicitante}" para acordar	condiciones sobre la nueva Isfpp "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='true'}]]></conditionExpression>

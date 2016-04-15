@@ -21,4 +21,11 @@
 		<description>
 		</description>
 	</function>
+	<function>
+		<name>getStatusVencimiento</name>
+		<function-class>unpsjb.fipm.gisfpp.util.UtilGisfpp</function-class>
+		<function-signature>String getStatusVencimiento(unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea)</function-signature>
+		<description>
+		</description>
+	</function>
 </taglib>

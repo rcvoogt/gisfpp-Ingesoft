@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.zkoss.spring.SpringUtil;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 
 /**
@@ -20,6 +22,9 @@ public class UtilGisfpp {
 	public static final String MOD_NUEVO = "NUEVO";
 	public static final String MOD_EDICION = "EDICION";
 	public static final String MOD_VER = "VER";
+	public static final long MILISEGUNDOSXDIA = 86400000;
+	public static final int MILISEGUNDOSXHORA = 3600000;
+	public static final int MILISEGUNDOSXMINUTO=60000;
 	private static Logger logger;
 
 	public static String getMensajeValidations(ConstraintViolationException cve) {
@@ -49,13 +54,13 @@ public class UtilGisfpp {
 		int restoDias, restoHoras;
 		
 		if(periodo!=null){
-			dias = (int) (periodo/86400000);
-			restoDias = (int) (periodo%86400000);
+			dias = (int) (periodo/MILISEGUNDOSXDIA);
+			restoDias = (int) (periodo%MILISEGUNDOSXDIA);
 			
-			horas = restoDias/3600000;
-			restoHoras = restoDias%3600000;
+			horas = restoDias/MILISEGUNDOSXHORA;
+			restoHoras = restoDias%MILISEGUNDOSXHORA;
 			
-			minutos = restoHoras/60000;
+			minutos = restoHoras/MILISEGUNDOSXMINUTO;
 			
 			return (dias + " días, " + horas + " horas, " + minutos+" minutos.");
 		}
@@ -101,6 +106,24 @@ public class UtilGisfpp {
 			return isfpp.getTitulo();
 		}
 		return "";
+	}
+	
+	public static String getStatusVencimiento(InfoTarea tarea){
+		
+		if(tarea.getEstado() == EstadosTarea.REALIZADA){
+			return "gris";
+		}
+		int diasRestaVencimiento = (int) ((tarea.getFecha_vencimiento().getTime() - System.currentTimeMillis())/MILISEGUNDOSXDIA);
+		int diasVencimientoTarea = (int) ((tarea.getFecha_vencimiento().getTime() - tarea.getFecha_inicio().getTime())/MILISEGUNDOSXDIA);
+		
+		if(diasRestaVencimiento <= Math.round(diasVencimientoTarea * 0.1)){
+			return "rojo";
+		}
+		if(diasRestaVencimiento <= Math.round(diasVencimientoTarea * 0.3)){
+			return "amarillo";
+		}else{
+			return "verde";
+		}
 	}
 	
 }// fin de la clase

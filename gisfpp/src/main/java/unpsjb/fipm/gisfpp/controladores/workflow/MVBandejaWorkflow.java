@@ -139,7 +139,7 @@ public class MVBandejaWorkflow {
 	public boolean isVistaProcesos() {
 		return vistaProcesos;
 	}
-
+	
 	@NotifyChange({"vistaTareas", "vistaProcesos", "tareas", "procesos", "tituloPnlLista", "tareaSeleccionada", "procesoSeleccionado"})
 	@Command("establecerVista")
 	public void establecerVista(@BindingParam ("opcion") int arg1){
