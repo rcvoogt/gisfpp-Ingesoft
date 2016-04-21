@@ -284,7 +284,7 @@ public class MVBandejaWorkflow {
 		InfoTarea item = getTareaSeleccionada();
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("tarea", item);
-		Window dlg = (Window) Executions.createComponents("vistas/workflow/"+item.getIdFormulario(), null, parametros);
+		Window dlg = (Window) Executions.createComponents("vistas/workflow/tareas/"+item.getIdFormulario(), null, parametros);
 		dlg.doModal();
 	}
 	

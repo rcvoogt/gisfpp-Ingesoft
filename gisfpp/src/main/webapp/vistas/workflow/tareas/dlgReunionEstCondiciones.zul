@@ -1,7 +1,7 @@
 <zk>
 <window id="dlgReunionEstCondiciones" title="Tarea: Reunión para establecer condiciones de la nueva Isfpp." border="normal"
 	closable="true" width="26%" height="20%" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgReuEstCondiciones')">
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.VMDlgReuEstCondiciones')">
 	<vbox spacing="8px">
 		<hbox spacing="8px">
 			<div class="z-messagebox-icon z-messagebox-question z-div"></div>

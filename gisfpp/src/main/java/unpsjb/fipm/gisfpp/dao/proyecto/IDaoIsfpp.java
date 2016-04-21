@@ -3,6 +3,8 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.dao.DaoGenerico;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 
@@ -25,4 +27,13 @@ public interface IDaoIsfpp extends DaoGenerico<Isfpp, Integer> {
 	 * @throws Exception
 	 */
 	public SubProyecto getPerteneceA(Isfpp isfpp) throws Exception;
+	
+	public List<PersonaFisica> getPracticantes(Integer IdIsfpp) throws Exception;
+	
+	public int getCantidadPracticantes (Integer idIsfpp) throws Exception;
+	
+	public void actualizarEstado (Integer idIsfpp, EEstadosIsfpp estado) throws Exception;
+	
+	public void refrescarInstancia(Isfpp instancia) throws Exception;
+	
 }

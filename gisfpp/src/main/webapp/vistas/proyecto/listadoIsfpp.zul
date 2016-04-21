@@ -24,12 +24,11 @@
 				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
 				<toolbarbutton image="recursos/img/icon-preview.png" disabled="@load(vm.tabIsfppCreado)"
-					tooltip="Ver detalle" onClick="@command('verIsfpp', idItem=each.id)"/>
+					tooltiptext="Ver detalle" onClick="@command('verIsfpp', idItem=each.id)"/>
 				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load(vm.tabIsfppCreado)"
 					tooltiptext="Editar datos" onClick="@command('editarIsfpp', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png" disabled="@load(vm.tabIsfppCreado)"
-					tooltiptext="Eliminar la Isfpp"
-					onClick="@command('eliminarIsfpp',item =each)"/>				
+					tooltiptext="Eliminar la Isfpp" 	onClick="@command('eliminarIsfpp',item =each)"/>				
 			</row>
 		</template>
 	</grid>

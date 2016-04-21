@@ -1,0 +1,34 @@
+<zk>
+	<window id="dlgConfeccionarAcuerdoConvenios" title="Tarea: Confeccionar Acuerdo Marco y Convenios Particulares" border="normal" sizable="true"
+		width="28%" height="20%" closable="true" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.MVDlgConfeccionarAcuerdoConvenios')">
+		<vbox hflex="true" vflex="true">
+			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"
+				value="@load(vm.tarea.descripcion)"/>
+			<separator bar="true"/>
+			<groupbox vflex="1" hflex="1">
+				<caption label="Practicantes"/>
+				<listbox hflex="true" vflex="true" model="@load(vm.practicantes)">
+				<listhead>
+					<listheader value="Nombre y Apellido" width="40%"/>
+					<listheader value="DNI" width="30%"/>
+					<listheader value="E-Mail" width="30%"/>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="@load(each.nombre)"/>
+						<listcell label="@load(each.dni)"/>
+						<listcell label="@load(each.email)"/>
+					</listitem>						
+				</template>
+			</listbox>		
+			</groupbox>
+			<separator bar="true"/>
+			<hbox  hflex="true" align="center" pack="center" spacing="8px">
+				<a class="btn btn-success btn-sm" 
+					onClick="@command('completarTarea')">Listo</a>
+				<a class="btn btn-warning btn-sm" onClick="@command('cancelar')">Cancelar</a>	
+			</hbox>
+		</vbox>
+	</window>
+</zk>

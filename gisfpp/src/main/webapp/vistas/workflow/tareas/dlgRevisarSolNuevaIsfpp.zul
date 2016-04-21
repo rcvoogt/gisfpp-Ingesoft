@@ -1,7 +1,7 @@
 <zk>
 <window id="dlgRevSolNuevaIsfpp" title="Tarea: Revisar Solicitud Nueva Isfpp" border="normal" 	
 	width="26%" height="19%" apply="org.zkoss.bind.BindComposer" closable="true"
-		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.VMDlgRevSolNuevaIsfpp')">
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.VMDlgRevSolNuevaIsfpp')">
 	<vbox spacing="8px">
 		<hbox spacing="8px">
 			<div class="z-messagebox-icon z-messagebox-question z-div"></div>

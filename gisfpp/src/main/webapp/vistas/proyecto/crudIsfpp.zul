@@ -46,13 +46,25 @@
 						</div>
 						<div>
 							<label value="Estado" sclass="form-label" width="45%"/>
-							<combobox model="@load(vm.estados)"
-								selectedItem="@bind(vm.item.estado)" width="45%"
-									disabled="@load((not vm.creando) and (not vm.editando) or (vm.modo eq 'NUEVO'))">
-								<template name="model">
-									<comboitem label="@load(each.titulo)"/>
-								</template>
-							</combobox>	
+							<textbox value="@load(vm.item.estado.titulo)" readonly="true" width="85%	"/>
+							<toolbarbutton image="recursos/img/estados.png" tooltiptext="Editar Estado"
+								popup="ppBotoneraEstados"/>
+							<popup id="ppBotoneraEstados"> 
+								<hbox spacing="4px">
+									<toolbarbutton image="recursos/img/play.png" tooltiptext="Reactivar la Isfpp"
+										disabled="@load(vm.item.estado.titulo ne 'Suspendida')"
+											onClick="@command('activarIsfpp')"/>
+									<toolbarbutton image="recursos/img/pause.png" tooltiptext="Suspender temporalmente la Isfpp"
+										disabled="@load(vm.item.estado.titulo eq 'Suspendida')"
+											onClick="@command('suspenderIsfpp')"/>
+									<toolbarbutton image="recursos/img/cancelar.png" tooltiptext="Cancelar definitivamente la Isfpp"
+										disabled="@load(vm.item.estado.titulo ne 'Activa')"
+											onClick="@command('cancelarIsfpp')"/>
+									<toolbarbutton image="recursos/img/concluir.png"  tooltiptext="Isfpp concluida"
+										disabled="@load(vm.item.estado.titulo ne 'Activa')"
+											onClick="@command('concluirIsfpp')"/>						
+								</hbox>
+							</popup>		
 						</div>
 					</row>
 					<row height="15px" />

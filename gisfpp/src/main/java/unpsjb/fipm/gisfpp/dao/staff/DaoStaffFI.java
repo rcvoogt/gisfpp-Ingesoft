@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.dao.staff;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,7 +12,9 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -108,6 +111,26 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
+	}
+
+	@Override
+	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception {
+		String query="select staffFi from StaffFi as staffFi where staffFi.rol = ?";
+		List<StaffFI> resultado;
+		try {
+			resultado = (List<StaffFI>) getHibernateTemplate().find(query, rol);
+		} catch (Exception exc1) {
+			log.error("Clase: "+this.getClass().getName() + "- Metodo: List<StaffFI> getMiembroPorRol(ECargosStaffFi rol)", exc1);
+			throw exc1;
+		}
+		if (resultado != null && !resultado.isEmpty()) {
+			for (StaffFI staffFi : resultado) {
+				getHibernateTemplate().initialize(staffFi.getMiembro().getDatosDeContacto());
+				getHibernateTemplate().initialize(staffFi.getMiembro().getIdentificadores());
+			}
+			return resultado;
+		}
+		return new ArrayList<StaffFI>();
 	}
 
 }// fin de la clase

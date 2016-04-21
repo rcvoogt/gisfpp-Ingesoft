@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.controladores.workflow;
+package unpsjb.fipm.gisfpp.controladores.workflow.tareas;
 
 import java.util.HashMap;
 import java.util.Map;

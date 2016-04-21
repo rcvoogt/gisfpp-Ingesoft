@@ -1,10 +1,8 @@
-package unpsjb.fipm.gisfpp.controladores.workflow;
+package unpsjb.fipm.gisfpp.controladores.workflow.tareas;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -15,42 +13,35 @@ import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
-import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
-public class VMDlgReuEstCondiciones {
+public class MVDlgSolicitarFirmaConvenio {
 	
-	private GestorTareas servGTareas;
+	private GestorTareas servTareas;
 	private InfoTarea tarea;
 	
-		
 	@Init
 	@NotifyChange("tarea")
-	public void init(){
+	public void init() throws Exception{
 		@SuppressWarnings("unchecked")
 		Map<String, Object> args = (Map<String, Object>) Executions.getCurrent().getArg();
 		tarea = (InfoTarea) args.get("tarea");
-		servGTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
+		servTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
 	}
 
 	public InfoTarea getTarea() {
 		return tarea;
 	}
 
-	@Command("completar")
-	public void completarTarea(@BindingParam("aprobar") boolean arg1, 
-			@BindingParam("motivo") String motivoRechazo) throws GisfppWorkflowException{
-		Map<String, Object> args = new HashMap<String, Object>();
-		args.put("isfppAprobada", arg1);
-		args.put("motivoRechazo", motivoRechazo);
-		
-		servGTareas.tratarTarea(tarea, args);
+	@Command("completarTarea")
+	public void completarTarea() throws Exception{
+		servTareas.tratarTarea(tarea);
 		
 		//Refrescamos las listas de tareas y procesos en la vista de la bandeja de actividades.
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
-		BindUtils.postGlobalCommand(null, null, "refrescarTareasDelegadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarProcesosActivos", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarProcesosFinalizados", null);
+		
 		cerrar();
 	}
 	
@@ -60,7 +51,8 @@ public class VMDlgReuEstCondiciones {
 	}
 	
 	private void cerrar(){
-		Window dlg = (Window) Path.getComponent("/dlgReunionEstCondiciones");
+		Window dlg = (Window) Path.getComponent("/dlgSolicitarFirmaConvenio");
 		dlg.detach();
 	}
+
 }

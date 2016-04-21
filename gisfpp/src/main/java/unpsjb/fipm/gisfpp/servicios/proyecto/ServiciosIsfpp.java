@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
@@ -72,6 +74,78 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		return dao.getPerteneceA(instancia);
 	}
 	
+	@Override
+	public List<PersonaFisica> getPracticantes(Integer idIsfpp)
+			throws Exception {
+		return dao.getPracticantes(idIsfpp);
+	}
+
+	@Override
+	public int getCantidadPracticantes(Integer idIsfpp) throws Exception {
+		return dao.getCantidadPracticantes(idIsfpp);
+	}
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void activarIsfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+		
+		if(isfpp.getEstado()!= EEstadosIsfpp.GENERADA && isfpp.getEstado()!= EEstadosIsfpp.SUSPENDIDA){
+			throw new GisfppException("Solo se puede Activar una Isfpp si se encuentra en estado \"Generada\" o \"Suspendida\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
+	}
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void rechazarIsfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+		
+		if(isfpp.getEstado()!= EEstadosIsfpp.GENERADA){
+			throw new GisfppException("Solo se puede Rechazar una Isfpp si se encuentra en estado \"Generada\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.RECHAZADA);
+		
+	}
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void suspenderIsfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+		
+		if (isfpp.getEstado()!= EEstadosIsfpp.ACTIVA) {
+			throw new GisfppException("Solo se puede Suspender una Isfpp si se encuentra en estado \"Activa\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.SUSPENDIDA);
+	}
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void cancelarIsfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+		
+		if (isfpp.getEstado() != EEstadosIsfpp.ACTIVA) {
+			throw new GisfppException("Solo se puede Cancelar una Isfpp si se encuentra en estado \"Activa\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.CANCELADA);
+	}
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void concluirIsfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+		
+		if (isfpp.getEstado() != EEstadosIsfpp.ACTIVA) {
+			throw new GisfppException("Solo se puede Concluir una Isfpp si se encuentra en estado \"Activa\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.CONCLUIDA);
+	}
+	
+	@Override
+	public void refrescarInstancia(Isfpp instancia) throws Exception {
+		dao.refrescarInstancia(instancia);		
+	}
+	
 	@Autowired(required = true)
 	protected void setDao(IDaoIsfpp dao) {
 		this.dao = dao;
@@ -81,5 +155,5 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	public void setServGWkFl(GestorWorkflow servGWkFl) {
 		this.servGWkFl = servGWkFl;
 	}
-	
+
 }// fin de la clase

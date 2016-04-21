@@ -1,0 +1,16 @@
+<zk>
+	<window id="dlgFirmarAcuerdoMarco" title="Tarea: Firmar Acuerdo Marco" border="normal" sizable="true"
+		width="28%" height="20%" closable="true" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas')">
+		<vbox hflex="true" vflex="true">
+			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"
+				value="@load(vm.tarea.descripcion)"/>
+			<separator bar="true"/>
+			<hbox  hflex="true" align="center" pack="center" spacing="8px">
+				<a class="btn btn-success btn-sm" 
+					onClick="@command('completarTarea')">Listo</a>
+				<a class="btn btn-warning btn-sm" onClick="@command('cancelar')">Cancelar</a>	
+			</hbox>
+		</vbox>
+	</window>
+</zk>

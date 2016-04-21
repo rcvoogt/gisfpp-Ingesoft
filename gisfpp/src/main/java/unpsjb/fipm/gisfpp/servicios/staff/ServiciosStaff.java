@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.staff.IDaoStaffFI;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 
 @Service("servStaffFI")
@@ -65,7 +66,10 @@ public class ServiciosStaff implements IServiciosStaffFI {
 	public List<PersonaFisica> getListadoStaffPersonas() throws Exception {
 		return dao.getListadoPersonas();
 	}
-	
-	
+
+	@Override
+	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception {
+		return dao.getMiembroPorRol(rol);
+	}
 
 }// fin de la clase

@@ -171,6 +171,24 @@ public class Isfpp implements Serializable {
 		}
 	}
 
+	public MiembroStaffIsfpp getTutorAcademico(){
+		for (MiembroStaffIsfpp miembro : staff) {
+			if(miembro.getRol() == ERolStaffIsfpp.TUTOR_ACADEMICO){
+				return miembro;
+			}
+		}
+		return null;
+	}
+	
+	public MiembroStaffIsfpp getTutorExterno(){
+		for (MiembroStaffIsfpp miembro : staff) {
+			if (miembro.getRol() == ERolStaffIsfpp.TUTOR_EXTERNO) {
+				return miembro;
+			}
+		}
+		return null;
+	}
+	
 	public void removerMiembroStaff(MiembroStaffIsfpp miembro){
 		if(miembro!=null){
 			staff.remove(miembro);
@@ -185,10 +203,6 @@ public class Isfpp implements Serializable {
 
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
-	}
-	
-	public void setEstado(EEstadosIsfpp estado) {
-		this.estado = estado;
 	}
 	
 	public void setFin(Date fin) {

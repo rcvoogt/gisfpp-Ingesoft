@@ -1,11 +1,11 @@
 <zk>
 	<window id="dlgPerfilUsuario" title="Resumen Perfil de Usuario" border="normal"
-		closable="true" width="45%" height="65%">
+		closable="true" width="45%" height="65%" sizable="true">
 		<vbox spacing="8px" hflex="true" vflex="true">
-			<label class="form-label">
+			<label class="form-label" hflex="1">
 				Usuario: ${sec:getUsuarioConectado().getPersona().getNombre()}
 			</label>
-			<groupbox vflex="true">
+			<groupbox vflex="1" hflex="1">
 				<caption label="Roles"/> 
 				<grid vflex="true"
 					style="border: 2px solid #80ccff; border-radius: 5px;"
@@ -24,7 +24,7 @@
 				</rows>
 			</grid>	
 			</groupbox>
-			<groupbox vflex="true">
+			<groupbox vflex="1" hflex="1">
 				<caption label="Permisos"/>
 				<grid  vflex="true"
 					style="border: 2px solid #80ccff; border-radius: 5px;"

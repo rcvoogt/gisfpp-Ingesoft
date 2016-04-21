@@ -196,6 +196,13 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
+	
+	<resource-ref>
+		<description>Conexion a BD Motor BPM Activiti</description>
+		<res-ref-name>jdbc/gisfpp_activiti</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 
 	<welcome-file-list>
 		<welcome-file>inicio.zul</welcome-file>

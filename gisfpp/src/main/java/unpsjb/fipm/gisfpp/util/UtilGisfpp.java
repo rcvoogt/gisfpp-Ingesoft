@@ -113,10 +113,13 @@ public class UtilGisfpp {
 		if(tarea.getEstado() == EstadosTarea.REALIZADA){
 			return "gris";
 		}
+		if(tarea.getFecha_vencimiento()==null){
+			return "verde";
+		}
 		int diasRestaVencimiento = (int) ((tarea.getFecha_vencimiento().getTime() - System.currentTimeMillis())/MILISEGUNDOSXDIA);
 		int diasVencimientoTarea = (int) ((tarea.getFecha_vencimiento().getTime() - tarea.getFecha_inicio().getTime())/MILISEGUNDOSXDIA);
 		
-		if(diasRestaVencimiento <= Math.round(diasVencimientoTarea * 0.1)){
+		if( (diasRestaVencimiento < 0) || (diasRestaVencimiento <= Math.round(diasVencimientoTarea * 0.1))){
 			return "rojo";
 		}
 		if(diasRestaVencimiento <= Math.round(diasVencimientoTarea * 0.3)){

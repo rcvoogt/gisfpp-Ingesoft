@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Isfpp">
   <collaboration id="Collaboration">
-    <participant id="poolFI" name="UNPSJB FIPM" processRef="process_pool1"></participant>
+    <participant id="poolFI" name="UNPSJB FIPM" processRef="prcConvocatoriaYConvenios"></participant>
   </collaboration>
-  <process id="process_pool1" name="process_pool1" isExecutable="true">
-    <laneSet id="laneSet_process_pool1">
+  <process id="prcConvocatoriaYConvenios" name="Convocatoria, confección y firma de acuerdo y convenios" isExecutable="true">
+    <documentation>Proceso de gestión de la convocatoria de alumnos potenciales practicantes de la Isfpp, confección y firma del acuerdo marco (si corresponde) y confección y firma de los convenios particulares para cada Practicante.</documentation>
+    <laneSet id="laneSet_prcConvocatoriaYConvenios">
       <lane id="lnTutorAcademico" name="Tutor Académico">
         <flowNodeRef>parallelgateway1</flowNodeRef>
         <flowNodeRef>parallelgateway2</flowNodeRef>
         <flowNodeRef>tkMlAvisoConcovarAlumnos</flowNodeRef>
         <flowNodeRef>evtInicio</flowNodeRef>
-        <flowNodeRef>tkUsr</flowNodeRef>
         <flowNodeRef>parallelgateway3</flowNodeRef>
         <flowNodeRef>tkMlAvisoRegistrarPracticantes</flowNodeRef>
         <flowNodeRef>tkUsrConvocarPosiblesPracticantes</flowNodeRef>
+        <flowNodeRef>tkUsrRegistrarPracticantes</flowNodeRef>
       </lane>
       <lane id="lnCoordinador" name="Coordinador">
         <flowNodeRef>tkMlAvisoConfeccionarConvenios</flowNodeRef>
@@ -23,14 +24,18 @@
       <lane id="lnDelegado" name="Delegado">
         <flowNodeRef>parallelgateway5</flowNodeRef>
         <flowNodeRef>parallelgateway6</flowNodeRef>
-        <flowNodeRef>endevent1</flowNodeRef>
         <flowNodeRef>tkUsrFirmarMarco</flowNodeRef>
         <flowNodeRef>tkUsrSolicitarFirmaConvenio</flowNodeRef>
         <flowNodeRef>tkMlAvisoFirmarConvenio</flowNodeRef>
         <flowNodeRef>tkMlAvisoSolicitarFirmaConvenio</flowNodeRef>
+        <flowNodeRef>evtFin</flowNodeRef>
       </lane>
     </laneSet>
-    <startEvent id="evtInicio" name="Isfpp Aprobada"></startEvent>
+    <startEvent id="evtInicio" name="Inicio Convocatoria Firma Acuerdo Convenios">
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.InitProceso"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
     <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
     <serviceTask id="tkMlAvisoConcovarAlumnos" name="Aviso Nueva Tarea: Convocar Alumnos" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
       <documentation>Tarea de servicio: Aviso por e-mail.</documentation>
@@ -56,7 +61,7 @@
   </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Id. Isfpp: ${keyBusiness}</li>
+    <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
@@ -74,17 +79,24 @@
 Tarea: "Convocar a posibles Practicantes para la Isfpp".
 
 Datos de la Isfpp:
-- Id. Isfpp: ${keyBusiness}
+- Id. Isfpp: ${execution.getProcessBusinessKey()}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tkUsrConvocarPosiblesPracticantes" name="Convocar Posibles Practicantes" activiti:assignee="{usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConvocarPracticantes" activiti:priority="25">
-      <documentation>Realizar la convocatoria de los candidatos a Practicantes de la Isfpp con id: "${keyBusinnes}", título: "${tituloIsfpp}", perteneciente a: "${perteneceA}".</documentation>
+    <userTask id="tkUsrConvocarPosiblesPracticantes" name="Convocar Posibles Practicantes" activiti:assignee="${usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConvocarPracticantes.zul" activiti:priority="25">
+      <documentation>Realizar la convocatoria, por los medios que considere necesarios, de los candidatos a Practicantes para la Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a: "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="evtInicio" targetRef="parallelgateway1"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="tkMlAvisoConcovarAlumnos"></sequenceFlow>
@@ -94,7 +106,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <documentation>Tarea de servicio: Aviso por e-mail.</documentation>
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[{mailTutorAcademico}]]></activiti:string>
+          <activiti:expression><![CDATA[${mailTutorAcademico}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Aviso nueva tarea: Registrar Practicantes. - Gestión Instancias Supervisadas de Formación Práctica Profesional]]></activiti:string>
@@ -114,7 +126,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Id. Isfpp: ${keyBusiness}</li>
+    <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
@@ -133,25 +145,32 @@ Tarea: "Registrar Practicantes en la Isfpp correspondiente".
 
 Datos de la Isfpp:
 
-Id. Isfpp: ${keyBusiness}
+Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
 Pertenece a: ${perteneceA}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tkUsr" name="Registrar Practicantes" activiti:assignee="${usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRegistrarPracticantes" activiti:priority="25">
-      <documentation>Proceder con el registro en la Isfpp de los Practicantes seleccionados. Isfpp con id: "${keyBusiness}", titulo: "${tituloIsfpp}" y que pertenece a: "S{perteneceA}".</documentation>
+    <userTask id="tkUsrRegistrarPracticantes" name="Registrar Practicantes" activiti:assignee="${usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRegistrarPracticantes.zul" activiti:priority="25">
+      <documentation>Proceder con el registro en la Isfpp de los Practicantes seleccionados. Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a : "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="tkMlAvisoConcovarAlumnos" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow5" sourceRef="tkUsrConvocarPosiblesPracticantes" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="parallelgateway2" targetRef="tkMlAvisoRegistrarPracticantes"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="parallelgateway2" targetRef="tkUsr"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="parallelgateway2" targetRef="tkUsrRegistrarPracticantes"></sequenceFlow>
     <parallelGateway id="parallelgateway3" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow8" sourceRef="tkMlAvisoRegistrarPracticantes" targetRef="parallelgateway3"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="tkUsr" targetRef="parallelgateway3"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="tkUsrRegistrarPracticantes" targetRef="parallelgateway3"></sequenceFlow>
     <serviceTask id="tkMlAvisoConfeccionarConvenios" name="Aviso Nueva Tarea: Confeccionar Acuerdos y Convenios" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
       <documentation>Tarea de servicio: Aviso por e-mail.</documentation>
       <extensionElements>
@@ -176,7 +195,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Id. Isfpp: ${keyBusiness}</li>
+    <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
@@ -187,30 +206,39 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <br/>
   <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
 </body>
-</html>
-]]></activiti:expression>
+</html>]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression><![CDATA[Tiene una tarea pendiente. Revise su bandeja de tareas por favor.
 Tarea: "Registrar Practicantes de la Isfpp".
 
-Id. Isfpp: ${keyBusiness}
+Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
 Pertenece a: ${perteneceA}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tkUsrConfeccionarConvenios" name="Confeccionar Acuerdos y Convenios" activiti:candidateUsers="${usuariosCoordinadores}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConfeccionarAcuerdoConvenios" activiti:priority="25">
-      <documentation>Confeccionar acuerdo y convenios particulares para la Isfpp con Id: ${keyBusiness}, título: "${tituloIsfpp}", perteneciente a "${perteneceA}".</documentation>
+    <userTask id="tkUsrConfeccionarConvenios" name="Confeccionar Acuerdos y Convenios" activiti:candidateUsers="${usuariosCoordinadores}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConfeccionarAcuerdoConvenios.zul" activiti:priority="25">
+      <documentation>Confeccionar acuerdo marco y convenios particulares para la Isfpp con Id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow10" sourceRef="parallelgateway3" targetRef="tkMlAvisoConfeccionarConvenios"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="parallelgateway3" targetRef="tkUsrConfeccionarConvenios"></sequenceFlow>
     <parallelGateway id="parallelgateway4" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow12" sourceRef="tkMlAvisoConfeccionarConvenios" targetRef="parallelgateway4"></sequenceFlow>
-    <userTask id="tkUsrSolicitarFirmaConvenio" name="Solicitar Firma de Convenio Particular"></userTask>
+    <userTask id="tkUsrSolicitarFirmaConvenio" name="Solicitar Firma de Convenio Particular" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgSolicitarFirmaConvenio.zul" activiti:priority="50">
+      <documentation>Solicitar la firma, de las partes interesadas, del "Convenio Particular" correspondiente a la Práctica Profesional Supervisada del Alumno Practicante:  "${itemPracticante}" .</documentation>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${listaPracticantes}" activiti:elementVariable="itemPracticante"></multiInstanceLoopCharacteristics>
+    </userTask>
     <parallelGateway id="parallelgateway5" name="Parallel Gateway"></parallelGateway>
     <serviceTask id="tkMlAvisoFirmarConvenio" name="Aviso: Firmar Convenio Particular" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
       <documentation>Tarea de servicio: Aviso por e-mail.</documentation>
@@ -248,8 +276,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <br/>
   <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
 </body>
-</html>
-]]></activiti:expression>
+</html>]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression><![CDATA[Ya se encuentran disponible para su firma los "Convenios Particulares" correspondiente a la Instancia Supervisada de Formación Práctica Profesional.
@@ -261,12 +288,19 @@ Datos de la Isfpp:
 Por favor, pongase en contacto con el Delegado Académico de la Facultad.
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
-Universidad Nacional de la Patagonia San Juan Bosco.
-]]></activiti:expression>
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
     <serviceTask id="tkMlAvisoSolicitarFirmaConvenio" name="Aviso Nueva Tarea: Solicitar Firma de Convenio/Firmar Marco" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
+      <documentation>Tarea de servicio: Aviso por e-mail.</documentation>
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression><![CDATA[${mailsDelegados}]]></activiti:expression>
@@ -290,7 +324,7 @@ Tarea: "Solicitar firma de Convenio Particular".
   </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Id. Isfpp: ${keyBusiness}</li>
+    <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
@@ -309,26 +343,35 @@ Tarea: "Firmar Acuerdo Marco".
 Tarea: "Solicitar firma de Convenio Particular".
 
 Datos de la Isfpp:
-- Id. Isfpp: ${keyBusiness}
+- Id. Isfpp: ${execution.getProcessBusinessKey()}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
-Universidad Nacional de la Patagonia San Juan Bosco.
-
-
-
-]]></activiti:expression>
+Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tkUsrFirmarMarco" name="Firmar Acuerdo Marco"></userTask>
+    <userTask id="tkUsrFirmarMarco" name="Firmar Acuerdo Marco" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgFirmarAcuerdoMarco.zul" activiti:priority="50">
+      <documentation>Proceder, en caso de corresponder, con la firma del "Acuerdo Marco" respaldatorio de la práctica profesional supervisada a desarrollarse.</documentation>
+    </userTask>
     <parallelGateway id="parallelgateway6" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow19" sourceRef="tkMlAvisoFirmarConvenio" targetRef="parallelgateway6"></sequenceFlow>
     <sequenceFlow id="flow20" sourceRef="tkMlAvisoSolicitarFirmaConvenio" targetRef="parallelgateway6"></sequenceFlow>
     <sequenceFlow id="flow21" sourceRef="tkUsrFirmarMarco" targetRef="parallelgateway6"></sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow22" sourceRef="parallelgateway6" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="evtFin" name="Fin Convocatoria Firma Acuerdo Convenios"></endEvent>
+    <sequenceFlow id="flow22" sourceRef="parallelgateway6" targetRef="evtFin">
+      <extensionElements>
+        <activiti:executionListener event="take" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.ActivarIsfpp"></activiti:executionListener>
+      </extensionElements>
+    </sequenceFlow>
     <sequenceFlow id="flow23" sourceRef="parallelgateway5" targetRef="tkMlAvisoFirmarConvenio"></sequenceFlow>
     <sequenceFlow id="flow25" sourceRef="parallelgateway5" targetRef="tkUsrFirmarMarco"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="parallelgateway5" targetRef="tkUsrSolicitarFirmaConvenio"></sequenceFlow>
@@ -354,12 +397,12 @@ Universidad Nacional de la Patagonia San Juan Bosco.
 - usuarioTutorAcademico.
 - tituloIsfpp.
 - perteneceA.
-- keyBusiness
 - mailsCoordinadores
 - usuariosCoordinadores
 - mailsPartesInteresadas = Mails de Practicantes y Tutor Externo.
 - mailsDelegados
-- usuariosDelegados</text>
+- usuariosDelegados
+- listaPracticantes = Listado de Practicantes (Apellido, Nombre y DNI).</text>
     </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
@@ -394,7 +437,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.
       <bpmndi:BPMNShape bpmnElement="tkMlAvisoRegistrarPracticantes" id="BPMNShape_tkMlAvisoRegistrarPracticantes">
         <omgdc:Bounds height="71.0" width="105.0" x="560.0" y="66.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="tkUsr" id="BPMNShape_tkUsr">
+      <bpmndi:BPMNShape bpmnElement="tkUsrRegistrarPracticantes" id="BPMNShape_tkUsrRegistrarPracticantes">
         <omgdc:Bounds height="60.0" width="105.0" x="560.0" y="167.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
@@ -410,25 +453,25 @@ Universidad Nacional de la Patagonia San Juan Bosco.
         <omgdc:Bounds height="40.0" width="40.0" x="400.0" y="340.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="tkUsrSolicitarFirmaConvenio" id="BPMNShape_tkUsrSolicitarFirmaConvenio">
-        <omgdc:Bounds height="61.0" width="121.0" x="450.0" y="700.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="121.0" x="450.0" y="715.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway5" id="BPMNShape_parallelgateway5">
-        <omgdc:Bounds height="40.0" width="40.0" x="280.0" y="607.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="280.0" y="622.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="tkMlAvisoFirmarConvenio" id="BPMNShape_tkMlAvisoFirmarConvenio">
-        <omgdc:Bounds height="55.0" width="131.0" x="450.0" y="481.0"></omgdc:Bounds>
+        <omgdc:Bounds height="60.0" width="121.0" x="450.0" y="489.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="tkMlAvisoSolicitarFirmaConvenio" id="BPMNShape_tkMlAvisoSolicitarFirmaConvenio">
-        <omgdc:Bounds height="70.0" width="121.0" x="450.0" y="550.0"></omgdc:Bounds>
+        <omgdc:Bounds height="70.0" width="121.0" x="450.0" y="565.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="tkUsrFirmarMarco" id="BPMNShape_tkUsrFirmarMarco">
-        <omgdc:Bounds height="55.0" width="121.0" x="450.0" y="630.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="121.0" x="450.0" y="645.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway6" id="BPMNShape_parallelgateway6">
-        <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="597.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="640.0" y="612.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="789.0" y="600.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="evtFin" id="BPMNShape_evtFin">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="615.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="65.0" width="121.0" x="690.0" y="471.0"></omgdc:Bounds>
@@ -437,7 +480,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.
         <omgdc:Bounds height="50.0" width="121.0" x="680.0" y="550.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="171.0" width="291.0" x="880.0" y="60.0"></omgdc:Bounds>
+        <omgdc:Bounds height="201.0" width="291.0" x="880.0" y="60.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="225.0" y="150.0"></omgdi:waypoint>
@@ -507,47 +550,47 @@ Universidad Nacional de la Patagonia San Juan Bosco.
         <omgdi:waypoint x="420.0" y="340.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="581.0" y="508.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="519.0"></omgdi:waypoint>
         <omgdi:waypoint x="659.0" y="508.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="597.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="612.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="571.0" y="585.0"></omgdi:waypoint>
-        <omgdi:waypoint x="612.0" y="583.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="597.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="600.0"></omgdi:waypoint>
+        <omgdi:waypoint x="617.0" y="598.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="612.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
-        <omgdi:waypoint x="571.0" y="657.0"></omgdi:waypoint>
-        <omgdi:waypoint x="629.0" y="657.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="637.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="672.0"></omgdi:waypoint>
+        <omgdi:waypoint x="627.0" y="671.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="652.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="680.0" y="617.0"></omgdi:waypoint>
-        <omgdi:waypoint x="789.0" y="617.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="632.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="632.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="300.0" y="607.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="507.0"></omgdi:waypoint>
-        <omgdi:waypoint x="420.0" y="507.0"></omgdi:waypoint>
-        <omgdi:waypoint x="450.0" y="508.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="522.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="522.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="519.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="300.0" y="647.0"></omgdi:waypoint>
-        <omgdi:waypoint x="358.0" y="657.0"></omgdi:waypoint>
-        <omgdi:waypoint x="450.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="662.0"></omgdi:waypoint>
+        <omgdi:waypoint x="358.0" y="672.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="672.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="300.0" y="647.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="730.0"></omgdi:waypoint>
-        <omgdi:waypoint x="450.0" y="730.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="662.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="745.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="745.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="440.0" y="360.0"></omgdi:waypoint>
         <omgdi:waypoint x="573.0" y="360.0"></omgdi:waypoint>
         <omgdi:waypoint x="573.0" y="469.0"></omgdi:waypoint>
         <omgdi:waypoint x="199.0" y="469.0"></omgdi:waypoint>
-        <omgdi:waypoint x="199.0" y="626.0"></omgdi:waypoint>
-        <omgdi:waypoint x="280.0" y="627.0"></omgdi:waypoint>
+        <omgdi:waypoint x="199.0" y="641.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="642.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="351.0" y="410.0"></omgdi:waypoint>
@@ -555,21 +598,21 @@ Universidad Nacional de la Patagonia San Juan Bosco.
         <omgdi:waypoint x="420.0" y="380.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
-        <omgdi:waypoint x="571.0" y="730.0"></omgdi:waypoint>
-        <omgdi:waypoint x="659.0" y="730.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="637.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="745.0"></omgdi:waypoint>
+        <omgdi:waypoint x="659.0" y="745.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="652.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="300.0" y="607.0"></omgdi:waypoint>
-        <omgdi:waypoint x="368.0" y="584.0"></omgdi:waypoint>
-        <omgdi:waypoint x="450.0" y="585.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="368.0" y="599.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="600.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
-        <omgdi:waypoint x="581.0" y="508.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="519.0"></omgdi:waypoint>
         <omgdi:waypoint x="690.0" y="503.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="571.0" y="585.0"></omgdi:waypoint>
+        <omgdi:waypoint x="571.0" y="600.0"></omgdi:waypoint>
         <omgdi:waypoint x="680.0" y="575.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

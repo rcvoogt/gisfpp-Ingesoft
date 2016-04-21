@@ -18,8 +18,11 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Messagebox.Button;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Window;
 
@@ -94,10 +97,6 @@ public class MVCrudIsfpp {
 
 	public boolean isVer() {
 		return ver;
-	}
-
-	public List<EEstadosIsfpp> getEstados() {
-		return Arrays.asList(EEstadosIsfpp.values());
 	}
 
 	@Command("guardar")
@@ -230,6 +229,71 @@ public class MVCrudIsfpp {
 		map.put("itemPersona", arg1);
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgVerDatosContacto.zul", null, map);
 		dlg.doModal();
+	}
+	
+	@Command("activarIsfpp")
+	@NotifyChange("item")
+	public void activarIsfpp() throws Exception{
+		servicio.activarIsfpp(item.getId());
+		Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+				3500);
+		servicio.refrescarInstancia(item);
+	}
+	
+	@Command("suspenderIsfpp")
+	@NotifyChange("item")
+	public void suspenderIsfpp() throws Exception{
+		Messagebox.show("Desea realmente \"Suspender\" esta Isfpp ? Si la suspende todo Workflow activo asociada a la misma"
+				+ " también será suspendido.", "Gisfpp: Suspendiendo Isfpp", new Button [] {Button.YES, Button.NO}
+				, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
+					
+					@Override
+					public void onEvent(ClickEvent event) throws Exception {
+						if (event.getName().equals(Messagebox.ON_YES)) {
+							servicio.suspenderIsfpp(item.getId());
+							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+									3500);	
+						}
+					}
+				});
+		servicio.refrescarInstancia(item);
+	}
+	
+	@Command("cancelarIsfpp")
+	@NotifyChange("item")
+	public void cancelarIsfpp() throws Exception{
+		Messagebox.show("Desea realmente \"Cancelar\" esta Isfpp ? Si la cancela, no podrá volver a activarla y todo Workflow activo asociada a la misma"
+				+ " será eliminado.", "Gisfpp: Cancelando Isfpp", new Button [] {Button.YES, Button.NO}
+				, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
+					
+					@Override
+					public void onEvent(ClickEvent event) throws Exception {
+						if (event.getName().equals(Messagebox.ON_YES)) {
+							servicio.cancelarIsfpp(item.getId());
+							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+									3500);	
+						}
+					}
+				});
+		servicio.refrescarInstancia(item);
+	}
+	
+	@Command("concluirIsfpp")
+	@NotifyChange("item")
+	public void concluirIsfpp() throws Exception{
+		Messagebox.show("Desea realmente dar por \"Concluida\" esta Isfpp?", "Gisfpp: Isfpp concluida",
+				new Button [] {Button.YES, Button.NO}, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
+					
+					@Override
+					public void onEvent(ClickEvent event) throws Exception {
+						if (event.getName().equals(Messagebox.ON_YES)) {
+							servicio.concluirIsfpp(item.getId());
+							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+									3500);	
+						}
+					}
+				});
+		servicio.refrescarInstancia(item);
 	}
 
 }// fin de la clase
