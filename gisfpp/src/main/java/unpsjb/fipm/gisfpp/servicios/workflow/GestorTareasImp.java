@@ -288,6 +288,31 @@ public class GestorTareasImp implements GestorTareas {
 			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea con id. "+tarea.getId(), exc2);
 		}
 	}
+	
+	@Override
+	public long getCantidadPorEstado(String usuario, EstadosTarea estado)
+			throws GisfppWorkflowException {
+		TaskQuery query1 = taskService.createTaskQuery();
+		HistoricTaskInstanceQuery query2 = historyService.createHistoricTaskInstanceQuery();
+		try {
+			switch (estado) {
+			case ASIGNADA:
+				return query1.taskAssignee(usuario).count();
+			case DELEGADA:
+				return query1.taskDelegationState(DelegationState.PENDING).taskAssignee(usuario).count();
+			case PROPUESTA:
+				return query1.taskCandidateUser(usuario).count();
+			case REALIZADA:
+				return query2.taskAssignee(usuario).finished().count();
+			default:
+				return 0;
+			}
+		} catch (Exception exc) {
+			log.error("Clase: "+this.getClass().getName()+ " - Metodo: getCantidadPorEstado(String usuario, EstadosTarea estado)", exc);
+			throw new GisfppWorkflowException("Se ha producido un error al consultar la cantidad de tareas según el tipo"
+					+ " especificado.", exc);
+		}
+	}
 
 	private List<InfoTarea> convertirListaInfoTarea(List<? extends TaskInfo> lista, EstadosTarea estado) {
 		List<InfoTarea> tareas = new ArrayList<InfoTarea>();
@@ -341,5 +366,5 @@ public class GestorTareasImp implements GestorTareas {
 		this.historyService = historyService;
 	}
 
-		
+			
 }

@@ -1,49 +1,48 @@
 <window id="dlgDomicilio" title="@load(vm.titulo)" border="normal" closable="true"
-	width="35%" height="76%" apply="org.zkoss.bind.BindComposer" mode="modal"
+	width="30%" vflex="true" apply="org.zkoss.bind.BindComposer" mode="modal" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgDomicilios')">
 	<vbox vflex="true" hflex="true" spacing="12px" style="margin-left: 2px;">
-		<div>
+		<div hflex="true">
 			<label value="Altura" class="form-label" width="45%"/>
 			<textbox width="30%" value="@bind(vm.domicilio.altura)"
 				class="form-control" maxlength="6"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="Calle" class="form-label" width="45%"/>
 			<textbox width="95%" value="@bind(vm.domicilio.calle)"
 				class="form-control" maxlength="50"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="N° Piso" class="form-label" width="45%"/>
 			<textbox width="30%" value="@bind(vm.domicilio.piso)"
 				class="form-control" maxlength="3"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="N° Dpto" class="form-label" width="45%"/>
 			<textbox width="30%" value="@bind(vm.domicilio.num_dpto)"
 				class="form-control" maxlength="3"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="Cod. Postal" class="form-label" width="45%"/>
 			<textbox width="30%" value="@bind(vm.domicilio.cod_postal)"
 				class="form-control" maxlength="5"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="Localidad" class="form-label" width="45%"/>
 			<textbox width="95%" value="@bind(vm.domicilio.localidad)"
 				class="form-control" maxlength="50"/>
 		</div>
-		<div>
+		<div hflex="true">
 			<label value="Provincia" class="form-label" width="45%"/>
 			<textbox width="95%" value="@bind(vm.domicilio.provincia)"
 				class="form-control" maxlength="50"/>
 		</div>
-		<div vflex="true">
-			<hbox pack="center" spacing="8px" hflex="true" align="end">
-				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+		<separator bar="true"/>
+		<hbox pack="center" spacing="8px" hflex="true" align="end">
+			<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
 					onClick="@command('aceptar')"> Aceptar</a>
-				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
+			<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
 					onClick="@command('cancelar')"> Cancelar</a>	
-			</hbox>
-		</div>
+		</hbox>
 	</vbox>
 </window>

@@ -1,9 +1,7 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
@@ -27,7 +25,6 @@ import org.zkoss.zul.Tab;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;

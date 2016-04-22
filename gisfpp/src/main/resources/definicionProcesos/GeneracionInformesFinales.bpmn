@@ -4,6 +4,7 @@
     <participant id="poolFI" name="UNPSJB FIPM" processRef="prcGeneracionInformesFinales"></participant>
   </collaboration>
   <process id="prcGeneracionInformesFinales" name="Generacion de Informes Finales" isExecutable="true">
+    <documentation>Flujo de actividades llevadas a cabo luego de dar por concluida la Isfpp. Recordatorio (via e-mail) para Tutores y Practicantes, sobre la redacción y presentación de los correspondientes Informes Finales. Revisión de dichos Informes por parte del Delegado Académico.</documentation>
     <laneSet id="laneSet_prcGeneracionInformesFinales">
       <lane id="lane1" name="Practicante / Tutor Academico / Tutor Externo">
         <flowNodeRef>evtInicio</flowNodeRef>
@@ -75,7 +76,11 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <startEvent id="evtInicio" name="Evento Inicio"></startEvent>
+    <startEvent id="evtInicio" name="Evento Inicio">
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.generacionInformesFinales.InitProceso"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
     <sequenceFlow id="flow1" sourceRef="evtInicio" targetRef="parallelgateway3"></sequenceFlow>
     <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
     <serviceTask id="mlTskAvisoRevisarInforme" name="Aviso nueva tarea: Revisar Informes Finales" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
@@ -137,7 +142,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tskUsrRevisarInforme" name="Revisar Informes Finales" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarInformesFinales" activiti:priority="50">
+    <userTask id="tskUsrRevisarInforme" name="Revisar Informes Finales" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarInformesFinales.zul" activiti:priority="50">
       <documentation>Revisión de los correspondientes informes finales sobre el desempeño del Practicante "${itemPracticante}" en la Isfpp:
 - Título: ${tituloIsfpp}
 - Sub-Proyecto:${tituloSP}

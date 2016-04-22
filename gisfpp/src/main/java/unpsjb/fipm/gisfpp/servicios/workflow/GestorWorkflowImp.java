@@ -71,24 +71,6 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			List<String> procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
 			if (!procesosAInstanciar.isEmpty()) {
 				for (String idProceso : procesosAInstanciar) {
-					/*new Thread( new Runnable() {
-						
-						@Override
-						public void run(){
-							try {
-								ProcessInstance instancia = rtService.startProcessInstanceByKey(idProceso, keyBusiness);
-								rtService.addUserIdentityLink(instancia.getProcessDefinitionId(), iniciador, IdentityLinkType.STARTER);
-							}catch(ActivitiObjectNotFoundException exc1){
-								log.error(this.getClass().getName(), exc1);
-								throw new GisfppWorkflowException("La definición del proceso que se quiere instanciar no existe.\n");
-							}
-							catch (Exception exc2) {
-								log.error(this.getClass().getName(), exc2);
-								throw new GisfppWorkflowException("Se ha producido un error al intentar generar una instancia del proceso"
-										+ " con id: "+idProceso+". \nMensaje: " +exc2.getLocalizedMessage(), exc2);
-							}
-						}
-					}).start();*/
 					Map<String, Object> variables = new HashMap<String, Object>();
 					variables.put("usuarioSolicitante", iniciador);
 					rtService.startProcessInstanceByKey(idProceso, keyBusiness, variables);
@@ -304,6 +286,19 @@ public class GestorWorkflowImp implements GestorWorkflow {
 					+ " el usuario "+idUsuario+" tuvo algún grado de participación.", exc2);
 		}
 		return procesos;
+	}
+	
+	@Override
+	public long getCantidadProcesosFinalizados(String idUsuario)
+			throws GisfppWorkflowException {
+		try {
+			HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery();
+			return query.involvedUser(idUsuario).finished().count();
+		} catch (Exception exc) {
+			log.error("Clase: "+this.getClass().getName()+" - Metodo: long getCantidadProcesosFinalizados(String idUsuario)", exc);
+			throw new GisfppWorkflowException("Se ha producido un error al intentar consultar la cantidad de procesos finalizados"
+					+ " para el usuario conectado.", exc);
+		}
 	}
 	
 	private InstanciaProceso convertir (ProcessInstance item) throws ActivitiException{

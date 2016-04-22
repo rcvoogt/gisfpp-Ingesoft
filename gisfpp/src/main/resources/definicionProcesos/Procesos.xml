@@ -8,5 +8,16 @@
 		</operacion>
 		<operacion nombre="Eliminar">
 		</operacion>
+		<operacion  nombre="Activar">
+		</operacion>
+		<operacion  nombre="Rechazar">
+		</operacion>
+		<operacion  nombre="Suspender">
+		</operacion>
+		<operacion  nombre="Cancelar">
+		</operacion>
+		<operacion  nombre="Concluir">
+			<workflow id="prcGeneracionInformesFinales"/>
+		</operacion>
 	</categoria>
 </procesos>

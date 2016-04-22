@@ -1,5 +1,8 @@
 package unpsjb.fipm.gisfpp.controladores.workflow;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
@@ -30,6 +34,7 @@ public class MVBandejaWorkflow {
 	private List<InfoTarea> tareasAsignadas;
 	private List<InfoTarea> tareasPropuestas;
 	private List<InfoTarea> tareasDelegadas;
+	private List<InfoTarea> tareasPendientes;
 	private List<InfoTarea> tareasRealizadas;
 	private List<InstanciaProceso> procesosActivos;
 	private List<InstanciaProceso> procesosFinalizados;
@@ -61,9 +66,8 @@ public class MVBandejaWorkflow {
 			tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
 			tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
 			tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
-			tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
+			tareasPendientes = getTareasPendientes();
 			procesosActivos = servGWorkflow.getProcesosActivos(usuarioConectado.getNickname());
-			procesosFinalizados = servGWorkflow.getProcesosFinalizados(usuarioConectado.getNickname());
 			vistaTareas = false;
 			vistaProcesos = false;
 		} catch (Exception exc1) {
@@ -97,7 +101,7 @@ public class MVBandejaWorkflow {
 	}
 
 	public int getCantPendientes(){
-		return tareasAsignadas.size()+tareasPropuestas.size()+tareasDelegadas.size();
+		return tareasPendientes.size();
 	}
 	
 	public int getCantTareasAsignadas() {
@@ -113,6 +117,9 @@ public class MVBandejaWorkflow {
 	}
 
 	public int getCantTareasRealizadas() {
+		if (tareasRealizadas==null) {
+			return (int) servGTareas.getCantidadPorEstado(usuarioConectado.getNickname(), EstadosTarea.REALIZADA);
+		}
 		return tareasRealizadas.size();
 	}
 	
@@ -121,11 +128,14 @@ public class MVBandejaWorkflow {
 	}
 	
 	public int getCantProcesosFinalizados(){
+		if (procesosFinalizados==null) {
+			return (int) servGWorkflow.getCantidadProcesosFinalizados(usuarioConectado.getNickname());
+		}
 		return procesosFinalizados.size();
 	}
 	
 	public int getCantHistorial(){
-		return tareasRealizadas.size() + procesosFinalizados.size();
+		return getCantTareasRealizadas() + getCantProcesosFinalizados();
 	}
 	
 	public String getTituloPnlLista() {
@@ -183,6 +193,9 @@ public class MVBandejaWorkflow {
 		case 5:{
 			vistaTareas = true;
 			vistaProcesos = false;
+			if (tareasRealizadas==null) {
+				tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
+			}
 			tareas = tareasRealizadas;
 			tituloPnlLista = "Tareas realizadas: " + getCantTareasRealizadas();
 			tareaSeleccionada = null;
@@ -192,8 +205,20 @@ public class MVBandejaWorkflow {
 		case 6: {
 			vistaProcesos = true;
 			vistaTareas = false;
+			if (procesosFinalizados==null) {
+				procesosFinalizados = servGWorkflow.getProcesosFinalizados(usuarioConectado.getNickname());
+			}
 			procesos = procesosFinalizados;
 			tituloPnlLista = "Procesos finalizados: " + getCantProcesosFinalizados();
+			procesoSeleccionado = null;
+			tareaSeleccionada = null;
+			break;
+		}
+		case 7: {
+			vistaTareas = true;
+			vistaProcesos = false;
+			tareas = tareasPendientes;
+			tituloPnlLista = "Total tareas pendientes: " + getCantPendientes();
 			procesoSeleccionado = null;
 			tareaSeleccionada = null;
 			break;
@@ -222,11 +247,28 @@ public class MVBandejaWorkflow {
 		procesoSeleccionado = arg1;
 	}
 	
+	private List<InfoTarea> getTareasPendientes(){
+		List<InfoTarea> resultado = new ArrayList<InfoTarea>();
+		resultado.addAll(tareasAsignadas);
+		resultado.addAll(tareasDelegadas);
+		resultado.addAll(tareasPropuestas);
+		
+		Collections.sort(resultado, new Comparator<InfoTarea>() {
+
+			@Override
+			public int compare(InfoTarea o1, InfoTarea o2) {
+				return (o1.getFecha_vencimiento().compareTo(o2.getFecha_vencimiento()));
+			}
+		});
+		return resultado;
+	}
+	
 	@NotifyChange({"cantTareasAsignadas", "tareaSeleccionada","tareas", "vistaTareas", "cantPendientes"})
 	@GlobalCommand("refrescarTareasAsignadas")
 	public void refrescarTareasAsignadas(){
 		tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), 
 				GestorTareas.ORDEN_FECHA_VENC, true);
+		tareasPendientes = getTareasPendientes();
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
@@ -237,6 +279,7 @@ public class MVBandejaWorkflow {
 	public void refrescarTareasPropuestas(){
 		tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), 
 				GestorTareas.ORDEN_FECHA_VENC, true);
+		tareasPendientes = getTareasPendientes();
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
@@ -247,6 +290,7 @@ public class MVBandejaWorkflow {
 	public void refrescarTareasDelegadas(){
 		tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC
 				, true);
+		tareasPendientes = getTareasPendientes();
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
@@ -255,7 +299,9 @@ public class MVBandejaWorkflow {
 	@NotifyChange({"cantTareasRealizadas", "tareaSeleccionada", "tareas", "vistaTareas", "cantHistorial"})
 	@GlobalCommand("refrescarTareasRealizadas")
 	public void refrescarTareasRealizadas(){
-		tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
+		if (tareasRealizadas!=null) {
+			tareasRealizadas = servGTareas.getTareasRealizadas(usuarioConectado.getNickname());
+		}
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
@@ -270,10 +316,12 @@ public class MVBandejaWorkflow {
 		vistaProcesos = false;
 	}
 	
-	@NotifyChange({"cantProcesosActivos", "procesoSeleccionado", "procesos", "vistaProcesos"})
+	@NotifyChange({"cantProcesosFinalizados", "procesoSeleccionado", "procesos", "vistaProcesos"})
 	@GlobalCommand("refrescarProcesosFinalizados")
 	public void refrescarProcesosFinalizados(){
-		procesosFinalizados = servGWorkflow.getProcesosFinalizados(usuarioConectado.getNickname());
+		if (procesosFinalizados!=null) {
+			procesosFinalizados = servGWorkflow.getProcesosFinalizados(usuarioConectado.getNickname());
+		}
 		procesoSeleccionado =null;
 		procesos=null;
 		vistaProcesos = false;
@@ -304,7 +352,7 @@ public class MVBandejaWorkflow {
 	
 	@Command("salir")
 	public void salir(){
-		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlBandejaTareas");
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlBandejaActividades");
 	}
 	
 }//fin de la clase

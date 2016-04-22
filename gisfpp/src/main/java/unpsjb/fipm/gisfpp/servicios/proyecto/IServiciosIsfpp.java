@@ -2,10 +2,7 @@ package unpsjb.fipm.gisfpp.servicios.proyecto;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;

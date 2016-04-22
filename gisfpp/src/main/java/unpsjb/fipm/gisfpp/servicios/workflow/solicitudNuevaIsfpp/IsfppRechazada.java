@@ -12,7 +12,7 @@ import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class IsfppRechazada implements ExecutionListener {
 	
-	private static final long serialVersionUID = 8431893449601330763L;
+	private static final long serialVersionUID = 1L;
 	private IServiciosIsfpp servIsfpp;
 	private Logger log = UtilGisfpp.getLogger();
 
@@ -23,9 +23,9 @@ public class IsfppRechazada implements ExecutionListener {
 			Integer idIsfpp = Integer.valueOf(execution.getProcessBusinessKey());
 			Isfpp isfppRechazada = servIsfpp.getInstancia(idIsfpp);
 			String motivo  = (String) execution.getVariable("motivoRechazo");
-			isfppRechazada.setEstado(EEstadosIsfpp.RECHAZADA);
 			isfppRechazada.setDetalle(motivo);
 			servIsfpp.editar(isfppRechazada);
+			servIsfpp.rechazarIsfpp(idIsfpp);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;

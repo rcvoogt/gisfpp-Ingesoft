@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.servicios.staff;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;

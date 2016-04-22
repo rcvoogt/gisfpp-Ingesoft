@@ -37,6 +37,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Isfpp instancia) throws Exception {
 		dao.actualizar(instancia);
+		servGWkFl.instanciarProceso("ISfpp", "Editar", UtilSecurity.getNickName(), String.valueOf(instancia.getId()));
 	}
 
 	@Override
@@ -45,6 +46,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		ResultadoValidacion resultado = ValidacionesProyecto.eliminarIsfpp(instancia);
 		if(resultado.isValido()){
 			dao.eliminar(instancia);
+			servGWkFl.instanciarProceso("Isfpp", "Eliminar", UtilSecurity.getNickName(), String.valueOf(instancia.getId()));
 		}else{
 			throw new GisfppException(resultado.getMensaje());
 		}
@@ -94,6 +96,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 			throw new GisfppException("Solo se puede Activar una Isfpp si se encuentra en estado \"Generada\" o \"Suspendida\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
+		servGWkFl.instanciarProceso("Isfpp", "Activar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 
 	@Override
@@ -105,7 +108,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 			throw new GisfppException("Solo se puede Rechazar una Isfpp si se encuentra en estado \"Generada\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.RECHAZADA);
-		
+		servGWkFl.instanciarProceso("Isfpp", "Rechazar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 
 	@Override
@@ -117,6 +120,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 			throw new GisfppException("Solo se puede Suspender una Isfpp si se encuentra en estado \"Activa\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.SUSPENDIDA);
+		servGWkFl.instanciarProceso("Isfpp", "Suspender", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 
 	@Override
@@ -128,6 +132,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 			throw new GisfppException("Solo se puede Cancelar una Isfpp si se encuentra en estado \"Activa\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.CANCELADA);
+		servGWkFl.instanciarProceso("Isfpp", "Cancelar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 
 	@Override
@@ -139,6 +144,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 			throw new GisfppException("Solo se puede Concluir una Isfpp si se encuentra en estado \"Activa\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.CONCLUIDA);
+		servGWkFl.instanciarProceso("Isfpp", "Concluir", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 	
 	@Override

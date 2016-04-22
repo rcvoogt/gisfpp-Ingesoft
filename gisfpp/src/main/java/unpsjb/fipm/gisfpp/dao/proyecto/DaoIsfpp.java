@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;

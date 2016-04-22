@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.servicios.workflow;
 import java.util.List;
 import java.util.Map;
 
+import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
@@ -27,5 +28,7 @@ public interface GestorTareas {
 	public void tratarTarea(InfoTarea tarea) throws GisfppWorkflowException;
 	
 	public void tratarTarea(InfoTarea tarea, Map<String, Object> variables) throws GisfppWorkflowException;
+	
+	public long getCantidadPorEstado(String usuario, EstadosTarea estado) throws GisfppWorkflowException;
 	
 }

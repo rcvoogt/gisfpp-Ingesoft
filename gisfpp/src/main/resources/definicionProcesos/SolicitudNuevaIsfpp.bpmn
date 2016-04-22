@@ -138,7 +138,11 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isfppAprobada=='false'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="tkUsReuEstCondiciones" targetRef="exclusivegateway2"></sequenceFlow>
-    <endEvent id="evtFin1" name="Fin Solicitud Aprobada"></endEvent>
+    <endEvent id="evtFin1" name="Fin Solicitud Aprobada">
+      <extensionElements>
+        <activiti:executionListener event="start" class="unpsjb.fipm.gisfpp.servicios.workflow.solicitudNuevaIsfpp.FinalizacionProceso"></activiti:executionListener>
+      </extensionElements>
+    </endEvent>
     <sequenceFlow id="flow8" sourceRef="tkMlNotAceptacion" targetRef="evtFin1"></sequenceFlow>
     <endEvent id="evtFin2" name="Fin Solicitud Rechazada"></endEvent>
     <sequenceFlow id="flow9" sourceRef="tkMlNotRechazo" targetRef="evtFin2"></sequenceFlow>

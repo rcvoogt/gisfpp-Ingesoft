@@ -33,7 +33,7 @@
 							Workflow <n:span class="caret"></n:span>
 						</n:a>
 						<n:ul class="dropdown-menu" role="menu">
-							<n:li><a onClick="@command('verBandejaWorkflow')">Bandeja de Actividades</a></n:li>
+							<n:li><a onClick="@command('verBandejaActividades')">Bandeja de Actividades</a></n:li>
 							<n:li><a onClick="@command('verPnlMantMotorBPM')"
 								visible="@load(sec:isAutorizado('MANTENIMIENTO_WORKFLOW'))">Mantenimiento Motor Workflow</a></n:li>
 						</n:ul>

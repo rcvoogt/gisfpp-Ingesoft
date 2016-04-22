@@ -78,4 +78,6 @@ public interface GestorWorkflow {
 	 */
 	public List<InstanciaProceso> getProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
 	
+	public long getCantidadProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
+	
 }
