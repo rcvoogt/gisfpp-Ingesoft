@@ -18,8 +18,8 @@
 				emptyMessage="No hay Organizaciones registradas."
 				vflex="1" model="@load(vm.lista)" hflex="1">
 				<columns>
-					<column label="Razón Social" width="35%" sort="auto(nombre)"/>
-					<column label="CUIT" />
+					<column label="Razón Social" width="45%" sort="auto(nombre)"/>
+					<column label="CUIT" width="15%"/>
 					<column label="Ver" align="center" width="7%" />
 					<column label="Editar" align="center" width="7%" />
 					<column label="Baja" align="center" width="7%" />
@@ -37,7 +37,7 @@
 							onClick="@command('editar', item=each)" />
 						<toolbarbutton
 							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
-							onClick='Messagebox.show("Se deberia eliminar el proyecto");' />
+							onClick="@command('eliminar', item= each)" />
 					</row>
 				</template>
 			</grid>

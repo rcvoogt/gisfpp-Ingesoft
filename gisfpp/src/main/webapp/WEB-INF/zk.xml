@@ -32,9 +32,9 @@
 		<value>bs</value>
 	</library-property> -->
 	
-	<!-- <error-page>
+	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/vistas/error/error.zul</location>
-	</error-page> -->
+		<location>/vistas/config/error.zul</location>
+	</error-page>
 	
 </zk>

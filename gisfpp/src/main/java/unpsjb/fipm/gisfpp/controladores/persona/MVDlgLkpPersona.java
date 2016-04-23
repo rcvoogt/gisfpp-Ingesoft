@@ -10,6 +10,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zul.Window;
 
@@ -40,43 +41,54 @@ public class MVDlgLkpPersona {
 		try {
 			switch (campoLookup) {
 			case ("Nombre y Apellido"): {
+				Clients.showBusy("Ejecutando consulta...");
 				resultado = servicio.getxNombre(valorLookup);
 				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
+				Clients.clearBusy();
 				break;
 			}
 			case ("DNI"): {
+				Clients.showBusy("Ejecutando consulta...");
 				resultado = servicio.getxIdentificador(TIdentificador.DNI, valorLookup);
 				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
+				Clients.clearBusy();
 				break;
 			}
 			case ("CUIL"): {
+				Clients.showBusy("Ejecutando consulta...");
 				resultado = servicio.getxIdentificador(TIdentificador.CUIL, valorLookup);
 				if(resultado == null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
+				Clients.clearBusy();
 				break;
 			}
 			case("N° Legajo"):{
+				Clients.showBusy("Ejecutando consulta...");
 				resultado =servicio.getxIdentificador(TIdentificador.LEGAJO, valorLookup);
 				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
+				Clients.clearBusy();
 				break;
 			}
 			case("N° Matricula"):{
+				Clients.showBusy("Ejecutando consulta...");
 				resultado = servicio.getxIdentificador(TIdentificador.MATRICULA, valorLookup);
 				if(resultado==null){
 					mensaje="La consulta no arrojo ningun resultado.";
 				}
+				Clients.clearBusy();
 				break;
 			}
 			}
 		} catch (Exception e) {
 			log.debug(this.getClass().getName(), e);
+			Clients.clearBusy();
 			throw e;
 		}
 	}

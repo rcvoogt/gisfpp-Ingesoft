@@ -1,16 +1,21 @@
 <zk xmlns:n="native">
-<window	title="GISFPP: Se ha generado un error."
-	width="450px" border="normal" mode="modal" height="180px">
-		<vbox spacing="16px" vflex="true">
-			<hbox spacing="8px">
+<window	title="Se ha producido una Excepcion en Gisfpp!!!" sizable="true"
+	width="35%" border="normal" mode="modal" vflex="true">
+		<vbox spacing="4px" hflex="true" vflex="true">
+			<hbox spacing="6px" hflex="true" vflex="2">
 				<div sclass="z-messagebox-icon z-messagebox-error z-div"/>
-				<div sclass="z-messagebox z-div" style="overflow: auto; width: 210pt;" width="100%">
+				<div style="overflow: auto;">
 					<n:span class="z-label">
-						Causa: ${requestScope['javax.servlet.error.message']}
+						<![CDATA[
+							<strong>Exception:</strong> ${requestScope['javax.servlet.error.exception'].getClass().getName()}
+							</br>
+							<strong>Causa:</strong> ${requestScope['javax.servlet.error.message']}
+						]]>
 					</n:span>
 				</div>
 			</hbox>
-			<hbox style="margin-left:auto; margin-right:auto">
+			<separator bar="true"/>
+			<hbox align="center" pack="center" hflex="true" vflex="1">
 				<a class="btn btn-danger" onClick="spaceOwner.detach()">Ok</a>
 			</hbox>
 		</vbox>

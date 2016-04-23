@@ -105,6 +105,7 @@ public class MVCrudOrganizacion {
 			throw e;
 		}
 	}
+	
 
 	@Command("reEditar")
 	@NotifyChange({ "creando", "editando", "ver" })
@@ -185,10 +186,10 @@ public class MVCrudOrganizacion {
 	
 	//Dialogo para agregar o editar un domicilio de la organizacion.
 	@Command("verDlgDomicilios")
-	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("domicilio") Domicilio arg2) {
+	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("item") Domicilio arg2) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", arg1);
-		map.put("valor", arg2);
+		map.put("domicilio", arg2);
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgDomicilios.zul", null, map);
 		dlg.doModal();
 	}

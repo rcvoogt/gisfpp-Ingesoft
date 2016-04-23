@@ -1,8 +1,8 @@
-<window id="dlgLkpPersona" title="Busqueda de Persona"
-	border="normal" width="800px" height="450px" closable="true" apply="org.zkoss.bind.BindComposer"
+<window id="dlgLkpPersona" title="Busqueda de Persona" sizable="true"
+	border="normal" width="800px" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVDlgLkpPersona')">
-	<vbox vflex="true" hflex="true" spacing="6px">
-		<hbox spacing="5px">
+	<vbox height="400px" hflex="true" spacing="6px">
+		<hbox spacing="5px" hflex="true" height="30%">
 			<combobox placeholder="Seleccionar campo..." value="@bind(vm.campoLookup)"
 				width="80%" constraint="no empty: Debe especificar un valor de la lista para poder realizar la busqueda.">
 				<comboitem label="Nombre y Apellido" value="Nombre y Apellido"/>
@@ -17,8 +17,7 @@
 				image="recursos/img/icon-lupa.png" class="btn btn-success btn-sm"/>
 		</hbox>
 		<grid hflex="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
-			model="@load(vm.resultado)" mold="paging" autopaging="true"
-				emptyMessage="@load(vm.mensaje)">
+			model="@load(vm.resultado)" emptyMessage="@load(vm.mensaje)">
 			<columns sizable="true">
 				<column label="Nombre y Apellido" sort="auto" width="40%"/>
 				<column label="DNI" width="15%"/>
@@ -36,7 +35,7 @@
 				</row>
 			</template>
 		</grid>
-		<label value="Doble click en el nombre de la Persona para seleccionarla"
+		<label value="Doble click en el nombre de la Persona para seleccionarla" hflex="true"
 						style="color: #0000ff; font-size: 10px; font-style: italic;"/>
 	</vbox>
 </window>

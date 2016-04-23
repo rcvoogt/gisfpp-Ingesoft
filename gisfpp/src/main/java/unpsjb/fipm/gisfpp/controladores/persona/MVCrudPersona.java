@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -22,6 +23,7 @@ import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
+import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
@@ -109,16 +111,20 @@ public class MVCrudPersona {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		}
-		catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		catch (DataIntegrityViolationException exc2) {
+			int codError = ((org.hibernate.exception.ConstraintViolationException)exc2.getCause()).getErrorCode();
+			if (codError == 1062) {
+				throw new GisfppException("El Nombre de Usuario: \""+ item.getUsuario().getNickname() +"\" ya existe en la BD."
+						+ " Elija otro por favor.");
+			}
 		}
 	}
 
 	@Command("nuevaPersona")
-	@NotifyChange({ "item", "creando", "editando", "ver" })
+	@NotifyChange({ "item", "creando", "editando", "ver","repeticionContrasenia" })
 	public void nuevaPersona() {
 		item = new PersonaFisica();
+		repeticionContrasenia ="";
 		creando = true;
 		editando = false;
 		ver = false;
@@ -191,7 +197,7 @@ public class MVCrudPersona {
 	
 	//Dialogo para agregar o editar un Domicilio
 	@Command("verDlgDomicilios")
-	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("valor") Domicilio arg2) {
+	public void verDlgDomicilios(@BindingParam("modo") String arg1, @BindingParam("item") Domicilio arg2) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("modo", arg1);
 		map.put("domicilio", arg2);

@@ -3,11 +3,16 @@ package unpsjb.fipm.gisfpp.dao.persona;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
+import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
@@ -36,14 +41,13 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	}
 
 	@Override
-	public void eliminar(PersonaFisica instancia) throws DataAccessException {
+	public void eliminar(PersonaFisica instancia) throws DataAccessException{
 		try {
 			getHibernateTemplate().delete(instancia);
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		} catch (Exception exc) {
+			log.error("Clase: "+this.getClass().getName()+" - Metodo: eliminar(PersonaFisica)", exc);
+			throw exc;
 		}
-
 	}
 
 	@Override

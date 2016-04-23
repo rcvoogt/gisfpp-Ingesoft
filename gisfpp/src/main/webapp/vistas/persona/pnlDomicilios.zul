@@ -29,7 +29,7 @@
 				<label value="@load(each.provincia)"/>
 				<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar Domicilio"
 					disabled="@load((not vm.creando) and (not vm.editando))"
-						onClick="@command('verDlgDomicilios', modo ='EDICION', valor = each)"/>
+						onClick="@command('verDlgDomicilios', modo ='EDICION', item = each)"/>
 				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Eliminar Domicilio"
 					disabled="@load((not vm.creando) and (not vm.editando))"
 						onClick="@command('quitarDomicilio', valor= each)"/>		
