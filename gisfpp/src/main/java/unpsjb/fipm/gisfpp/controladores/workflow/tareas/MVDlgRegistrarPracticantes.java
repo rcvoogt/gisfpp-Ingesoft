@@ -1,5 +1,7 @@
 package unpsjb.fipm.gisfpp.controladores.workflow.tareas;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
@@ -10,8 +12,11 @@ import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
@@ -23,7 +28,7 @@ public class MVDlgRegistrarPracticantes {
 	private GestorWorkflow servWorkflow;
 	private InfoTarea tarea;
 	private IServiciosIsfpp servIsfpp;
-	
+		
 	@Init
 	@NotifyChange("tarea")
 	public void init(){
@@ -43,13 +48,19 @@ public class MVDlgRegistrarPracticantes {
 	public void completarTarea() throws Exception{
 		Integer idIsfpp = Integer.valueOf(servWorkflow.getKeyBusiness(tarea.getIdInstanciaProceso()));
 		int cantPracticantes = servIsfpp.getCantidadPracticantes(idIsfpp);
-		
+				
 		if (cantPracticantes == 0) {
 			Clients.alert("Debe registrar los Practicantes correspondientes en la Isfpp asociada a esta tarea para poder dar por \"Concluida\""
-					+ " la misma.", "Alerta: Worlflow", Clients.NOTIFICATION_TYPE_WARNING);
+					+ " la misma.", "Alerta: Worlflow", Messagebox.ERROR);
 			return;
 		}
-		servTareas.tratarTarea(tarea);
+		
+		Isfpp isfpp = servIsfpp.getInstancia(idIsfpp);
+		String mailsPracticantesTutorExt = getMailsPracticantesTutorExt(isfpp);
+		Map<String, Object> variablesDelProceso = new HashMap<String, Object>();
+		variablesDelProceso.put("mailsPartesInteresadas", mailsPracticantesTutorExt);	
+		
+		servTareas.tratarTarea(tarea, variablesDelProceso);
 		
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
@@ -64,8 +75,24 @@ public class MVDlgRegistrarPracticantes {
 	}
 	
 	private void cerrar(){
-		Window dlg = (Window) Path.getComponent("/dlgSolicitarFirmaConvenio");
+		Window dlg = (Window) Path.getComponent("/dlgRegistrarPracticantes");
 		dlg.detach();
+	}
+	
+	private String getMailsPracticantesTutorExt(Isfpp isfpp){
+		StringBuilder resultado = new StringBuilder();
+		
+		for (Iterator iterator = isfpp.getPracticantes().iterator(); iterator.hasNext();) {
+			PersonaFisica persona = (PersonaFisica) iterator.next();
+			resultado.append(persona.getEmail());
+			if (iterator.hasNext()) {
+				resultado.append(", ");
+			}
+		}
+		if(isfpp.getTutorExterno()!= null){
+			resultado.append(", " + isfpp.getTutorExterno().getMiembro().getEmail());
+		}
+		return new String(resultado);
 	}
 
 }

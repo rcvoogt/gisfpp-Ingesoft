@@ -15,4 +15,9 @@ public interface GestorMotorBpm {
 		
 		public void eliminarDefinicionProceso (String idDespliegue, boolean cascada) throws GisfppWorkflowException;
 		
+		public void activarInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
+		
+		public void suspenderInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
+		
+		public void eliminarInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
 }

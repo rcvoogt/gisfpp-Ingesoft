@@ -36,5 +36,8 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/vistas/config/error.zul</location>
 	</error-page>
-	
+	<session-config>
+		<device-type>ajax</device-type>
+		<timeout-message>Expiro la sesión. Actualize la pagina por favor.</timeout-message>
+	</session-config>
 </zk>

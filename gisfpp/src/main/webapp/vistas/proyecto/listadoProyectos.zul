@@ -11,9 +11,9 @@
 			<n:div class="btn-toolbar pull-right">
 				<a image="recursos/img/icon-addfolderalt.png"
 					class="btn btn-success btn-sm" tooltiptext="Crear nuevo Proyecto"
-					if="${sec:isAutorizado('CREAR_PROYECTO')}"
+					visible="@load(sec:isAutorizado('CREAR_PROYECTO'))"
 					onClick="@command('nuevoProyecto')">
-					Nuevo Proyecto
+					Nuevo
 				</a>
 				<n:div class="btn-group">
 					<a image="recursos/img/icon-filter.png"
@@ -57,7 +57,7 @@
 								align="center" />
 						</columns>
 						<template name="model">
-							<row>
+							<row style="@load(util:isFechaPasada(each.fecha_fin)?'background-color: #f2dede;':'')">
 								<label value="@load(each.codigo)"/>
 								<label value="@load(each.resolucion)" />
 								<label value="@load(each.titulo)"/>
@@ -66,24 +66,25 @@
 								<label
 									value="@load(each.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')" />
 								<label
-									value="@load(each.fecha_fin) @converter('formatedDate', format='dd/MM/yyyy')" />
+									value="@load(each.fecha_fin) @converter('formatedDate', format='dd/MM/yyyy')"
+										style="@load(util:isFechaPasada(each.fecha_fin)?'color: red; font-weight: bold;':'')"/>
 								<toolbarbutton
 									image="recursos/img/icon-preview.png"
 									tooltip="Ver datos del Proyecto"
-									disabled="${ not (sec:isAutorizado('CONSULTAR_PROYECTOS') or 
-										sec:isAutorizado2('CONSULTAR_PROYECTO', 'Proyecto', each.id)) }"
+									disabled="@load(not (sec:isAutorizado2('CONSULTAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('CONSULTAR_PROYECTOS')))"
 									onClick="@command('verProyecto', item=each)" />
 								<toolbarbutton
 									image="recursos/img/icon-edit.png"
 									tooltiptext="Editar el Proyecto"
-									disabled="${not (sec:isAutorizado('MODIFICAR_PROYECTOS') or 
-										sec:isAutorizado2('MODIFICAR_PROYECTO', 'Proyecto', each.id))}"
+									disabled="@load(not (sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('MODIFICAR_PROYECTOS')))"
 									onClick="@command('editarProyecto', item=each)" />
 								<toolbarbutton
 									image="recursos/img/icon-trash.png"
 									tooltiptext="Eliminar Proyecto"
-									disabled="${not (sec:isAutorizado('ELIMINAR_PROYECTOS') or 
-										sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id))}"
+									disabled="@load(not (sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id)
+										or sec:isAutorizado('ELIMINAR_PROYECTOS')))"
 									onClick="@command('eliminarProyecto', item = each)" />
 							</row>
 						</template>

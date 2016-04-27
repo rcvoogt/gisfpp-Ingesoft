@@ -203,6 +203,20 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		}
 		return resultado;
 	}
+	
+	@Override
+	public List<String> getNombresInstancias(String keyBusiness)
+			throws GisfppWorkflowException {
+		List<String> resultado = new ArrayList<String>();
+		ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
+		
+		List<ProcessInstance> instancias = query.processInstanceBusinessKey(keyBusiness).list();
+		for (ProcessInstance processInstance : instancias) {
+			DefinicionProceso definicion = cargarDefinicionProceso(processInstance.getProcessDefinitionId());
+			resultado.add(definicion.getNombre());
+		}
+		return resultado;
+	}
 
 	@Override
 	public InstanciaProceso getInstanciaProceso(String idInstancia)
@@ -330,7 +344,8 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		List<InstanciaActividad> historialActividades = new ArrayList<InstanciaActividad>();
 		if (instancesActv!=null && !instancesActv.isEmpty()) {
 			for (HistoricActivityInstance instance : instancesActv) {
-				if(!instance.getActivityType().equals("exclusiveGateway")){
+				if(!instance.getActivityType().equals("exclusiveGateway") && !instance.getActivityType().equals("parallelGateway")
+						&& !instance.getActivityType().equals("inclusiveGateway") && !instance.getActivityType().equals("eventBasedGateway")){
 					historialActividades.add(cargarInstanciaActividad(instance));
 				}
 			}
@@ -392,5 +407,6 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
 	}
+	
 					
 }//fin de la clase

@@ -39,6 +39,13 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	public void activarIsfpp(Integer idIsfpp) throws Exception;
 	
 	/**
+	 * Reestablecer la Isfpp al estado "Activa"
+	 * @param idIsfpp
+	 * @throws Exception
+	 */
+	public void reActivarISfpp(Integer idIsfpp) throws Exception;
+	
+	/**
 	 * Establecer Isfpp a estado "Rechazada"
 	 * @param idIsfpp
 	 * @throws Exception

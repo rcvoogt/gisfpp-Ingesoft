@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
+import org.slf4j.Logger;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
@@ -19,6 +20,7 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.MySpringUtil;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class InitProceso implements ExecutionListener{
 
@@ -28,6 +30,7 @@ public class InitProceso implements ExecutionListener{
 	private IServiciosIsfpp servIsfpp;
 	private IServicioSubProyecto servSP;
 	private IServiciosStaffFI servStaffFi;
+	private Logger log;
 		
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
@@ -40,34 +43,44 @@ public class InitProceso implements ExecutionListener{
 		String usuariosDelegados;
 		String mailsDelegados;
 		
-		servIsfpp = MySpringUtil.getServicioIsfpp();
-		servSP = MySpringUtil.getServicioSubProyecto();
-		servStaffFi = MySpringUtil.getServicioStaffFi();
-		Isfpp isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
-		SubProyecto sp = servIsfpp.getPerteneceA(isfpp);
-		Proyecto proyecto = servSP.getPerteneceA(sp);
-		List<StaffFI> miembrosStaffFi = servStaffFi.getListado();
+		try {
+			log = UtilGisfpp.getLogger();
+			servIsfpp = MySpringUtil.getServicioIsfpp();
+			servUsuario = MySpringUtil.getServicioUsuario();
+			servSP = MySpringUtil.getServicioSubProyecto();
+			servStaffFi = MySpringUtil.getServicioStaffFi();
+			Isfpp isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
+			SubProyecto sp = servIsfpp.getPerteneceA(isfpp);
+			Proyecto proyecto = servSP.getPerteneceA(sp);
+			List<StaffFI> miembrosStaffFi = servStaffFi.getListado();
+			
+			usuarioTutorAcademico = getUsuarioTutorAcademico(isfpp);
+			mailTutorAcademico = getMailTutorAcademico(isfpp);
+			tituloIsfpp = isfpp.getTitulo();
+			perteneceA = sp.getTitulo()+" / "+ proyecto.getTitulo();
+			mailsCoordinadores = getMailsStaffFi(miembrosStaffFi, ECargosStaffFi.COORDINADOR);
+			mailsDelegados = getMailsStaffFi(miembrosStaffFi, ECargosStaffFi.DELEGADO);
+			usuariosCoordinadores = getUsuariosStaffFi(miembrosStaffFi, ECargosStaffFi.COORDINADOR);
+			usuariosDelegados = getUsuariosStaffFi(miembrosStaffFi, ECargosStaffFi.DELEGADO);
+			
+			Map<String, Object> variablesDeProceso = new HashMap<String, Object>();
+			variablesDeProceso.put("usuarioTutorAcademico", usuarioTutorAcademico);
+			variablesDeProceso.put("mailTutorAcademico", mailTutorAcademico);
+			variablesDeProceso.put("tituloIsfpp", tituloIsfpp);
+			variablesDeProceso.put("perteneceA", perteneceA);
+			variablesDeProceso.put("mailsCoordinadores", mailsCoordinadores);
+			variablesDeProceso.put("usuariosCoordinadores", usuariosCoordinadores);
+			variablesDeProceso.put("mailsDelegados", mailsDelegados);
+			variablesDeProceso.put("usuariosDelegados", usuariosDelegados);
+			
+			execution.setVariables(variablesDeProceso);
+		} catch (Exception exc) {
+			log.error("Excepcion lanzada al inicializar el proceso "
+					+ "'Convocatoria, confección y firma de acuerdo y convenios'...", exc);
+			throw exc;
+		}
 		
-		usuarioTutorAcademico = getUsuarioTutorAcademico(isfpp);
-		mailTutorAcademico = getMailTutorAcademico(isfpp);
-		tituloIsfpp = isfpp.getTitulo();
-		perteneceA = sp.getTitulo()+" / "+ proyecto.getTitulo();
-		mailsCoordinadores = getMailsStaffFi(miembrosStaffFi, ECargosStaffFi.COORDINADOR);
-		mailsDelegados = getMailsStaffFi(miembrosStaffFi, ECargosStaffFi.DELEGADO);
-		usuariosCoordinadores = getUsuariosStaffFi(miembrosStaffFi, ECargosStaffFi.COORDINADOR);
-		usuariosDelegados = getUsuariosStaffFi(miembrosStaffFi, ECargosStaffFi.DELEGADO);
 		
-		Map<String, Object> variablesDeProceso = new HashMap<String, Object>();
-		variablesDeProceso.put("usuarioTutorAcademico", usuarioTutorAcademico);
-		variablesDeProceso.put("mailTutorAcademico", mailTutorAcademico);
-		variablesDeProceso.put("tituloIsfpp", tituloIsfpp);
-		variablesDeProceso.put("perteneceA", perteneceA);
-		variablesDeProceso.put("mailsCoordinadores", mailsCoordinadores);
-		variablesDeProceso.put("usuariosCoordinadores", usuariosCoordinadores);
-		variablesDeProceso.put("mailsDelegados", mailsDelegados);
-		variablesDeProceso.put("usuariosDelegados", usuariosDelegados);
-		
-		execution.setVariables(variablesDeProceso);
 	}
 
 	private String getUsuarioTutorAcademico(Isfpp isfpp) throws Exception{

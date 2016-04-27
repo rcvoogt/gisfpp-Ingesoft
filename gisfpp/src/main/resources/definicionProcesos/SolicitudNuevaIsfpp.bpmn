@@ -13,7 +13,7 @@
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P3D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
       <documentation>Reunión con "${nombreSolicitante}" para acordar	condiciones sobre la nueva Isfpp "${tituloIsfpp}" perteneciente a "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">

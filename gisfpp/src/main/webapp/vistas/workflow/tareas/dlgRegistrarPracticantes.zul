@@ -1,12 +1,12 @@
 <zk>
 	<window id="dlgRegistrarPracticantes" title="Tarea: Registrar Practicantes en Isfpp" border="normal" sizable="true"
-		width="28%" height="20%" closable="true" apply="org.zkoss.bind.BindComposer"
+		width="28%" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer"
 			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.MVDlgRegistrarPracticantes')">
 		<vbox hflex="true" vflex="true">
 			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"
 				value="@load(vm.tarea.descripcion)"/>
 			<separator bar="true"/>
-			<a>Ir a la Isfpp para registrar los Practicantes</a>
+			<a>Registrar Practicantes</a>
 			<separator bar="true"/>
 			<hbox  hflex="true" align="center" pack="center" spacing="8px">
 				<a class="btn btn-success btn-sm" 

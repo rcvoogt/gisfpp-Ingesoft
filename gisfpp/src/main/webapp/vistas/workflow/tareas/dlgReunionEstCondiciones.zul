@@ -1,11 +1,11 @@
 <zk>
 <window id="dlgReunionEstCondiciones" title="Tarea: Reunión para establecer condiciones de la nueva Isfpp." border="normal"
-	closable="true" width="26%" height="20%" apply="org.zkoss.bind.BindComposer"
+	closable="true" width="26%" vflex="true" apply="org.zkoss.bind.BindComposer" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.VMDlgReuEstCondiciones')">
-	<vbox spacing="8px">
-		<hbox spacing="8px">
+	<vbox spacing="8px" hflex="true" vflex="true">
+		<hbox spacing="8px" hflex="true">
 			<div class="z-messagebox-icon z-messagebox-question z-div"></div>
-			<label style="font-style: italic;  font-weight: bold;">
+			<label style="font-style: italic;  font-weight: bold;" hflex="true">
 				De acuerdo a los resultados de la reunión llevada a cabo,  "Aprueba" la nueva Isfpp solicitada?
 			</label>
 		</hbox>

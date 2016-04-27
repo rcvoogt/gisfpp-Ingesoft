@@ -66,12 +66,12 @@ public class MVCrudProyecto {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			editando = true;
 			creando = ver= false;
-			titulo = "Editando Proyecto:  (Cod.: " + item.getCodigo() + ") " + item.getTitulo();
+			titulo = "Editando Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
 		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			ver = true;
 			creando = editando = false;
-			titulo = "Ver Proyecto:  (Cod.: " + item.getCodigo() + ") " + item.getTitulo();
+			titulo = "Ver Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
 		}
 	}
 
@@ -108,20 +108,22 @@ public class MVCrudProyecto {
 	}
 
 	@Command("nuevoProyecto")
-	@NotifyChange({ "item", "creando" })
+	@NotifyChange({ "item", "creando", "modo" })
 	public void nuevoProyecto() {
 		item = new Proyecto("", "", "", "", null, null, null, "", null, null,null);
 		creando = true;
 		editando = false;
 		ver = false;
+		modo = UtilGisfpp.MOD_NUEVO;
 	}
 
 	@Command("editar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "creando", "editando", "ver", "modo" })
 	public void reEditar() {
 		editando = true;
 		creando = false;
 		ver = false;
+		modo = UtilGisfpp.MOD_EDICION;
 	}
 
 	@Command("guardar")
@@ -152,11 +154,12 @@ public class MVCrudProyecto {
 	}
 
 	@Command("cancelar")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "creando", "editando", "ver", "modo" })
 	public void cancelar() {
 		creando = false;
 		editando = false;
 		ver = true;
+		modo = UtilGisfpp.MOD_VER;
 	}
 
 	@Command("volver")

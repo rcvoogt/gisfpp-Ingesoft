@@ -88,18 +88,20 @@ public class MVCrudSubProyecto {
 	}
 
 	@Command("nuevoSP")
-	@NotifyChange({ "item", "creando", "editando", "ver" })
+	@NotifyChange({ "item", "creando", "editando", "ver", "modo" })
 	public void nuevo() {
 		item = new SubProyecto(perteneceA, null, null);
 		creando = true;
 		editando = ver =false;
+		modo = UtilGisfpp.MOD_NUEVO;
 	}
 
 	@Command("editar")
-	@NotifyChange({ "editando", "creando", "ver" })
+	@NotifyChange({ "editando", "creando", "ver", "modo" })
 	public void reEditar() {
 		editando = true;
 		creando = ver=false;
+		modo = UtilGisfpp.MOD_EDICION;
 	}
 
 	@Command("guardar")

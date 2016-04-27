@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentQuery;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -26,6 +28,7 @@ import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 public class GestorMotorBpmImp implements GestorMotorBpm {
 
 	private RepositoryService servRepository;
+	private RuntimeService rtService;
 	private Logger log;
 	
 	@PostConstruct
@@ -91,6 +94,47 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		
 	}
 	
+	@Override
+	public void activarInstanciaProceso(String idInstancia)
+			throws GisfppWorkflowException {
+		try {
+			rtService.activateProcessInstanceById(idInstancia);
+		} catch (ActivitiObjectNotFoundException exc1) {
+			log.error("Clase: " + this.getClass().getName() +" - Metodo: activarInstanciaProceso(String idInstancia)", exc1);
+			new GisfppWorkflowException("No se puede activar. Instancia de Proceso inexsistente.");
+		}catch (ActivitiException exc2) {
+			//La instancia de proceso ya se encontraba activa. No hacemos nada.
+		}
+		
+	}
+
+	@Override
+	public void suspenderInstanciaProceso(String idInstancia)
+			throws GisfppWorkflowException {
+		try {
+			rtService.suspendProcessInstanceById(idInstancia);
+		} catch (ActivitiObjectNotFoundException exc1) {
+			log.error("Clase: " + this.getClass().getName() +" - Metodo: suspenderInstanciaProceso(String idInstancia)", exc1);
+			new GisfppWorkflowException("No se puede suspender. Instancia de Proceso inexsistente.");
+		}catch (ActivitiException exc2) {
+			//La instancia de proceso ya se encontraba suspendida. No hacemos nada.
+		}
+		
+	}
+
+	@Override
+	public void eliminarInstanciaProceso(String idInstancia)
+			throws GisfppWorkflowException {
+		try {
+			rtService.deleteProcessInstance(idInstancia, "Isfpp Cancelada");
+		} catch (ActivitiObjectNotFoundException exc1) {
+			log.error("Clase: " + this.getClass().getName() +" - Metodo: eliminarInstanciaProceso(String idInstancia)", exc1);
+			new GisfppWorkflowException("No se puede eliminar. Instancia de Proceso inexsistente.");
+		}
+		
+	}
+		
+	
 	private DefinicionProceso convertirDefProceso(ProcessDefinition instancia){
 		DeploymentQuery query = servRepository.createDeploymentQuery();
 		Deployment deployment = query.deploymentId(instancia.getDeploymentId()).singleResult();
@@ -109,9 +153,16 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		return devolucion;
 	}
 
+	
 	@Autowired(required=true)
 	public void setServRepository(RepositoryService servRepository) {
 		this.servRepository = servRepository;
+	}
+	
+	
+	@Autowired(required=true)
+	public void setRtService(RuntimeService rtService) {
+		this.rtService = rtService;
 	}
 	
 }

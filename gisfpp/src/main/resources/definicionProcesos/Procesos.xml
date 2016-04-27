@@ -10,6 +10,8 @@
 		</operacion>
 		<operacion  nombre="Activar">
 		</operacion>
+		<operacion nombre="Reactivar">
+		</operacion>
 		<operacion  nombre="Rechazar">
 		</operacion>
 		<operacion  nombre="Suspender">

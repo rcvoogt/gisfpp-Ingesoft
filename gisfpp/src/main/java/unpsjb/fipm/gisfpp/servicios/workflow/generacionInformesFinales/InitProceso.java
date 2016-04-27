@@ -59,11 +59,16 @@ public class InitProceso implements ExecutionListener{
 	}
 	
 	private String getMailsTutores(Isfpp isfpp){
-		String devolucion;
-		
-		devolucion = isfpp.getTutorAcademico().getMiembro().getEmail() +", "+ isfpp.getTutorExterno().getMiembro().getEmail();
-				
-		return devolucion;
+		StringBuilder devolucion = new StringBuilder();
+		String mailTutorAcademico = (isfpp.getTutorAcademico()!= null)? isfpp.getTutorAcademico().getMiembro().getEmail():null;
+		String mailTutorExterno = (isfpp.getTutorExterno()!= null)? isfpp.getTutorExterno().getMiembro().getEmail():null;
+		if (mailTutorAcademico!=null) {
+			devolucion.append(mailTutorAcademico);
+		}
+		if(mailTutorExterno!=null){
+			devolucion.append(", "+ mailTutorExterno);
+		}
+		return new String(devolucion);
 	}
 	
 	private String getMailsPracticantes(Isfpp isfpp){
@@ -122,7 +127,7 @@ public class InitProceso implements ExecutionListener{
 		List<String> devolucion = new ArrayList<String>();
 		for (Iterator iterator = isfpp.getPracticantes().iterator(); iterator.hasNext();) {
 			PersonaFisica persona = (PersonaFisica) iterator.next();
-			devolucion.add(persona.getNombre()+"(DNI: "+persona.getDni()+")");
+			devolucion.add(persona.getNombre()+" (DNI: "+persona.getDni()+")");
 		}
 		return devolucion;
 	}

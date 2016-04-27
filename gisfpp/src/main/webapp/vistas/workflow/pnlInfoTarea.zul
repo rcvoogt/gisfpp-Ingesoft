@@ -5,7 +5,7 @@
 	<div class="panel-body" height="30%" style="overflow: auto;">
 		<label value="@load(vm.tareaSeleccionada.nombre)" sclass="h3" />
 		<n:p style="margin-top: 5px;">
-			<label value="@load(vm.tareaSeleccionada.descripcion)" />
+			<label value="@load(vm.tareaSeleccionada.descripcion)" hflex="true" multiline="true"/>
 		</n:p>
 	</div>
 	<div class="list-group" vflex="true">

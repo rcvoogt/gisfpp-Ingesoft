@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import unpsjb.fipm.gisfpp.entidades.Operaciones;
@@ -74,7 +75,11 @@ public class UtilSecurity {
 	 * @return nickname (String)
 	 */
 	public static String getNickName() {
-		return SecurityContextHolder.getContext().getAuthentication().getName();
+		Authentication usuarioAutenticado = SecurityContextHolder.getContext().getAuthentication();
+		if (usuarioAutenticado == null) {
+			return "UsuarioSinAutenticar";
+		}
+		return usuarioAutenticado.getName();
 	}
 	
 	/**
@@ -122,23 +127,24 @@ public class UtilSecurity {
 		DetalleUsuario detalle = (DetalleUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<RolUsuario> roles = detalle.getRoles();
 		EnumSet<Operaciones> autorizaciones = detalle.getOperacionesAutorizadas();
+		String entidadMayuscula = entidad.toUpperCase();
 				
 		if (!autorizaciones.contains(Operaciones.valueOf(operacion))) {
 			return false;
 		}
 		
-		switch (entidad) {
-		case "Proyecto":{
+		switch (entidadMayuscula) {
+		case "PROYECTO":{
 			for (RolUsuario rol : roles) {
-				if(rol.getTabla().equals("proyecto") && rol.getIdTabla()==id){
+				if(rol.getTabla().equals(entidadMayuscula) && rol.getIdTabla().longValue()==id.longValue()){
 					return true;
 				}
 			}
 			break;
 		}
-		case "Isfpp":{
+		case "ISFPP":{
 			for (RolUsuario rol : roles) {
-				if (rol.getTabla().equals("isfpp") && rol.getIdTabla() == id) {
+				if (rol.getTabla().equals(entidadMayuscula) && rol.getIdTabla() == id) {
 					return true;
 				}
 			}

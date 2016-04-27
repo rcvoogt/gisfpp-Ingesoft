@@ -1,6 +1,6 @@
 <zk>
 	<window id="dlgSolicitarFirmaConvenio" title="Tarea: Solicitar firma de Convenio Particular" border="normal" sizable="true"
-		width="28%" height="20%" closable="true" apply="org.zkoss.bind.BindComposer"
+		width="28%" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer"
 			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.MVDlgSolicitarFirmaConvenio')">
 		<vbox hflex="true" vflex="true">
 			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"

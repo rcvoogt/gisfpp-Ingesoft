@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.dao.proyecto;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,9 +142,9 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	public int getCantidadPracticantes(Integer idIsfpp) throws Exception {
 		String queryNativo = "SELECT count(*) FROM gisfpp.practicantes where isfppId = " + idIsfpp;
 		try {
-			Integer resultado = (Integer) getHibernateTemplate().getSessionFactory().getCurrentSession()
+			BigInteger resultado = (BigInteger) getHibernateTemplate().getSessionFactory().getCurrentSession()
 					.createSQLQuery(queryNativo).uniqueResult();
-			return resultado;
+			return resultado.intValueExact();
 		} catch (Exception exc) {
 			log.error("Clase: "+ this.getClass().getName() +"- Metodo: int getCantidadPracticantes(Integer idIsfpp)", exc);
 			throw exc;

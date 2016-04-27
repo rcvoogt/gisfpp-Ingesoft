@@ -263,7 +263,7 @@ public class MVBandejaWorkflow {
 		return resultado;
 	}
 	
-	@NotifyChange({"cantTareasAsignadas", "tareaSeleccionada","tareas", "vistaTareas", "cantPendientes"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarTareasAsignadas")
 	public void refrescarTareasAsignadas(){
 		tareasAsignadas = servGTareas.getTareasAsignadas(usuarioConectado.getNickname(), 
@@ -272,9 +272,10 @@ public class MVBandejaWorkflow {
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
+		tituloPnlLista = "Procesos/Tareas";
 	}
 	
-	@NotifyChange({"cantTareasPropuestas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarTareasPropuestas")
 	public void refrescarTareasPropuestas(){
 		tareasPropuestas = servGTareas.getTareasPropuestas(usuarioConectado.getNickname(), 
@@ -283,9 +284,10 @@ public class MVBandejaWorkflow {
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
+		tituloPnlLista = "Procesos/Tareas";
 	}
 	
-	@NotifyChange({"cantTareasDelegadas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarTareasDelegadas")
 	public void refrescarTareasDelegadas(){
 		tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC
@@ -294,9 +296,10 @@ public class MVBandejaWorkflow {
 		tareaSeleccionada = null;
 		tareas = null;
 		vistaTareas = false;
+		tituloPnlLista = "Procesos/Tareas";
 	}
 	
-	@NotifyChange({"cantTareasRealizadas", "tareaSeleccionada", "tareas", "vistaTareas", "cantHistorial"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarTareasRealizadas")
 	public void refrescarTareasRealizadas(){
 		if (tareasRealizadas!=null) {
@@ -307,16 +310,17 @@ public class MVBandejaWorkflow {
 		vistaTareas = false;
 	}
 	
-	@NotifyChange({"cantProcesosActivos", "procesoSeleccionado", "procesos", "vistaProcesos"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarProcesosActivos")
 	public void refrescarProcesosActivos(){
 		procesosActivos = servGWorkflow.getProcesosActivos(usuarioConectado.getNickname());
 		procesoSeleccionado = null;
 		procesos = null;
 		vistaProcesos = false;
+		tituloPnlLista = "Procesos/Tareas";
 	}
 	
-	@NotifyChange({"cantProcesosFinalizados", "procesoSeleccionado", "procesos", "vistaProcesos"})
+	@NotifyChange({"*"})
 	@GlobalCommand("refrescarProcesosFinalizados")
 	public void refrescarProcesosFinalizados(){
 		if (procesosFinalizados!=null) {
@@ -336,7 +340,7 @@ public class MVBandejaWorkflow {
 		dlg.doModal();
 	}
 	
-	@NotifyChange({"cantTareasAsignadas", "cantTareasPropuestas", "tareaSeleccionada", "tareas", "vistaTareas", "cantPendientes"})
+	@NotifyChange({"*"})
 	@Command("reclamarTarea")
 	public void reclamarTarea(){
 		try {

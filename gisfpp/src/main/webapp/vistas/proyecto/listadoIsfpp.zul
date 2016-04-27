@@ -2,33 +2,45 @@
 	<div class="btn-toolbar pull-right">
 		<a image="recursos/img/icon-createfile.png" tooltiptext="Crear y asignar una nueva Isfpp"
 			class="btn btn-success btn-xs" onClick="@command('nuevaIsfpp')"
-				disabled="@load(vm.tabIsfppCreado)"> Nueva Isfpp</a>
+				disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('CREAR_ISFPP', 'proyecto', vm.item.perteneceA.id)
+				 or	sec:isAutorizado('MODIFICAR_PROYECTOS')))"
+					> Nueva</a>
 	</div>
 	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
 	 	style="border: 2px solid #80ccff; border-radius: 5px;"
 			emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." 
 				model="@load(vm.item.instanciasIsfpp)">
 		<columns>
-			<column label="Titulo" width="32%"/>
+			<column label="Titulo" width="40%"/>
 			<column label="Estado" width="15%"/>
-			<column label="Fecha Inicio" width="16%"/>
-			<column label="Fecha Fin" width="16%"/>
+			<column label="Fecha Inicio" width="12%"/>
+			<column label="Fecha Fin" width="12%"/>
 			<column label="Ver" width="7%" align="center"/>
 			<column label="Editar" width="7%" align="center"/>
 			<column label="Eliminar" width="7%" align="center"/>
 		</columns>
 		<template name="model">
-			<row>
+			<row style="@load(util:isFechaPasada(each.fin)?'background-color: #f2dede;':'')">
 				<label value="@load(each.titulo)"/>
 				<label value="@load(each.estado.titulo)"/>
 				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>
-				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"/>
-				<toolbarbutton image="recursos/img/icon-preview.png" disabled="@load(vm.tabIsfppCreado)"
-					tooltiptext="Ver detalle" onClick="@command('verIsfpp', idItem=each.id)"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load(vm.tabIsfppCreado)"
-					tooltiptext="Editar datos" onClick="@command('editarIsfpp', idItem=each.id)" />
-				<toolbarbutton image="recursos/img/icon-trash.png" disabled="@load(vm.tabIsfppCreado)"
-					tooltiptext="Eliminar la Isfpp" 	onClick="@command('eliminarIsfpp',item =each)"/>				
+				<label value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"
+					style="@load(util:isFechaPasada(each.fin)?'color: red; font-weight: bold;':'')"/>
+				<toolbarbutton image="recursos/img/icon-preview.png" tooltiptext="Ver detalle" 
+					onClick="@command('verIsfpp', idItem=each.id)"
+						disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('CONSULTAR_ISFPP','proyecto',vm.item.perteneceA.id)
+							or sec:isAutorizado2('CONSULTAR_ISFPP', 'isfpp', each.id) or
+								sec:isAutorizado('MODIFICAR_PROYECTOS')))"/>
+				<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos" 
+					disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('MODIFICAR_ISFPP','proyecto',vm.item.perteneceA.id)
+							or sec:isAutorizado2('MODIFICAR_ISFPP', 'isfpp', each.id) or
+								sec:isAutorizado('MODIFICAR_PROYECTOS')))"
+						onClick="@command('editarIsfpp', idItem=each.id)" />
+				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Eliminar la Isfpp"
+					disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('ELIMINAR_ISFPP','proyecto',vm.item.perteneceA.id)
+							or sec:isAutorizado2('ELIMINAR_ISFPP', 'isfpp', each.id) or
+								sec:isAutorizado('MODIFICAR_PROYECTOS')))"
+						onClick="@command('eliminarIsfpp',item =each)"/>				
 			</row>
 		</template>
 	</grid>

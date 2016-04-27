@@ -1,5 +1,8 @@
 package unpsjb.fipm.gisfpp.util;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -127,6 +130,10 @@ public class UtilGisfpp {
 		}else{
 			return "verde";
 		}
+	}
+	
+	public static boolean isFechaPasada(Date fecha){
+		return (fecha.before(new Date()));
 	}
 	
 }// fin de la clase

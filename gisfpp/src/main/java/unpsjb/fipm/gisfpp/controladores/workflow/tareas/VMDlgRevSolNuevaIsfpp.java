@@ -52,8 +52,11 @@ public class VMDlgRevSolNuevaIsfpp {
 		servGTareas.tratarTarea(tarea, variables);
 		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarTareasPropuestas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasDelegadas", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarProcesosActivos", null);
+		BindUtils.postGlobalCommand(null, null, "refrescarProcesosFinalizados", null);
 		cerrar();
 	}
 	

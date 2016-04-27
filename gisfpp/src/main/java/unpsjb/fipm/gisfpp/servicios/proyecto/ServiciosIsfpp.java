@@ -13,7 +13,9 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorMotorBpm;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
@@ -24,6 +26,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 
 	private IDaoIsfpp dao;
 	private GestorWorkflow servGWkFl;
+	private GestorMotorBpm servMotorWf;
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
@@ -77,12 +80,14 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	}
 	
 	@Override
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<PersonaFisica> getPracticantes(Integer idIsfpp)
 			throws Exception {
 		return dao.getPracticantes(idIsfpp);
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly=true)
 	public int getCantidadPracticantes(Integer idIsfpp) throws Exception {
 		return dao.getCantidadPracticantes(idIsfpp);
 	}
@@ -92,11 +97,29 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	public void activarIsfpp(Integer idIsfpp) throws Exception {
 		Isfpp isfpp = getInstancia(idIsfpp);
 		
-		if(isfpp.getEstado()!= EEstadosIsfpp.GENERADA && isfpp.getEstado()!= EEstadosIsfpp.SUSPENDIDA){
-			throw new GisfppException("Solo se puede Activar una Isfpp si se encuentra en estado \"Generada\" o \"Suspendida\".");
+		if(isfpp.getEstado()!= EEstadosIsfpp.GENERADA){
+			throw new GisfppException("Solo se puede Activar una Isfpp en estado \"Generada\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
 		servGWkFl.instanciarProceso("Isfpp", "Activar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
+	}
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void reActivarISfpp(Integer idIsfpp) throws Exception {
+		Isfpp isfpp = getInstancia(idIsfpp);
+				
+		if (isfpp.getEstado()!= EEstadosIsfpp.SUSPENDIDA) {
+			throw new GisfppException("Solo se puede Reactivar una Isfpp en estado \"Suspendida\".");
+		}
+		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
+		servGWkFl.instanciarProceso("Isfpp", "Reactivar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
+		
+		List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(idIsfpp));
+		for (InstanciaProceso instancia : instanciasEnEjecucion) {
+			servMotorWf.activarInstanciaProceso(instancia.getIdInstancia());
+		}
+		
 	}
 
 	@Override
@@ -115,12 +138,17 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Transactional(value="gisfpp", readOnly=false)
 	public void suspenderIsfpp(Integer idIsfpp) throws Exception {
 		Isfpp isfpp = getInstancia(idIsfpp);
-		
+				
 		if (isfpp.getEstado()!= EEstadosIsfpp.ACTIVA) {
-			throw new GisfppException("Solo se puede Suspender una Isfpp si se encuentra en estado \"Activa\".");
+			throw new GisfppException("Solo se puede Suspender una Isfpp en estado \"Activa\".");
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.SUSPENDIDA);
 		servGWkFl.instanciarProceso("Isfpp", "Suspender", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
+		
+		List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(idIsfpp));
+		for (InstanciaProceso instancia : instanciasEnEjecucion) {
+			servMotorWf.suspenderInstanciaProceso(instancia.getIdInstancia());
+		}
 	}
 
 	@Override
@@ -133,6 +161,11 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		}
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.CANCELADA);
 		servGWkFl.instanciarProceso("Isfpp", "Cancelar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
+		
+		List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(idIsfpp));
+		for (InstanciaProceso instancia : instanciasEnEjecucion) {
+			servMotorWf.eliminarInstanciaProceso(instancia.getIdInstancia());
+		}
 	}
 
 	@Override
@@ -160,6 +193,11 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Autowired(required=true)
 	public void setServGWkFl(GestorWorkflow servGWkFl) {
 		this.servGWkFl = servGWkFl;
+	}
+
+	@Autowired(required=true)
+	public void setServMotorWf(GestorMotorBpm servMotorWf) {
+		this.servMotorWf = servMotorWf;
 	}
 
 }// fin de la clase

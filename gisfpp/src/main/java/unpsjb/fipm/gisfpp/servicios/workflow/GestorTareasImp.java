@@ -333,9 +333,9 @@ public class GestorTareasImp implements GestorTareas {
 		infoTarea.setDescripcion(tarea.getDescription());
 		infoTarea.setNombreProceso(definicionProceso.getName());
 		infoTarea.setEstado(estado);
+		infoTarea.setFecha_inicio(tarea.getCreateTime());
 		
 		if (tarea instanceof HistoricTaskInstance) {
-			infoTarea.setFecha_inicio(((HistoricTaskInstance)tarea).getStartTime());
 			infoTarea.setFecha_concluida(((HistoricTaskInstance)tarea).getEndTime());
 			infoTarea.setFecha_reclamada(((HistoricTaskInstance)tarea).getClaimTime());
 			return infoTarea;

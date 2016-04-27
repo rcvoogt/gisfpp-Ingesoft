@@ -1,16 +1,17 @@
-<vbox spacing="6px" width="100%" height="100%">
+<vbox spacing="6px" vflex="true" hflex="true">
 	<div class="btn-toolbar pull-right">
 		<a image="recursos/img/icon-addtolist.png" tooltiptext="Nuevo Sub-Proyecto"
 			class="btn btn-success btn-xs" onClick="@command('nuevoSP')"
-				disabled="@load((not vm.creando) and (not vm.editando))"> Nuevo SP</a>
+				disabled="@load(not (sec:isAutorizado2('CREAR_SUBPROYECTO', 'proyecto', vm.item.id)
+				 or sec:isAutorizado('MODIFICAR_PROYECTOS')))"> Nuevo SP</a>
 	</div>
-	<grid width="100%" vflex="1" mold="paging" autopaging="true" 
+	<grid hflex="true" vflex="true" mold="paging" autopaging="true"
 		style="border: 2px solid #80ccff; border-radius: 5px;"
 			emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
 				model="@load(vm.item.subProyectos)">
-		<columns>
-			<column label="N°" width="8%" />
-			<column label="Titulo" width="19%" />
+		<columns sizable="true">
+			<column label="N°" width="6%"/>
+			<column label="Titulo" width="21%" />
 			<column label="Descripcion" width="52%" />
 			<column label="Ver" width="7%" align="center"/>
 			<column label="Editar" width="7%" align="center"/>
@@ -21,13 +22,18 @@
 				<label  value="@load(each.id)" />
 				<label value="@load(each.titulo)" />
 				<label value="@load(each.descripcion)"/>
-				<toolbarbutton image="recursos/img/icon-preview.png"
-					tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
-				<toolbarbutton image="recursos/img/icon-edit.png" disabled="@load((not vm.creando) and (not vm.editando))"
-					tooltiptext="Editar datos" onClick="@command('editarSP', idItem=each.id)" />
+				<toolbarbutton image="recursos/img/icon-preview.png" 
+					disabled="@load(not (sec:isAutorizado2('CONSULTAR_SUBPROYECTO', 'proyecto', vm.item.id)
+					 or	sec:isAutorizado('CONSULTAR_PROYECTOS')))"
+						tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
+				<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos del SP" 
+					disabled="@load(not(sec:isAutorizado2('MODIFICAR_SUBPROYECTO','proyecto', vm.item.id) 
+							or sec:isAutorizado('MODIFICAR_PROYECTOS')))"
+								onClick="@command('editarSP', idItem=each.id)" />
 				<toolbarbutton image="recursos/img/icon-trash.png"
-					tooltiptext="Dar de baja" disabled="@load((not vm.creando) and (not vm.editando))"
-					onClick="@command('eliminarSP', item = each)" />
+					tooltiptext="Dar de baja" disabled="@load(not(sec:isAutorizado2('ELIMINAR_SUBPROYECTO', 'proyecto', vm.item.id) 
+						or	sec:isAutorizado('MODIFICAR_PROYECTOS')))"
+							onClick="@command('eliminarSP', item = each)" />
 			</row>
 		</template>
 	</grid>

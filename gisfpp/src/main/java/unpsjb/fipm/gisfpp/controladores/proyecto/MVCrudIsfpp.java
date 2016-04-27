@@ -2,6 +2,8 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
@@ -28,7 +30,9 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -104,6 +108,9 @@ public class MVCrudIsfpp {
 				servicio.persistir(item);
 				Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
+				String listaWf = getProcesosInstanciados(item.getId());
+				Clients.showNotification("Workflows instanciados:\n"+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+						"middle_right", 4000);
 			}
 			if (editando) {
 				servicio.editar(item);
@@ -118,35 +125,27 @@ public class MVCrudIsfpp {
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
 			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
 					Messagebox.ERROR);
-		}catch (GisfppWorkflowException wfe) {
-			try {
-				servicio.eliminar(item);
-				creando = editando = false;
-				ver=true;
-				throw wfe;
-			} catch (Exception e) {
-				log.error(this.getClass().getName(), wfe);
-				throw wfe;
-			}
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		}catch (Exception exc) {
+			log.error(this.getClass().getName(), exc);
+			throw exc;
 		}
 	}
 
 	@Command("nuevaIsfpp")
-	@NotifyChange({ "item", "creando", "editando", "ver" })
+	@NotifyChange({ "item", "creando", "editando", "ver", "modo" })
 	public void nuevaIsfpp() {
 		item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "",null, null);
 		creando = true;
 		editando = (ver = false);
+		modo = UtilGisfpp.MOD_NUEVO;
 	}
 
 	@Command("editarIsfpp")
-	@NotifyChange({ "creando", "editando", "ver" })
+	@NotifyChange({ "creando", "editando", "ver", "modo" })
 	public void editar() {
 		editando = true;
 		creando = (ver = false);
+		modo = UtilGisfpp.MOD_EDICION;
 	}
 
 	@Command("cancelar")
@@ -231,7 +230,7 @@ public class MVCrudIsfpp {
 	@Command("activarIsfpp")
 	@NotifyChange("item")
 	public void activarIsfpp() throws Exception{
-		servicio.activarIsfpp(item.getId());
+		servicio.reActivarISfpp(item.getId());
 		Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 				3500);
 		servicio.refrescarInstancia(item);
@@ -291,6 +290,16 @@ public class MVCrudIsfpp {
 					}
 				});
 		servicio.refrescarInstancia(item);
+	}
+	
+	private String getProcesosInstanciados(Integer idIsfpp) {
+		GestorWorkflow servGestorWf = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
+		List<String> nombresInstancias = servGestorWf.getNombresInstancias(String.valueOf(idIsfpp));
+		StringBuilder devolucion = new StringBuilder();
+		for (String instancia : nombresInstancias) {
+			devolucion.append("- "+instancia+"\n");
+		}
+		return new String(devolucion);
 	}
 
 }// fin de la clase

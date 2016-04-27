@@ -24,9 +24,10 @@
 				</div>
 			</div>
 		</north>
-		<center id="centro" style="padding-top:6px">
+		<center id="centro" style="padding-top: 5px;">
 			<div vflex="true">
-				<include id="panelCentro" src='${(empty param.login)? "":"/vistas/workflow/bandejaActividades.zul"}' if="${param.login != 0}"/>
+				<include id="panelCentro" src='${(empty param.login)? "":"/vistas/workflow/bandejaActividades.zul"}' 
+					if="${param.login != 0}"/>
 				<include src="/vistas/config/loguin_error.zul" if="${param.login == 0}"/>
 			</div>
 		</center>

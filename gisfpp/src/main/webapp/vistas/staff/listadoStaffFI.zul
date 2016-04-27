@@ -1,4 +1,4 @@
-<div id="pnlListaStaffFI" width="100%" height="100%" xmlns:n="native"
+<div id="pnlListaStaffFI" width="100%" vflex="true" xmlns:n="native"
 	class="panel panel-primary" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.staff.MVListaStaffFI')">
 	<div class="panel-heading">
@@ -6,7 +6,7 @@
 			<label value="Staff FI" style="font-size: 14px;" />
 		</n:h3>
 	</div>
-	<div class="panel-body" vflex="true">
+	<div class="panel-body" vflex="true" style="padding-bottom: 4px;">
 		<vbox hflex="true" vflex="true" spacing="5px">
 			<div class="btn-toolbar pull-right">
 				<a class="btn btn-success btn-sm" tooltiptext="Asociar una persona al Staff de la FI"
@@ -23,17 +23,18 @@
 					<column label="Cargo" width="20%"/>
 					<column label="Desde" hflex="1"/>
 					<column label="Hasta" hflex="1"/>
-					<column label="Ver" align="center" width="7%" />
-					<column label="Editar" align="center" width="7%" />
-					<column label="Eliminar" align="center" width="7%" />
+					<column label="Ver" align="center" width="7%"/>
+					<column label="Editar" align="center" width="7%"/>
+					<column label="Eliminar" align="center" width="7%"/>
 				</columns>
 				<template name="model">
-					<row>
-						<label value="@load(each.miembro.nombre)"/>
+					<row style="@load(util:isFechaPasada(each.hasta)?'background-color: #f2dede;':'')">
+						<label value="@load(each.miembro.nombre)" sclass="danger"/>
 						<label value="@load(each.miembro.dni)" />
 						<label value="@load(each.rol.titulo)" />
 						<label value="@load(each.desde) @converter('formatedDate', format ='dd/MM/yyyy')"/>
-						<label value="@load(each.hasta) @converter('formatedDate', format ='dd/MM/yyyy')"/>
+						<label value="@load(each.hasta) @converter('formatedDate', format ='dd/MM/yyyy')"
+							style="@load(util:isFechaPasada(each.hasta)?'color: red; font-weight: bold;':'')"/>
 						<toolbarbutton
 							image="recursos/img/icon-preview.png" tooltiptext="Ver detalle"
 							onClick="@command('verAsociacion', item = each)" />
@@ -42,7 +43,7 @@
 							onClick="@command('editarAsociacion', item = each)" />
 						<toolbarbutton
 							image="recursos/img/icon-trash.png" tooltiptext="Dar de baja"
-							onClick='Messagebox.show("Se deberia eliminar esta asociacion!!!");' />
+							onClick="@command('eliminarAsociacion', item = each)"/>
 					</row>
 				</template>
 			</grid>

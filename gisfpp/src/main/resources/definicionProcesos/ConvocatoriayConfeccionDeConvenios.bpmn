@@ -228,7 +228,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tkUsrConfeccionarConvenios" name="Confeccionar Acuerdos y Convenios" activiti:candidateUsers="${usuariosCoordinadores}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConfeccionarAcuerdoConvenios.zul" activiti:priority="25">
+    <userTask id="tkUsrConfeccionarConvenios" name="Confeccionar Acuerdos y Convenios" activiti:candidateUsers="${usuariosCoordinadores}" activiti:dueDate="P1D" activiti:category="Isfpp" activiti:formKey="dlgConfeccionarAcuerdoConvenios.zul" activiti:priority="25">
       <documentation>Confeccionar acuerdo marco y convenios particulares para la Isfpp con Id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow10" sourceRef="parallelgateway3" targetRef="tkMlAvisoConfeccionarConvenios"></sequenceFlow>
@@ -236,7 +236,10 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <parallelGateway id="parallelgateway4" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow12" sourceRef="tkMlAvisoConfeccionarConvenios" targetRef="parallelgateway4"></sequenceFlow>
     <userTask id="tkUsrSolicitarFirmaConvenio" name="Solicitar Firma de Convenio Particular" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgSolicitarFirmaConvenio.zul" activiti:priority="50">
-      <documentation>Solicitar la firma, de las partes interesadas, del "Convenio Particular" correspondiente a la Práctica Profesional Supervisada del Alumno Practicante:  "${itemPracticante}" .</documentation>
+      <documentation>Solicitar la firma, de las partes interesadas, del "Convenio Particular" correspondiente a la Práctica Profesional Supervisada del Alumno Practicante:  "${itemPracticante}" . Isfpp:
+- Id.: ${execution.getProcessBusinessKey()}
+- Titulo: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}</documentation>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${listaPracticantes}" activiti:elementVariable="itemPracticante"></multiInstanceLoopCharacteristics>
     </userTask>
     <parallelGateway id="parallelgateway5" name="Parallel Gateway"></parallelGateway>
@@ -360,7 +363,11 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       </extensionElements>
     </serviceTask>
     <userTask id="tkUsrFirmarMarco" name="Firmar Acuerdo Marco" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgFirmarAcuerdoMarco.zul" activiti:priority="50">
-      <documentation>Proceder, en caso de corresponder, con la firma del "Acuerdo Marco" respaldatorio de la práctica profesional supervisada a desarrollarse.</documentation>
+      <documentation>Proceder, en caso de corresponder, con la firma del "Acuerdo Marco" respaldatorio de la práctica profesional supervisada a desarrollarse. Isfpp:
+- Id.: ${execution.getProcessBusinessKey()}
+- Titulo: ${tituloIsfpp}
+- Pertenece a: ${perteneceA}
+</documentation>
     </userTask>
     <parallelGateway id="parallelgateway6" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow19" sourceRef="tkMlAvisoFirmarConvenio" targetRef="parallelgateway6"></sequenceFlow>

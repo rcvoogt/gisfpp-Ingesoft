@@ -14,22 +14,25 @@
 			</tabs>
 			<toolbar>
 				<toolbarbutton image="recursos/img/icon-lupa.png" label="Proyecto"
-					class="btn btn-primary btn-xs" popup="ppDetalleProyecto, position =after_start "/>
-				<toolbarbutton image="recursos/img/icon-plus-sign.png"
-					label="Nuevo" disabled="@load((vm.creando) or (vm.tabIsfppCreado))" visible="@load(vm.modo eq 'NUEVO')" 
-						onClick="@command('nuevoSP')" class="btn btn-success btn-xs"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" label="Editar" 
-					disabled="@load((vm.editando) or (vm.tabIsfppCreado))" visible="@load((vm.modo ne 'NUEVO'))"
-					 onClick="@command('editar')" class="btn btn-success btn-xs"/>
-				<space bar="true" spacing="10px" />
-				<toolbarbutton image="recursos/img/icon-save.png"
-					label="Guardar" class="btn btn-success btn-xs"
-					disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
-					onClick="@command('guardar')" />
+					class="btn btn-primary btn-xs" popup="ppDetalleProyecto, position =after_start"/>
+				<toolbarbutton id="btnNuevo" image="recursos/img/icon-plus-sign.png" tooltiptext="Nuevo Sub-Proyecto"
+					label="Nuevo" disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))" 
+						visible ="@load(sec:isAutorizado2('CREAR_SUBPROYECTO', 'proyecto', vm.item.perteneceA.id)
+							or sec:isAutorizado('MODIFICAR_PROYECTOS'))" 
+								onClick="@command('nuevoSP')" class="btn btn-success btn-xs"/>
+				<toolbarbutton id="btnEditar" image="recursos/img/icon-edit.png" label="Editar" 
+					disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))" 
+						visible="@load(sec:isAutorizado2('MODIFICAR_SUBPROYECTO','proyecto',vm.item.perteneceA.id)
+							or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					 		onClick="@command('editar')" class="btn btn-success btn-xs"/>
+				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
+				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" class="btn btn-success btn-xs" 
+						disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
+							onClick="@command('guardar')" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
 				<toolbarbutton image="recursos/img/icon-remove-sign.png"
 					label="Cancelar" disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
-					onClick="@command('cancelar')" class="btn btn-success btn-xs"/>
-				<space bar="true" spacing="10px" />
+					onClick="@command('cancelar')" class="btn btn-success btn-xs" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
+				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
 				<toolbarbutton image="recursos/img/icon-arrow-left.png"
 					label="Volver" onClick="@command('volver')" tooltiptext="Volver al Proyecto"
 						class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)"/>
@@ -104,6 +107,10 @@
 				<label value="Hasta:"  style="font-weight: bold; text-decoration: underline;"/>
 				<label value="@load(vm.perteneceA.fecha_fin) @converter('formatedDate', format ='dd/MM/yyyy')"
 					style="font-style: italic;"/>
+			</hbox>
+			<hbox>
+				<label value="Estado:"  style="font-weight: bold; text-decoration: underline;"/>
+				<label value="@load(vm.perteneceA.estado.descripcion)" style="font-style: italic;"/>
 			</hbox>
 			<hbox>
 				<label value="Tipo:"  style="font-weight: bold; text-decoration: underline;"/>

@@ -22,7 +22,8 @@
 					onClick="@command('nuevoProyecto')" class="btn btn-success btn-xs" />
 				<toolbarbutton id="btnEditar" image="recursos/img/icon-edit.png"
 					label=" Editar" disabled="@load(vm.editando)"
-					visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'Proyecto', vm.item.id) or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'Proyecto', vm.item.id) or 
+						sec:isAutorizado('MODIFICAR_PROYECTOS'))"
 					onClick="@command('editar')" class="btn btn-success btn-xs"/>
 				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
 				<toolbarbutton image="recursos/img/icon-save.png"

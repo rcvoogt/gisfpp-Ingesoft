@@ -28,4 +28,11 @@
 		<description>
 		</description>
 	</function>
+	<function>
+		<name>isFechaPasada</name>
+		<function-class>unpsjb.fipm.gisfpp.util.UtilGisfpp</function-class>
+		<function-signature>boolean isFechaPasada(java.util.Date)</function-signature>
+		<description>
+		</description>
+	</function>
 </taglib>

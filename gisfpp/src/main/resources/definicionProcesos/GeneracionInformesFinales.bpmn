@@ -142,7 +142,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
       </extensionElements>
     </serviceTask>
-    <userTask id="tskUsrRevisarInforme" name="Revisar Informes Finales" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarInformesFinales.zul" activiti:priority="50">
+    <userTask id="tskUsrRevisarInforme" name="Revisar Informes Finales" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P3D" activiti:category="Isfpp" activiti:formKey="dlgRevisarInformesFinales.zul" activiti:priority="50">
       <documentation>Revisión de los correspondientes informes finales sobre el desempeño del Practicante "${itemPracticante}" en la Isfpp:
 - Título: ${tituloIsfpp}
 - Sub-Proyecto:${tituloSP}

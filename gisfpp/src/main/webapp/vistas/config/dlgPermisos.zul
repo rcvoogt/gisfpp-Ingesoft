@@ -1,40 +1,38 @@
-<zk>
-	<window title="Permisos" border="normal" closable="true" sizable="false"
-		height="55%" width="30%" apply="org.zkoss.bind.BindComposer"
-			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.config.MVDlgPermisos')">
-		<vbox spacing="8px" hflex="true" vflex="1">
-			<hbox spacing="8px" width="75%" pack="center">
-				<combobox id="cmbxRoles" readonly="true" model="@load(vm.roles)"
-					 placeholder="Roles..." hflex="1" onChange="@command('cambioRol', item = self.selectedItem.value)">
-					<template name="model">
-						<comboitem label="@load(each.name())"
-							description="@load(each.getTitulo())"/>
-					</template>
-				</combobox>
-				<a class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"/></a>
-			</hbox>
-			<separator bar="true"/>
-			<hbox vflex="true" spacing="10px">
-				<listbox id="ltbxPermisos" vflex="1" model="@load(vm.permisos)">
-					<listhead>
-						<listheader label="Operaciones"/>
-					</listhead>
-					<template name="model">
-						<listitem>
-							<listcell>
-								<span class="glyphicon glyphicon-triangle-right"></span>
-								<label value="@load(each.operacion.titulo)"/>
-							</listcell>
-						</listitem>
-					</template>
-				</listbox>
-				<vbox spacing="6px">
-					<a class="btn btn-success btn-sm" hflex="1"
-						onClick="@command('concederPermiso', rol = cmbxRoles.selectedItem.value)">Conceder</a>
-					<a class="btn btn-danger btn-sm" hflex="1" 
-						onClick="@command('revocarPermiso', item = ltbxPermisos.selectedItem.value)">Revocar</a>
-				</vbox>
-			</hbox>
-		</vbox>
-	</window>
-</zk>
+<window title="Permisos" border="normal" closable="true" sizable="true"
+	vflex="true" width="28%" apply="org.zkoss.bind.BindComposer" minwidth="300"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.config.MVDlgPermisos')">
+	<vbox spacing="8px" hflex="true" height="350px">
+		<hbox spacing="8px" height="25%" hflex="true">
+			<combobox id="cmbxRoles" readonly="true" model="@load(vm.roles)"
+				 placeholder="Roles..." hflex="true" onChange="@command('cambioRol', item = self.selectedItem.value)">
+				<template name="model">
+					<comboitem label="@load(each.name())"
+						description="@load(each.getTitulo())"/>
+				</template>
+			</combobox>
+			<!--<a class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-user"/></a>-->
+		</hbox>
+		<separator bar="true"/>
+		<hbox spacing="10px" hflex="true" vflex="true">
+			<listbox id="ltbxPermisos" model="@load(vm.permisos)" height="100%" hflex="true">
+				<listhead>
+					<listheader label="Operaciones"/>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<span class="glyphicon glyphicon-triangle-right"></span>
+							<label value="@load(each.operacion.titulo)"/>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+			<vbox spacing="6px" vflex="true" width="32%">
+				<a class="btn btn-success btn-sm" hflex="1"
+					onClick="@command('concederPermiso', rol = cmbxRoles.selectedItem.value)">Conceder</a>
+				<a class="btn btn-danger btn-sm" hflex="1" 
+					onClick="@command('revocarPermiso', item = ltbxPermisos.selectedItem.value)">Revocar</a>
+			</vbox>
+		</hbox>
+	</vbox>
+</window>

@@ -115,7 +115,7 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 
 	@Override
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception {
-		String query="select staffFi from StaffFi as staffFi where staffFi.rol = ?";
+		String query="select staffFi from StaffFI as staffFi where staffFi.rol = ?";
 		List<StaffFI> resultado;
 		try {
 			resultado = (List<StaffFI>) getHibernateTemplate().find(query, rol);

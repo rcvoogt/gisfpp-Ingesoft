@@ -1,7 +1,7 @@
 <window id="dlgLkpDemandante" title="Buscar/Seleccionar Demandante" border="normal"
-	width="850px" height="450px" closable="true" apply="org.zkoss.bind.BindComposer"
+	width="850px" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer" sizable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgLkpDemandante')">
-	<tabbox vflex="1" hflex="1">
+	<tabbox height="380px" hflex="1">
 		<tabs>
 			<tab label="Personas"/>
 			<tab label="Organizaciones"/>

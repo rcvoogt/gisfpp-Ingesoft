@@ -1,10 +1,10 @@
 <zk>
 	<window id="dlgStaffProyecto" title="@load(vm.titulo)"
-		border="normal" height="250px" width="400px"
+		border="normal" vflex="true" width="25%" sizable="true"
 		apply="org.zkoss.bind.BindComposer" closable="true"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgStaffProyecto')">
 		<vbox spacing="18px" hflex="1" vflex="1">
-			<div>
+			<div hflex="true" vflex="true">
 				<label value="Rol" class="form-label" width="45%" />
 				<combobox width="95%" model="@load(vm.rolesStaff)"
 					selectedItem="@bind(vm.item.rol)">
@@ -13,7 +13,7 @@
 					</template>
 				</combobox>
 			</div>
-			<div>
+			<div hflex="true" vflex="true">
 				<label value="Miembro" class="form-label" width="45%" />
 				<combobox width="95%" model="@load(vm.staffFI)"
 					selectedItem="@bind(vm.item.miembro)"
@@ -25,8 +25,9 @@
 					</template>
 				</combobox>
 			</div>
-			<hbox spacing="8px" pack="center" align="center" hflex="1"
-				vflex="1">
+			<separator bar="true"/>
+			<hbox spacing="8px" pack="center" align="center" hflex="true"
+				height="20%">
 				<a class="btn btn-success btn-sm"
 					image="recursos/img/icon-ok-sign.png"
 					onClick="@command('aceptar')">
