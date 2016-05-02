@@ -6,7 +6,7 @@
 			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"
 				value="@load(vm.tarea.descripcion)"/>
 			<separator bar="true"/>
-			<a>Registrar Practicantes</a>
+			<a onClick="@command('registrar')">Registrar Practicantes</a>
 			<separator bar="true"/>
 			<hbox  hflex="true" align="center" pack="center" spacing="8px">
 				<a class="btn btn-success btn-sm" 

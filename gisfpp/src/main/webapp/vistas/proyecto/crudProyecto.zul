@@ -1,11 +1,11 @@
 <div id="pnlCrudProyecto" xmlns:n="native" class="panel panel-primary"
-	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true"
+	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true" style="margin-bottom: 2px;"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
-	<div class="panel-heading">
+	<n:div class="panel-heading">
 		<n:h3 class="panel-title">
 			<label value="@load(vm.titulo)" style="font-size:14px;" />
 		</n:h3>
-	</div>
+	</n:div>
 	<div class="panel-body" vflex="true">
 		<tabbox vflex="1" hflex="1">
 			<tabs>

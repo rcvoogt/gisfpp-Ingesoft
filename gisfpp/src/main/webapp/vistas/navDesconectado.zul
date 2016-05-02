@@ -1,5 +1,5 @@
 <div xmlns:n="native">
-	<n:nav class="navbar navbar-default" style="height:70px;">
+	<n:nav class="navbar navbar-default" style="height: 74px; margin-bottom: 1px;">
 		<n:div class="container-fluid">
 			<n:div class="navbar-header">
 				<n:a class="navbar-brand">
@@ -8,7 +8,7 @@
 			</n:div>
 			<n:div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<n:ul class="nav navbar-nav navbar-right">
-					<n:li><a popup="dlgLogin" style="font-size: 14px; height: 68px;">
+					<n:li><a popup="dlgLogin" style="font-size: 14px; height: 72px;">
 						<n:span class="glyphicon glyphicon-log-in"> Inicio</n:span>
 							</a></n:li>
 				</n:ul>

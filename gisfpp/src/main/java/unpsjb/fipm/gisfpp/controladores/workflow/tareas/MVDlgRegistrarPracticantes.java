@@ -21,6 +21,7 @@ import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVDlgRegistrarPracticantes {
 	
@@ -67,6 +68,14 @@ public class MVDlgRegistrarPracticantes {
 		
 		cerrar();
 		
+	}
+	
+	@Command("registrar")
+	public void registrarPracticantes(){
+		Integer idIsfpp = Integer.valueOf(servWorkflow.getKeyBusiness(tarea.getIdInstanciaProceso()));
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("idIsfpp", idIsfpp);
+		UtilGuiGisfpp.mostrarDialogoBox("vistas/proyecto/dlgAsignarPracticantes.zul", args);
 	}
 	
 	@Command("cancelar")

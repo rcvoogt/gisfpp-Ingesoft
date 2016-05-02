@@ -1,5 +1,5 @@
 <div id="pnlCrudSP" class="panel panel-primary" hflex="true" vflex="true" 
-	xmlns:n="native" apply="org.zkoss.bind.BindComposer" 
+	xmlns:n="native" apply="org.zkoss.bind.BindComposer" style="margin-bottom: 2px;"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">

@@ -3,9 +3,11 @@ package unpsjb.fipm.gisfpp.util;
 import java.util.Map;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Include;
+import org.zkoss.zul.Window;
 
 public class UtilGuiGisfpp {
 
@@ -62,6 +64,12 @@ public class UtilGuiGisfpp {
 			panel.detach();
 			include.setSrc(null);
 		}
+	}
+	
+	public static void mostrarDialogoBox(String path, Map <String,Object> args){
+		
+		Window dlgBox = (Window) Executions.createComponents(path, null, args);
+		dlgBox.doModal();		
 	}
 
 }// fin de la clase

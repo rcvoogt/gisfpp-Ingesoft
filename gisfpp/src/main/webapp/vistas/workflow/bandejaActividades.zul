@@ -1,5 +1,5 @@
 <div id="pnlBandejaActividades" class="panel panel-primary" xmlns:n="native"
-	hflex="true" vflex="true" apply="org.zkoss.bind.BindComposer"
+	hflex="true" vflex="true" apply="org.zkoss.bind.BindComposer" style="margin-bottom: 2px;"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.MVBandejaWorkflow')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">
@@ -7,9 +7,9 @@
 				style="font-size: 14px;" />
 		</n:h3>
 	</div>
-	<div class="panel-body" vflex="true">
-		<borderlayout hflex="1" vflex="1">
-			<north border="none" size="8%" collapsible="true" style="overflow: visible;">
+	<div class="panel-body" vflex="true" style="padding-top: 6px;">
+		<borderlayout hflex="true" vflex="true">
+			<north border="none" collapsible="false" style="overflow: visible;">
 				<n:ul class="nav nav-pills">
 					<n:li class="dropdown">
 						<n:a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"	>
@@ -69,7 +69,7 @@
 					<include src="vistas/workflow/pnlListaProcesos.zul" visible="@load(vm.vistaProcesos)" vflex="1"/>
 				</div>
 			</west>
-			<center vflex="1">
+			<center vflex="true">
 				<div visible="@load(vm.vistaTareas or vm.vistaProcesos)" vflex="1">
 					<include src="vistas/workflow/pnlInfoTarea.zul" visible="@load(vm.vistaTareas)" vflex="1"/>
 					<include src="vistas/workflow/pnlInfoProceso.zul" visible="@load(vm.vistaProcesos)" vflex="1"/>

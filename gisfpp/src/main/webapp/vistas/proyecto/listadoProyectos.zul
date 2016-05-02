@@ -1,5 +1,5 @@
 <div id="pnlListaProyectos" xmlns:n="native" vflex="true" hflex="true"
-	apply="org.zkoss.bind.BindComposer" class="panel panel-primary"
+	apply="org.zkoss.bind.BindComposer" class="panel panel-primary" style="margin-bottom: 2px;"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVListarProyectos')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">

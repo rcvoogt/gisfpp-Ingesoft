@@ -1,0 +1,29 @@
+<zk>
+	<window  id="dlgAsignarPracticantes" title="Asignar Practicantes a Isfpp" border="normal" sizable="true" closable="true"
+		width="26%" vflex="true" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgAsignarPracticantes')">
+		<vbox hflex="true" vflex="true">
+			<label value="Titulo Isfpp: " style="font-weight: bold;" hflex="true"/>
+			<label value="@load(vm.item.titulo)" multiline="true" hflex="true" vflex="true" style="font-style: italic;"/>
+			<separator bar="true"/>
+			<listbox hflex="true" height="260px" model="@load(vm.item.practicantes)">
+				<listhead sizable="true">
+					<listheader label="Apellido y Nombres" sort="auto" width="65%"/>
+					<listheader label="DNI"/>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="@load(each.nombre)"/>
+						<listcell label="@load(each.dni)"/>
+					</listitem>
+				</template>
+			</listbox>
+			<separator bar="true"/>
+			<hbox hflex="true" align="center" pack="end">
+				<a label="Agregar" onClick="@command('seleccionar')" class="btn btn-primary btn-sm"/>
+				<a label="Guardar" onClick="@command('guardar')" class="btn btn-success btn-sm"/>
+				<a label="Cancelar" onClick="@command('cerrar')" class="btn btn-warning btn-sm"/>			
+			</hbox>
+		</vbox>
+	</window>
+</zk>

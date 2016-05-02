@@ -1,4 +1,8 @@
 <?page id="appGISFPP" title="GISFPP" contentType="text/html;charset=UTF-8"?>
+
+<?meta http-equiv="X-UA-Compatible" content="IE=edge"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1"?>
+
 <?taglib uri="/WEB-INF/tld/security.tld" prefix="sec"?>
 <?taglib uri="/WEB-INF/tld/util.tld" prefix="util"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
@@ -14,7 +18,7 @@
 <zk xmlns:n="native">
 	<borderlayout id="layout" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')" vflex="true" hflex="true">
-		<north Id="cabecera" height="9%" style="overflow: visible;">
+		<north Id="cabecera" style="overflow: visible; border:0px">
 			<div>
 				<div hflex="1" if="${not sec:isLogueado()}" vflex="true">
 					<include src="/vistas/navDesconectado.zul"/>
@@ -24,14 +28,14 @@
 				</div>
 			</div>
 		</north>
-		<center id="centro" style="padding-top: 5px;">
+		<center id="centro" style="padding-top: 4px;">
 			<div vflex="true">
 				<include id="panelCentro" src='${(empty param.login)? "":"/vistas/workflow/bandejaActividades.zul"}' 
 					if="${param.login != 0}"/>
 				<include src="/vistas/config/loguin_error.zul" if="${param.login == 0}"/>
 			</div>
 		</center>
-		<south id="pie" height="5%">
+		<south id="pie">
 			<div style="text-align: center; padding: 6px">
 				<n:a href="http://www.madryn.unp.edu.ar/index.php/facultad-ingenieria"
 					style="font-size:12px; font-family: Arial, Verdana;">
