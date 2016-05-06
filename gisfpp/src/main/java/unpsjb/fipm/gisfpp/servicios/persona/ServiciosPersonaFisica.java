@@ -5,17 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import unpsjb.fipm.gisfpp.dao.persona.IDaoPersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
+import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.util.MySpringUtil;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 @Service("servPersonaFisica")

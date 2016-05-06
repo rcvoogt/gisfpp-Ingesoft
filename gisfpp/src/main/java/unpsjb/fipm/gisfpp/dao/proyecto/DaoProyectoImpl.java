@@ -1,10 +1,14 @@
 package unpsjb.fipm.gisfpp.dao.proyecto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
@@ -46,8 +50,16 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	@SuppressWarnings("unchecked")
 	public List<Proyecto> recuperarTodo() throws DataAccessException {
 		String query = "select p from Proyecto as p left join fetch p.subProyectos";
+		List<Proyecto> resultado;
 		try {
-			return (List<Proyecto>) getHibernateTemplate().find(query, null);
+			resultado = (List<Proyecto>) getHibernateTemplate().find(query, null);
+			if (resultado!= null && !resultado.isEmpty()) {
+				Set<Proyecto> sinDuplicados = new HashSet<Proyecto>(resultado);
+				resultado.clear();
+				resultado.addAll(sinDuplicados);
+				return resultado;
+			}
+			return new ArrayList<Proyecto>();
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
