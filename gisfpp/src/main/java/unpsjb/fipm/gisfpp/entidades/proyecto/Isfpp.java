@@ -70,8 +70,8 @@ public class Isfpp implements Serializable {
 	private Set<MiembroStaffIsfpp> staff;
 	
 	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId", foreignKey=@ForeignKey(name="fk_practicante_isfpp")), 
-		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_practicante_persona")))
+	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId")
+			, foreignKey=@ForeignKey(name="fk_isfpp_practicantes"), inverseForeignKey=@ForeignKey(name="fk_persona_practicantes"))
 	private Set<PersonaFisica> practicantes;
 
 	public Isfpp() {

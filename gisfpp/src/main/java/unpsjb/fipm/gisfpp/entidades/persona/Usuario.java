@@ -9,6 +9,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name="usuario")
+@Table(name="usuario", indexes=@Index(name="uk_nickname",columnList="nickname"))
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,7 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="personaId", nullable=false, foreignKey=@ForeignKey(name="fk_persona"))
 	private PersonaFisica persona;
 
-	@Column(unique = true, nullable = false, length = 50)
+	@Column(nullable = false, length = 50)
 	private String nickname;
 
 	@Column(nullable = false, length = 50)

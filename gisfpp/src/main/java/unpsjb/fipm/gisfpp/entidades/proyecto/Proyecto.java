@@ -18,6 +18,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -36,7 +37,9 @@ import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
-@Table(name = "proyecto")
+@Table(name = "proyecto", indexes={@Index(name="uk_codigo", columnList="codigo", unique=true), 
+		@Index(name="uk_num_resolucion",columnList="num_resolucion", unique=true), 
+			@Index(name="uk_titulo",columnList="titulo", unique=true)})
 public class Proyecto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,14 +49,13 @@ public class Proyecto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "codigo", length = 20, unique = true)
+	@Column(name = "codigo", length = 20)
 	private String codigo;
 
-	@Column(name = "num_resolucion", length = 20, unique = true)
+	@Column(name = "num_resolucion", length = 20)
 	private String resolucion;
 
-	@Basic(optional = false)
-	@Column(name = "titulo", nullable = false, length = 80, unique = true)
+	@Column(name = "titulo", nullable = false, length = 80)
 	private String titulo;
 
 	@Column(name = "descripcion", length = 500)
