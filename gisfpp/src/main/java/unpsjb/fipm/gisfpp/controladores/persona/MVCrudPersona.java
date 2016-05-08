@@ -111,13 +111,6 @@ public class MVCrudPersona {
 			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		}
-		catch (DataIntegrityViolationException exc2) {
-			int codError = ((org.hibernate.exception.ConstraintViolationException)exc2.getCause()).getErrorCode();
-			if (codError == 1062) {
-				throw new GisfppException("El Nombre de Usuario: \""+ item.getUsuario().getNickname() +"\" ya existe en la BD."
-						+ " Elija otro por favor.");
-			}
-		}
 	}
 
 	@Command("nuevaPersona")

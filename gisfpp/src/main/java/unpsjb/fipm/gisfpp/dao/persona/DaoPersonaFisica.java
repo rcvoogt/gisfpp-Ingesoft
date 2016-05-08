@@ -4,15 +4,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
+import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
+import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
-import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
@@ -24,9 +25,19 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		try {
 			getHibernateTemplate().save(instancia);
 			return instancia.getId();
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		} catch (DataIntegrityViolationException exc) {
+			instancia.setId(null);
+			for (Domicilio domicilio : instancia.getDomicilios()) {
+				domicilio.setId(null);
+			}
+			for (DatoDeContacto datoContacto : instancia.getDatosDeContacto()) {
+				datoContacto.setId(null);
+			}
+			for (Identificador identificador : instancia.getIdentificadores()) {
+				identificador.setId(null);
+			}
+			instancia.getUsuario().setId(null);
+			throw exc;
 		}
 	}
 

@@ -13,6 +13,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -59,7 +60,7 @@ public class Usuario implements Serializable {
 		return id;
 	}
 
-	protected void setId(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -82,6 +83,7 @@ public class Usuario implements Serializable {
 	}
 
 	@Length(max = 50, message = "La \"Contraseña\" no puede ser mayor a 50 caracteres.")
+	@NotBlank(message="Debe especificar un \"password\".")
 	public String getPassword() {
 		return password;
 	}
