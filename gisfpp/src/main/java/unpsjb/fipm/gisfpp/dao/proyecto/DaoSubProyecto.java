@@ -102,12 +102,12 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	}
 
 	@Override
-	public Proyecto getPerteneceA(SubProyecto instancia)
+	public Proyecto getPerteneceA(Integer idSP)
 			throws DataAccessException {
 		String query = "select p from Proyecto as p left join fetch p.staff inner join p.subProyectos as sp where sp.id = ?";
 		List<Proyecto> resulQuery;
 		try {
-			resulQuery =  (List<Proyecto>) getHibernateTemplate().find(query, instancia.getId());
+			resulQuery =  (List<Proyecto>) getHibernateTemplate().find(query, idSP);
 			if (resulQuery!=null && !resulQuery.isEmpty()) {
 				for (MiembroStaffProyecto miembro : resulQuery.get(0).getStaff()) {
 					getHibernateTemplate().initialize(miembro.getMiembro().getDatosDeContacto());

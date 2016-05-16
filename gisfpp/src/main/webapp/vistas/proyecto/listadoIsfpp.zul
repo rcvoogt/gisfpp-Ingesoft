@@ -11,16 +11,18 @@
 			emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." 
 				model="@load(vm.item.instanciasIsfpp)">
 		<columns>
-			<column label="Titulo" width="40%"/>
-			<column label="Estado" width="15%"/>
-			<column label="Fecha Inicio" width="12%"/>
-			<column label="Fecha Fin" width="12%"/>
+			<column label="Id." width="7%"/>
+			<column label="Titulo" width="40%" sort="auto(titulo)"/>
+			<column label="Estado" width="12%"/>
+			<column label="Fecha Inicio" width="10%"/>
+			<column label="Fecha Fin" width="10%"/>
 			<column label="Ver" width="7%" align="center"/>
 			<column label="Editar" width="7%" align="center"/>
 			<column label="Eliminar" width="7%" align="center"/>
 		</columns>
 		<template name="model">
 			<row style="@load(util:isFechaPasada(each.fin)?'background-color: #f2dede;':'')">
+				<label value="@load(each.id)"/>
 				<label value="@load(each.titulo)"/>
 				<label value="@load(each.estado.titulo)"/>
 				<label value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')"/>

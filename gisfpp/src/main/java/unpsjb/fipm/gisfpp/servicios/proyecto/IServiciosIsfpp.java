@@ -4,6 +4,7 @@ import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
@@ -20,12 +21,20 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception;
 	
 	/**
-	 * Devuelve el SubProyecto al cual pertenece la Isfpp pasada como parámetro;
-	 * @param isfpp
+	 * Devuelve el SubProyecto al cual pertenece la Isfpp (Id) pasada como parámetro;
+	 * @param idIsfpp (Integer)
 	 * @return SubProyecto
 	 * @throws Exception
 	 */
-	public SubProyecto getPerteneceA(Isfpp instancia) throws Exception; 
+	public SubProyecto getPerteneceASP(Integer idIsfpp) throws Exception;
+	
+	/**
+	 * Devuelve el Proyecto al cual pertenece la Isfpp (Id) pasada como parámetro;
+	 * @param idIsfpp (Integer)
+	 * @return
+	 * @throws Exception
+	 */
+	public Proyecto getPerteneceAProyecto(Integer idIsfpp) throws Exception;
 	
 	public List<PersonaFisica> getPracticantes(Integer idIsfpp) throws Exception;
 	

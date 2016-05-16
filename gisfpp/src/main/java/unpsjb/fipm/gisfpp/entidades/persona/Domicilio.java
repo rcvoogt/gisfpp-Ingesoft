@@ -55,6 +55,7 @@ public class Domicilio {
 		this.provincia = provincia;
 	}
 
+	@Length(max=6, message="La altura de la calle no deber superar los 6 digitos")
 	public String getAltura() {
 		return altura;
 	}
@@ -73,6 +74,7 @@ public class Domicilio {
 		this.calle = calle;
 	}
 
+	@Length(max=3, message="El N° de Piso no debe superar los 3 digitos")
 	public String getPiso() {
 		return piso;
 	}
@@ -81,6 +83,7 @@ public class Domicilio {
 		this.piso = piso;
 	}
 
+	@Length(max=3, message="El N° de dpto. no debe superar los 3 digitos")
 	public String getNum_dpto() {
 		return num_dpto;
 	}
@@ -117,6 +120,7 @@ public class Domicilio {
 		this.id = id;
 	}
 
+	@Length(max=5, message="El Cod. Postal no debe superar los 5 digitos")
 	public String getCod_postal() {
 		return cod_postal;
 	}

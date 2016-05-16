@@ -21,6 +21,7 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.MySpringUtil;
+import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class InitProceso implements ExecutionListener{
 
@@ -40,8 +41,8 @@ public class InitProceso implements ExecutionListener{
 		servStaffFi = MySpringUtil.getServicioStaffFi();
 		
 		Isfpp isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
-		SubProyecto sp = servIsfpp.getPerteneceA(isfpp);
-		Proyecto proyecto = servSP.getPerteneceA(sp);
+		SubProyecto sp = servIsfpp.getPerteneceASP(isfpp.getId());
+		Proyecto proyecto = servSP.getPerteneceA(sp.getId());
 		List<StaffFI> delegados = servStaffFi.getMiembroPorRol(ECargosStaffFi.DELEGADO);
 				
 		Map<String, Object> variablesDelProceso = new HashMap<String, Object>();
@@ -54,6 +55,7 @@ public class InitProceso implements ExecutionListener{
 		variablesDelProceso.put("tituloProyecto", proyecto.getTitulo());
 		variablesDelProceso.put("practicantes", getPracticantes(isfpp));
 		variablesDelProceso.put("listaPracticantes", getListadoPracticantes(isfpp));
+		variablesDelProceso.put("pathApp", UtilGisfpp.getProperty("app.path"));
 		
 		execution.setVariables(variablesDelProceso);
 	}

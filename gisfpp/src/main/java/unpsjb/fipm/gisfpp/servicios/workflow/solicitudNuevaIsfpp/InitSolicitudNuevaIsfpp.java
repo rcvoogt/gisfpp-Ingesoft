@@ -53,8 +53,8 @@ public class InitSolicitudNuevaIsfpp implements ExecutionListener {
 			rtService = MySpringUtil.getRunTimeService();
 						
 			isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
-			sp = servIsfpp.getPerteneceA(isfpp);
-			proyecto = servSP.getPerteneceA(sp);
+			sp = servIsfpp.getPerteneceASP(isfpp.getId());
+			proyecto = servSP.getPerteneceA(sp.getId());
 			
 			recuperarDatosSolicitante(execution);
 			recuperarDatosResponsables();
@@ -69,6 +69,7 @@ public class InitSolicitudNuevaIsfpp implements ExecutionListener {
 			variables.put("mailsResponsablesProyecto", new String(mailsResponsablesProyecto));
 			variables.put("tituloIsfpp", tituloIsfpp);
 			variables.put("perteneceA", perteneceA);
+			variables.put("pathApp", UtilGisfpp.getProperty("app.path"));
 			
 			execution.setVariables(variables);
 			rtService.addUserIdentityLink(execution.getProcessInstanceId(), usuarioSolicitante, IdentityLinkType.STARTER);
@@ -83,7 +84,7 @@ public class InitSolicitudNuevaIsfpp implements ExecutionListener {
 	private void recuperarDatosSolicitante(DelegateExecution exc) throws Exception{
 		Usuario usuario;
 		
-	    usuarioSolicitante = (String) exc.getVariable("usuarioSolicitante");
+	    usuarioSolicitante = (String) exc.getVariable("usuarioIniciador");
 	    usuario = servUsuario.getUsuario(usuarioSolicitante);
 	    nombreSolicitante = usuario.getPersona().getNombre();
 	    mailSolicitante = usuario.getPersona().getEmail();		

@@ -108,7 +108,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <li> Titulo Proyecto: ${tituloProyecto}</li>
     <li>Practicantes: ${practicantes}</li>
   </ul>
-  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
   <br/>
   <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -126,6 +126,8 @@ Datos de la Isfpp:
 - Titulo Sub-Proyecto: ${tituloSP}
 - Titulo Proyecto: ${tituloProyecto}
 - Practicantes: ${practicantes}
+
+Acceder a Gisfpp: ${pathApp}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -228,7 +230,8 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 6) mailsDelegados (String)
 7) listaPracticantes (List&lt;String&gt;)
 8) tituloSP (String)
-9) tituloProyecto (String)</text>
+9) tituloProyecto (String)
+10)pathApp</text>
     </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">

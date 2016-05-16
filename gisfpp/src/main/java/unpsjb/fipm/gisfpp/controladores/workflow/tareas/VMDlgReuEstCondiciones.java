@@ -36,14 +36,17 @@ public class VMDlgReuEstCondiciones {
 		return tarea;
 	}
 
+	@SuppressWarnings("static-access")
 	@Command("completar")
 	public void completarTarea(@BindingParam("aprobar") boolean arg1, 
-			@BindingParam("motivo") String motivoRechazo) throws GisfppWorkflowException{
+			@BindingParam("motivo") String arg2) throws GisfppWorkflowException, InterruptedException{
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("isfppAprobada", arg1);
-		args.put("motivoRechazo", motivoRechazo);
+		args.put("motivoRechazo", (arg2==null||arg2.isEmpty())?"Rechazada (No se especifica motivo)":arg2);
 		
 		servGTareas.tratarTarea(tarea, args);
+		
+		Thread.currentThread().sleep(3000);
 		
 		//Refrescamos las listas de tareas y procesos en la vista de la bandeja de actividades.
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);

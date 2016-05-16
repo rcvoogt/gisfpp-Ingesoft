@@ -224,7 +224,8 @@ public class GestorTareasImp implements GestorTareas {
 			throw new GisfppWorkflowException("La tarea que intenta reclamar ya ha sido reclamada por otro usuario.");
 		}catch (Exception exc3) {
 			log.error(this.getClass().getName(), exc3);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea con id: "+tarea.getId()+".", exc3);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar reclamar la tarea. \n Mensaje: "
+					+exc3.getCause().getMessage(), exc3);
 		}
 
 	}
@@ -238,7 +239,8 @@ public class GestorTareasImp implements GestorTareas {
 			throw new GisfppWorkflowException("La tarea que intenta delegar no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea.", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar delegar la tarea. \n "
+					+ "Mensaje: "+exc2.getCause().getMessage(), exc2);
 		}
 
 	} 
@@ -249,7 +251,8 @@ public class GestorTareasImp implements GestorTareas {
 		} catch(ActivitiObjectNotFoundException exc1){
 			throw new GisfppWorkflowException("La tarea con Id. "+tarea.getId()+" que intenta completar no existe.", exc1);
 		}catch (Exception exc2) {
-			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea con id: "+ tarea.getId()+".", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea. "
+					+ "\n. Mensaje: "+exc2.getCause().getMessage(), exc2);
 		}
 	}
 
@@ -261,7 +264,8 @@ public class GestorTareasImp implements GestorTareas {
 		} catch(ActivitiObjectNotFoundException exc1){
 			throw new GisfppWorkflowException("La tarea con Id. "+tarea.getId()+" que intenta completar no existe.", exc1);
 		}catch (Exception exc2) {
-			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea con id: "+ tarea.getId()+".", exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al  intentar completar la tarea. "
+					+ "\n Mensaje: "+ exc2.getCause().getMessage(), exc2);
 		}
 	}
 	
@@ -272,7 +276,7 @@ public class GestorTareasImp implements GestorTareas {
 			throw new GisfppWorkflowException("La tarea con id. "+ tarea.getId()+" que intenta resolver no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea con id. "+tarea.getId(), exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea. \n"+tarea.getId(), exc2);
 		}
 		
 	}
@@ -285,7 +289,8 @@ public class GestorTareasImp implements GestorTareas {
 			throw new GisfppWorkflowException("La tarea con id. "+ tarea.getId()+" que intenta resolver no existe.");
 		}catch (Exception exc2) {
 			log.error(this.getClass().getName(), exc2);
-			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea con id. "+tarea.getId(), exc2);
+			throw new GisfppWorkflowException("Se ha producido un error al intertar resolver la tarea. \n"
+					+ "Mensaje: "+ exc2.getCause().getMessage(), exc2);
 		}
 	}
 	

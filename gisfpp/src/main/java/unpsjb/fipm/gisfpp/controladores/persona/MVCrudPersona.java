@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -23,7 +22,6 @@ import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
-import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 

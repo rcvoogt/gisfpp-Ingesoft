@@ -1,7 +1,7 @@
 <window title="Permisos" border="normal" closable="true" sizable="true"
 	vflex="true" width="28%" apply="org.zkoss.bind.BindComposer" minwidth="300"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.config.MVDlgPermisos')">
-	<vbox spacing="8px" hflex="true" height="350px">
+	<vbox spacing="8px" hflex="true" vflex="true">
 		<hbox spacing="8px" height="25%" hflex="true">
 			<combobox id="cmbxRoles" readonly="true" model="@load(vm.roles)"
 				 placeholder="Roles..." hflex="true" onChange="@command('cambioRol', item = self.selectedItem.value)">
@@ -14,7 +14,7 @@
 		</hbox>
 		<separator bar="true"/>
 		<hbox spacing="10px" hflex="true" vflex="true">
-			<listbox id="ltbxPermisos" model="@load(vm.permisos)" height="100%" hflex="true">
+			<listbox id="ltbxPermisos" model="@load(vm.permisos)" height="320px" hflex="true">
 				<listhead>
 					<listheader label="Operaciones"/>
 				</listhead>

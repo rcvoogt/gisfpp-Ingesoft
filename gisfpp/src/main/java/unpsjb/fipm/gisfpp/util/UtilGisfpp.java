@@ -1,7 +1,9 @@
 package unpsjb.fipm.gisfpp.util;
 
-import java.util.Calendar;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -134,6 +136,23 @@ public class UtilGisfpp {
 	
 	public static boolean isFechaPasada(Date fecha){
 		return (fecha.before(new Date()));
+	}
+	
+	public static String getProperty(String property) throws IOException{
+		Properties properties = new Properties();
+		InputStream stream =null;
+		try {
+			stream = UtilGisfpp.class.getResourceAsStream("/gisfpp.properties");
+			properties.load(stream);
+			return properties.getProperty(property);
+		} catch (IOException exc) {
+			getLogger().error("Clase: UtilGisfpp - Metodo: getProperty(String)" , exc);
+			throw exc;
+		}finally{
+			if (stream!=null) {
+				stream.close();
+			}
+		}
 	}
 	
 }// fin de la clase

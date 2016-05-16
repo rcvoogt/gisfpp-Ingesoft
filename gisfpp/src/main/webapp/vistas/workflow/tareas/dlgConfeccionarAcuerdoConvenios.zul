@@ -1,6 +1,6 @@
 <zk>
 	<window id="dlgConfeccionarAcuerdoConvenios" title="Tarea: Confeccionar Acuerdo Marco y Convenios Particulares" border="normal"
-	 sizable="true"	width="32%" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer"
+	 sizable="true"	width="36%" vflex="true" closable="true" apply="org.zkoss.bind.BindComposer"
 			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.workflow.tareas.MVDlgConfeccionarAcuerdoConvenios')">
 		<vbox hflex="true" vflex="true">
 			<label style="font-style: italic; font-weight: bold;" multiline="true" hflex="true"
@@ -8,7 +8,7 @@
 			<separator bar="true"/>
 			<groupbox hflex="1">
 				<caption label="Practicantes" hflex="true"/>
-				<listbox hflex="true" height="250px" model="@load(vm.practicantes)">
+				<listbox hflex="true" height="150px" model="@load(vm.practicantes)">
 					<listhead sizable="true" visible="true">
 						<listheader label="Nombre y Apellido" width="40%"/>
 						<listheader label="DNI" width="30%"/>
@@ -23,6 +23,28 @@
 					</template>
 				</listbox>		
 			</groupbox>
+			<separator bar="true"/>
+			<a onClick="@command('registrarPracticante')">Registrar Practicantes</a>
+			<separator bar="true"/>
+			<groupbox hflex="1">
+				<caption label="Tutores" hflex="true"/>
+				<listbox hflex="true" height="100px" model="@load(vm.tutores)">
+					<listhead sizable="true" visible="true">
+						<listheader label="Nombre y Apellido" width="40%"/>
+						<listheader label="Rol" width="30%"/>
+						<listheader label="DNI" width="30%"/>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@load(each.miembro.nombre)"/>
+							<listcell label="@load(each.rol.titulo)"/>
+							<listcell label="@load(each.miembro.dni)"/>
+						</listitem>						
+					</template>
+				</listbox>		
+			</groupbox>
+			<separator bar="true"/>
+			<a onClick="@command('registrarTutor')">Registrar Tutor Externo</a>
 			<separator bar="true"/>
 			<hbox  hflex="true" align="center" pack="center" spacing="8px">
 				<a class="btn btn-success btn-sm" 

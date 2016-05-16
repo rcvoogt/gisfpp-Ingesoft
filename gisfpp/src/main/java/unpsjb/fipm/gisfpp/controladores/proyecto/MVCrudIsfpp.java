@@ -1,8 +1,8 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +30,10 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
-import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
-import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVCrudIsfpp {
 
@@ -58,7 +57,7 @@ public class MVCrudIsfpp {
 		modo = (String) args.get("modo");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "",null, null);
+			item = new Isfpp(perteneceA, getTituloNewIsfpp(),"", new Date(), new Date(), "",null, null);
 			creando = true;
 			editando = (ver = false);
 			break;
@@ -134,7 +133,7 @@ public class MVCrudIsfpp {
 	@Command("nuevaIsfpp")
 	@NotifyChange({ "item", "creando", "editando", "ver", "modo" })
 	public void nuevaIsfpp() {
-		item = new Isfpp(perteneceA, "", "", new Date(), new Date(), "",null, null);
+		item = new Isfpp(perteneceA, getTituloNewIsfpp(), "", new Date(), new Date(), "",null, null);
 		creando = true;
 		editando = (ver = false);
 		modo = UtilGisfpp.MOD_NUEVO;
@@ -237,7 +236,6 @@ public class MVCrudIsfpp {
 	}
 	
 	@Command("suspenderIsfpp")
-	@NotifyChange("item")
 	public void suspenderIsfpp() throws Exception{
 		Messagebox.show("Desea realmente \"Suspender\" esta Isfpp ? Si la suspende todo Workflow activo asociada a la misma"
 				+ " también será suspendido.", "Gisfpp: Suspendiendo Isfpp", new Button [] {Button.YES, Button.NO}
@@ -248,15 +246,14 @@ public class MVCrudIsfpp {
 						if (event.getName().equals(Messagebox.ON_YES)) {
 							servicio.suspenderIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
-									3500);	
+									3500);
+							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");	
 						}
 					}
 				});
-		servicio.refrescarInstancia(item);
 	}
 	
 	@Command("cancelarIsfpp")
-	@NotifyChange("item")
 	public void cancelarIsfpp() throws Exception{
 		Messagebox.show("Desea realmente \"Cancelar\" esta Isfpp ? Si la cancela, no podrá volver a activarla y todo Workflow activo asociada a la misma"
 				+ " será eliminado.", "Gisfpp: Cancelando Isfpp", new Button [] {Button.YES, Button.NO}
@@ -267,15 +264,14 @@ public class MVCrudIsfpp {
 						if (event.getName().equals(Messagebox.ON_YES)) {
 							servicio.cancelarIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
-									3500);	
+									3500);
+							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");	
 						}
 					}
 				});
-		servicio.refrescarInstancia(item);
 	}
 	
 	@Command("concluirIsfpp")
-	@NotifyChange("item")
 	public void concluirIsfpp() throws Exception{
 		Messagebox.show("Desea realmente dar por \"Concluida\" esta Isfpp?", "Gisfpp: Isfpp concluida",
 				new Button [] {Button.YES, Button.NO}, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
@@ -285,11 +281,11 @@ public class MVCrudIsfpp {
 						if (event.getName().equals(Messagebox.ON_YES)) {
 							servicio.concluirIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
-									3500);	
+									3500);
+							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
 						}
 					}
 				});
-		servicio.refrescarInstancia(item);
 	}
 	
 	private String getProcesosInstanciados(Integer idIsfpp) {
@@ -300,6 +296,18 @@ public class MVCrudIsfpp {
 			devolucion.append("- "+instancia+"\n");
 		}
 		return new String(devolucion);
+	}
+	
+	private String getTituloNewIsfpp(){
+		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+		String hoy = formateador.format(new Date());
+		String solicitante = UtilSecurity.getNickName();
+		
+		return "Solicita: " + solicitante + " el " +hoy;
+	}
+	
+	private MVCrudIsfpp getAutoReferencia(){
+		return this;
 	}
 
 }// fin de la clase

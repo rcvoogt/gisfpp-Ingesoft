@@ -41,15 +41,18 @@ public class VMDlgRevSolNuevaIsfpp {
 		
 	@Command("completar")
 	public void completarTarea(@BindingParam ("continuar")boolean arg1,
-			@BindingParam("motivo")String arg2) throws GisfppWorkflowException{
+			@BindingParam("motivo")String arg2) throws GisfppWorkflowException, InterruptedException{
 		Usuario usuarioConectado = UtilSecurity.getUsuarioConectado();
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("continuar", arg1);
-		variables.put("motivoRechazo", arg2);
+		variables.put("motivoRechazo", (arg2==null||arg2.isEmpty())?"Rechazada (No se especifica motivo)":arg2);
 		variables.put("usuarioResponsable", usuarioConectado.getNickname());
 		variables.put("nombreResponsable", usuarioConectado.getPersona().getNombre());
 		variables.put("mailResponsable", usuarioConectado.getPersona().getEmail());
 		servGTareas.tratarTarea(tarea, variables);
+		
+		Thread.currentThread().sleep(3000);
+		
 		//Refrescamos las lista de tareas tanto "asignadas" como "realizadas" en la vista "Bandeja de tareas"
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
 		BindUtils.postGlobalCommand(null, null, "refrescarTareasPropuestas", null);

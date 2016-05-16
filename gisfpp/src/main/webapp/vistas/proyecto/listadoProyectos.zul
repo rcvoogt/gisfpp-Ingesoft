@@ -41,11 +41,9 @@
 						<columns>
 							<column label="Codigo" width="10%"
 								sort="auto(codigo)" tooltiptext="Clik para ordenar por Código" />
-							<column label="N° Resolucion" width="10%"
-								sort="auto(resolucion)"
-								tooltiptext="Clik para ordenar por N° Resolución" />
 							<column label="Titulo" width="39%"
 								sort="auto(titulo)" tooltiptext="Click para ordenar por Título" />
+							<column label="Estado" width="10%"/>	
 							<column label="Tipo" width="10%" />
 							<column label="Inicio" width="8%" />
 							<column label="Finalizacion" width="8%" />
@@ -59,8 +57,8 @@
 						<template name="model">
 							<row style="@load(util:isFechaPasada(each.fecha_fin)?'background-color: #f2dede;':'')">
 								<label value="@load(each.codigo)"/>
-								<label value="@load(each.resolucion)" />
 								<label value="@load(each.titulo)"/>
+								<label value="@load(each.estado.descripcion)" />
 								<label
 									value="@load(each.tipo.descripcion)" />
 								<label

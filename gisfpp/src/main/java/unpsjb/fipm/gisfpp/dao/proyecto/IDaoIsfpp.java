@@ -6,6 +6,7 @@ import unpsjb.fipm.gisfpp.dao.DaoGenerico;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 
 public interface IDaoIsfpp extends DaoGenerico<Isfpp, Integer> {
@@ -26,7 +27,9 @@ public interface IDaoIsfpp extends DaoGenerico<Isfpp, Integer> {
 	 * @return SubProyecto
 	 * @throws Exception
 	 */
-	public SubProyecto getPerteneceA(Isfpp isfpp) throws Exception;
+	public SubProyecto getPerteneceA(Integer idIsfpp) throws Exception;
+	
+	public Proyecto getPerteneceAProyecto(Integer idIsfpp) throws Exception;
 	
 	public List<PersonaFisica> getPracticantes(Integer IdIsfpp) throws Exception;
 	

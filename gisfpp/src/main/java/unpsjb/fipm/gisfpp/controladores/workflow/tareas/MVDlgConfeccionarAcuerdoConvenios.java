@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -13,20 +14,24 @@ import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 public class MVDlgConfeccionarAcuerdoConvenios {
 	private GestorTareas servTareas;
 	private InfoTarea tarea;
 	private IServiciosIsfpp servIsfpp;
 	private GestorWorkflow servWorkflow;
-	private List<PersonaFisica> practicantes;
+	private Isfpp isfpp;
 	
 	@Init
 	@NotifyChange("tarea")
@@ -37,27 +42,38 @@ public class MVDlgConfeccionarAcuerdoConvenios {
 		servTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
 		servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		servWorkflow = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
-		
+				
 		Integer idIsfpp = Integer.valueOf(servWorkflow.getKeyBusiness(tarea.getIdInstanciaProceso()));
-		practicantes = servIsfpp.getPracticantes(idIsfpp);
+		isfpp = servIsfpp.getInstancia(idIsfpp);
 	}
 
 	public InfoTarea getTarea() {
 		return tarea;
 	}
 	
-	public List<PersonaFisica> getPracticantes(){
-		return practicantes;
+	public Set<PersonaFisica> getPracticantes(){
+		return isfpp.getPracticantes();
+	}
+	
+	public Set<MiembroStaffIsfpp> getTutores(){
+		return isfpp.getStaff();
 	}
 	
 	@Command("completarTarea")
 	public void completarTarea() throws Exception{
 		
-		if (practicantes.isEmpty()) {
+		if (isfpp.getPracticantes().isEmpty()) {
 			Clients.alert("No se puede completar la tarea. No existen \"Practicantes\" "
-					+ "registrados en la Isfpp correspondiente", "Alerta: Worlflow", Clients.NOTIFICATION_TYPE_WARNING);
+					+ "registrados en la Isfpp correspondiente", "Alerta: Worlflow", Messagebox.ERROR);
 			return;
 		}
+		
+		if (isfpp.getTutorExterno() == null) {
+			Clients.alert("No se puede completar la tarea. No existe un \"Tutor Externo\" "
+					+ "registrado en la Isfpp correspondiente.", "Alerta: Workflow", Messagebox.ERROR);
+			return;
+		}
+		
 		List<String> listaPracticantes = getListaPracticantes();
 		Map <String, Object> variablesProceso = new HashMap<String, Object>();
 		variablesProceso.put("listaPracticantes", listaPracticantes);
@@ -75,6 +91,29 @@ public class MVDlgConfeccionarAcuerdoConvenios {
 		cerrar();
 	}
 	
+	@Command("registrarPracticante")
+	@NotifyChange("*")
+	public void registrarPracticantes(){
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("isfpp", isfpp);
+		args.put("origen", this);
+		UtilGuiGisfpp.mostrarDialogoBox("vistas/proyecto/dlgAsignarPracticantes.zul", args);
+	}
+	
+	@Command("registrarTutor")
+	@NotifyChange("*")
+	public void registrarTutorExterno(){
+		if (isfpp.getTutorExterno() != null) {
+			Clients.alert("Ya existe un \"Tutor Externo\" registrado en la Isfpp."
+					, "Alerta: Workflow", Messagebox.ERROR);
+			return;
+		}
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("isfpp", isfpp);
+		args.put("origen", this);
+		UtilGuiGisfpp.mostrarDialogoBox("vistas/proyecto/dlgAsignarTutorExterno.zul", args);
+	}
+	
 	private void cerrar(){
 		Window dlg = (Window) Path.getComponent("/dlgConfeccionarAcuerdoConvenios");
 		dlg.detach();
@@ -82,7 +121,7 @@ public class MVDlgConfeccionarAcuerdoConvenios {
 	
 	private List<String> getListaPracticantes(){
 		List<String> resultado = new ArrayList<String>();
-		for (PersonaFisica persona : practicantes) {
+		for (PersonaFisica persona : isfpp.getPracticantes()) {
 			resultado.add(persona.getNombre() +" (DNI: "+persona.getDni()+")");
 		}
 		return resultado;

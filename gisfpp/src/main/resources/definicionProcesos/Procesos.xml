@@ -2,7 +2,9 @@
 <procesos>
 	<categoria  nombre="Isfpp">
 		<operacion nombre="Crear">
+			<workflow id="unWorlflow"/>
 			<workflow id="solicitudNuevaIsfpp"/>
+			<workflow id="otroWorkflow"/>
 		</operacion>
 		<operacion nombre="Editar">
 		</operacion>
@@ -15,6 +17,7 @@
 		<operacion  nombre="Rechazar">
 		</operacion>
 		<operacion  nombre="Suspender">
+			<workflow id="procIsfppSuspendida"/>
 		</operacion>
 		<operacion  nombre="Cancelar">
 		</operacion>

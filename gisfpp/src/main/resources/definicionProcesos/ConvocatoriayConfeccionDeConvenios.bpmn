@@ -65,7 +65,7 @@
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
-  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
   <br/>
   <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -82,6 +82,8 @@ Datos de la Isfpp:
 - Id. Isfpp: ${execution.getProcessBusinessKey()}
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
+
+Acceder a Gisfpp: ${pathApp}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -130,7 +132,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
-  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
   <br/>
   <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -148,6 +150,8 @@ Datos de la Isfpp:
 Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
 Pertenece a: ${perteneceA}
+
+Acceder a Gisfpp: ${pathApp}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -199,7 +203,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
-  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
   <br/>
   <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -215,6 +219,8 @@ Tarea: "Registrar Practicantes de la Isfpp".
 Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
 Pertenece a: ${perteneceA}
+
+Acceder a Gisfpp: ${pathApp}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
@@ -233,7 +239,11 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     </userTask>
     <sequenceFlow id="flow10" sourceRef="parallelgateway3" targetRef="tkMlAvisoConfeccionarConvenios"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="parallelgateway3" targetRef="tkUsrConfeccionarConvenios"></sequenceFlow>
-    <parallelGateway id="parallelgateway4" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway4" name="Parallel Gateway">
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.RegistrarMails"></activiti:executionListener>
+      </extensionElements>
+    </parallelGateway>
     <sequenceFlow id="flow12" sourceRef="tkMlAvisoConfeccionarConvenios" targetRef="parallelgateway4"></sequenceFlow>
     <userTask id="tkUsrSolicitarFirmaConvenio" name="Solicitar Firma de Convenio Particular" activiti:candidateUsers="${usuariosDelegados}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgSolicitarFirmaConvenio.zul" activiti:priority="50">
       <documentation>Solicitar la firma, de las partes interesadas, del "Convenio Particular" correspondiente a la Práctica Profesional Supervisada del Alumno Practicante:  "${itemPracticante}" . Isfpp:
@@ -331,7 +341,7 @@ Tarea: "Solicitar firma de Convenio Particular".
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
     <li>Pertenece a: ${perteneceA}</li>
   </ul>
-  <a href="http://fipmlabinf.no-ip.biz:8096/gisfpp/inicio.zul">Acceder a Gisfpp</a>
+  <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
   <br/>
   <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
@@ -350,6 +360,8 @@ Datos de la Isfpp:
 - Titulo Isfpp: ${tituloIsfpp}
 - Pertenece a: ${perteneceA}
 
+Acceder a Gisfpp: ${pathApp}
+
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
 Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
         </activiti:field>
@@ -366,8 +378,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <documentation>Proceder, en caso de corresponder, con la firma del "Acuerdo Marco" respaldatorio de la práctica profesional supervisada a desarrollarse. Isfpp:
 - Id.: ${execution.getProcessBusinessKey()}
 - Titulo: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
-</documentation>
+- Pertenece a: ${perteneceA}</documentation>
     </userTask>
     <parallelGateway id="parallelgateway6" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow19" sourceRef="tkMlAvisoFirmarConvenio" targetRef="parallelgateway6"></sequenceFlow>
@@ -409,7 +420,8 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 - mailsPartesInteresadas = Mails de Practicantes y Tutor Externo.
 - mailsDelegados
 - usuariosDelegados
-- listaPracticantes = Listado de Practicantes (Apellido, Nombre y DNI).</text>
+- listaPracticantes = Listado de Practicantes (Apellido, Nombre y DNI).
+- pathApp</text>
     </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">

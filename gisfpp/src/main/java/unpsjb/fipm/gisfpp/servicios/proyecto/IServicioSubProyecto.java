@@ -18,6 +18,6 @@ public interface IServicioSubProyecto extends IServicioGenerico<SubProyecto, Int
 	 * @return instancia de Proyecto.
 	 * @throws Exception
 	 */
-	public Proyecto getPerteneceA(SubProyecto instancia) throws Exception;
+	public Proyecto getPerteneceA(Integer idSP) throws Exception;
 
 }

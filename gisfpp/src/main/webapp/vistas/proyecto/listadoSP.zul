@@ -10,8 +10,8 @@
 			emptyMessage="Este Proyecto no tiene Sub-Proyectos asignados." 
 				model="@load(vm.item.subProyectos)">
 		<columns sizable="true">
-			<column label="N°" width="6%" sort="auto"/>
-			<column label="Titulo" width="21%" />
+			<column label="N°" width="6%" sort="auto(id)"/>
+			<column label="Titulo" width="21%" sort="auto(titulo)"/>
 			<column label="Descripcion" width="52%" />
 			<column label="Ver" width="7%" align="center"/>
 			<column label="Editar" width="7%" align="center"/>

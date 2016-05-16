@@ -53,9 +53,8 @@ public class MVBandejaWorkflow {
 	private String tituloPnlLista;
 	
 	@Init
-	@NotifyChange({"tareasAsignadas", "tareasPropuestas", "tareasDelegadas", "tareasRealizadas"
-		, "tituloBtnAsignadas", "tituloBtnPropuestas", "tituloBtnDelegadas", "tituloBtnRealizadas"})
-	public void init(){
+	@NotifyChange({"tareasPendientes", "vistaTareas", "vistaProcesos"})
+	public void init() throws Exception{
 		
 		try {
 			usuarioConectado = UtilSecurity.getUsuarioConectado();
@@ -68,19 +67,16 @@ public class MVBandejaWorkflow {
 			tareasDelegadas = servGTareas.getTareasDelegadas(usuarioConectado.getNickname(), GestorTareas.ORDEN_FECHA_VENC, true);
 			tareasPendientes = getTareasPendientes();
 			procesosActivos = servGWorkflow.getProcesosActivos(usuarioConectado.getNickname());
-			vistaTareas = false;
-			vistaProcesos = false;
 		} catch (Exception exc1) {
 			log.error("Clase: "+this.getClass().getName()+"- Metodo: Init().", exc1);
 			throw exc1;
 		}
 				
-		tareas = null;
+		tareas = tareasPendientes;
 		procesos = null;
-		tituloPnlLista = "Procesos/Tareas";
 		tareaSeleccionada = null;
 		procesoSeleccionado = null;
-		vistaTareas = false;
+		vistaTareas = true;
 		vistaProcesos = false;
 	}
 

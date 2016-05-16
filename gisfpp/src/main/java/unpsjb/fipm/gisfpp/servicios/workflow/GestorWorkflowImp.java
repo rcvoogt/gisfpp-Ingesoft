@@ -67,18 +67,23 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	@Override
 	public void instanciarProceso(String categoria, String operacion,
 			String iniciador, String keyBusiness)	throws GisfppWorkflowException {
+		String keyDefinicionProceso = null;
 		try {
 			List<String> procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
 			if (!procesosAInstanciar.isEmpty()) {
-				for (String idProceso : procesosAInstanciar) {
+				for (String keyDefProc : procesosAInstanciar) {
+					keyDefinicionProceso = keyDefProc;
 					Map<String, Object> variables = new HashMap<String, Object>();
-					variables.put("usuarioSolicitante", iniciador);
-					rtService.startProcessInstanceByKey(idProceso, keyBusiness, variables);
+					variables.put("usuarioIniciador", iniciador);
+					try {
+						rtService.startProcessInstanceByKey(keyDefProc, keyBusiness, variables);
+					} catch(ActivitiObjectNotFoundException exc1){
+						log.error("Alerta Workflow: No se encontro ningún proceso registrado con el id: "+ keyDefinicionProceso);
+					}
 				}
 			}
-		} catch (Exception exc1) {
-			log.error(this.getClass().getName(), exc1);
-			throw new GisfppWorkflowException("Se ha generado un error al intentar instanciar un proceso.", exc1);
+		}catch (Exception exc2) {
+			throw new GisfppWorkflowException("Error al instanciar proceso.\n Mensaje: "+exc2.getMessage());
 		}
 	}
 
@@ -180,7 +185,10 @@ public class GestorWorkflowImp implements GestorWorkflow {
 					}
 				}
 			}
-		}	
+		}
+		for (String proceso : resultado) {
+			System.out.println(proceso);
+		}
 		return resultado;
 	}
 	

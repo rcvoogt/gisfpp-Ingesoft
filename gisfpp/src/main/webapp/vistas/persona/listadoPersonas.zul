@@ -1,5 +1,5 @@
 <div id="pnlListaPersonas" class="panel panel-primary" vflex="true" xmlns:n="native"
-	apply="org.zkoss.bind.BindComposer"
+	apply="org.zkoss.bind.BindComposer" style="margin-bottom: 1px;"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.persona.MVListarPersonas')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">

@@ -4,15 +4,21 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -101,11 +107,11 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	}
 
 	@Override
-	public SubProyecto getPerteneceA(Isfpp isfpp) throws Exception {
+	public SubProyecto getPerteneceA(Integer idIsfpp) throws Exception {
 		String query = "select sp from SubProyecto as sp inner join sp.instanciasIsfpp as ins where ins.id = ?";
 		List<SubProyecto> resulQuery;
 		try {
-			resulQuery= (List<SubProyecto>) getHibernateTemplate().find(query, isfpp.getId());
+			resulQuery= (List<SubProyecto>) getHibernateTemplate().find(query, idIsfpp);
 		} catch (Exception exc1) {
 			log.error("Clase: "+this.getClass().getName()+"- Método: getPerteneceA(isfpp)", exc1);
 			throw exc1;
@@ -115,6 +121,38 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 		}
 		return null;
 	}
+	
+	@Override
+	public Proyecto getPerteneceAProyecto(Integer idIsfpp) throws Exception {
+		String stringQuery = "select p from Proyecto as p inner join p.subProyectos as sp inner join sp.instanciasIsfpp as isfpp"
+				+ " where isfpp.id = :id";
+		Proyecto proyecto;
+		
+		Session session = this.currentSession();
+		Query query = session.createQuery(stringQuery);
+		proyecto = (Proyecto) query.setInteger("id", idIsfpp).uniqueResult();
+		
+		if (proyecto!=null) {
+			Hibernate.initialize(proyecto.getDemandantes());
+			Hibernate.initialize(proyecto.getStaff());
+			
+			for (Persona item : proyecto.getDemandantes()) {
+				Hibernate.initialize(item.getIdentificadores());
+				if (item instanceof PersonaJuridica) {
+					Hibernate.initialize(((PersonaJuridica) item).getContactos());
+					for (PersonaFisica persona : ((PersonaJuridica) item).getContactos()) {
+						Hibernate.initialize(persona.getIdentificadores());
+					}
+				}
+			}
+			for (MiembroStaffProyecto miembroStaff : proyecto.getStaff()) {
+				Hibernate.initialize(miembroStaff.getMiembro().getIdentificadores());
+			}
+			return proyecto;
+		}
+		return null;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -172,5 +210,5 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 	public void refrescarInstancia(Isfpp instancia) throws Exception {
 		getHibernateTemplate().refresh(instancia);
 	}
-	
+		
 }// fin de la clase

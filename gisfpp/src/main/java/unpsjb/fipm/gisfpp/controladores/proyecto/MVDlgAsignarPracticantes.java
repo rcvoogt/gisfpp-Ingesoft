@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.Map;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -23,14 +24,15 @@ public class MVDlgAsignarPracticantes {
 	
 	private Isfpp item;
 	private IServiciosIsfpp servIsfpp;
+	private Object origen;
 	
 	@Init
 	@NotifyChange("item")
 	public void init() throws Exception{
 		servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		Map<String, Object> args = (Map<String, Object>) Executions.getCurrent().getArg();
-		Integer idIsfpp = (Integer) args.get("idIsfpp");
-		item = servIsfpp.getInstancia(idIsfpp);
+		item = (Isfpp) args.get("isfpp");
+		origen = args.get("origen");
 	}
 
 	public Isfpp getItem() {
@@ -50,15 +52,21 @@ public class MVDlgAsignarPracticantes {
 	
 	@Command("guardar")
 	public void guardar() throws Exception{
-		if (item.getPracticantes() == null || item.getPracticantes().isEmpty()) {
-			Messagebox.show("No se ha seleccionado ningún \"Practicante\" para asignar a la Isfpp.",
-					"Gisfpp: Asignando Practicante", Messagebox.OK, Messagebox.ERROR);
-			return;
+		try{
+			if (item.getPracticantes() == null || item.getPracticantes().isEmpty()) {
+				Messagebox.show("No se ha seleccionado ningún \"Practicante\" para asignar a la Isfpp.",
+						"Gisfpp: Asignando Practicante", Messagebox.OK, Messagebox.ERROR);
+				return;
+			}
+			servIsfpp.editar(item);
+			Clients.showNotification("Practicantes asignados a la Isfpp", Clients.NOTIFICATION_TYPE_INFO, null, 
+					"top_right", 3500);
+			if (origen!=null) {
+				BindUtils.postNotifyChange(null, null, origen, "*");
+			}
+		}finally{
+			cerrar();
 		}
-		servIsfpp.editar(item);
-		Clients.showNotification("Practicantes asignados a la Isfpp", Clients.NOTIFICATION_TYPE_INFO, null, 
-				"top_right", 3500);
-		cerrar();
 	}
 	
 	@Command("cerrar")

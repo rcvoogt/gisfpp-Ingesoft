@@ -91,7 +91,7 @@
 					model="@load(vm.procesoSeleccionado.actividades)" class="z-grid-autopaging">
 					<columns>
 						<column label="Nombre" width="30%"/>
-						<column label="Tipo" width="13	%"/>
+						<column label="Tipo" width="13%"/>
 						<column label="Asignado" width="10%"/>
 						<column label="Inicia" width="12%"/>
 						<column label="Finaliza" width="12%"/>

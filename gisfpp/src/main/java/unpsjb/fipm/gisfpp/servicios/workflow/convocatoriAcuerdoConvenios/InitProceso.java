@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios;
+ package unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,8 +50,8 @@ public class InitProceso implements ExecutionListener{
 			servSP = MySpringUtil.getServicioSubProyecto();
 			servStaffFi = MySpringUtil.getServicioStaffFi();
 			Isfpp isfpp = servIsfpp.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
-			SubProyecto sp = servIsfpp.getPerteneceA(isfpp);
-			Proyecto proyecto = servSP.getPerteneceA(sp);
+			SubProyecto sp = servIsfpp.getPerteneceASP(isfpp.getId());
+			Proyecto proyecto = servSP.getPerteneceA(sp.getId());
 			List<StaffFI> miembrosStaffFi = servStaffFi.getListado();
 			
 			usuarioTutorAcademico = getUsuarioTutorAcademico(isfpp);
@@ -72,6 +72,7 @@ public class InitProceso implements ExecutionListener{
 			variablesDeProceso.put("usuariosCoordinadores", usuariosCoordinadores);
 			variablesDeProceso.put("mailsDelegados", mailsDelegados);
 			variablesDeProceso.put("usuariosDelegados", usuariosDelegados);
+			variablesDeProceso.put("pathApp", UtilGisfpp.getProperty("app.path"));
 			
 			execution.setVariables(variablesDeProceso);
 		} catch (Exception exc) {

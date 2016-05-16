@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Isfpp" id="adhoc-definitions">
+  <process id="procIsfppSuspendida" name="Isfpp Suspendida" isExecutable="true">
+    <startEvent id="evtInicio" name="Inicio Isfpp Suspendida">
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.suspencionIsfpp.InitProceso"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="evtFin" name="Fin Isfpp Suspendida"></endEvent>
+    <serviceTask id="tskMlAvisoIsfppSuspendida" name="Aviso: Isfpp Suspendida." activiti:async="true" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailTutorAcademico}, ${mailResponsableProyecto}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Aviso: Isfpp suspendida - Gestión de Instancias Supervisadas de Formación Práctica Profesional]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p style="font-weight: bold;">La siguiente Isfpp ha sido suspendida temporalmente.</p>
+    <span style="text-decoration: underline;">Datos de la Isfpp:</span>
+    <ul>
+      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Titulo Sub-Proyecto: ${tituloSP}</li>
+      <li>Titulo Proyecto: ${tituloProyecto}</li>
+     </ul>
+    <br/>
+    <span style="font-size: 10px; font-weight: bold">Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)</span>
+    <br/>
+    <span style="font-style: italic; color: rgb(56, 148, 244);">Universidad Nacional de la Patagonia San Juan Bosco</span>
+  </body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[La siguiente Isfpp ha sido suspendida temporalmente.
+Datos de la Isfpp:
+
+- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Sub-Proyecto: ${tituloSP}
+- Titulo Proyecto: ${tituloProyecto}
+
+Facultad de Ingenieria - Sede: Puerto Madryn (Chubut)
+Universidad Nacional de la Patagonia San Juan Bosco]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="ignoreException">
+          <activiti:string><![CDATA[true]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="exceptionVariableName">
+          <activiti:string><![CDATA[excEnvioMail]]></activiti:string>
+        </activiti:field>
+        <activiti:failedJobRetryTimeCycle>R3/PT2M</activiti:failedJobRetryTimeCycle>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow1" sourceRef="evtInicio" targetRef="tskMlAvisoIsfppSuspendida"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="tskMlAvisoIsfppSuspendida" targetRef="evtFin"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_procIsfppSuspendida">
+    <bpmndi:BPMNPlane bpmnElement="procIsfppSuspendida" id="BPMNPlane_procIsfppSuspendida">
+      <bpmndi:BPMNShape bpmnElement="evtInicio" id="BPMNShape_evtInicio">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="evtFin" id="BPMNShape_evtFin">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="tskMlAvisoIsfppSuspendida" id="BPMNShape_tskMlAvisoIsfppSuspendida">
+        <omgdc:Bounds height="71.0" width="105.0" x="240.0" y="182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="135.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="345.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,5 +1,5 @@
 <div id="pnlListaStaffFI" width="100%" vflex="true" xmlns:n="native"
-	class="panel panel-primary" apply="org.zkoss.bind.BindComposer"
+	class="panel panel-primary" apply="org.zkoss.bind.BindComposer" style="margin-bottom: 1px;"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.staff.MVListaStaffFI')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">

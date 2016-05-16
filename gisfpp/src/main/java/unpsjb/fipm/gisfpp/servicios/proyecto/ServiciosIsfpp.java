@@ -12,6 +12,7 @@ import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
@@ -49,7 +50,6 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		ResultadoValidacion resultado = ValidacionesProyecto.eliminarIsfpp(instancia);
 		if(resultado.isValido()){
 			dao.eliminar(instancia);
-			servGWkFl.instanciarProceso("Isfpp", "Eliminar", UtilSecurity.getNickName(), String.valueOf(instancia.getId()));
 		}else{
 			throw new GisfppException(resultado.getMensaje());
 		}
@@ -75,8 +75,14 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 
 	@Override
 	@Transactional(value="gisfpp", readOnly=true)
-	public SubProyecto getPerteneceA(Isfpp instancia) throws Exception {
-		return dao.getPerteneceA(instancia);
+	public SubProyecto getPerteneceASP(Integer idIsfpp) throws Exception {
+		return dao.getPerteneceA(idIsfpp);
+	}
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly=true)
+	public Proyecto getPerteneceAProyecto(Integer idIsfpp) throws Exception {
+		return dao.getPerteneceAProyecto(idIsfpp);
 	}
 	
 	@Override
@@ -199,5 +205,6 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	public void setServMotorWf(GestorMotorBpm servMotorWf) {
 		this.servMotorWf = servMotorWf;
 	}
+	
 
 }// fin de la clase

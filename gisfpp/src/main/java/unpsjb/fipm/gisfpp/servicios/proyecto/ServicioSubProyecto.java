@@ -70,8 +70,8 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	
 	@Override
 	@Transactional(value="gisfpp", readOnly=true)
-	public Proyecto getPerteneceA(SubProyecto instancia) throws Exception {
-		return dao.getPerteneceA(instancia);
+	public Proyecto getPerteneceA(Integer idSP) throws Exception {
+		return dao.getPerteneceA(idSP);
 	}
 	
 	@Autowired(required = true)
