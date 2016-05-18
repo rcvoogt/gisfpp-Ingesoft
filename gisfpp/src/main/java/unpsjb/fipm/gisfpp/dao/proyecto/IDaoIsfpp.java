@@ -37,6 +37,5 @@ public interface IDaoIsfpp extends DaoGenerico<Isfpp, Integer> {
 	
 	public void actualizarEstado (Integer idIsfpp, EEstadosIsfpp estado) throws Exception;
 	
-	public void refrescarInstancia(Isfpp instancia) throws Exception;
-	
+		
 }

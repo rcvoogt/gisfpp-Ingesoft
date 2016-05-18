@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
@@ -40,6 +39,7 @@ public class MVCrudIsfpp {
 	private Logger log;
 	private Isfpp item;
 	private IServiciosIsfpp servicio;
+	private GestorWorkflow gestorWkFl;
 	private SubProyecto perteneceA;
 	private String modo;
 	private boolean creando;
@@ -51,6 +51,7 @@ public class MVCrudIsfpp {
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
+		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
 		perteneceA = (SubProyecto) args.get("perteneceA");
@@ -107,14 +108,23 @@ public class MVCrudIsfpp {
 				servicio.persistir(item);
 				Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 						3500);
-				String listaWf = getProcesosInstanciados(item.getId());
-				Clients.showNotification("Workflows instanciados:\n"+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
-						"middle_right", 4000);
+				String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+						.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Crear"));
+				if (!listaWf.isEmpty()) {
+					Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+							"middle_right", 4000);
+				}
 			}
 			if (editando) {
 				servicio.editar(item);
 				Clients.showNotification("ISFPP actualizada.", Clients.NOTIFICATION_TYPE_INFO, null,
 						"top_right", 3500);
+				String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+						.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Editar"));
+				if (!listaWf.isEmpty()) {
+					Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+							"middle_right", 4000);
+				}
 			}
 			creando = editando = false;
 			ver=true;
@@ -227,12 +237,18 @@ public class MVCrudIsfpp {
 	}
 	
 	@Command("activarIsfpp")
-	@NotifyChange("item")
+	@NotifyChange("*")
 	public void activarIsfpp() throws Exception{
 		servicio.reActivarISfpp(item.getId());
 		Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 				3500);
-		servicio.refrescarInstancia(item);
+		String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+				.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Reactivar"));
+		if (!listaWf.isEmpty()) {
+			Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+					"middle_right", 4000);
+		}
+		item = servicio.getInstancia(item.getId());
 	}
 	
 	@Command("suspenderIsfpp")
@@ -247,7 +263,15 @@ public class MVCrudIsfpp {
 							servicio.suspenderIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 									3500);
-							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");	
+							String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+									.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Suspender"));
+							if (!listaWf.isEmpty()) {
+								Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+										"middle_right", 4000);
+							}
+							item = servicio.getInstancia(item.getId());
+							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
+							
 						}
 					}
 				});
@@ -265,6 +289,13 @@ public class MVCrudIsfpp {
 							servicio.cancelarIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 									3500);
+							String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+									.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Cancelar"));
+							if (!listaWf.isEmpty()) {
+								Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+										"middle_right", 4000);
+							}
+							item = servicio.getInstancia(item.getId());
 							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");	
 						}
 					}
@@ -282,20 +313,17 @@ public class MVCrudIsfpp {
 							servicio.concluirIsfpp(item.getId());
 							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 									3500);
+							String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+									.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Concluir"));
+							if (!listaWf.isEmpty()) {
+								Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+										"middle_right", 4000);
+							}
+							item = servicio.getInstancia(item.getId());
 							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
 						}
 					}
 				});
-	}
-	
-	private String getProcesosInstanciados(Integer idIsfpp) {
-		GestorWorkflow servGestorWf = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
-		List<String> nombresInstancias = servGestorWf.getNombresInstancias(String.valueOf(idIsfpp));
-		StringBuilder devolucion = new StringBuilder();
-		for (String instancia : nombresInstancias) {
-			devolucion.append("- "+instancia+"\n");
-		}
-		return new String(devolucion);
 	}
 	
 	private String getTituloNewIsfpp(){

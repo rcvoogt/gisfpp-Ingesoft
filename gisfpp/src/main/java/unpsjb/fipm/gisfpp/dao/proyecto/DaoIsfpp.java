@@ -206,9 +206,5 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 		
 	}
 
-	@Override
-	public void refrescarInstancia(Isfpp instancia) throws Exception {
-		getHibernateTemplate().refresh(instancia);
-	}
-		
+			
 }// fin de la clase

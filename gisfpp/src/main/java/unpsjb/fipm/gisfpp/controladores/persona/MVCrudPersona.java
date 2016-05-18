@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javax.validation.ConstraintViolationException;
 
-import org.slf4j.Logger;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
@@ -29,7 +28,6 @@ public class MVCrudPersona {
 
 	private IServicioPF servPF;
 	private PersonaFisica item;
-	private Logger log;
 	private boolean creando = false;
 	private boolean editando = false;
 	private boolean ver = false;
@@ -46,7 +44,7 @@ public class MVCrudPersona {
 				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) opciones.get("modo");
 		servPF = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
-		log = UtilGisfpp.getLogger();
+		UtilGisfpp.getLogger();
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new PersonaFisica();

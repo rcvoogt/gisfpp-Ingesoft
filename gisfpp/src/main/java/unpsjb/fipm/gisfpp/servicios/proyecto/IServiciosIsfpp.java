@@ -82,6 +82,4 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	 */
 	public void concluirIsfpp(Integer idIsfpp) throws Exception;
 	
-	public void refrescarInstancia(Isfpp instancia) throws Exception;
-
 }

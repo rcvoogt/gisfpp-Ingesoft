@@ -13,7 +13,7 @@
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P3D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
+    <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P2D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
       <documentation>Reunión con "${nombreSolicitante}" para acordar	condiciones sobre la nueva Isfpp: "${tituloIsfpp}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">
@@ -41,7 +41,7 @@
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
-      <li>Pertenece a: ${perteneceA}</li>
+      <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto: ${nombreResponsable}</li>
       <li>Motivo del rechazo: ${motivoRechazo}</li>
     </ul>
@@ -57,7 +57,7 @@
 
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto: ${nombreResponsable}
 - Motivo del rechazo: ${motivoRechazo}
 
@@ -100,7 +100,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
-      <li>Pertenece a: ${perteneceA}</li>
+      <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}</li>
       </ul>
     <br/>
@@ -115,7 +115,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}    
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
@@ -168,7 +168,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
       <li>Titulo Isfpp: ${tituloIsfpp}</li>
-      <li>Pertenece a: ${perteneceA}</li>
+      <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto: ${nombreResponsable}</li>
     </ul>
     <br/>
@@ -183,7 +183,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto: ${nombreResponsable}
 
 Facultad de Ingenieria - Sede: Puerto Madryn (Chubut).
@@ -224,7 +224,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <ul>
     <li>Solicitante: ${nombreSolicitante}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
@@ -241,7 +241,7 @@ Tarea: "Revisar Solicitud Nueva Isfpp".
 
 - Solicitante: ${nombreSolicitante}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
 

@@ -2,7 +2,6 @@ package unpsjb.fipm.gisfpp.dao.persona;
 
 import java.util.List;
 
-import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -12,12 +11,9 @@ import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPersonaJuridica extends HibernateDaoSupport implements IDaoPersonaJuridica {
 	
-	private Logger log = UtilGisfpp.getLogger();
-
 	@Override
 	public Integer crear(PersonaJuridica instancia) throws DataAccessException {
 		try{

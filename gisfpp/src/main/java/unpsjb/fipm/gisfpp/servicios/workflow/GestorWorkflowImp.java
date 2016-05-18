@@ -6,6 +6,7 @@ package unpsjb.fipm.gisfpp.servicios.workflow;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -186,9 +187,6 @@ public class GestorWorkflowImp implements GestorWorkflow {
 				}
 			}
 		}
-		for (String proceso : resultado) {
-			System.out.println(proceso);
-		}
 		return resultado;
 	}
 	
@@ -213,15 +211,22 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	}
 	
 	@Override
-	public List<String> getNombresInstancias(String keyBusiness)
+	public List<String> nombreProcesosInstanciados(String keyBusiness, String categoria, String operacion)
 			throws GisfppWorkflowException {
 		List<String> resultado = new ArrayList<String>();
-		ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
-		
-		List<ProcessInstance> instancias = query.processInstanceBusinessKey(keyBusiness).list();
-		for (ProcessInstance processInstance : instancias) {
-			DefinicionProceso definicion = cargarDefinicionProceso(processInstance.getProcessDefinitionId());
-			resultado.add(definicion.getNombre());
+		try {
+			List<String> procesosAsociados = consultarProcesosAsociados(categoria, operacion);
+			if (!procesosAsociados.isEmpty()) {
+				ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
+				List<ProcessInstance> instanciasEjecutandose = query.processDefinitionKeys(new HashSet<String>(procesosAsociados))
+						.processInstanceBusinessKey(keyBusiness).list();
+				for (ProcessInstance instancia : instanciasEjecutandose) {
+					resultado.add(instancia.getProcessDefinitionName());
+				}
+			}
+		} catch (Exception exc) {
+			throw new GisfppWorkflowException("Error al recuperar los nombres de procesos instanciados. \n"
+					+ " Mensaje: "+exc.getMessage(), exc);
 		}
 		return resultado;
 	}

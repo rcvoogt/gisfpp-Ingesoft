@@ -68,7 +68,6 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 	@Override
 	public Usuario getxPersona(PersonaFisica persona) throws DataAccessException {
 		List<Usuario> resultQuery = null;
-		Usuario usuario = null;
 		String query = "select u from Usuario as u inner join fetch u.persona where u.persona.id = ?";
 		try {
 			resultQuery = (List<Usuario>) getHibernateTemplate().find(query, persona.getId());

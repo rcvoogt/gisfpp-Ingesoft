@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -14,11 +13,8 @@ import unpsjb.fipm.gisfpp.entidades.persona.Domicilio;
 import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
-import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersonaFisica {
-
-	private Logger log = UtilGisfpp.getLogger();
 
 	@Override
 	public Integer crear(PersonaFisica instancia) throws DataAccessException {

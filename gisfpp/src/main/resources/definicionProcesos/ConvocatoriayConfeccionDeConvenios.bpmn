@@ -63,7 +63,7 @@
   <ul>
     <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
@@ -81,7 +81,7 @@ Tarea: "Convocar a posibles Practicantes para la Isfpp".
 Datos de la Isfpp:
 - Id. Isfpp: ${execution.getProcessBusinessKey()}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
 
@@ -98,7 +98,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       </extensionElements>
     </serviceTask>
     <userTask id="tkUsrConvocarPosiblesPracticantes" name="Convocar Posibles Practicantes" activiti:assignee="${usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgConvocarPracticantes.zul" activiti:priority="25">
-      <documentation>Realizar la convocatoria, por los medios que considere necesarios, de los candidatos a Practicantes para la Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a: "${perteneceA}".</documentation>
+      <documentation>Realizar la convocatoria, por los medios que considere necesarios, de los candidatos a Practicantes para la Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="evtInicio" targetRef="parallelgateway1"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="tkMlAvisoConcovarAlumnos"></sequenceFlow>
@@ -130,7 +130,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <ul>
     <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
@@ -149,7 +149,7 @@ Datos de la Isfpp:
 
 Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
-Pertenece a: ${perteneceA}
+Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
 
@@ -166,13 +166,17 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       </extensionElements>
     </serviceTask>
     <userTask id="tkUsrRegistrarPracticantes" name="Registrar Practicantes" activiti:assignee="${usuarioTutorAcademico}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRegistrarPracticantes.zul" activiti:priority="25">
-      <documentation>Proceder con el registro en la Isfpp de los Practicantes seleccionados. Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a : "${perteneceA}".</documentation>
+      <documentation>Proceder con el registro en la Isfpp de los Practicantes seleccionados. Isfpp con id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="tkMlAvisoConcovarAlumnos" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow5" sourceRef="tkUsrConvocarPosiblesPracticantes" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="parallelgateway2" targetRef="tkMlAvisoRegistrarPracticantes"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="parallelgateway2" targetRef="tkUsrRegistrarPracticantes"></sequenceFlow>
-    <parallelGateway id="parallelgateway3" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway3" name="Parallel Gateway">
+      <extensionElements>
+        <activiti:executionListener event="start" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.RecuperarDatosCoordinadores"></activiti:executionListener>
+      </extensionElements>
+    </parallelGateway>
     <sequenceFlow id="flow8" sourceRef="tkMlAvisoRegistrarPracticantes" targetRef="parallelgateway3"></sequenceFlow>
     <sequenceFlow id="flow9" sourceRef="tkUsrRegistrarPracticantes" targetRef="parallelgateway3"></sequenceFlow>
     <serviceTask id="tkMlAvisoConfeccionarConvenios" name="Aviso Nueva Tarea: Confeccionar Acuerdos y Convenios" activiti:async="true" activiti:exclusive="false" activiti:type="mail">
@@ -201,7 +205,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <ul>
     <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
@@ -218,7 +222,7 @@ Tarea: "Registrar Practicantes de la Isfpp".
 
 Id. Isfpp: ${execution.getProcessBusinessKey()}
 Titulo Isfpp: ${tituloIsfpp}
-Pertenece a: ${perteneceA}
+Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
 
@@ -235,13 +239,14 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       </extensionElements>
     </serviceTask>
     <userTask id="tkUsrConfeccionarConvenios" name="Confeccionar Acuerdos y Convenios" activiti:candidateUsers="${usuariosCoordinadores}" activiti:dueDate="P1D" activiti:category="Isfpp" activiti:formKey="dlgConfeccionarAcuerdoConvenios.zul" activiti:priority="25">
-      <documentation>Confeccionar acuerdo marco y convenios particulares para la Isfpp con Id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a "${perteneceA}".</documentation>
+      <documentation>Confeccionar acuerdo marco y convenios particulares para la Isfpp con Id: "${execution.getProcessBusinessKey()}", título: "${tituloIsfpp}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow10" sourceRef="parallelgateway3" targetRef="tkMlAvisoConfeccionarConvenios"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="parallelgateway3" targetRef="tkUsrConfeccionarConvenios"></sequenceFlow>
     <parallelGateway id="parallelgateway4" name="Parallel Gateway">
       <extensionElements>
         <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.RegistrarMails"></activiti:executionListener>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.convocatoriAcuerdoConvenios.RecuperarDatosDelegados"></activiti:executionListener>
       </extensionElements>
     </parallelGateway>
     <sequenceFlow id="flow12" sourceRef="tkMlAvisoConfeccionarConvenios" targetRef="parallelgateway4"></sequenceFlow>
@@ -249,7 +254,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <documentation>Solicitar la firma, de las partes interesadas, del "Convenio Particular" correspondiente a la Práctica Profesional Supervisada del Alumno Practicante:  "${itemPracticante}" . Isfpp:
 - Id.: ${execution.getProcessBusinessKey()}
 - Titulo: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}</documentation>
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</documentation>
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${listaPracticantes}" activiti:elementVariable="itemPracticante"></multiInstanceLoopCharacteristics>
     </userTask>
     <parallelGateway id="parallelgateway5" name="Parallel Gateway"></parallelGateway>
@@ -280,7 +285,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
    <p>
    	Por favor, pongase en contacto con el Delegado Académico de la Facultad.
@@ -296,7 +301,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 
 Datos de la Isfpp:
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Por favor, pongase en contacto con el Delegado Académico de la Facultad.
 
@@ -339,7 +344,7 @@ Tarea: "Solicitar firma de Convenio Particular".
   <ul>
     <li>Id. Isfpp: ${execution.getProcessBusinessKey()}</li>
     <li>Titulo Isfpp: ${tituloIsfpp}</li>
-    <li>Pertenece a: ${perteneceA}</li>
+    <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
   <br/>
@@ -358,7 +363,7 @@ Tarea: "Solicitar firma de Convenio Particular".
 Datos de la Isfpp:
 - Id. Isfpp: ${execution.getProcessBusinessKey()}
 - Titulo Isfpp: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
 
@@ -378,7 +383,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
       <documentation>Proceder, en caso de corresponder, con la firma del "Acuerdo Marco" respaldatorio de la práctica profesional supervisada a desarrollarse. Isfpp:
 - Id.: ${execution.getProcessBusinessKey()}
 - Titulo: ${tituloIsfpp}
-- Pertenece a: ${perteneceA}</documentation>
+- Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</documentation>
     </userTask>
     <parallelGateway id="parallelgateway6" name="Parallel Gateway"></parallelGateway>
     <sequenceFlow id="flow19" sourceRef="tkMlAvisoFirmarConvenio" targetRef="parallelgateway6"></sequenceFlow>

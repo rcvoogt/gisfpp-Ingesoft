@@ -102,7 +102,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>4.2.2.RELEASE</version>
-			<scope>runtime</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>

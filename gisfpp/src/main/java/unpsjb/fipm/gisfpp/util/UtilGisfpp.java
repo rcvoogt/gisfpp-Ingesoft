@@ -3,6 +3,8 @@ package unpsjb.fipm.gisfpp.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import javax.validation.ConstraintViolation;
@@ -10,11 +12,16 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.zkoss.spring.SpringUtil;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
+import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 
 /**
@@ -153,6 +160,59 @@ public class UtilGisfpp {
 				stream.close();
 			}
 		}
+	}
+	
+	/**
+	 * Devuelve una unica cadena (String) producto de la concatenación (separadas por una barra invertida "/") 
+	 * de las cadenas contenidas en la lista (List<>) de cadenas pasada como parámetro a la función.  
+	 * @param listaCadenas (List<String>)
+	 * @return cadena: concatenación de cadenas separadas por "/" (String)
+	 */
+	public static String convertirEnCadena(List<String> listaCadenas) {
+		Assert.notNull(listaCadenas, "El parámetro de la función \"convertirEnCadena\" es NULL");
+		StringBuilder devolucion = new StringBuilder();
+		for (Iterator iterator = listaCadenas.iterator(); iterator
+				.hasNext();) {
+			String cadena = (String) iterator.next();
+			devolucion.append(cadena);
+			if (iterator.hasNext()) {
+				devolucion.append(" / ");
+			}
+		}
+		return new String(devolucion);
+	}
+	
+	public static String getMailsStaffFi(List<StaffFI> lista, ECargosStaffFi rol){
+		StringBuilder resultadoDevuelto = new StringBuilder();
+		Assert.notNull(lista, "La lista pasada como parámetro al método \"getMailsStaffFi(List<StaffFI>, ECargosStaffFi)\""
+				+ " es NULL.");
+		for (StaffFI miembroStaffFI : lista) {
+			if (miembroStaffFI.getRol() == rol) {
+				resultadoDevuelto.append(miembroStaffFI.getMiembro().getEmail()+",");
+			}
+		}
+		if (resultadoDevuelto.length() > 0) {
+			//quito la coma agregada al final de la cadena
+			resultadoDevuelto.deleteCharAt(resultadoDevuelto.length()-1);
+		}
+		return new String(resultadoDevuelto);
+	}
+	
+	public static String getUsuariosStaffFi(List<StaffFI> lista, ECargosStaffFi rol) throws Exception{
+		StringBuilder resultadoDevuelto = new StringBuilder();
+		IServicioUsuario servUsuario = MySpringUtil.getServicioUsuario();
+		Usuario usuario;
+		for (StaffFI miembroStaffFI : lista) {
+			if (miembroStaffFI.getRol() == rol) {
+				usuario = servUsuario.getUsuario(miembroStaffFI.getMiembro());
+				resultadoDevuelto.append(usuario.getNickname()+",");
+			}
+		}
+		if (resultadoDevuelto.length() > 0) {
+			//quito la coma agregada al final de la cadena
+			resultadoDevuelto.deleteCharAt(resultadoDevuelto.length()-1);
+		}
+		return new String(resultadoDevuelto);
 	}
 	
 }// fin de la clase

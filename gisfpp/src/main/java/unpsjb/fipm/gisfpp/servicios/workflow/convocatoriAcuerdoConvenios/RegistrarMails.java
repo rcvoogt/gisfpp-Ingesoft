@@ -27,7 +27,7 @@ public class RegistrarMails implements ExecutionListener {
 			execution.setVariable("mailsPartesInteresadas", mails);
 		} catch (Exception exc) {
 			Logger log = UtilGisfpp.getLogger();
-			log.error("Workflow: Convocatoria y Confeccion de Convenios - Clase: RegistrarMails", exc);
+			log.error("Exception Workflow: Convocatoria y Confeccion de Convenios - Clase: RegistrarMails", exc);
 		}
 		
 	}

@@ -186,11 +186,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		servGWkFl.instanciarProceso("Isfpp", "Concluir", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 	}
 	
-	@Override
-	public void refrescarInstancia(Isfpp instancia) throws Exception {
-		dao.refrescarInstancia(instancia);		
-	}
-	
+		
 	@Autowired(required = true)
 	protected void setDao(IDaoIsfpp dao) {
 		this.dao = dao;

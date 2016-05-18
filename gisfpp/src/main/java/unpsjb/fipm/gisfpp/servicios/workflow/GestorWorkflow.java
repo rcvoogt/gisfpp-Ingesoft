@@ -56,7 +56,7 @@ public interface GestorWorkflow {
 	
 	public List<InstanciaProceso> getInstanciasProcesos(String keyBusiness) throws GisfppWorkflowException;
 	
-	public List<String> getNombresInstancias(String keyBusiness) throws GisfppWorkflowException;
+	public List<String> nombreProcesosInstanciados(String keyBusiness, String categoria, String operacion) throws GisfppWorkflowException;
 	
 	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
 	

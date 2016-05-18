@@ -1,7 +1,6 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.HashMap;
-
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
@@ -29,6 +28,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -203,6 +203,13 @@ public class MVCrudSubProyecto {
 								servicio.eliminar(arg1);
 								Clients.showNotification("Isfpp eliminada.", Clients.NOTIFICATION_TYPE_INFO, null, 
 										"top_right", 3500);
+								GestorWorkflow gestorWorkflow = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
+								String listaWf = UtilGisfpp.convertirEnCadena(gestorWorkflow
+										.nombreProcesosInstanciados(String.valueOf(arg1.getId()), "Isfpp", "Eliminar"));
+								if (!listaWf.isEmpty()) {
+									Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+											"middle_right", 4000);
+								}
 								item.getInstanciasIsfpp().remove(arg1);
 								BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
 							}
@@ -262,5 +269,6 @@ public class MVCrudSubProyecto {
 	public MVCrudSubProyecto getAutoReferencia(){
 		return this;
 	}
-
+	
+	
 }// fin de la clase

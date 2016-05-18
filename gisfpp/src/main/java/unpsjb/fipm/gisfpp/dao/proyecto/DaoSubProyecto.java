@@ -126,7 +126,7 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	public long cantIsfppAsociadas(Integer idSP) throws DataAccessException {
 		String query = "select count(isfpp.id) from Isfpp as isfpp where isfpp.perteneceA.id = ?";
 		try {
-			return (long) getHibernateTemplate().find(query, idSP).get(0);
+			return (Long) getHibernateTemplate().find(query, idSP).get(0);
 		} catch (Exception exc1) {
 			log.error("Clase: "+this.getClass().getName()+"- Metodo: cantIsfppAsociadas(Integer idSP)", exc1);
 			throw exc1;
