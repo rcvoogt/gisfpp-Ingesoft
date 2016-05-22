@@ -50,6 +50,13 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		ResultadoValidacion resultado = ValidacionesProyecto.eliminarIsfpp(instancia);
 		if(resultado.isValido()){
 			dao.eliminar(instancia);
+			servGWkFl.instanciarProceso("Isfpp", "Eliminar", UtilSecurity.getNickName(), String.valueOf(instancia.getId()));
+			//Reactivamos las intancias de procesos en ejecución que han sido previamente suspendidas
+			//asociadas a la Isfpp.
+			List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(instancia.getId()));
+			for (InstanciaProceso wkfl : instanciasEnEjecucion) {
+				servMotorWf.eliminarInstanciaProceso(wkfl.getIdInstancia());
+			}
 		}else{
 			throw new GisfppException(resultado.getMensaje());
 		}
@@ -121,6 +128,8 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
 		servGWkFl.instanciarProceso("Isfpp", "Reactivar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 		
+		//Reactivamos las intancias de procesos en ejecución que han sido previamente suspendidas
+		//asociadas a la Isfpp.
 		List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(idIsfpp));
 		for (InstanciaProceso instancia : instanciasEnEjecucion) {
 			servMotorWf.activarInstanciaProceso(instancia.getIdInstancia());

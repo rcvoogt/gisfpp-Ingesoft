@@ -1,0 +1,34 @@
+<grid mold="paging" autopaging="true" vflex="true"
+	style="border: 2px solid #80ccff; border-radius: 5px;"
+	emptyMessage="No existen instancias de procesos en ejecución."
+	model="@load(vm.listInstanciasProcesos)">
+	<columns>
+		<column label="Id." width="8%"/>
+		<column label="Nombre Proceso" width="35%"/>
+		<column label="Inicia (Usuario)" />
+		<column label="Fecha Inicio" />
+		<column label="Ver" width="6%" align="center"/>
+		<column label="Activar" width="6%" align="center" />
+		<column label="Suspender" width="6%" align="center" />
+		<column label="Eliminar" width="6%" align="center" />
+	</columns>
+	<template name="model">
+		<row>
+			<label value="@load(each.idInstancia)" />
+			<label value="@load(each.definicion.nombre)"/>
+			<label value="@load(each.iniciador)" />
+			<label
+				value="@load(each.inicia) @converter('formatedDate', format ='dd/MM/yyyy HH:mm:ss')" />
+			<toolbarbutton image="recursos/img/icon-preview.png" 
+				tooltip="Ver detalle de instancia" onClick="@command('verDetalleInstancia', item = each)" />	
+			<toolbarbutton image="/recursos/img/play.png"
+				tooltiptext="Activar instancia de proceso"
+				disabled="@load(not each.suspendido)" onClick="@command('activarInstancia', item = each)"/>
+			<toolbarbutton image="/recursos/img/pause.png"
+				tooltiptext="Suspender instancia de proceso"
+				disabled="@load(each.suspendido)" onClick="@command('suspenderInstancia', item = each)" />
+			<toolbarbutton image="/recursos/img/icon-remove-sign.png"
+				tooltiptext="Eliminar instancia de proceso" onClick="@command('eliminarInstancia', item = each)"/>
+		</row>
+	</template>
+</grid>

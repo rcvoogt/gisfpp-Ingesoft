@@ -1,0 +1,62 @@
+<zk>
+	<window title="Workflow: Detalle Instancia de Proceso" border="normal" sizable="true" closable="true"
+		vflex="true" width="50%" mode="modal">
+		<vbox vflex="true" hflex="true">
+			<groupbox> 
+				<caption label="Datos"/>
+				<grid sclass="fgrid" vflex="true" hflex="true">
+					<columns>
+						<column width="33%"/>
+						<column width="33%"/>
+						<column width="34%"/>
+					</columns>
+					<rows>
+						<row spans="2">
+							<div>
+								<label value="Corresponde a:" style="font-weight: bold;"/>
+								<label value="${arg.titulo}"/>
+							</div>
+							<div>
+								<label value="Clave (KeyBusiness): " style="font-weight: bold;"/>
+								<label value="${arg.item.keyBusiness}"/>
+							</div>
+						</row>
+						<row>
+							<div>
+								<label value="Categoría Proceso: " style="font-weight: bold;"/>
+								<label value="${arg.item.definicion.categoria}"/>
+							</div>
+							<div>
+								<label value="Versión Proceso: " style="font-weight: bold;"/>
+								<label value="${arg.item.definicion.version}"/>
+							</div>
+							<div>
+								<label value="Def. Proceso suspendida: " style="font-weight: bold;"/>
+								<label value="${(arg.item.definicion.suspendido == true)?'Si':'No'}"/>
+							</div>
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+			<groupbox>
+				<caption label="Actividades"/>
+				<grid vflex="true" hflex="true" style="border: 2px solid #80ccff; border-radius: 5px;">
+					<columns>
+						<column label="Nombre"/>
+						<column label="Tipo"/>
+						<column label="Fecha Inicio"/>
+						<column label="Fecha Fin"/>
+					</columns>
+					<rows>
+						<row forEach="${arg.item.actividades}">
+							<label value="${each.nombre}"/>
+							<label value="${each.tipo}"/>
+							<label value="${each.inicia}"/>
+							<label value="${each.finaliza}"/>
+						</row>
+					</rows>
+				</grid>
+			</groupbox>	
+		</vbox>
+	</window>
+</zk>

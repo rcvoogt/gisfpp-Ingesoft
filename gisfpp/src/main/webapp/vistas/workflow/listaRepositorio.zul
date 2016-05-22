@@ -1,0 +1,34 @@
+<grid mold="paging" autopaging="true" vflex="true"
+	style="border: 2px solid #80ccff; border-radius: 5px;"
+	emptyMessage="No existen Definiciones de Proceso en el repositorio del Motor de BPM."
+	model="@load(vm.listDefProcesos)">
+	<columns>
+		<column label="Fecha Despliegue" width="16%" />
+		<column label="Id. Definicion" width="33%" />
+		<column label="Nombre" width="23%" />
+		<column label="Version" width="7%" />
+		<column label="Activar" width="7%" align="center" />
+		<column label="Suspender" width="7%" align="center" />
+		<column label="Eliminar" width="7%" align="center" />
+	</columns>
+	<template name="model">
+		<row>
+			<label
+				value="@load(each.fecha_despliegue) @converter('formatedDate', format ='dd/MM/yyyy HH:mm:ss')" />
+			<label value="@load(each.idDefinicion)" />
+			<label value="@load(each.nombre)" />
+			<label value="@load(each.version)" />
+			<toolbarbutton image="/recursos/img/play.png"
+				tooltiptext="Activar definición de proceso"
+				disabled="@load(not each.suspendido)"
+				onClick="@command('activarDefProceso', item = each)" />
+			<toolbarbutton image="/recursos/img/pause.png"
+				tooltiptext="Suspender definición de proceso"
+				disabled="@load(each.suspendido)"
+				onClick="@command('suspenderDefProceso', item = each)" />
+			<toolbarbutton image="/recursos/img/icon-remove-sign.png"
+				tooltiptext="Eliminar definición de proceso"
+				onClick="@command('eliminarDefProceso', item = each)" />
+		</row>
+	</template>
+</grid>

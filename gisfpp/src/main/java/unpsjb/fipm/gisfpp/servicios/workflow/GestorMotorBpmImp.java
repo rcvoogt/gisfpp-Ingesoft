@@ -3,25 +3,30 @@ package unpsjb.fipm.gisfpp.servicios.workflow;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricData;
+import org.activiti.engine.history.ProcessInstanceHistoryLog;
+import org.activiti.engine.history.ProcessInstanceHistoryLogQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
-import org.slf4j.Logger;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import unpsjb.fipm.gisfpp.entidades.workflow.DefinicionProceso;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaActividad;
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
-import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 @Service("servGestorMotorBpm")
 @Scope(proxyMode=ScopedProxyMode.TARGET_CLASS)
@@ -29,13 +34,9 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 
 	private RepositoryService servRepository;
 	private RuntimeService rtService;
-	private Logger log;
-	
-	@PostConstruct
-	public void init(){
-		log = UtilGisfpp.getLogger();
-	}
-	
+	private HistoryService servHistory;
+		
+		
 	@Override
 	public List<DefinicionProceso> getDefinicionProcesos()
 			throws GisfppWorkflowException {
@@ -47,7 +48,6 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 				devolucion.add(convertirDefProceso(processDefinition));
 			}
 		} catch (Exception exc1) {
-			log.error("Clase: "+this.getClass().getName()+" - Metodo: getDefinicionProcesos()", exc1);
 			new GisfppWorkflowException("Se ha generado un error al tratar de obtener un listado de todas las"
 					+ " definiciones de procesos desplegados en el repositorio del motor BPM.", exc1);
 		}
@@ -63,7 +63,6 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 			throw new GisfppWorkflowException("La definición de proceso que desea \"activar\" no existe o ya se encuentra"
 					+ " activa.");
 		}catch (Exception exc2) {
-			log.error("Clase: "+this.getClass().getName()+" - Metodo: activarDefinicionProceso(String idDefinicion)", exc2);
 			new GisfppWorkflowException("Se ha generado un error al tratar de \"activar\" la definición de proceso indicada.", exc2);
 		}
 	}
@@ -77,7 +76,6 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 			throw new GisfppWorkflowException("La definición de proceso que desea \"suspender\" no existe o ya se encuentra"
 					+ " suspendida.");
 		}catch (Exception exc2) {
-			log.error("Clase: "+this.getClass().getName()+" - Metodo: suspenderDefinicionProceso(String idDefinicion)", exc2);
 			new GisfppWorkflowException("Se ha generado un error al tratar de \"suspender\" la definición de proceso indicada.", exc2);
 		}
 	}
@@ -88,10 +86,27 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		try {
 			servRepository.deleteDeployment(idDespliegue, cascada);
 		} catch (Exception exc1) {
-			log.error("Clase: "+this.getClass().getName()+" - Metodo: eliminarDefinicionProceso(String ,boolean )", exc1);
 			new GisfppWorkflowException("Se ha generado un error al tratar de \"eliminar\" de la BD la definición de proceso indicada.", exc1);
 		}
 		
+	}
+	
+	@Override
+	public List<InstanciaProceso> getProcesosEnEjecucion()
+			throws GisfppWorkflowException {
+		List<InstanciaProceso> resultado = new ArrayList<InstanciaProceso>();
+		try {
+			ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
+			List<ProcessInstance> instanciasProcesos = query.orderByProcessInstanceId().asc().list();
+			
+			for (ProcessInstance instancia : instanciasProcesos) {
+				resultado.add(convertirInstanciaProceso(instancia));
+			}
+		} catch (Exception exc) {
+			throw new GisfppWorkflowException("Se ha producido un error al consultar las instancias de procesos"
+					+ " en ejecución.", exc);
+		}
+		return resultado;
 	}
 	
 	@Override
@@ -100,8 +115,7 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		try {
 			rtService.activateProcessInstanceById(idInstancia);
 		} catch (ActivitiObjectNotFoundException exc1) {
-			log.error("Clase: " + this.getClass().getName() +" - Metodo: activarInstanciaProceso(String idInstancia)", exc1);
-			new GisfppWorkflowException("No se puede activar. Instancia de Proceso inexsistente.");
+			new GisfppWorkflowException("No se puede activar. Instancia de Proceso inexistente.");
 		}catch (ActivitiException exc2) {
 			//La instancia de proceso ya se encontraba activa. No hacemos nada.
 		}
@@ -114,8 +128,7 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		try {
 			rtService.suspendProcessInstanceById(idInstancia);
 		} catch (ActivitiObjectNotFoundException exc1) {
-			log.error("Clase: " + this.getClass().getName() +" - Metodo: suspenderInstanciaProceso(String idInstancia)", exc1);
-			new GisfppWorkflowException("No se puede suspender. Instancia de Proceso inexsistente.");
+			new GisfppWorkflowException("No se puede suspender. Instancia de Proceso inexistente.");
 		}catch (ActivitiException exc2) {
 			//La instancia de proceso ya se encontraba suspendida. No hacemos nada.
 		}
@@ -126,10 +139,9 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 	public void eliminarInstanciaProceso(String idInstancia)
 			throws GisfppWorkflowException {
 		try {
-			rtService.deleteProcessInstance(idInstancia, "Isfpp Cancelada");
+			rtService.deleteProcessInstance(idInstancia, "Proceso_Cancelado");
 		} catch (ActivitiObjectNotFoundException exc1) {
-			log.error("Clase: " + this.getClass().getName() +" - Metodo: eliminarInstanciaProceso(String idInstancia)", exc1);
-			new GisfppWorkflowException("No se puede eliminar. Instancia de Proceso inexsistente.");
+			new GisfppWorkflowException("No se puede eliminar. Instancia de Proceso inexistente.");
 		}
 		
 	}
@@ -152,6 +164,49 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		
 		return devolucion;
 	}
+	
+	private InstanciaProceso convertirInstanciaProceso(ProcessInstance instancia){
+		InstanciaProceso resultado = new InstanciaProceso();
+		ProcessInstanceHistoryLogQuery query = servHistory.createProcessInstanceHistoryLogQuery(instancia.getId());
+		ProcessInstanceHistoryLog historyInstancia = query.includeActivities().singleResult();
+		ProcessDefinitionQuery definitionQuery = servRepository.createProcessDefinitionQuery();
+		ProcessDefinition definition = definitionQuery.processDefinitionId(instancia.getProcessDefinitionId()).singleResult();
+		
+		DefinicionProceso definicionProceso = new DefinicionProceso();
+		definicionProceso.setNombre(definition.getName());
+		definicionProceso.setCategoria(definition.getCategory());
+		definicionProceso.setVersion(definition.getVersion());
+		definicionProceso.setSuspendido(definition.isSuspended());
+		
+		resultado.setDefinicion(definicionProceso);
+		resultado.setIdInstancia(instancia.getId());
+		resultado.setInicia(historyInstancia.getStartTime());
+		resultado.setKeyBusiness(historyInstancia.getBusinessKey());
+		resultado.setIniciador(historyInstancia.getStartUserId());//TODO Pendiente 2
+		resultado.setSuspendido(instancia.isSuspended());
+		
+		List<InstanciaActividad> actividades = new ArrayList<InstanciaActividad>();
+		List<HistoricData> historyActividades = historyInstancia.getHistoricData();
+		for (HistoricData historicData : historyActividades) {
+			HistoricActivityInstance historyActividad = (HistoricActivityInstance) historicData;
+			if ((!historyActividad.getActivityType().equals("exclusiveGateway")) && (!historyActividad.getActivityType().equals("parallelGateway"))
+					&& (!historyActividad.getActivityType().equals("inclusiveGateway")) && (!historyActividad.getActivityType().equals("eventBasedGateway"))) {
+			
+				InstanciaActividad actividad = new InstanciaActividad();
+				actividad.setIdActividad(historyActividad.getActivityId());
+				actividad.setNombre(historyActividad.getActivityName());
+				actividad.setTipo(historyActividad.getActivityType());
+				actividad.setInicia(historyActividad.getStartTime());
+				actividad.setFinaliza(historyActividad.getEndTime());
+				
+				actividades.add(actividad);
+			}
+		}
+		
+		resultado.setActividades(actividades);
+		
+		return resultado;
+	}
 
 	
 	@Autowired(required=true)
@@ -164,5 +219,10 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 	public void setRtService(RuntimeService rtService) {
 		this.rtService = rtService;
 	}
-	
+
+	@Autowired(required = true)
+	public void setServHistory(HistoryService servHistory) {
+		this.servHistory = servHistory;
+	}
+
 }

@@ -10,6 +10,7 @@ public class DefinicionProceso {
 		private String keyDefinicion;
 		private String nombre;
 		private String descripcion;
+		private String categoria;
 		private int version;
 		private boolean suspendido;
 		
@@ -27,7 +28,7 @@ public class DefinicionProceso {
 		}
 		
 		public DefinicionProceso(String idDefinicion, String keyDefinicion,
-				String nombre, String descripcion, int version,
+				String nombre, String descripcion, int version, String categoria,
 				boolean suspendido, String idDespliegue, Date fecha_despliegue) {
 			super();
 			this.idDespliegue = idDespliegue;
@@ -38,6 +39,7 @@ public class DefinicionProceso {
 			this.version = version;
 			this.suspendido = suspendido;
 			this.fecha_despliegue = fecha_despliegue;
+			this.categoria = categoria;
 		}
 
 		public String getIdDespliegue() {
@@ -102,6 +104,14 @@ public class DefinicionProceso {
 
 		public void setFecha_despliegue(Date fecha_despliegue) {
 			this.fecha_despliegue = fecha_despliegue;
+		}
+
+		public String getCategoria() {
+			return categoria;
+		}
+
+		public void setCategoria(String categoria) {
+			this.categoria = categoria;
 		}
 		
 }
