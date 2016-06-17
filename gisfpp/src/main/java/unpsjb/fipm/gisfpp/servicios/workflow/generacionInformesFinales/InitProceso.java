@@ -50,7 +50,7 @@ public class InitProceso implements ExecutionListener{
 		variablesDelProceso.put("mailsPracticantes", getMailsPracticantes(isfpp));
 		variablesDelProceso.put("mailsDelegados", getMailsDelegados(delegados));
 		variablesDelProceso.put("usuariosDelegados", getUsuariosDelegados(delegados));
-		variablesDelProceso.put("tituloIsfpp", isfpp.getTitulo());
+		variablesDelProceso.put("titulo", isfpp.getTitulo());
 		variablesDelProceso.put("tituloSP", sp.getTitulo());
 		variablesDelProceso.put("tituloProyecto", proyecto.getTitulo());
 		variablesDelProceso.put("practicantes", getPracticantes(isfpp));

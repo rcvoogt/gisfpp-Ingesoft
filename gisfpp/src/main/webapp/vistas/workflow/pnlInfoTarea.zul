@@ -100,7 +100,7 @@
 				</rows>
 			</grid>
 		</div>
-		<div class="list-group-item" height="30%">
+		<div class="list-group-item" height="30%" style="overflow: auto;">
 			<n:h4 style="margin-top: 4px;">Acciones</n:h4>
 			<hbox spacing="8px">
 				<a label="Realizar" class="btn btn-primary btn-sm"

@@ -9,6 +9,7 @@ public class InstanciaProceso {
 	private List<InstanciaActividad> actividades;
 	private String idInstancia;
 	private String keyBusiness;
+	private String titulo;
 	private String iniciador;
 	private Date inicia;
 	private Date finaliza;
@@ -20,12 +21,13 @@ public class InstanciaProceso {
 	}
 	
 	public InstanciaProceso(DefinicionProceso definicion, String idInstancia,
-			String keyBusiness, String iniciador,	Date inicia, Date finaliza, 
+			String keyBusiness, String titulo, String iniciador,	Date inicia, Date finaliza, 
 				boolean suspendido,	boolean finalizada, List<InstanciaActividad> actividades) {
 		super();
 		this.definicion = definicion;
 		this.idInstancia = idInstancia;
 		this.keyBusiness = keyBusiness;
+		this.titulo = (titulo == null)?"Sin definir":titulo;
 		this.iniciador = iniciador;
 		this.inicia = inicia;
 		this.finaliza = finaliza;
@@ -56,6 +58,14 @@ public class InstanciaProceso {
 
 	public void setKeyBusiness(String keyBusiness) {
 		this.keyBusiness = keyBusiness;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = (titulo == null)?"Sin definir":titulo;
 	}
 
 	public boolean isSuspendido() {

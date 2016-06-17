@@ -79,6 +79,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 				roles.add(rol);
 				
 				List<Operaciones> listResultado = servPermisos.getOperacionesxRol(Roles.ADMINISTRADOR);
+				//TODO 
 				if (!listResultado.isEmpty()){
 					operacionesAutorizadas = EnumSet.copyOf(listResultado);
 				}

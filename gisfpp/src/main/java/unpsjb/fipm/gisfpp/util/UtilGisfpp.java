@@ -103,23 +103,6 @@ public class UtilGisfpp {
 		return resultado;
 	}
 
-	public static String getTituloIsfpp(String idIsfpp){
-		Isfpp isfpp;
-		if (idIsfpp==null || idIsfpp.isEmpty()) {
-			return "";
-		}
-		try {
-			IServiciosIsfpp serv = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-			isfpp = serv.getInstancia(Integer.valueOf(idIsfpp));
-		} catch (Exception exc1) {
-			throw new GisfppException("Se ha generado un error al intentar recuperar el título de la Isfpp con id: "+idIsfpp, exc1);
-		}
-		if(isfpp!=null){
-			return isfpp.getTitulo();
-		}
-		return "";
-	}
-	
 	public static String getStatusVencimiento(InfoTarea tarea){
 		
 		if(tarea.getEstado() == EstadosTarea.REALIZADA){

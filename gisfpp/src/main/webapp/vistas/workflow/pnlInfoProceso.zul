@@ -53,7 +53,7 @@
 							</div>
 							<div>
 								<label value="Título: " style="font-weight: bold;"/>
-								<label value="@load(util:getTituloIsfpp(vm.procesoSeleccionado.keyBusiness))"/>
+								<label value="@load(vm.procesoSeleccionado.titulo)"/>
 							</div>
 						</row>
 						<row>

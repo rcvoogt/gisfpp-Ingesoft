@@ -51,7 +51,7 @@ public class InitProceso implements ExecutionListener{
 			Map<String, Object> variablesDeProceso = new HashMap<String, Object>();
 			variablesDeProceso.put("usuarioTutorAcademico", usuarioTutorAcademico);
 			variablesDeProceso.put("mailTutorAcademico", mailTutorAcademico);
-			variablesDeProceso.put("tituloIsfpp", tituloIsfpp);
+			variablesDeProceso.put("titulo", tituloIsfpp);
 			variablesDeProceso.put("perteneceA", perteneceA);
 			variablesDeProceso.put("pathApp", UtilGisfpp.getProperty("app.path"));
 			

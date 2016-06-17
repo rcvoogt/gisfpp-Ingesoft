@@ -82,13 +82,8 @@ public class MVPnlMantMotorBPM {
 	
 	@Command("verDetalleInstancia")
 	public void verDetalleInstancia(@BindingParam("item") InstanciaProceso arg1) throws Exception{
-		//TODO Pendiente 1
-		IServiciosIsfpp servIsfpp = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-		Isfpp isfpp = servIsfpp.getInstancia(Integer.valueOf(arg1.getKeyBusiness()));
-		String titulo = isfpp.getTitulo();
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("item", arg1);
-		args.put("titulo", titulo);
 		UtilGuiGisfpp.mostrarDialogoBox("vistas/workflow/dlgDetalleInstancia.zul", args);
 	}
 	

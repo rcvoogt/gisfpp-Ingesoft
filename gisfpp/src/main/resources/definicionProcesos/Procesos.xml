@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <procesos>
+	<categoria nombre="Proyecto">
+	</categoria>
 	<categoria  nombre="Isfpp">
 		<operacion nombre="Crear">
 			<workflow id="unWorlflow"/>

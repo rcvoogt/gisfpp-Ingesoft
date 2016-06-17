@@ -8,13 +8,13 @@
       </extensionElements>
     </startEvent>
     <userTask id="tkUsRevSolNueIsfpp" name="Revisar Solicitud Nueva Isfpp" activiti:candidateUsers="${usuariosResponsablesProyecto}" activiti:dueDate="P15D" activiti:category="Isfpp" activiti:formKey="dlgRevisarSolNuevaIsfpp.zul" activiti:priority="25">
-      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${tituloIsfpp}" perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
+      <documentation>El usuario "${nombreSolicitante}" ha generado una nueva Isfpp con titulo "${titulo}" perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="evtIniSolNueIsfpp" targetRef="tkMlNotNueIsfpp"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="tkUsRevSolNueIsfpp" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="tkUsReuEstCondiciones" name="Reunion Establecer Condiciones" activiti:assignee="${usuarioResponsable}" activiti:dueDate="P2D" activiti:category="Isfpp" activiti:formKey="dlgReunionEstCondiciones.zul" activiti:priority="25">
-      <documentation>Reunión con "${nombreSolicitante}" para acordar	condiciones sobre la nueva Isfpp: "${tituloIsfpp}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
+      <documentation>Reunión con "${nombreSolicitante}" para acordar	condiciones sobre la nueva Isfpp: "${titulo}", perteneciente a (Sub-Proyecto/Proyecto): "${perteneceA}".</documentation>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="tkMlNotReunion">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${continuar=='true'}]]></conditionExpression>
@@ -40,7 +40,7 @@
     <span style="text-decoration: underline;">Datos de la Isfpp:</span>
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
-      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Titulo Isfpp: ${titulo}</li>
       <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto: ${nombreResponsable}</li>
       <li>Motivo del rechazo: ${motivoRechazo}</li>
@@ -56,7 +56,7 @@
           <activiti:expression><![CDATA[Su solicitud de nueva Isfpp ha sido rechazada.
 
 - Solicitante: ${nombreSolicitante}
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto: ${nombreResponsable}
 - Motivo del rechazo: ${motivoRechazo}
@@ -99,7 +99,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <span style="text-decoration: underline;">Datos de la Isfpp:</span>
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
-      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Titulo Isfpp: ${titulo}</li>
       <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}</li>
       </ul>
@@ -114,7 +114,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
           <activiti:expression><![CDATA[Su solicitud de nueva Isfpp ha sido aprobada.
 
 - Solicitante: ${nombreSolicitante}
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto que aprobo su solicitud: ${nombreResponsable}    
 
@@ -167,7 +167,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <span style="text-decoration: underline;">Datos de la Isfpp:</span>
     <ul>
       <li>Solicitante: ${nombreSolicitante}</li>
-      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Titulo Isfpp: ${titulo}</li>
       <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
       <li>Responsable de Proyecto: ${nombreResponsable}</li>
     </ul>
@@ -182,7 +182,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
           <activiti:expression><![CDATA[Programar reunión para establecer condiciones de la Isfpp.
 
 - Solicitante: ${nombreSolicitante}
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 - Responsable de Proyecto: ${nombreResponsable}
 
@@ -223,7 +223,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
     <li>Solicitante: ${nombreSolicitante}</li>
-    <li>Titulo Isfpp: ${tituloIsfpp}</li>
+    <li>Titulo Isfpp: ${titulo}</li>
     <li>Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}</li>
   </ul>
   <a href=${pathApp}>Acceder a Gisfpp</a>
@@ -240,7 +240,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 Tarea: "Revisar Solicitud Nueva Isfpp".
 
 - Solicitante: ${nombreSolicitante}
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Pertenece a (Sub-Proyecto/Proyecto): ${perteneceA}
 
 Acceder a Gisfpp: ${pathApp}
@@ -267,7 +267,7 @@ la Isfpp. Tutor académico asignado.
 - {usuariosResponsablesProyecto}: Nickname de los Responsables del
 Proyecto.
 - {mailsResponsablesProyecto}
-- {tituloIsfpp}: Titulo de la Isfpp.
+- {titulo}: Titulo de la Isfpp.
 - {perteneceA}: Sub-Proyecto / Proyecto.
 - {nombreResponsable}: Nombre y Apellido del Responsable del Proyecto
 quien reclama y completa la tarea "Revisar Solicitud Nueva Isfpp".

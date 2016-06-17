@@ -10,6 +10,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricData;
+import org.activiti.engine.history.HistoricIdentityLink;
+import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.history.HistoricVariableInstanceQuery;
 import org.activiti.engine.history.ProcessInstanceHistoryLog;
 import org.activiti.engine.history.ProcessInstanceHistoryLogQuery;
 import org.activiti.engine.repository.Deployment;
@@ -169,8 +172,13 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		InstanciaProceso resultado = new InstanciaProceso();
 		ProcessInstanceHistoryLogQuery query = servHistory.createProcessInstanceHistoryLogQuery(instancia.getId());
 		ProcessInstanceHistoryLog historyInstancia = query.includeActivities().singleResult();
+		
 		ProcessDefinitionQuery definitionQuery = servRepository.createProcessDefinitionQuery();
 		ProcessDefinition definition = definitionQuery.processDefinitionId(instancia.getProcessDefinitionId()).singleResult();
+		
+		HistoricVariableInstanceQuery variableQuery = servHistory.createHistoricVariableInstanceQuery();
+		HistoricVariableInstance variableTitulo = variableQuery.processInstanceId(instancia.getId()).variableName("titulo")
+				.singleResult();
 		
 		DefinicionProceso definicionProceso = new DefinicionProceso();
 		definicionProceso.setNombre(definition.getName());
@@ -182,8 +190,15 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		resultado.setIdInstancia(instancia.getId());
 		resultado.setInicia(historyInstancia.getStartTime());
 		resultado.setKeyBusiness(historyInstancia.getBusinessKey());
-		resultado.setIniciador(historyInstancia.getStartUserId());//TODO Pendiente 2
+		resultado.setTitulo(variableTitulo.getValue().toString());
 		resultado.setSuspendido(instancia.isSuspended());
+		
+		List<HistoricIdentityLink> participantesProceso = servHistory.getHistoricIdentityLinksForProcessInstance(instancia.getId());
+		for (HistoricIdentityLink item : participantesProceso) {
+			if (item.getType().equals("starter")) {
+				resultado.setIniciador(item.getUserId());
+			}
+		}
 		
 		List<InstanciaActividad> actividades = new ArrayList<InstanciaActividad>();
 		List<HistoricData> historyActividades = historyInstancia.getHistoricData();

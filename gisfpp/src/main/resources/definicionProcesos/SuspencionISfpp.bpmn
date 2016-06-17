@@ -27,7 +27,7 @@
     <p style="font-weight: bold;">La siguiente Isfpp ha sido suspendida temporalmente.</p>
     <span style="text-decoration: underline;">Datos de la Isfpp:</span>
     <ul>
-      <li>Titulo Isfpp: ${tituloIsfpp}</li>
+      <li>Titulo Isfpp: ${titulo}</li>
       <li>Titulo Sub-Proyecto: ${tituloSP}</li>
       <li>Titulo Proyecto: ${tituloProyecto}</li>
      </ul>
@@ -42,7 +42,7 @@
           <activiti:expression><![CDATA[La siguiente Isfpp ha sido suspendida temporalmente.
 Datos de la Isfpp:
 
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Titulo Sub-Proyecto: ${tituloSP}
 - Titulo Proyecto: ${tituloProyecto}
 

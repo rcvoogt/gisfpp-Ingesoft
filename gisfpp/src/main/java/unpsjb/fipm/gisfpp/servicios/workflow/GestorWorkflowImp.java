@@ -25,6 +25,8 @@ import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricIdentityLink;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
+import org.activiti.engine.history.HistoricVariableInstance;
+import org.activiti.engine.history.HistoricVariableInstanceQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -332,10 +334,15 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		HistoricProcessInstanceQuery qry = historyService.createHistoricProcessInstanceQuery();
 		HistoricProcessInstance histProcIns = qry.processInstanceId(item.getId()).singleResult();
 		
+		HistoricVariableInstanceQuery variableQry = historyService.createHistoricVariableInstanceQuery();
+		HistoricVariableInstance variableTitulo = variableQry.processInstanceId(item.getId()).variableName("titulo")
+				.singleResult();
+		
 		InstanciaProceso itemConvertido = new InstanciaProceso();
 		
 		itemConvertido.setIdInstancia(item.getId());
 		itemConvertido.setKeyBusiness(item.getBusinessKey());
+		itemConvertido.setTitulo(variableTitulo.getValue().toString());
 		itemConvertido.setSuspendido(item.isSuspended());
 		itemConvertido.setInicia(histProcIns.getStartTime());
 		itemConvertido.setFinaliza(histProcIns.getEndTime());
@@ -349,6 +356,10 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		ProcessInstanceQuery qryProcInst = rtService.createProcessInstanceQuery();
 		ProcessInstance procInst = qryProcInst.processInstanceId(item.getId()).singleResult(); 
 		HistoricActivityInstanceQuery qryHisInsActv = historyService.createHistoricActivityInstanceQuery();
+		
+		HistoricVariableInstanceQuery variableQry = historyService.createHistoricVariableInstanceQuery();
+		HistoricVariableInstance variableTitulo = variableQry.processInstanceId(item.getId()).variableName("titulo")
+				.singleResult();
 		
 		InstanciaProceso itemConvertido = new InstanciaProceso();
 		DefinicionProceso definicion = cargarDefinicionProceso(item.getProcessDefinitionId());
@@ -368,6 +379,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		itemConvertido.setDefinicion(definicion);
 		itemConvertido.setIdInstancia(item.getId());
 		itemConvertido.setKeyBusiness(item.getBusinessKey());
+		itemConvertido.setTitulo(variableTitulo.getValue().toString());
 		itemConvertido.setIniciador(getIniciadorProceso(item.getId()));
 		itemConvertido.setInicia(item.getStartTime());
 		itemConvertido.setFinaliza(item.getEndTime());

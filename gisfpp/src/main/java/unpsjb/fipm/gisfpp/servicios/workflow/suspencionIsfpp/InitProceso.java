@@ -33,7 +33,7 @@ public class InitProceso implements ExecutionListener {
 			Map<String, Object> variablesProceso = new HashMap<String, Object>();
 			variablesProceso.put("mailTutorAcademico", isfpp.getTutorAcademico().getMiembro().getEmail());
 			variablesProceso.put("mailResponsableProyecto", proyecto.getResponsables().get(0).getEmail());
-			variablesProceso.put("tituloIsfpp", isfpp.getTitulo());
+			variablesProceso.put("titulo", isfpp.getTitulo());
 			variablesProceso.put("tituloSP", sp.getTitulo());
 			variablesProceso.put("tituloProyecto", proyecto.getTitulo());
 			

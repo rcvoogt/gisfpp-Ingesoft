@@ -67,7 +67,7 @@ public class InitSolicitudNuevaIsfpp implements ExecutionListener {
 			variables.put("mailSolicitante", mailSolicitante);
 			variables.put("usuariosResponsablesProyecto", new String(usuariosResponsablesProyecto));
 			variables.put("mailsResponsablesProyecto", new String(mailsResponsablesProyecto));
-			variables.put("tituloIsfpp", tituloIsfpp);
+			variables.put("titulo", tituloIsfpp);
 			variables.put("perteneceA", perteneceA);
 			variables.put("pathApp", UtilGisfpp.getProperty("app.path"));
 			

@@ -12,3 +12,4 @@ drop table isfpp;
 drop table sub_proyecto;
 drop table proyecto;
 drop table persona;
+drop table permisos;

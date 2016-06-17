@@ -40,7 +40,7 @@
 </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Titulo Isfpp: ${tituloIsfpp}</li>
+    <li>Titulo Isfpp: ${titulo}</li>
     <li>Titulo Sub-Proyecto: ${tituloSP}</li>
     <li> Titulo Proyecto: ${tituloProyecto}</li>
     <li>Practicantes: ${practicantes}</li>
@@ -56,7 +56,7 @@
           <activiti:expression><![CDATA[Isfpp "Concluida". Recuerde por favor redactar y presentar el informe final de cada uno de los Practicantes/Pasantes participantes de la misma.
 
 Datos de la Isfpp:
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Titulo Sub-Proyecto: ${tituloSP}
 - Titulo Proyecto: ${tituloProyecto}
 - Practicantes: ${practicantes}
@@ -103,7 +103,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
   </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Titulo Isfpp: ${tituloIsfpp}</li>
+    <li>Titulo Isfpp: ${titulo}</li>
     <li>Titulo Sub-Proyecto: ${tituloSP}</li>
     <li> Titulo Proyecto: ${tituloProyecto}</li>
     <li>Practicantes: ${practicantes}</li>
@@ -122,7 +122,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 Tarea: "Revisar Informes Finales sobre Isfpp".
 
 Datos de la Isfpp:
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Titulo Sub-Proyecto: ${tituloSP}
 - Titulo Proyecto: ${tituloProyecto}
 - Practicantes: ${practicantes}
@@ -181,7 +181,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
 </p>
   <span style="text-decoration: underline;">Datos de la Isfpp:</span>
   <ul>
-    <li>Titulo Isfpp: ${tituloIsfpp}</li>
+    <li>Titulo Isfpp: ${titulo}</li>
     <li>Titulo Sub-Proyecto: ${tituloSP}</li>
     <li> Titulo Proyecto: ${tituloProyecto}</li>
     <li>Practicantes: ${practicantes}</li>
@@ -197,7 +197,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
           <activiti:expression><![CDATA[Isfpp "Concluida". Recuerde por favor presentar su informe final sobre el desarrollo de la práctica profesional llevada a cabo.
 
 Datos de la Isfpp:
-- Titulo Isfpp: ${tituloIsfpp}
+- Titulo Isfpp: ${titulo}
 - Titulo Sub-Proyecto: ${tituloSP}
 - Titulo Proyecto: ${tituloProyecto}
 - Practicantes: ${practicantes}
@@ -223,7 +223,7 @@ Universidad Nacional de la Patagonia San Juan Bosco.]]></activiti:expression>
     <textAnnotation id="anotaciones">
       <text>Variables del proceso:
 1) mailsTutores (String).
-2) tituloIsfpp (String).
+2) titulo (String).
 3) practicantes (String).
 4) mailsPracticantes (String).
 5) usuariosDelegados (String).

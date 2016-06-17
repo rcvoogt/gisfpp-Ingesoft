@@ -14,7 +14,7 @@
 						<row spans="2">
 							<div>
 								<label value="Corresponde a:" style="font-weight: bold;"/>
-								<label value="${arg.titulo}"/>
+								<label value="${arg.item.titulo}"/>
 							</div>
 							<div>
 								<label value="Clave (KeyBusiness): " style="font-weight: bold;"/>
