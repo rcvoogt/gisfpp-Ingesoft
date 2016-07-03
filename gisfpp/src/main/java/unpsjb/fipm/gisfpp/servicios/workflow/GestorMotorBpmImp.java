@@ -190,7 +190,7 @@ public class GestorMotorBpmImp implements GestorMotorBpm {
 		resultado.setIdInstancia(instancia.getId());
 		resultado.setInicia(historyInstancia.getStartTime());
 		resultado.setKeyBusiness(historyInstancia.getBusinessKey());
-		resultado.setTitulo(variableTitulo.getValue().toString());
+		resultado.setTitulo((variableTitulo == null)?"Título sin definir." : variableTitulo.getValue().toString());
 		resultado.setSuspendido(instancia.isSuspended());
 		
 		List<HistoricIdentityLink> participantesProceso = servHistory.getHistoricIdentityLinksForProcessInstance(instancia.getId());

@@ -379,7 +379,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		itemConvertido.setDefinicion(definicion);
 		itemConvertido.setIdInstancia(item.getId());
 		itemConvertido.setKeyBusiness(item.getBusinessKey());
-		itemConvertido.setTitulo(variableTitulo.getValue().toString());
+		itemConvertido.setTitulo((variableTitulo == null)?"Título sin definir." : variableTitulo.getValue().toString());
 		itemConvertido.setIniciador(getIniciadorProceso(item.getId()));
 		itemConvertido.setInicia(item.getStartTime());
 		itemConvertido.setFinaliza(item.getEndTime());

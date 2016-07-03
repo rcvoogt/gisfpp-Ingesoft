@@ -1,4 +1,4 @@
-CREATE 
+CREATE OR REPLACE
     ALGORITHM = UNDEFINED 
     DEFINER = `user_gisfpp`@`localhost` 
     SQL SECURITY DEFINER

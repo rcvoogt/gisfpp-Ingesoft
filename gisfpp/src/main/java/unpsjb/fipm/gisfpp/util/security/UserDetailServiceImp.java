@@ -78,10 +78,14 @@ public class UserDetailServiceImp implements UserDetailsService {
 				roles = new ArrayList<RolUsuario>();
 				roles.add(rol);
 				
+				//Por defecto el usuario administrador debe tener por lo menos permiso
+				//para ejecutar la operacion:  CONCEDER_REVOCAR_PERMISOS.
+				operacionesAutorizadas = EnumSet.noneOf(Operaciones.class);
+				operacionesAutorizadas.add(Operaciones.CONCEDER_REVOCAR_PERMISOS);
+				
 				List<Operaciones> listResultado = servPermisos.getOperacionesxRol(Roles.ADMINISTRADOR);
-				//TODO 
 				if (!listResultado.isEmpty()){
-					operacionesAutorizadas = EnumSet.copyOf(listResultado);
+					operacionesAutorizadas.addAll(listResultado);
 				}
 				return true;
 			}

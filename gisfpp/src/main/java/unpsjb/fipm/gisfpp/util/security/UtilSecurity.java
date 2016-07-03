@@ -136,7 +136,7 @@ public class UtilSecurity {
 		switch (entidadMayuscula) {
 		case "PROYECTO":{
 			for (RolUsuario rol : roles) {
-				if(rol.getTabla().equals(entidadMayuscula) && rol.getIdTabla().longValue()==id.longValue()){
+				if(rol.getTabla().equals(entidadMayuscula) && rol.getIdTabla()==id){
 					return true;
 				}
 			}
