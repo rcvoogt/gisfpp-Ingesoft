@@ -1,3 +1,5 @@
+delete from persona
+
 insert into persona (tipo,idPersona, nombre) values ('PF',1, 'Normand');
 insert into persona (tipo,idPersona, nombre) values ('PF',2, 'Benyamin');
 insert into persona (tipo,idPersona, nombre) values ('PF',3, 'Dave');
