@@ -51,4 +51,4 @@ insert into staff_fi (id, personaId, ROL ) values (48, 126,'PROFESOR');
 insert into staff_fi (id, personaId, ROL ) values (49, 193,'PROFESOR');
 insert into staff_fi (id, personaId, ROL ) values (50, 108,'PROFESOR');
 
-UPDATE `staff_fi` SET `desde`='2029-04-15', `hasta`='2015-04-15';
+UPDATE `staff_fi` SET `desde`='2009-04-15', `hasta`='2015-04-15';
