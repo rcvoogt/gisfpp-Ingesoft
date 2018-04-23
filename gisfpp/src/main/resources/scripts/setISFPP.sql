@@ -24,4 +24,4 @@ VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cult
 (24,' ','SUSPENDIDA','2018-12-12','2018-05-12','','Nutracéuticos innovadores',24),
 (25,' ','ACTIVA','2018-12-12','2018-04-12','','SIEECObservatorio emprendedor',25),
 (26,' ','GENERADA','2018-12-12','2018-03-12','','Sistema para cultivo orienta',26),
-(28,' ','SUSPENDIDA','2018-12-12','2018-01-12','','Sistema de riego en Azampay parte dos',18)
+(28,' ','SUSPENDIDA','2018-12-12','2018-01-12','','Sistema de riego en Azampay parte dos',18);

@@ -324,7 +324,7 @@ select 1,nombre, nombre,idPersona
 								           ON per1.nombre = dup.nombre);
 
 INSERT INTO proyecto (idProyecto, codigo, descripcion, detalle, estado,
-fecha_fin, fecha_inicio, num_resolucion, tipo, titulo)
+fecha_inicio, fecha_fin, num_resolucion, tipo, titulo)
 VALUES (1,1425,' ',' ',null ,'2017-03-01' ,'2017-09-01' ,null ,null ,'Sistema Monitoreo invernáculo'),
 (2,9115,' ',' ',null ,'2017-03-01' ,'2017-09-01' ,null ,null ,'Sistema en Grid para cultivos'),
 (3,8926,' ',' ',null ,'2017-03-01' ,'2017-09-01' ,null ,null ,'CORREL. GEOLÓGICAS Y PALEOMAG'),
