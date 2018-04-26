@@ -1,6 +1,7 @@
 <div xmlns:n="native" vflex="true">
 	<n:nav class="navbar navbar-default" style="height: 74px; margin-bottom: 1px;">
 		<n:div class="container-fluid">
+			
 			<n:div class="navbar-header">
 				<n:button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
 					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -19,6 +20,7 @@
 								Proyectos <n:span class="caret"></n:span></n:a>
 						<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verListaProyectos')">Listado de Proyectos</a></n:li>
+								<n:li><a onClick="@command('verListaIsfpps')">Listado de Isfpps</a></n:li>
 								<n:li><a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a></n:li>
 						</n:ul>		
 					</n:li>	

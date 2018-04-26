@@ -39,6 +39,13 @@
 				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
 					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)"
 						onClick="@command('salir')"/>		
+				
+				<!-- Este es un botón de prueba. Se fuerza visualizar una isfpp especifica, con id = 2 en este caso-->										
+				<!-- Se Tomo esta medida para poder hacer pruebas sin tener que implementar otras tarjetas -->										
+				
+				<!-- <toolbarbutton id="btnVerIsfpp" tooltiptext="Ver ISFPP" label="Ver ISFPP" class="btn btn-success btn-xs" 
+				onClick="@command('verIsfpp', idItem = 2)" visible="true"/> --> 
+							
 			</toolbar>
 			<tabpanels>
 				<tabpanel id="tabDatosGenerales" hflex="1" vflex="1">
