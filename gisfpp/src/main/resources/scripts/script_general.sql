@@ -383,7 +383,7 @@ VALUES (1,' ',' ','Sistema Monitoreo invernáculo',1),
 (27,' ',' ','Sistema Monitoreo invernáculo parte dos',1),
 (28,' ',' ','Sistema de riego en Azampay parte dos',18);
 
-INSERT INTO isfpp(id, detalle, estado, fecha_fin, fecha_inicio, objetivos, titulo, subProyectoId)
+/*INSERT INTO isfpp(id, detalle, estado, fecha_fin, fecha_inicio, objetivos, titulo, subProyectoId)
 VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cultivos',2),
 (3,' ','RECHAZADA','2018-12-12','2018-03-12','','CORREL. GEOLÓGICAS Y PALEOMAG',3),
 (4,' ','CONCLUIDA','2018-12-12','2018-01-12','','PRODUCCION DE COLZA-CANOLA',4),
@@ -410,3 +410,4 @@ VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cult
 (25,' ','ACTIVA','2018-12-12','2018-04-12','','SIEECObservatorio emprendedor',25),
 (26,' ','GENERADA','2018-12-12','2018-03-12','','Sistema para cultivo orienta',26),
 (28,' ','SUSPENDIDA','2018-12-12','2018-01-12','','Sistema de riego en Azampay parte dos',18);
+*/

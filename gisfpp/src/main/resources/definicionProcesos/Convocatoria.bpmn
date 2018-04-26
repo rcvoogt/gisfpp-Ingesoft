@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="pool1" name="Pool" processRef="process_pool1"></participant>
+  </collaboration>
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+  </process>
+  <process id="process_pool1" name="process_pool1" isExecutable="true">
+    <laneSet id="laneSet_process_pool1">
+      <lane id="lane1">
+        <flowNodeRef>mailtask1</flowNodeRef>
+      </lane>
+      <lane id="lane2" name="New lane">
+        <flowNodeRef>startevent1</flowNodeRef>
+      </lane>
+    </laneSet>
+    <serviceTask id="mailtask1" name="Mail Task" activiti:type="mail"></serviceTask>
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>https://www.activiti.org/userguide/#bpmnEmailTaskServerConfiguration</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="300.0" width="871.0" x="100.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="150.0" width="851.0" x="120.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
+        <omgdc:Bounds height="150.0" width="851.0" x="120.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="150.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="230.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="141.0" width="311.0" x="250.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="167.0" y="270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="167.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
