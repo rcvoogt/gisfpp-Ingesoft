@@ -60,65 +60,16 @@ public class MVListarIsfpp {
 		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlListaIsfpps");
 	}
 
-	/*@Command("nuevoProyecto")
-	public void nuevoProyecto() {
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("idItem", 0);
-		map.put("modo", UtilGisfpp.MOD_NUEVO);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
-	}
 	
-	@Command("editarProyecto")
-	public void editarProyecto(@BindingParam("item") Proyecto item) {
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("idItem", item.getId());
-		map.put("modo", UtilGisfpp.MOD_EDICION);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
-
-	}*/
-
 	@Command("verIsfpp")
-	@NotifyChange("tabIsfppCreado")
-	public void verIsfpp(@BindingParam("idItem") Integer id) {
-		crearTab(UtilGisfpp.MOD_VER, "Ver Isfpp", id);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/crudIsfpp.zul", map);
-		//tabIsfppCreado = true;
-	}
-	
-	
-	/*@Command("verIsfpp")
 	public void verIsfpp(@BindingParam("item") Isfpp item) {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("item", item.getId());
+		map.put("idItem", item.getId());
 		map.put("modo", UtilGisfpp.MOD_VER);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/crudIsfpp.zul", map);
-	}*/
-
-	/*@Command("eliminarProyecto")
-	public void eliminarProyecto(@BindingParam("item") Proyecto item) throws Exception {
-		Messagebox.show("Desea realmente eliminar este Proyecto?", "Gisfpp: Eliminando Proyecto",
-					Messagebox.YES + Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
-
-						public void onEvent(Event event) throws Exception {
-							if (event.getName().equals(Messagebox.ON_YES)) {
-								try {
-									servicio.eliminar(item);
-									Clients.showNotification("Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO,
-											null, "top_right", 3500);
-									listaIsfpps.remove(item);
-									BindUtils.postNotifyChange(null, null, autoRef, "listaIsfpps");
-								} catch (GisfppException exc) {
-									Messagebox.show(exc.getMessage(), "Gisfpp: Eliminando Proyecto", Messagebox.OK,
-											Messagebox.ERROR);
-								} catch (Exception e) {
-									log.error(this.getClass().getName(), e);
-									throw e;
-								}
-							}
-						}
-					});
-		}
-
+	}
+	
+	/*
 
 	//Inicio Bloque "Aplicacion Filtro de Listado"
 	@Command("dlgFiltro")
@@ -159,4 +110,4 @@ public class MVListarIsfpp {
 		return titulo;
 	}
 
-}// Fin de la clase MVListarProyectos
+}
