@@ -1,0 +1,21 @@
+<vbox spacing="6px" hflex="true" vflex="true">
+	
+	<grid hflex="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+		model="@load(vm.item.practicantes)" mold="paging" autopaging="true"
+		 emptyMessage="Esta Isfpp no tiene Practicantes asignados.">
+		 <columns>
+		 	<column label="Nombres y Apellido"  width="36%"/>
+		 	<column label="DNI" width="18%"/>
+		 	<column label="CUIL" width="18%"/>
+		 	<column label="N° Matricula" width="18%"/>
+		 </columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)"/>
+				<label value="@load(each.dni)"/>
+				<label value="@load(each.cuil)"/>
+				<label value="@load(each.matricula)"/>
+			</row>
+		</template>
+	</grid>
+</vbox>

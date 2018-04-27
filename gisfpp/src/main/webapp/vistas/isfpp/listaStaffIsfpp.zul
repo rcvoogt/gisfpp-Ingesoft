@@ -1,0 +1,20 @@
+<vbox spacing="6px" hflex="true" vflex="true">
+	<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
+		model="@load(vm.item.staff)" mold="paging" autopaging="true"
+		 emptyMessage="No hay ningún miembro asignado al Staff de esta Isfpp.">
+		 <columns>
+		 	<column label="Nombre y Apellido"  width="35%"/>
+		 	<column label="DNI" width="17%"/>
+		 	<column label="CUIL" width="17%"/>
+		 	<column label="Rol" width="17%"/>
+		 </columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.miembro.nombre)"/>
+				<label value="@load(each.miembro.dni)"/>
+				<label value="@load(each.miembro.cuil)"/>
+				<label value="@load(each.rol.titulo)"/>
+			</row>
+		</template>
+	</grid>
+</vbox>
