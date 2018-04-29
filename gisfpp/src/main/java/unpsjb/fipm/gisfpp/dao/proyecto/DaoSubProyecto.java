@@ -50,7 +50,18 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<SubProyecto> recuperarTodo() throws DataAccessException {
-		String query = "form SubProyecto as sp inner join fetch sp.perteneceA";
+		String query = "from SubProyecto as sp inner join fetch sp.perteneceA";
+		try {
+			return (List<SubProyecto>) getHibernateTemplate().find(query, null);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<SubProyecto> recuperarTodos() throws DataAccessException {
+		String query = "from SubProyecto";
 		try {
 			return (List<SubProyecto>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {

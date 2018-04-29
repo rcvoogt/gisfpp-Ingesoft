@@ -24,4 +24,6 @@ public interface IDaoSubProyecto extends DaoGenerico<SubProyecto, Integer> {
 	 */
 	public long cantIsfppAsociadas(Integer idSP) throws DataAccessException;
 
+	public List<SubProyecto> recuperarTodos();
+
 }

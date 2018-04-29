@@ -1,16 +1,22 @@
 package unpsjb.fipm.gisfpp.controladores.isfpp;
 
+
 import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.spring.SpringUtil;
+import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -69,20 +75,20 @@ public class MVListarIsfpp {
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/crudIsfpp.zul", map);
 	}
 	
-	/*
+	
 
 	//Inicio Bloque "Aplicacion Filtro de Listado"
 	@Command("dlgFiltro")
 	public void verDlgFiltro() {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("listSinFiltro", listaIsfpps);
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgFiltrosProyecto.zul", null, map);
+		Window dlg = (Window) Executions.createComponents("vistas/isfpp/dlgFiltrosIsfpp.zul", null, map);
 		dlg.doModal();
 	}
 
-	@GlobalCommand("retornoDlgFiltroProyecto")
+	@GlobalCommand("retornoDlgFiltroIsfpp")
 	@NotifyChange({ "listaIsfpps", "filtrado", "titulo" })
-	public void retornoDlgFiltroProyecto(@BindingParam("listConFiltro") List<Proyecto> arg1) {
+	public void retornoDlgFiltroIsfpp(@BindingParam("listConFiltro") List<Isfpp> arg1) {
 		// si el listado no tiene un filtro aplicado, mantenemos una referencia
 		// a dicho listado original, para luego recuperarlo
 		if (!listadoFiltrado) {
@@ -98,13 +104,13 @@ public class MVListarIsfpp {
 	public void quitarFiltro() {
 		listaIsfpps = temp;
 		listadoFiltrado = false;
-		titulo = "Listado de Proyectos";
+		titulo = "Listado de Isfpps";
 		// Limpiamos los argumentos de listadoFiltrado de la sesion.
-		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
+		Sessions.getCurrent().setAttribute("argUltFiltroIsfpps", null);
 	}
 	public boolean isFiltrado() {
 		return listadoFiltrado;
-	}*/
+	}
 
 	public String getTitulo() {
 		return titulo;

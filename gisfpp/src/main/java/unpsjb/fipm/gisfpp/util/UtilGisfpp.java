@@ -13,16 +13,13 @@ import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-import org.zkoss.spring.SpringUtil;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 
 /**
  * @author Jose Devia

@@ -53,7 +53,7 @@ public class ServicioSubProyecto implements IServicioSubProyecto {
 	@Override
 	@Transactional(value="gisfpp", readOnly = true)
 	public List<SubProyecto> getListado() throws Exception {
-		return dao.recuperarTodo();
+		return dao.recuperarTodos();
 	}
 
 	@Override

@@ -60,7 +60,9 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 
 	@Override
 	public List<Isfpp> recuperarTodo() throws DataAccessException {
-		String query = "from Isfpp as isffpp inner join fecth isfpp.perteneceA";
+		String query = "from Isfpp";
+
+		//String query = "from Isfpp as isffpp inner join fecth isfpp.perteneceA";
 		try {
 			return (List<Isfpp>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {
