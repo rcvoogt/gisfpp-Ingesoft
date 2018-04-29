@@ -1,0 +1,58 @@
+<window id="dlgFiltroIsfpp"
+	title="Gisfpp: Aplicar Filtros a Listado de Isfpps" border="normal"
+	closable="true" vflex="true" width="400px"
+	apply="org.zkoss.bind.BindComposer" sizable="true"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.isfpp.MVDlgFiltroIsfpp')">
+	<vbox hflex="1" vflex="1" spacing="8px">
+		<!--  <div hflex="true">
+			<label value="Codigo" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.codigo)" class="form-control"
+			maxlength="20"/>
+			</div>
+			<div hflex="true">
+			<label value="N° Resolucion" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.resolucion)" class="form-control"
+			maxlength="20"/>
+			</div>
+			<div hflex="true">
+			<label value="Título" class="form-label" width="45%"/>
+			<textbox width="95%" value="@bind(vm.titulo)" class="form-control"
+			maxlength="80"/>
+			</div>-->
+		<div hflex="true">
+			<label value="Proyecto" class="form-label" width="45%" />
+			<combobox model="@load(vm.proyectos)"
+				selectedItem="@bind(vm.proyecto)" width="75%">
+				<template name="model">
+					<comboitem label="@load(each.titulo)" />
+				</template>
+			</combobox>
+		</div>
+		<div hflex="true">
+			<label value="SubProyecto" class="form-label" width="45%" />
+			<combobox model="@load(vm.subProyectos)"
+				selectedItem="@bind(vm.subProyecto)" width="75%">
+				<template name="model">
+					<comboitem label="@load(each.titulo)" />
+				</template>
+			</combobox>
+		</div>
+		<div hflex="true">
+			<label value="Estado" class="form-label" width="45%" />
+			<combobox model="@load(vm.estados)"
+				selectedItem="@bind(vm.estado)" width="75%">
+				<template name="model">
+					<comboitem label="@load(each.titulo)" />
+				</template>
+			</combobox>
+		</div>
+		<separator bar="true" />
+		<hbox hflex="true" pack="center" align="center" height="15%">
+			<a class="btn btn-success btn-sm"
+				onClick="@command('filtrar')"
+				image="/recursos/img/icon-filter.png">
+				Filtrar
+			</a>
+		</hbox>
+	</vbox>
+</window>

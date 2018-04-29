@@ -25,3 +25,13 @@ VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cult
 (25,' ','ACTIVA','2018-12-12','2018-04-12','','SIEECObservatorio emprendedor',25),
 (26,' ','GENERADA','2018-12-12','2018-03-12','','Sistema para cultivo orienta',26),
 (28,' ','SUSPENDIDA','2018-12-12','2018-01-12','','Sistema de riego en Azampay parte dos',18);
+
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,4);
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,5);
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,6);
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,7);
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,8);
+INSERT INTO `practicantes`(`isfppId`, `personaId`) VALUES (2,9);
+
+INSERT INTO `staff_isfpp`(`idStaffIsfpp`, `rol`, `isfppId`, `personaId`) VALUES (1,"TUTOR_ACADEMICO",2,41);
+INSERT INTO `staff_isfpp`(`idStaffIsfpp`, `rol`, `isfppId`, `personaId`) VALUES (2,"TUTOR_EXTERNO",2,44);

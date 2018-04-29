@@ -8,7 +8,22 @@
 	</div>
 	<div class="panel-body" vflex="true">
 	<vbox hflex="true" spacing="5px" vflex="true">
-	
+	<n:div class="btn-toolbar pull-right">
+		<n:div class="btn-group">
+					<a image="recursos/img/icon-filter.png"
+						class="btn btn-success btn-sm" onClick="@command('dlgFiltro')"
+						tooltiptext="Aplicar filtros al Listado">
+						Filtrar
+					</a>
+					<a image="recursos/img/icon-remove-sign.png"
+						class="btn btn-success btn-sm"
+						tooltiptext="Quitar el filtro aplicado al Listado"
+						visible="@load(vm.filtrado)" onClick="@command('quitarFiltro')"
+						style="margin-left:1px">
+						Quitar Filtro
+					</a>
+				</n:div>
+			</n:div>
 	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
 	 	style="border: 2px solid #80ccff; border-radius: 5px;"
 			emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas." 
