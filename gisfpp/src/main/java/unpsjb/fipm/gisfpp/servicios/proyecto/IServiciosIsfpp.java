@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.servicios.proyecto;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -81,5 +82,7 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	 * @throws Exception
 	 */
 	public void concluirIsfpp(Integer idIsfpp) throws Exception;
+	
+	public Convocatoria getUltimaConvocatoria(Integer idIsfpp) throws Exception;
 	
 }

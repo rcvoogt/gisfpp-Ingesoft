@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoConvocatoria;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -26,34 +27,45 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 @Service("servConvocatoria")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServiciosConvocatoria implements IServiciosConvocatoria {
-
+	@Autowired
 	private IDaoConvocatoria dao;
-	private GestorWorkflow servGWkFl;
-	private GestorMotorBpm servMotorWf;
+	
+	
 	@Override
 	public Integer persistir(Convocatoria instancia) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		int idConvocatoria = dao.crear(instancia);
+		
+		return idConvocatoria;
 	}
 	@Override
 	public void editar(Convocatoria instancia) throws Exception {
-		// TODO Auto-generated method stub
-		
+		dao.actualizar(instancia);
 	}
 	@Override
 	public void eliminar(Convocatoria instancia) throws Exception {
-		// TODO Auto-generated method stub
+		dao.eliminar(instancia);
 		
 	}
 	@Override
 	public Convocatoria getInstancia(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.recuperarxId(id);
 	}
 	@Override
 	public List<Convocatoria> getListado() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.recuperarTodo();
+	}
+	@Override
+	public Isfpp getIsfpp(Integer idConvocatoria) throws Exception {
+		return dao.getIsfpp(idConvocatoria);
+	}
+	@Override
+	public List<Convocado> getConvocados(Integer idConvocatoria) throws Exception {
+		System.out.println("test");
+		return dao.getConvocados(idConvocatoria);
+	}
+	@Override
+	public int getCantidadConvocados(Integer idConvocatoria) throws Exception {
+		return dao.getCantidadConvocados(idConvocatoria);
 	}
 
 	}// fin de la clase

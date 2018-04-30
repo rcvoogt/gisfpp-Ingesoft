@@ -53,6 +53,12 @@ public class Convocado implements Serializable {
 	@JoinColumn(name = "personaId", nullable = false, foreignKey=@ForeignKey(name="fk_persona_convocado"))
 	private PersonaFisica persona;
 
+	public Convocado(Convocatoria convocatoria, PersonaFisica persona) {
+		this.convocatoria = convocatoria;
+		this.persona = persona;
+		this.respuesta = ERespuestaConvocado.SIN_RESPUESTA;
+	}
+	
 	public Convocado(Integer id, ERespuestaConvocado respuesta, Convocatoria convocatoria, PersonaFisica persona) {
 		super();
 		this.id = id;

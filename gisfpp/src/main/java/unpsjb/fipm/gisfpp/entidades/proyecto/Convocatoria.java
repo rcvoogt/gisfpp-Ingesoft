@@ -1,7 +1,9 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -56,6 +58,7 @@ public class Convocatoria implements Serializable {
 		fechaCreacion = new Date();
 		fechaVencimiento = new Date();
 		mensaje = "";
+		convocados = new HashSet<Convocado>();
 	}
 
 	public Convocatoria(Date creacion, Date vencimiento, String detalle,Isfpp isfppPadre) {
@@ -97,6 +100,19 @@ public class Convocatoria implements Serializable {
 	public Set<Convocado> getConvocados() {
 		return convocados;
 	}
+	
+	public void agregarConvocado(Convocado convocado) {
+		if(convocado!=null){
+			convocados.add(convocado);
+		}
+	}
+	
+	public void quitarConvocado(Convocado convocado) {
+		if(convocado!=null){
+			convocados.remove(convocado);
+		}
+	}
+	
 	
 	@NotNull(message="La convocatoria debe tener una \"ISFPP\".")
 	public Isfpp getIsfpp() {

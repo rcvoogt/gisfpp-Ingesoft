@@ -32,6 +32,10 @@
 		</property>
 	</bean>
 	
+	<bean id="daoConvocatoria" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoConvocatoria">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
 	<bean id="daoProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoProyectoImpl">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>

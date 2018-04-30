@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
@@ -16,13 +17,18 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.Button;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
+import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -46,6 +52,7 @@ public class MVCrudIsfpp {
 	private boolean editando;
 	private boolean ver;
 	private HashMap<String, Object> args;
+	private boolean tabIsfppCreado;
 
 	@Init
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
@@ -324,6 +331,56 @@ public class MVCrudIsfpp {
 						}
 					}
 				});
+	}
+	
+	@Command("nuevaConvocatoria")
+	public void nuevaConvocatoria() {
+		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Convocatoria", item.getId());
+		tabIsfppCreado=true;
+	}
+	
+	private void crearTab(String modo, String titulo, Integer id) {
+		//Obtengo el tabbox de subproyecto
+		Tabbox tabBoxSubProyecto = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
+		Tabbox tabboxIsfpp = null;
+		//El problema es buscar el tabbox inferior porque se genera dinamicamente
+		//Busco el panel de isffp dentro del tabbox de subproyecto
+		// Es totalmente duro esto, pero funciona... 
+		// hasta que no funcionen los selectores, no encuentro mejor solucion
+		for (Component component : (List<Component>) tabBoxSubProyecto.getTabpanels().getChildren()) {
+			Tabpanel tabpanel = (Tabpanel) component;
+			// Si es el tab que hardcodee el id al crearlo
+			if(tabpanel.getId() == "pisfppTP") {
+				List<Component> componentes = (List<Component>) tabpanel.getChildren();
+				for (Component component2 : (List<Component>) tabpanel.getChildren()) {
+					 tabboxIsfpp = (Tabbox)component2.getChildren().get(0);
+					
+				}
+					
+			}
+		}
+		
+		
+		if(tabboxIsfpp != null ) {
+			//Tabbox tabbox = (Tabbox) Component.
+			Tab tab = new Tab(titulo);
+			Tabpanel tabPanel = new Tabpanel();
+			tabPanel.setId("pConvocatoriaTP");
+			Include include = new Include("vistas/proyecto/verCrearConvocatoria.zul");
+			HashMap<String, Object> args = new HashMap<>();
+			args.put("isfpp", item);
+			args.put("modo", modo);
+			args.put("idItem", id);
+			args.put("tab", tab);
+			
+			include.setDynamicProperty("argsCrudConvocatoria", args);
+			tabboxIsfpp.getTabs().appendChild(tab);
+			tabPanel.getChildren().add(include);
+			
+			
+			tabboxIsfpp.getTabpanels().getChildren().add(tabPanel);
+			tabboxIsfpp.setSelectedTab(tab);
+		}
 	}
 	
 	private String getTituloNewIsfpp(){

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -209,6 +210,14 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Autowired(required=true)
 	public void setServMotorWf(GestorMotorBpm servMotorWf) {
 		this.servMotorWf = servMotorWf;
+	}
+
+	@Override
+	public Convocatoria getUltimaConvocatoria(Integer idIsfpp) throws Exception {
+		/*
+		 * TODO: Implementar buscar la ultima convocatoria activa
+		 */
+		return null;
 	}
 	
 

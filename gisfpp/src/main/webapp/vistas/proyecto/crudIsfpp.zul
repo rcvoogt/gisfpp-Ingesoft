@@ -1,4 +1,5 @@
-<tabbox width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+<tabbox id="tbbxISFPP" width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+class="tabBoxIsfpp"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudIsfpp')">
 	<tabs>
 		<tab label="Datos Generales" selected="true" />
@@ -6,6 +7,14 @@
 		<tab label="Practicantes" visible="@load(vm.modo ne 'NUEVO')" />
 	</tabs>
 	<toolbar>
+		<toolbarbutton id="btnNuevaConvocatoria"
+			image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
+			
+			class="btn btn-success btn-xs"
+			onClick="@command('nuevaConvocatoria')"
+			/>
+			<!-- visible="@load(sec:isAutorizado2('CREAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
+				 or	sec:isAutorizado('MODIFICAR_PROYECTOS'))" -->
 		<toolbarbutton image="recursos/img/estados.png" label=" Estado"
 			tooltiptext="Editar Estado"
 			popup="ppBotoneraEstados, position=after_center"
@@ -136,6 +145,9 @@
 		<tabpanel id="tabPracticantes">
 			<include src="vistas/proyecto/listaPracticantes.zul" />
 		</tabpanel>
+		  
+		
+		
 	</tabpanels>
 </tabbox>
 

@@ -110,8 +110,22 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 
 	@Override
 	public List<Convocado> getConvocados(Integer idConvocatoria) throws Exception {
-		Convocatoria conv = this.recuperarxId(idConvocatoria);
-		return (List<Convocado>) conv.getConvocados();
+		String query ="select p from Convocatoria as i join i.convocados as p where i.id = ?";
+		List<Convocado> resultado;
+		try {
+			resultado = (List<Convocado>) getHibernateTemplate().find(query,idConvocatoria);
+		} catch (Exception exc) {
+			log.error("Clase: "+ this.getClass().getName() +"- Metodo: List<Convocado> getConvocados(Integer idConvocatoria)", exc);
+			throw exc;
+		}
+		if (resultado!=null) {
+			for (Convocado convocado : resultado) {
+				getHibernateTemplate().initialize(convocado.getPersona().getDatosDeContacto());
+				getHibernateTemplate().initialize(convocado.getPersona().getIdentificadores());
+			}
+			return resultado;
+		}
+		return new ArrayList<Convocado>();
 	}
 
 	@Override

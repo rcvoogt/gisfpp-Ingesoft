@@ -44,11 +44,19 @@
           <activiti:expression><![CDATA[${mensaje}]]></activiti:expression>
         </activiti:field>
       </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+        <loopCardinality>${cantidadConvocados}</loopCardinality>
+      </multiInstanceLoopCharacteristics>
     </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${Convocados}" activiti:formKey="dlgAceptarConvocatoria.zul" activiti:priority="25"></userTask>
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${Convocados}" activiti:formKey="dlgAceptarConvocatoria.zul" activiti:priority="25">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+        <loopCardinality>${cantidadConvocados}</loopCardinality>
+        <completionCondition>${todosContestados}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
     <sequenceFlow id="flow4" sourceRef="inclusivegateway1" targetRef="indicarInteresEnConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway3" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="indicarInteresEnConvocatoria" targetRef="inclusivegateway3"></sequenceFlow>
