@@ -1,6 +1,6 @@
 <div id="pnlCrudIsfpp" xmlns:n="native" class="panel panel-primary"
 	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true" style="margin-bottom: 2px;"
-	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.isfpp.MVCrudIsfpp')">
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.isfpp.MVVerIsfpp')">
 	<n:div class="panel-heading">
 		<n:h3 class="panel-title">
 			<label value="@load(vm.titulo)" style="font-size:14px;" />
@@ -12,10 +12,10 @@
 		<tab label="Staff" visible="true" />
 		<tab label="Practicantes" visible="true" />
 	</tabs>
-	<toolbar>
+	<!-- <toolbar>
 		<toolbarbutton image="recursos/img/icon-exit.png" label="Salir"
 			onClick="@command('salir')" class="btn btn-success btn-xs"/>
-	</toolbar>
+	</toolbar> -->
 	<tabpanels>
 		<tabpanel id="tabDatosGen">
 			<grid hflex="1" vflex="1" sclass="fgrid">

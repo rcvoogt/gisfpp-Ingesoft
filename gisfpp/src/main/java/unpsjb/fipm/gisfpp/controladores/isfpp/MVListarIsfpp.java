@@ -72,7 +72,7 @@ public class MVListarIsfpp {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("idItem", item.getId());
 		map.put("modo", UtilGisfpp.MOD_VER);
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/crudIsfpp.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/verIsfpp.zul", map);
 	}
 	
 	

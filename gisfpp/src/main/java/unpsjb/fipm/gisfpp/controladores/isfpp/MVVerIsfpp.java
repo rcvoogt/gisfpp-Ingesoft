@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.controladores.isfpp;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -17,10 +16,8 @@ import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
-import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
@@ -30,12 +27,10 @@ import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
  * 
  *
  */
-public class MVCrudIsfpp {
+public class MVVerIsfpp {
 
-	private Logger log;
 	private Isfpp item;
 	private IServiciosIsfpp servicio;
-	private GestorWorkflow gestorWkFl;
 	private SubProyecto perteneceA;
 	private String modo;
 	private boolean creando;
@@ -48,14 +43,10 @@ public class MVCrudIsfpp {
 	@Init
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver", "titulo" })
 	public void init() throws Exception {
-		log = UtilGisfpp.getLogger();
-		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
+		modo = UtilGisfpp.MOD_VER;
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		final HashMap<String, Object> args = (HashMap<String, Object>) Sessions.getCurrent()
 				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
-		modo = (String) args.get("modo");
-
-		// TODO Revisar pertenece a. Eliminar todo lo que no corresponde
 		item = servicio.getInstancia((Integer) args.get("idItem"));
 		item.setPerteneceA(perteneceA);
 		creando = (editando = false);
@@ -92,11 +83,7 @@ public class MVCrudIsfpp {
 	@Command("salir")
 	public void salir() {
 		Map<String, Object> map = new HashMap<>();
-		if (modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)) {
-			map.put("actualizar", true);
-		} else {
-			map.put("actualizar", false);
-		}
+		map.put("actualizar", false);
 		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
 		Tab tab = (Tab) args.get("tab");
 		tab.close();
