@@ -208,5 +208,21 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MiembroStaffIsfpp> getMiembros(Isfpp isfpp) throws Exception, NullPointerException {
+		String query = "select m "
+					+ "from MiembroStaffIsfpp m "
+					+ "where m.isfpp.id = ?";
+		List<MiembroStaffIsfpp> resultado;
+		try {
+			resultado = (List<MiembroStaffIsfpp>) getHibernateTemplate().find(query, isfpp.getId());
+		} catch (Exception exc) {
+			log.error("Clase: "+ this.getClass().getName() +"- Metodo: List<MiembroStaffIsfpp> getMiembros(Isfpp isfpp) ", exc);
+			throw exc;
+		}
+		return resultado;
+	}
+
 			
 }// fin de la clase

@@ -4,8 +4,10 @@
 		<tab label="Datos Generales" selected="true" />
 		<tab label="Staff" visible="@load(vm.modo ne 'NUEVO')" />
 		<tab label="Practicantes" visible="@load(vm.modo ne 'NUEVO')" />
+		<tab label="Ver Trace" visible="@load(vm.verTrace)" />		
 	</tabs>
 	<toolbar>
+
 		<toolbarbutton image="recursos/img/estados.png" label=" Estado"
 			tooltiptext="Editar Estado"
 			popup="ppBotoneraEstados, position=after_center"
@@ -36,6 +38,7 @@
 			disabled="@load((not vm.creando) and (not vm.editando))"
 			onClick="@command('cancelar')"
 			visible="@load(btnNuevo.visible or btnEditar.visible)" />
+			
 		<space bar="true" spacing="10px"
 			visible="@load(btnNuevo.visible or btnEditar.visible)" />
 		<toolbarbutton image="recursos/img/icon-exit.png" label="Salir"
@@ -135,6 +138,9 @@
 		</tabpanel>
 		<tabpanel id="tabPracticantes">
 			<include src="vistas/proyecto/listaPracticantes.zul" />
+		</tabpanel>
+		<tabpanel id="tabVerTrace">
+			<include src="vistas/proyecto/verTrace.zul" />
 		</tabpanel>
 	</tabpanels>
 </tabbox>

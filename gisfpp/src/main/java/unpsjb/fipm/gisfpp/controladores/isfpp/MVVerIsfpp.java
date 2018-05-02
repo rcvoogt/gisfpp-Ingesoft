@@ -80,14 +80,7 @@ public class MVVerIsfpp {
 	}
 
 
-	@Command("salir")
-	public void salir() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("actualizar", false);
-		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
-		Tab tab = (Tab) args.get("tab");
-		tab.close();
-	}
+	
 
 
 	// Dialogo para ver los datos de contacto de una persona

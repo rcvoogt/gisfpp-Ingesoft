@@ -75,7 +75,6 @@ public class MVListarIsfpp {
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/verIsfpp.zul", map);
 	}
 	
-	
 
 	//Inicio Bloque "Aplicacion Filtro de Listado"
 	@Command("dlgFiltro")

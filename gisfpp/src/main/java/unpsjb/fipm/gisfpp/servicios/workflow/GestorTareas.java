@@ -12,6 +12,8 @@ public interface GestorTareas {
 	public static final String ORDEN_PRIORIDAD = "porPrioridad";
 	public static final String ORDEN_FECHA_VENC = "porFechaVencimiento";
 	public static final String ORDEN_NOMBRE_TAREA = "porNombreTarea";
+		
+	public List<InfoTarea> getTareas(String proceso, boolean asc);
 	
 	public List<InfoTarea> getTareasAsignadas(String usuario, String ordenadoPor, boolean asc) throws GisfppWorkflowException;
 	

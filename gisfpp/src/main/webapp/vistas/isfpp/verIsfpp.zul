@@ -12,10 +12,10 @@
 		<tab label="Staff" visible="true" />
 		<tab label="Practicantes" visible="true" />
 	</tabs>
-	<!-- <toolbar>
-		<toolbarbutton image="recursos/img/icon-exit.png" label="Salir"
-			onClick="@command('salir')" class="btn btn-success btn-xs"/>
-	</toolbar> -->
+	<toolbar>
+		<toolbarbutton label="Ver Trace"
+			onClick="@command('verTrace')" class="btn btn-success btn-xs"/>
+	</toolbar> 
 	<tabpanels>
 		<tabpanel id="tabDatosGen">
 			<grid hflex="1" vflex="1" sclass="fgrid">
@@ -90,6 +90,7 @@
 		<tabpanel id="tabPracticantes">
 			<include src="vistas/isfpp/listaPracticantes.zul" />
 		</tabpanel>
+		
 	</tabpanels>
 </tabbox>
 </div>

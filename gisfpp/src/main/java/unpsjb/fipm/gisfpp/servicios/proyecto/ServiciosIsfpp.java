@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
@@ -209,6 +212,36 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Autowired(required=true)
 	public void setServMotorWf(GestorMotorBpm servMotorWf) {
 		this.servMotorWf = servMotorWf;
+	}
+
+	@Override
+	public Isfpp getInstancia(Date createTime) {
+		List<Isfpp> isfpps = this.dao.recuperarTodo();
+		for(Isfpp isfpp: isfpps) {
+			if(isfpp.getInicio().equals(createTime)) {
+				return isfpp;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public List<MiembroStaffIsfpp> getMiembros(Isfpp isfpp) throws Exception,NullPointerException {
+		List<MiembroStaffIsfpp> miembros = this.dao.getMiembros(isfpp);
+		return miembros;
+	}
+
+	@Override
+	public MiembroStaffIsfpp getResponsableIsfpp(Isfpp isfpp) throws Exception, NullPointerException {
+		List<MiembroStaffIsfpp> miembros = getMiembros(isfpp);
+		for(MiembroStaffIsfpp miembro: miembros) {
+			if(miembro.getRol().equals(ERolStaffIsfpp.TUTOR_ACADEMICO)) {
+				return miembro;
+			}
+		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

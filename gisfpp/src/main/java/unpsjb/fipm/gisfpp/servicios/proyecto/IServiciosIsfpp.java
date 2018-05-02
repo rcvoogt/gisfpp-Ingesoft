@@ -1,9 +1,11 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
+import java.util.Date;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
@@ -19,6 +21,10 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	 * @throws Exception
 	 */
 	public List<Isfpp> getIsfpps(SubProyecto sp) throws Exception;
+	
+	public List<MiembroStaffIsfpp> getMiembros(Isfpp isfpp) throws Exception,NullPointerException;
+	
+	public MiembroStaffIsfpp getResponsableIsfpp(Isfpp isfpp) throws Exception,NullPointerException;
 	
 	/**
 	 * Devuelve el SubProyecto al cual pertenece la Isfpp (Id) pasada como parámetro;
@@ -81,5 +87,7 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	 * @throws Exception
 	 */
 	public void concluirIsfpp(Integer idIsfpp) throws Exception;
+
+	public Isfpp getInstancia(Date createTime);
 	
 }

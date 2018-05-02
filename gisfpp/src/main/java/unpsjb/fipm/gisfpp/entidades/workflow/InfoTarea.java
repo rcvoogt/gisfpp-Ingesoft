@@ -177,5 +177,7 @@ public class InfoTarea {
 		}
 		return 0;
 	}
-				
+
+	
+	
 }//fin de la clase

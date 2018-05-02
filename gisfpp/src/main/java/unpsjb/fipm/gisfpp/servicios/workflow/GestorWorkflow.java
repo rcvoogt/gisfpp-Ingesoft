@@ -6,8 +6,10 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.activiti.engine.repository.ProcessDefinition;
 import org.xml.sax.SAXException;
 
+import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaActividad;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 
@@ -52,10 +54,14 @@ public interface GestorWorkflow {
 	
 	public String getKeyBusiness(String idInstanciaProceso);
 	
+	public ProcessDefinition getProcessDefinition(String idProcess);
+	
 	public List<String> consultarProcesosAsociados(String categoria, String operacion) throws ParserConfigurationException, SAXException, IOException;
 	
 	public List<InstanciaProceso> getInstanciasProcesos(String keyBusiness) throws GisfppWorkflowException;
 	
+	public List<InstanciaProceso> getInstanciasProcesos(ProcessDefinition processDefinition) throws GisfppWorkflowException;
+		
 	public List<String> nombreProcesosInstanciados(String keyBusiness, String categoria, String operacion) throws GisfppWorkflowException;
 	
 	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
@@ -81,5 +87,7 @@ public interface GestorWorkflow {
 	public List<InstanciaProceso> getProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
 	
 	public long getCantidadProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
+
+	public List<InstanciaActividad> getInstanciasActividades(ProcessDefinition processDefinition, String isfpp);
 	
 }

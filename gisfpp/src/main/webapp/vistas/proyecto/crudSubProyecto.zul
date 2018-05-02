@@ -1,6 +1,7 @@
-<div id="pnlCrudSP" class="panel panel-primary" hflex="true" vflex="true" 
-	xmlns:n="native" apply="org.zkoss.bind.BindComposer" style="margin-bottom: 2px;"
-		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
+<div id="pnlCrudSP" class="panel panel-primary" hflex="true"
+	vflex="true" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
+	style="margin-bottom: 2px;"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudSubProyecto')">
 	<div class="panel-heading">
 		<n:h3 class="panel-title">
 			<label value="@load(vm.titulo)" style="font-size: 14px;" />
@@ -9,75 +10,88 @@
 	<div class="panel-body" vflex="true">
 		<tabbox id="tbbxSP" vflex="true" hflex="true">
 			<tabs>
-				<tab label="Datos Generales"/>
-				<tab label="ISFPP" visible="@load(vm.modo ne 'NUEVO')"/>
+				<tab label="Datos Generales" />
+				<tab label="ISFPP" visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
 			<toolbar>
-				<toolbarbutton image="recursos/img/icon-lupa.png" label="Proyecto"
-					class="btn btn-primary btn-xs" popup="ppDetalleProyecto, position =after_start"/>
-				<toolbarbutton id="btnNuevo" image="recursos/img/icon-plus-sign.png" tooltiptext="Nuevo Sub-Proyecto"
-					label="Nuevo" disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))" 
-						visible ="@load(sec:isAutorizado2('CREAR_SUBPROYECTO', 'proyecto', vm.item.perteneceA.id)
-							or sec:isAutorizado('MODIFICAR_PROYECTOS'))" 
-								onClick="@command('nuevoSP')" class="btn btn-success btn-xs"/>
-				<toolbarbutton id="btnEditar" image="recursos/img/icon-edit.png" label="Editar" 
-					disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))" 
-						visible="@load(sec:isAutorizado2('MODIFICAR_SUBPROYECTO','proyecto',vm.item.perteneceA.id)
+				<toolbarbutton image="recursos/img/icon-lupa.png"
+					label="Proyecto" class="btn btn-primary btn-xs"
+					popup="ppDetalleProyecto, position =after_start" />
+				<toolbarbutton id="btnNuevo"
+					image="recursos/img/icon-plus-sign.png"
+					tooltiptext="Nuevo Sub-Proyecto" label="Nuevo"
+					disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))"
+					visible="@load(sec:isAutorizado2('CREAR_SUBPROYECTO', 'proyecto', vm.item.perteneceA.id)
 							or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
-					 		onClick="@command('editar')" class="btn btn-success btn-xs"/>
-				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
-				<toolbarbutton image="recursos/img/icon-save.png" label="Guardar" class="btn btn-success btn-xs" 
-						disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
-							onClick="@command('guardar')" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
+					onClick="@command('nuevoSP')" class="btn btn-success btn-xs" />
+				<toolbarbutton id="btnEditar"
+					image="recursos/img/icon-edit.png" label="Editar"
+					disabled="@load((vm.creando) or (vm.editando) or (vm.tabIsfppCreado))"
+					visible="@load(sec:isAutorizado2('MODIFICAR_SUBPROYECTO','proyecto',vm.item.perteneceA.id)
+							or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					onClick="@command('editar')" class="btn btn-success btn-xs" />
+				<space bar="true" spacing="10px"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<toolbarbutton image="recursos/img/icon-save.png"
+					label="Guardar" class="btn btn-success btn-xs"
+					disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
+					onClick="@command('guardar')"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
 				<toolbarbutton image="recursos/img/icon-remove-sign.png"
-					label="Cancelar" disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
-					onClick="@command('cancelar')" class="btn btn-success btn-xs" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
-				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
+					label="Cancelar"
+					disabled="@load(((not vm.creando) and (not vm.editando)) or (vm.tabIsfppCreado))"
+					onClick="@command('cancelar')" class="btn btn-success btn-xs"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<space bar="true" spacing="10px"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
 				<toolbarbutton image="recursos/img/icon-arrow-left.png"
-					label="Volver" onClick="@command('volver')" tooltiptext="Volver al Proyecto"
-						class="btn btn-success btn-xs" disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)"/>
-				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
-					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)"
-						onClick="@command('salir')"/>		
-				
-				<!-- Este es un botón de prueba. Se fuerza visualizar una isfpp especifica, con id = 2 en este caso-->										
-				<!-- Se Tomo esta medida para poder hacer pruebas sin tener que implementar otras tarjetas -->										
-				
-				<!-- <toolbarbutton id="btnVerIsfpp" tooltiptext="Ver ISFPP" label="Ver ISFPP" class="btn btn-success btn-xs" 
-				onClick="@command('verIsfpp', idItem = 2)" visible="true"/> --> 
-							
+					label="Volver" onClick="@command('volver')"
+					tooltiptext="Volver al Proyecto" class="btn btn-success btn-xs"
+					disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)" />
+				<toolbarbutton label="Salir"
+					class="btn btn-success btn-xs" image="recursos/img/icon-exit.png"
+					disabled="@load(vm.creando or vm.editando or vm.tabIsfppCreado)"
+					onClick="@command('salir')" />
+
 			</toolbar>
 			<tabpanels>
 				<tabpanel id="tabDatosGenerales" hflex="1" vflex="1">
 					<grid hflex="1" vflex="1" sclass="fgrid">
 						<columns>
-							<column width="33%"/>
-							<column width="33%"/>
-							<column width="34%"/>	
+							<column width="33%" />
+							<column width="33%" />
+							<column width="34%" />
 						</columns>
 						<rows>
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
 								<div>
-									<label value="Titulo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.titulo)" width="95%" class="form-control"
-										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
-								</div>	
-							</row>
-							<row height="15px"/>
-							<row>
-								<div>
-									<label value="Descripción" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.descripcion)" width="95%" class="form-control"
-										maxlength="500" cols="50" rows="4" 
-											readonly="@load((not vm.creando) and (not vm.editando))" />
+									<label value="Titulo"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.titulo)" width="95%" class="form-control"
+										maxlength="80"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
+							<row>
+								<div>
+									<label value="Descripción"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.descripcion)" width="95%"
+										class="form-control" maxlength="500" cols="50" rows="4"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px" />
 							<row spans="2">
 								<div>
-									<label value="Detalle" class="form-label" width="45%"/>
-									<ckeditor  width="100%" value="@bind(vm.item.detalle)" 
+									<label value="Detalle"
+										class="form-label" width="45%" />
+									<ckeditor width="100%"
+										value="@bind(vm.item.detalle)"
 										customConfigurationsPath="/recursos/js/ckeditor-config.js">
 									</ckeditor>
 								</div>
@@ -86,7 +100,7 @@
 					</grid>
 				</tabpanel>
 				<tabpanel>
-					<include src="vistas/proyecto/listadoIsfpp.zul"/>
+					<include src="vistas/proyecto/listadoIsfpp.zul" />
 				</tabpanel>
 			</tabpanels>
 		</tabbox>
@@ -94,41 +108,59 @@
 	<popup id="ppDetalleProyecto" vflex="1" width="400px">
 		<vbox>
 			<hbox>
-				<label value="Codigo: " style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.codigo)" style="font-style: italic;"/>
+				<label value="Codigo: "
+					style="font-weight: bold; text-decoration: underline;" />
+				<label value="@load(vm.perteneceA.codigo)"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="N° Resolución: " style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.resolucion)" style="font-style: italic;"/>
+				<label value="N° Resolución: "
+					style="font-weight: bold; text-decoration: underline;" />
+				<label value="@load(vm.perteneceA.resolucion)"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="Titulo: " style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.titulo)" style="font-style: italic;"/>			
+				<label value="Titulo: "
+					style="font-weight: bold; text-decoration: underline;" />
+				<label value="@load(vm.perteneceA.titulo)"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="Desde:"  style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')"
-					style="font-style: italic;"/>
+				<label value="Desde:"
+					style="font-weight: bold; text-decoration: underline;" />
+				<label
+					value="@load(vm.perteneceA.fecha_inicio) @converter('formatedDate', format ='dd/MM/yyyy')"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="Hasta:"  style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.fecha_fin) @converter('formatedDate', format ='dd/MM/yyyy')"
-					style="font-style: italic;"/>
+				<label value="Hasta:"
+					style="font-weight: bold; text-decoration: underline;" />
+				<label
+					value="@load(vm.perteneceA.fecha_fin) @converter('formatedDate', format ='dd/MM/yyyy')"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="Estado:"  style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.estado.descripcion)" style="font-style: italic;"/>
+				<label value="Estado:"
+					style="font-weight: bold; text-decoration: underline;" />
+				<label value="@load(vm.perteneceA.estado.descripcion)"
+					style="font-style: italic;" />
 			</hbox>
 			<hbox>
-				<label value="Tipo:"  style="font-weight: bold; text-decoration: underline;"/>
-				<label value="@load(vm.perteneceA.tipo.descripcion)" style="font-style: italic;"/>
+				<label value="Tipo:"
+					style="font-weight: bold; text-decoration: underline;" />
+				<label value="@load(vm.perteneceA.tipo.descripcion)"
+					style="font-style: italic;" />
 			</hbox>
 			<div>
-				<label value="Responsables del Proyecto:"  style="font-weight: bold; text-decoration: underline; display: block;"/>
-				<grid sclass="fgrid" model="@load(vm.perteneceA.responsables)">
+				<label value="Responsables del Proyecto:"
+					style="font-weight: bold; text-decoration: underline; display: block;" />
+				<grid sclass="fgrid"
+					model="@load(vm.perteneceA.responsables)">
 					<template name="model">
 						<row>
-							<a href="@load(c:cat('mailto:', each.email))" label="@load(c:cat4(each.nombre, ' (',each.email, ')'))"/>
+							<a
+								href="@load(c:cat('mailto:', each.email))"
+								label="@load(c:cat4(each.nombre, ' (',each.email, ')'))" />
 						</row>
 					</template>
 				</grid>

@@ -14,6 +14,7 @@ import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.entidades.workflow.BusinessKey;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;

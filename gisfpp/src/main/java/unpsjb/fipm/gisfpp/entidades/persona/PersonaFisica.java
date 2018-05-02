@@ -88,5 +88,7 @@ public class PersonaFisica extends Persona {
 		}
 		return null;
 	}
+	
+	
 
 }// Fin de la clase Entity PersonaFísica

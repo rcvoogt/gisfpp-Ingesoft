@@ -72,4 +72,16 @@ public class ServiciosStaff implements IServiciosStaffFI {
 		return dao.getMiembroPorRol(rol);
 	}
 
+
+	@Override
+	@Transactional
+	public StaffFI getMiembro(PersonaFisica personaFisica) throws Exception{
+		List<StaffFI> miembros = getListado();
+		for(StaffFI miembro: miembros) {
+			if(miembro.getMiembro().equals(personaFisica))
+				return miembro;
+		}
+		return null;
+	}
+
 }// fin de la clase
