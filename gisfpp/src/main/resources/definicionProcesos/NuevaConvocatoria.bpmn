@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Convocatoria">
   <collaboration id="Collaboration">
-    <participant id="pool1" name="Pool" processRef="process_pool1"></participant>
+    <participant id="pool1" name="Pool" processRef="nuevaConvocatoria"></participant>
   </collaboration>
-  <process id="process_pool1" name="process_pool1" isExecutable="true">
-    <laneSet id="laneSet_process_pool1">
+  <process id="nuevaConvocatoria" name="nuevaConvocatoria" isExecutable="true">
+    <laneSet id="laneSet_nuevaConvocatoria">
       <lane id="lane1">
         <flowNodeRef>startConvocatoria</flowNodeRef>
         <flowNodeRef>envioMailConvocatoria</flowNodeRef>
@@ -18,6 +18,9 @@
     </laneSet>
     <startEvent id="startConvocatoria" name="Start Convocatoria">
       <documentation>Inicio de nueva convocatoria</documentation>
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.nuevaConvocatoria.InitNuevaConvocatoria"></activiti:executionListener>
+      </extensionElements>
     </startEvent>
     <serviceTask id="envioMailConvocatoria" name="Mail convocados" activiti:type="mail">
       <extensionElements>
@@ -51,7 +54,7 @@
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${Convocados}" activiti:formKey="dlgAceptarConvocatoria.zul" activiti:priority="25">
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgAceptarConvocatoria.zul" activiti:priority="25">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
         <loopCardinality>${cantidadConvocados}</loopCardinality>
         <completionCondition>${todosContestados}</completionCondition>
@@ -67,7 +70,7 @@
     </intermediateCatchEvent>
     <sequenceFlow id="flow6" sourceRef="inclusivegateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent1" targetRef="inclusivegateway3"></sequenceFlow>
-    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee="${convocador}" activiti:dueDate="P10D" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
+    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
     <sequenceFlow id="flow8" sourceRef="inclusivegateway3" targetRef="seleccionarConvocados"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow9" sourceRef="seleccionarConvocados" targetRef="endevent1"></sequenceFlow>

@@ -1,29 +1,22 @@
 <zk>
-	<window id="dlgStaffIsfpp" title="@load(vm.titulo)" border="normal" height="250px" width="400px"
+	<window id="dlgConvocado" title="@load(vm.titulo)" border="normal" height="250px" width="400px"
 		closable="true" apply="org.zkoss.bind.BindComposer"
-			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgStaffIsfpp')">
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgConvocado')">
 		<vbox spacing="8px" hflex="true" vflex="true">
-			<div>
-				<label value="Rol" class="form-label" width="45%"/>
-				<combobox width="95%" model="@load(vm.rolesStaff)"
-					selectedItem="@bind(vm.item.rol)" onChange="@command('onChangeCmbxRol', rol=self.selectedItem.value)">
-					<template name="model">
-						<comboitem label="@load(each.titulo)"/>
-					</template>
-				</combobox>
-			</div>
 			<div>
 				<label value="Miembro" class="form-label" width="45%"/>
 				<combobox width="95%" model="@load(vm.listaStaff)"
-					selectedItem="@bind(vm.item.miembro)" disabled="@load(vm.modo eq 'EDICION')">
+					selectedItem="@bind(vm.item)" disabled="@load(vm.modo eq 'EDICION')">
 					<template name="model">
 						<comboitem>
-							<attribute name="label">${each.nombre} (DNI:${each.dni})</attribute>
+							<attribute name="label">${each.miembro.nombre} (DNI:${each.miembro.dni})</attribute>
 						</comboitem>
 					</template>
 				</combobox>	
 			</div>
 			<hbox spacing="8px" pack="center" align="center" hflex="1" vflex="1">
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptarOtro')" > Aceptar y agregar otro</a>
 				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
 					onClick="@command('aceptar')" > Aceptar</a>
 				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"

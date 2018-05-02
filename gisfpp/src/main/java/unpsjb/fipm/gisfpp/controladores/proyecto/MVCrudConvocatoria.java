@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +47,8 @@ public class MVCrudConvocatoria {
 
 	private Logger log;
 	private Convocatoria item;
-	
+
+	private GestorWorkflow gestorWkFl;
 	private IServiciosConvocatoria servicio;
 	private Isfpp isfpp;
 	private String modo;
@@ -60,11 +62,11 @@ public class MVCrudConvocatoria {
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
-		/*gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");*/
+		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
 		isfpp = (Isfpp) args.get("isfpp");
-		modo = args.get("modo") == null?(String) args.get("modo") : UtilGisfpp.MOD_NUEVO;
+		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");
 		
 		detalle = (String) args.get("detalle");
 		switch (modo) {
@@ -98,16 +100,8 @@ public class MVCrudConvocatoria {
 	}
 	
 	public List<Convocado> getConvocados() {
-		List<Convocado> convocados;
-		try {
-			System.out.println("salida");
-			convocados = servicio.getConvocados(item.getId());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		System.out.println("salida2");
+		List<Convocado> convocados = new ArrayList<Convocado>();
+		convocados.addAll(item.getConvocados());
 		return convocados;
 	}
 	
@@ -166,61 +160,61 @@ public class MVCrudConvocatoria {
 	}
 	
 	@Command("verDlgConvocado")
-	public void verDlgConvocado(@BindingParam("modo") String arg1, @BindingParam("itemConvocado") Convocado arg2){
+	public void verDlgConvocado(@BindingParam("modo") String arg1){
+		System.out.println("Entra a cargar convocado");
 		Map<String, Object> args = new HashMap<>();
 		args.put("modo", arg1);
-		args.put("item", arg2);
 		args.put("de", item);
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgSeleccionarConvocado.zul", null, args);
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgConvocado.zul", null, args);
 		dlg.doModal();
+		System.out.println("Sale de  cargar convocado");
 	}
 	
-	@GlobalCommand("retornoDlgConvocado"	)
+	@GlobalCommand("retornoDlgConvocado")
 	@NotifyChange("item")
 	public void retornoDlgConvocado(@BindingParam("modo")String arg1, @BindingParam("newItem") Convocado arg2){
-		if(arg1.equals(UtilGisfpp.MOD_NUEVO)){
-			item.agregarConvocado(arg2);
-		}
-		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
-				"top_right", 4000);
+		
+		item.agregarConvocado(arg2);
+		
 	}
 	
 	@Command("quitarConvocado")
 	@NotifyChange("item")
 	public void quitarConvocado(@BindingParam("itemConvocado") Convocado arg1){
 		item.quitarConvocado(arg1);
-		Clients.showNotification("Guarde cambios para confirmar la operacion.", Clients.NOTIFICATION_TYPE_WARNING, null, 
-				"top_right", 4000);
+		
 	}
 	
 	
 	
 	
 	
-	@Command("crearConvocatoria")
-	public void crearConvocatoria() throws Exception{
-		/*Messagebox.show("Desea realmente \"Suspender\" esta Isfpp ? Si la suspende todo Workflow activo asociada a la misma"
-				+ " también será suspendido.", "Gisfpp: Suspendiendo Isfpp", new Button [] {Button.YES, Button.NO}
-				, Messagebox.QUESTION, new EventListener<Messagebox.ClickEvent>() {
-					
-					@Override
-					public void onEvent(ClickEvent event) throws Exception {
-						if (event.getName().equals(Messagebox.ON_YES)) {
-							servicio.suspenderIsfpp(item.getId());
-							Clients.showNotification("Estado de Isfpp actualizado.", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
-									3500);
-							String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
-									.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Suspender"));
-							if (!listaWf.isEmpty()) {
-								Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
-										"middle_right", 4000);
-							}
-							item = servicio.getInstancia(item.getId());
-							BindUtils.postNotifyChange(null, null, getAutoReferencia(), "*");
-							
-						}
-					}
-				});*/
+	@Command("iniciarConvocatoria")
+	public void iniciarConvocatoria() throws Exception{
+		try {
+			this.guardar();
+			Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
+					3500);
+			String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
+					.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Crear"));
+			if (!listaWf.isEmpty()) {
+				Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
+						"middle_right", 4000);
+			}
+			creando = editando = false;
+			ver=true;
+		} catch (ConstraintViolationException cve) {
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+					Messagebox.ERROR);
+		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
+			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
+					Messagebox.ERROR);
+		}catch (Exception exc) {
+			log.error(this.getClass().getName(), exc);
+			throw exc;
+		}	
+		
+		
 	}
 	
 	
@@ -233,18 +227,16 @@ public class MVCrudConvocatoria {
 		return "Solicita: " + solicitante + " el " +hoy;
 	}
 	
-	@Command("iniciarConvocatoria")
-	public void iniciarConvocatoria() {
-		
+	@Command("buscarEmail")
+	public String buscarEmail(PersonaFisica persona) {
+		return persona.getEmail();
 	}
 	
-	public void verDlgConvocado(@BindingParam("modo") String arg1) {
-		Map<String, Object> args = new HashMap<>();
-		args.put("modo", arg1);
-		args.put("de", item);
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgConvocado.zul", null, args);
-		dlg.doModal();
+	@Command("buscarDNI")
+	public String buscarDNI(PersonaFisica persona) {
+		return persona.getDni();
 	}
+	
 	
 	private MVCrudConvocatoria getAutoReferencia(){
 		return this;

@@ -27,4 +27,10 @@
 			<workflow id="prcGeneracionInformesFinales"/>
 		</operacion>
 	</categoria>
+	<categoria  nombre="Convocatoria">
+		<operacion nombre="Crear">
+			<workflow id="nuevaConvocatoria"/>
+		</operacion>
+		
+	</categoria>		
 </procesos>

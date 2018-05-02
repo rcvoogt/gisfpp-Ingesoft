@@ -32,6 +32,7 @@ import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -51,8 +52,11 @@ public class MVCrudIsfpp {
 	private boolean creando;
 	private boolean editando;
 	private boolean ver;
+	private boolean existeConvocatoriaAbierta;
 	private HashMap<String, Object> args;
 	private boolean tabIsfppCreado;
+	private Tab tab;
+	private Tabbox tabboxIsfpp;
 
 	@Init
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
@@ -68,6 +72,7 @@ public class MVCrudIsfpp {
 			item = new Isfpp(perteneceA, getTituloNewIsfpp(),"", new Date(), new Date(), "",null, null);
 			creando = true;
 			editando = (ver = false);
+			existeConvocatoriaAbierta = false;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -75,6 +80,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
+			existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -86,7 +92,26 @@ public class MVCrudIsfpp {
 		}
 
 	}
+	private boolean puedeCrearConvocatoria() {
+		if(item.getConvocatorias().size() > 0) {
+			for(Convocatoria convocatoria : item.getConvocatorias()) {
+				//Si hay una convocatoria con fecha de vencimiento posterior al dia de hoy, es que está activa
+				if(convocatoria.getFechaVencimiento().after(new Date()) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 
+	public boolean isExisteConvocatoriaAbierta() {
+		return existeConvocatoriaAbierta;
+	}
+	public void setExisteConvocatoriaAbierta(boolean existeConvocatoriaAbierta) {
+		this.existeConvocatoriaAbierta = existeConvocatoriaAbierta;
+	}
 	public Isfpp getItem() {
 		return item;
 	}
@@ -339,10 +364,20 @@ public class MVCrudIsfpp {
 		tabIsfppCreado=true;
 	}
 	
+	@Command("verConvocatoria")
+	public void verConvocatoria() {
+		if(!tabIsfppCreado) {
+			crearTab(UtilGisfpp.MOD_VER, "Ver Convocatoria", item.getId());
+			
+		}else {
+			tabboxIsfpp.setSelectedTab(tab);
+		}
+	}
+	
 	private void crearTab(String modo, String titulo, Integer id) {
 		//Obtengo el tabbox de subproyecto
 		Tabbox tabBoxSubProyecto = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
-		Tabbox tabboxIsfpp = null;
+		tabboxIsfpp = null;
 		//El problema es buscar el tabbox inferior porque se genera dinamicamente
 		//Busco el panel de isffp dentro del tabbox de subproyecto
 		// Es totalmente duro esto, pero funciona... 
@@ -363,7 +398,7 @@ public class MVCrudIsfpp {
 		
 		if(tabboxIsfpp != null ) {
 			//Tabbox tabbox = (Tabbox) Component.
-			Tab tab = new Tab(titulo);
+			tab = new Tab(titulo);
 			Tabpanel tabPanel = new Tabpanel();
 			tabPanel.setId("pConvocatoriaTP");
 			Include include = new Include("vistas/proyecto/verCrearConvocatoria.zul");
@@ -379,6 +414,7 @@ public class MVCrudIsfpp {
 			
 			
 			tabboxIsfpp.getTabpanels().getChildren().add(tabPanel);
+			tabIsfppCreado=true;
 			tabboxIsfpp.setSelectedTab(tab);
 		}
 	}

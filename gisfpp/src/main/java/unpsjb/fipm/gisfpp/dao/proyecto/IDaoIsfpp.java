@@ -4,6 +4,7 @@ import java.util.List;
 
 import unpsjb.fipm.gisfpp.dao.DaoGenerico;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -36,6 +37,8 @@ public interface IDaoIsfpp extends DaoGenerico<Isfpp, Integer> {
 	public int getCantidadPracticantes (Integer idIsfpp) throws Exception;
 	
 	public void actualizarEstado (Integer idIsfpp, EEstadosIsfpp estado) throws Exception;
+	
+	public List<Convocatoria> getConvocatorias(Integer idIsfpp) throws Exception;
 	
 		
 }

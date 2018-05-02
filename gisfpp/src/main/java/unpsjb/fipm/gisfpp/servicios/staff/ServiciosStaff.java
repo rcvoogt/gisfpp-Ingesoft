@@ -68,6 +68,7 @@ public class ServiciosStaff implements IServiciosStaffFI {
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly=true)
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception {
 		return dao.getMiembroPorRol(rol);
 	}

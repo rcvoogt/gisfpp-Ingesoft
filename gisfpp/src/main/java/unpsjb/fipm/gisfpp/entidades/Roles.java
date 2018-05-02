@@ -1,7 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades;
 
 public enum Roles {
-	
+	ALUMNO("Alumno"),
 	COORDINADOR("Coordinador"), 
 	DELEGADO("Delegado de la Facultad"), 
 	PROFESOR("Profesor de Asignatura"), 

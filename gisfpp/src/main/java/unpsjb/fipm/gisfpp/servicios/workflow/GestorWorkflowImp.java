@@ -71,8 +71,12 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	public void instanciarProceso(String categoria, String operacion,
 			String iniciador, String keyBusiness)	throws GisfppWorkflowException {
 		String keyDefinicionProceso = null;
-		try {
-			List<String> procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
+		List<String> procesosAInstanciar;
+		//try {
+			procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
+		/*}catch (Exception exc2) {
+			throw new GisfppWorkflowException("Error al instanciar proceso.\n Mensaje: " + exc2.getClass()+": " +exc2.getMessage());
+		}*/
 			if (!procesosAInstanciar.isEmpty()) {
 				for (String keyDefProc : procesosAInstanciar) {
 					keyDefinicionProceso = keyDefProc;
@@ -85,9 +89,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 					}
 				}
 			}
-		}catch (Exception exc2) {
-			throw new GisfppWorkflowException("Error al instanciar proceso.\n Mensaje: "+exc2.getMessage());
-		}
+		
 	}
 
 	@Override
@@ -163,13 +165,28 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	}
 	
 	@Override
-	public List<String> consultarProcesosAsociados(String categoria, String operacion) throws ParserConfigurationException,
-		SAXException, IOException {
+	public List<String> consultarProcesosAsociados(String categoria, String operacion)/* throws ParserConfigurationException,
+		SAXException, IOException */{
 		ClassPathResource path = new ClassPathResource("definicionProcesos/Procesos.xml");
 		List<String> resultado = new ArrayList<String>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document documento = builder.parse(path.getFile());
+		DocumentBuilder builder = null;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Document documento = null;
+		try {
+			documento = builder.parse(path.getFile());
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 						
 		NodeList categorias = documento.getElementsByTagName("categoria");
 		for (int i = 0; i < categorias.getLength(); i++) {

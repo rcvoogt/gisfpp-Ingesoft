@@ -5,31 +5,28 @@
 		  <div class="btn-toolbar pull-right">
 			<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
 				disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un nuevo convocado"
-					onClick="@command('verDlgConvocado', modo='NUEVO', itemStaff =null)"> Agregar</a>
+					onClick="@command('verDlgConvocado', modo='NUEVO')"> Agregar</a>
 		</div>
 		
 		<div>
 			<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
-				model="@load(vm.convocados)" mold="paging" autopaging="true"
+				model="@load(vm.item.convocados)" mold="paging" autopaging="true"
 				 emptyMessage="No hay ningún Convocado para esta convocatoria.">
 				 <columns>
 				 	<column label="Nombre y Apellido"  width="35%"/>
 				 	<column label="DNI" width="15%"/>
-				 	<column label="CUIL" width="15%"/>
 				 	<column label="EMAIL" width="30%"/>
 				 	<column label="Quitar" width="12%" align="center"/>
 				 </columns>
 				<template name="model">
 					<row>
-						<label value="@load(each.persona.nombre)"/> <!--  onDoubleClick="@command('dlgVerDatosContacto', itemPersona= each.miembro)"/>-->
-						
-						<label value="@load(each.persona.dni)"/>
-						<label value="@load(each.persona.cuil)"/>
-						<label value="@load(each.persona.Email)"/>
+						<label value="@load(each.persona.nombre)"/>
+						<label value="@command('buscarDNI',each.persona)"/>
+						<label value="@command('buscarEmail',each.persona)"/>
 						
 						<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar miembro del Staff"
 							disabled="@load((not vm.creando) and (not vm.editando))"
-								onClick="@command('quitarMiembroSatff', itemStaff= each)"/>
+								onClick="@command('quitarConvocado', itemConvocado=each)"/>
 					</row>
 				</template>
 			</grid>
@@ -44,13 +41,18 @@
 						disabled="@load((not vm.creando) and (not vm.editando))" />
 				</vlayout >	
 				<vlayout hflex="1">
-					<button  label="Iniciar Convocatoria" onClick="@command('iniciarConvocatoria')" />
+					<button  label="Iniciar Convocatoria" onClick="@command('iniciarConvocatoria')" 
+						disabled="@load((not vm.creando) and (not vm.editando))" />
+					<button  image="recursos/img/icon-exit.png" class="btn btn-success btn-xs"
+					 label="Salir" onClick="@command('salir')" 
+					 disabled="@load(vm.creando or vm.editando)"/>
 				</vlayout >	
 			</hlayout>
 		</div>
 		<div>
 			<label value="Mensaje" class="form-label" width="100%"/>
 			<ckeditor width="100%" value="@bind(vm.item.mensaje)"
+				disabled="@load((not vm.creando) and (not vm.editando))"
 					customConfigurationsPath="/recursos/js/ckeditor-config.js">
 			</ckeditor>
 			

@@ -66,6 +66,7 @@ public class Convocatoria implements Serializable {
 		this.fechaCreacion = (creacion==null)?new Date():creacion;
 		this.fechaVencimiento = (vencimiento==null)?new Date():vencimiento;
 		this.isfpp = isfppPadre;
+		convocados = new HashSet<Convocado>();
 		
 	}
 	
@@ -103,7 +104,9 @@ public class Convocatoria implements Serializable {
 	
 	public void agregarConvocado(Convocado convocado) {
 		if(convocado!=null){
+			System.out.println("graba?");
 			convocados.add(convocado);
+			
 		}
 	}
 	
@@ -128,15 +131,7 @@ public class Convocatoria implements Serializable {
 		}
 	}
 	
-	@AssertTrue(message = "La \"fecha de finalizacion\" de la ISFPP debe ser anterior a la fecha de finalizacion del Proyecto.")
-	private boolean isFechaVencimientoValidaIsfpp() {
-		if (fechaVencimiento.before(isfpp.getInicio())) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

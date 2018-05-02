@@ -9,12 +9,18 @@ class="tabBoxIsfpp"
 	<toolbar>
 		<toolbarbutton id="btnNuevaConvocatoria"
 			image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
-			
+			disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
 			class="btn btn-success btn-xs"
 			onClick="@command('nuevaConvocatoria')"
+			visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and not vm.existeConvocatoriaAbierta)"
 			/>
-			<!-- visible="@load(sec:isAutorizado2('CREAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
-				 or	sec:isAutorizado('MODIFICAR_PROYECTOS'))" -->
+		<toolbarbutton id="btnVerConvocatoria"
+			image="recursos/img/icon-plus-sign.png" label="Ver Convocatoria"
+			disabled="@load((vm.creando or vm.editando) and vm.existeConvocatoriaAbierta)"
+			class="btn btn-success btn-xs"
+			onClick="@command('verConvocatoria')"
+			/>	
+			
 		<toolbarbutton image="recursos/img/estados.png" label=" Estado"
 			tooltiptext="Editar Estado"
 			popup="ppBotoneraEstados, position=after_center"

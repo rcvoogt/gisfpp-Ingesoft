@@ -30,6 +30,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
@@ -52,7 +53,7 @@ public class Convocado implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "personaId", nullable = false, foreignKey=@ForeignKey(name="fk_persona_convocado"))
 	private PersonaFisica persona;
-
+	
 	public Convocado(Convocatoria convocatoria, PersonaFisica persona) {
 		this.convocatoria = convocatoria;
 		this.persona = persona;
@@ -65,6 +66,10 @@ public class Convocado implements Serializable {
 		this.respuesta = respuesta;
 		this.convocatoria = convocatoria;
 		this.persona = persona;
+	}
+
+	public Convocado() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {

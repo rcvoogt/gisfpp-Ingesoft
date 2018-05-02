@@ -29,41 +29,53 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	@Autowired
 	private IDaoConvocatoria dao;
+	@Autowired
+	private GestorWorkflow servGWkFl;
+	@Autowired
+	private GestorMotorBpm servMotorWf;
 	
 	
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Convocatoria instancia) throws Exception {
 		int idConvocatoria = dao.crear(instancia);
-		
+		servGWkFl.instanciarProceso("Convocatoria", "Crear", UtilSecurity.getNickName(), String.valueOf(idConvocatoria));
 		return idConvocatoria;
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Convocatoria instancia) throws Exception {
 		dao.actualizar(instancia);
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(Convocatoria instancia) throws Exception {
 		dao.eliminar(instancia);
 		
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public Convocatoria getInstancia(Integer id) throws Exception {
 		return dao.recuperarxId(id);
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public List<Convocatoria> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public Isfpp getIsfpp(Integer idConvocatoria) throws Exception {
 		return dao.getIsfpp(idConvocatoria);
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public List<Convocado> getConvocados(Integer idConvocatoria) throws Exception {
 		System.out.println("test");
 		return dao.getConvocados(idConvocatoria);
 	}
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public int getCantidadConvocados(Integer idConvocatoria) throws Exception {
 		return dao.getCantidadConvocados(idConvocatoria);
 	}
