@@ -2,7 +2,7 @@ package unpsjb.fipm.gisfpp.entidades.workflow;
 
 import java.util.Date;
 
-public class InstanciaActividad {
+public class InstanciaActividad implements Comparable{
 	
 	private String idActividad;
 	private String idInstanciaProceso;
@@ -126,6 +126,12 @@ public class InstanciaActividad {
 			return (finaliza.getTime() - inicia.getTime());
 		}
 		return 0;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		InstanciaActividad a = (InstanciaActividad) o;
+		return (int) (this.inicia.getTime() - a.getInicia().getTime());
 	}
 	
 }
