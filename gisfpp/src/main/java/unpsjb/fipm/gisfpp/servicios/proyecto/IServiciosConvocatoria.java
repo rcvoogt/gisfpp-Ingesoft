@@ -18,4 +18,5 @@ public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, 
 	
 	public int getCantidadConvocados(Integer idConvocatoria) throws Exception;
 	
+	public List<Convocado> getConvocadosAceptadores(Integer idConvocatoria) throws Exception;	
 }

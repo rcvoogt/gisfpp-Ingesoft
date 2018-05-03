@@ -77,4 +77,12 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/persona/crudPersona.zul", argsLlamada);
 	}
 	
+	
+	@Command("verPantallaPracticantes")
+	public void verListaPracticantes() {
+		Window dlg = (Window) Executions.createComponents("vistas/proyecto/asignarPracticantesIsfpp.zul", null, null);
+		dlg.doModal();
+	}
+	
+	
 }// fin de la clase

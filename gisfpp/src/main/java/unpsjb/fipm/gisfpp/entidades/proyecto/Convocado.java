@@ -1,12 +1,8 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,19 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
@@ -53,6 +38,15 @@ public class Convocado implements Serializable {
 	@JoinColumn(name = "personaId", nullable = false, foreignKey=@ForeignKey(name="fk_persona_convocado"))
 	private PersonaFisica persona;
 
+	@javax.persistence.Transient
+	private boolean aceptado = false;
+	
+	
+	public Convocado(){
+		
+	}
+	
+	
 	public Convocado(Convocatoria convocatoria, PersonaFisica persona) {
 		this.convocatoria = convocatoria;
 		this.persona = persona;
@@ -79,6 +73,7 @@ public class Convocado implements Serializable {
 		return convocatoria;
 	}
 
+	
 	public PersonaFisica getPersona() {
 		return persona;
 	}
@@ -111,6 +106,14 @@ public class Convocado implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public boolean isAceptado() {
+		return aceptado;
+	}
+
+	public void setAceptado(boolean aceptado) {
+		this.aceptado = aceptado;
 	}
 	
 	

@@ -20,6 +20,7 @@
 						<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verListaProyectos')">Listado de Proyectos</a></n:li>
 								<n:li><a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a></n:li>
+								<n:li><a onClick="@command('verPantallaPracticantes')">Listado de Practicantes</a></n:li>
 						</n:ul>		
 					</n:li>	
 					<n:li class="dropdown">
@@ -61,6 +62,8 @@
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verDlgPerfilUsuario')">Perfil</a></n:li>
 								<n:li><a onClick="@command('verPnlDatosPersonales')">Datos Personales</a></n:li>
+								
+								
 								<n:li><a href="logout-gisfpp">Salir</a></n:li>
 							</n:ul>
 					</n:li>
