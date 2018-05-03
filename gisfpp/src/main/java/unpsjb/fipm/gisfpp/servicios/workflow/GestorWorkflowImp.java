@@ -480,7 +480,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		ProcessDefinition processDefinition = repoService.getProcessDefinition(idProcess);
 		return processDefinition;
 	}
-
+	
 	@Override
 	public List<InstanciaActividad> getInstanciasActividades(ProcessDefinition processDefinition, String isfpp) {
 		List<InstanciaActividad> instanciasActividad = new ArrayList<InstanciaActividad>();

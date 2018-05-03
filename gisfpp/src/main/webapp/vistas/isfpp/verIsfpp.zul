@@ -12,10 +12,7 @@
 		<tab label="Staff" visible="true" />
 		<tab label="Practicantes" visible="true" />
 	</tabs>
-	<toolbar>
-		<toolbarbutton label="Ver Trace"
-			onClick="@command('verTrace')" class="btn btn-success btn-xs"/>
-	</toolbar> 
+
 	<tabpanels>
 		<tabpanel id="tabDatosGen">
 			<grid hflex="1" vflex="1" sclass="fgrid">
