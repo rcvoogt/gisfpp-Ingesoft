@@ -2,6 +2,8 @@ package unpsjb.fipm.gisfpp.dao.proyecto;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import unpsjb.fipm.gisfpp.dao.DaoGenerico;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
@@ -33,5 +35,7 @@ public interface IDaoConvocatoria extends DaoGenerico<Convocatoria, Integer> {
 	
 	public int getCantidadConvocados (Integer idConvocatoria) throws Exception;
 	
+	public Convocatoria recuperarxId(Integer id) throws DataAccessException;
+
 		
 }

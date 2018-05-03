@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -27,6 +29,7 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 @Service("servConvocatoria")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServiciosConvocatoria implements IServiciosConvocatoria {
+	
 	@Autowired
 	private IDaoConvocatoria dao;
 	@Autowired
@@ -79,5 +82,20 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	public int getCantidadConvocados(Integer idConvocatoria) throws Exception {
 		return dao.getCantidadConvocados(idConvocatoria);
 	}
-
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly = false)
+	public List<Convocado> getConvocadosAceptadores(Integer idConvocatoria) throws Exception {
+		List<Convocado> aux =dao.getConvocados(idConvocatoria); 
+		List<Convocado> aceptadores = new ArrayList<Convocado>();
+		for(Convocado c : aux){
+			if(c.getRespuesta().equals(ERespuestaConvocado.ACEPTADA))
+				aceptadores.add(c);	
+		}
+			
+		return aceptadores;
+	}
+	
+	
+	
 	}// fin de la clase

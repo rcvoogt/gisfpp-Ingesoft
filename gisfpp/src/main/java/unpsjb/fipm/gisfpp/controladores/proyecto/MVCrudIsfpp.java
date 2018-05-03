@@ -243,6 +243,14 @@ public class MVCrudIsfpp {
 		dlg.doModal();
 	}
 	
+	//Para la prueba de seleccion con la lista de convocados aceptadores
+//	@Command("verDlgLkpPracticantes")
+//	public void verDlgLkpPracticantes(){
+//		Window dlg = (Window) Executions.createComponents("vistas/proyecto/asignarPracticantesIsfpp.zul", null, null);
+//		dlg.doModal();
+//	}
+	
+	
 	@GlobalCommand("obtenerLkpPersona")
 	@NotifyChange("item")
 	public void retornoLkpPracticante(@BindingParam("seleccion")PersonaFisica arg1){
