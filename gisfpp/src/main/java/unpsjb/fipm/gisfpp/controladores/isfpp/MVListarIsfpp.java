@@ -50,7 +50,6 @@ public class MVListarIsfpp {
 	public void recuperarTodo() throws Exception {
 		try {
 			listaIsfpps = servicio.getListado();
-			System.out.println("PASE POR ACA");
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
