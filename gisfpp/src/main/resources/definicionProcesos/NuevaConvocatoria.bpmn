@@ -16,7 +16,7 @@
         <flowNodeRef>seleccionarConvocados</flowNodeRef>
       </lane>
     </laneSet>
-    <startEvent id="startConvocatoria" name="Start Convocatoria">
+    <startEvent id="startConvocatoria" name="Start Convocatoria" activiti:async="true">
       <documentation>Inicio de nueva convocatoria</documentation>
       <extensionElements>
         <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.nuevaConvocatoria.InitNuevaConvocatoria"></activiti:executionListener>
@@ -54,7 +54,7 @@
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgAceptarConvocatoria.zul" activiti:priority="25">
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
         <loopCardinality>${cantidadConvocados}</loopCardinality>
         <completionCondition>${todosContestados}</completionCondition>

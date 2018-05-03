@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.activiti.engine.runtime.ProcessInstance;
 import org.xml.sax.SAXException;
 
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
@@ -59,6 +60,8 @@ public interface GestorWorkflow {
 	public List<String> nombreProcesosInstanciados(String keyBusiness, String categoria, String operacion) throws GisfppWorkflowException;
 	
 	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
+	
+	public ProcessInstance getProcessInstance(String idInstancia) throws GisfppWorkflowException;
 	
 	public String getIniciadorProceso(String idInstancia) throws GisfppWorkflowException;
 	

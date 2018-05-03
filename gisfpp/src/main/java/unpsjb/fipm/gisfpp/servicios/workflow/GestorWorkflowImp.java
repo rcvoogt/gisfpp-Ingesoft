@@ -253,7 +253,18 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	@Override
 	public InstanciaProceso getInstanciaProceso(String idInstancia)
 			throws GisfppWorkflowException {
-		ProcessInstance instancia;
+		ProcessInstance instancia = getProcessInstance(idInstancia);
+		
+		if(instancia!=null){
+			return convertir(instancia);
+		}
+		return new InstanciaProceso();
+	}
+	
+	@Override
+	public ProcessInstance getProcessInstance(String idInstancia)
+			throws GisfppWorkflowException {
+		ProcessInstance instancia = null;
 		try {
 			ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
 			instancia = query.processInstanceId(idInstancia).singleResult();
@@ -262,11 +273,10 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName()+" Método: "
 					+ "getInstanciaProceso(idInstancia)", exc1);
 		}
-		if(instancia!=null){
-			return convertir(instancia);
-		}
-		return new InstanciaProceso();
+		return instancia;
+		
 	}
+	
 	
 	@Override
 	public String getIniciadorProceso(String idInstancia)

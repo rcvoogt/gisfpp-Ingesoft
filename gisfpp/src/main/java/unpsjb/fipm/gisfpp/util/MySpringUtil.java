@@ -12,6 +12,7 @@ import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPJ;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocado;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
@@ -55,6 +56,10 @@ public class MySpringUtil implements ApplicationContextAware {
 	
 	public static IServiciosConvocatoria getServicioConvocatoria() {
 		return (IServiciosConvocatoria) appContext.getBean("servConvocatoria");
+	}
+	
+	public static IServiciosConvocado getServicioConvocado() {
+		return (IServiciosConvocado) appContext.getBean("servConvocado");
 	}
 	
 	public static IServiciosStaffFI getServicioStaffFi() {
