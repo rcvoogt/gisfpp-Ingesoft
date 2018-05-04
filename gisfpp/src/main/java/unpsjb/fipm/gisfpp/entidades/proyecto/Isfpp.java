@@ -69,7 +69,10 @@ public class Isfpp implements Serializable {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
 	private Set<MiembroStaffIsfpp> staff;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
+	private Set<Convocatoria> convocatorias;
+	
+		@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId")
 			, foreignKey=@ForeignKey(name="fk_isfpp_practicantes"), inverseForeignKey=@ForeignKey(name="fk_persona_practicantes"))
 	private Set<PersonaFisica> practicantes;
@@ -96,6 +99,14 @@ public class Isfpp implements Serializable {
 		this.practicantes = (practicantes==null)? new HashSet<>(): practicantes;
 	}
 
+	public Set<Convocatoria> getConvocatorias() {
+		return convocatorias;
+	}
+
+	public void setConvocatorias(Set<Convocatoria> convocatorias) {
+		this.convocatorias = convocatorias;
+	}
+	
 	public void addMiembroStaff(MiembroStaffIsfpp miembro){
 		if(miembro!=null){
 			staff.add(miembro);

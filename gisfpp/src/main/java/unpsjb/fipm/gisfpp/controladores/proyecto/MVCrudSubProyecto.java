@@ -239,7 +239,9 @@ public class MVCrudSubProyecto {
 	private void crearTab(String modo, String titulo, Integer id) {
 		Tabbox tabBox = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
 		Tab tab = new Tab(titulo);
+		tab.setId("pisfppTab");
 		Tabpanel tabPanel = new Tabpanel();
+		tabPanel.setId("pisfppTP");
 		Include include = new Include("vistas/proyecto/crudIsfpp.zul");
 		HashMap<String, Object> args = new HashMap<>();
 		args.put("perteneceA", item);
@@ -248,7 +250,10 @@ public class MVCrudSubProyecto {
 		args.put("tab", tab);
 		include.setDynamicProperty("argsCrudIsfpp", args);
 		tabBox.getTabs().appendChild(tab);
+		tabPanel.getChildren();
 		tabPanel.getChildren().add(include);
+		
+		
 		tabBox.getTabpanels().getChildren().add(tabPanel);
 		tabBox.setSelectedTab(tab);
 	}

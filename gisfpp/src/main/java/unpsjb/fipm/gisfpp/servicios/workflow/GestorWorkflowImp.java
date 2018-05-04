@@ -71,8 +71,12 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	public void instanciarProceso(String categoria, String operacion, String iniciador, String keyBusiness)
 			throws GisfppWorkflowException {
 		String keyDefinicionProceso = null;
-		try {
-			List<String> procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
+		List<String> procesosAInstanciar;
+		//try {
+			procesosAInstanciar = consultarProcesosAsociados(categoria, operacion);
+		/*}catch (Exception exc2) {
+			throw new GisfppWorkflowException("Error al instanciar proceso.\n Mensaje: " + exc2.getClass()+": " +exc2.getMessage());
+		}*/
 			if (!procesosAInstanciar.isEmpty()) {
 				for (String keyDefProc : procesosAInstanciar) {
 					keyDefinicionProceso = keyDefProc;
@@ -81,21 +85,19 @@ public class GestorWorkflowImp implements GestorWorkflow {
 					try {
 						rtService.startProcessInstanceByKey(keyDefProc, keyBusiness, variables);
 					} catch (ActivitiObjectNotFoundException exc1) {
-						log.error("Alerta Workflow: No se encontro ningún proceso registrado con el id: "
+						log.error("Alerta Workflow: No se encontro ningï¿½n proceso registrado con el id: "
 								+ keyDefinicionProceso);
 					}
 				}
 			}
-		} catch (Exception exc2) {
-			throw new GisfppWorkflowException("Error al instanciar proceso.\n Mensaje: " + exc2.getMessage());
-		}
+		
 	}
 
 	@Override
 	public void setVariables(String idInstancia, Map<String, Object> variables) throws GisfppWorkflowException {
 		if (idInstancia == null) {
-			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parámetro es \"null\"."
-					+ "\nClase:" + this.getClass().getName() + " Método: setVariables.");
+			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parï¿½metro es \"null\"."
+					+ "\nClase:" + this.getClass().getName() + " Mï¿½todo: setVariables.");
 		}
 		try {
 			rtService.setVariables(idInstancia, variables);
@@ -117,8 +119,8 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	@Override
 	public Map<String, Object> getVariables(String idInstancia) throws GisfppWorkflowException {
 		if (idInstancia == null) {
-			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parámetro es \"null\"."
-					+ "\nClase:" + this.getClass().getName() + " Método: getVariables.");
+			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parï¿½metro es \"null\"."
+					+ "\nClase:" + this.getClass().getName() + " Mï¿½todo: getVariables.");
 		}
 		try {
 			return rtService.getVariables(idInstancia);
@@ -140,8 +142,8 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	@Override
 	public Object getVariable(String idInstancia, String nombreVariable) {
 		if (idInstancia == null) {
-			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parámetro es \"null\"."
-					+ "\nClase:" + this.getClass().getName() + " Método: getVariable.");
+			throw new IllegalArgumentException("El \"Id\" de la instancia de proceso pasado como parï¿½metro es \"null\"."
+					+ "\nClase:" + this.getClass().getName() + " Mï¿½todo: getVariable.");
 		}
 		try {
 			return rtService.getVariable(idInstancia, nombreVariable);
@@ -174,14 +176,29 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	}
 
 	@Override
-	public List<String> consultarProcesosAsociados(String categoria, String operacion)
-			throws ParserConfigurationException, SAXException, IOException {
+	public List<String> consultarProcesosAsociados(String categoria, String operacion)/* throws ParserConfigurationException,
+		SAXException, IOException */{
 		ClassPathResource path = new ClassPathResource("definicionProcesos/Procesos.xml");
 		List<String> resultado = new ArrayList<String>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document documento = builder.parse(path.getFile());
-
+		DocumentBuilder builder = null;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Document documento = null;
+		try {
+			documento = builder.parse(path.getFile());
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+						
 		NodeList categorias = documento.getElementsByTagName("categoria");
 		for (int i = 0; i < categorias.getLength(); i++) {
 			Element itemCategoria = (Element) categorias.item(i);
@@ -216,7 +233,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			}
 		} catch (Exception exc1) {
 			log.error(this.getClass().getName(), exc1);
-			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName() + " Método: "
+			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName() + " Mï¿½todo: "
 					+ "getInstanciasProcesos(keyBusiness)", exc1);
 		}
 		return resultado;
@@ -268,22 +285,33 @@ public class GestorWorkflowImp implements GestorWorkflow {
 	}
 
 	@Override
-	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException {
-		ProcessInstance instancia;
+	public InstanciaProceso getInstanciaProceso(String idInstancia)
+			throws GisfppWorkflowException {
+		ProcessInstance instancia = getProcessInstance(idInstancia);
+		
+		if(instancia!=null){
+			return convertir(instancia);
+		}
+		return new InstanciaProceso();
+	}
+	
+	@Override
+	public ProcessInstance getProcessInstance(String idInstancia)
+			throws GisfppWorkflowException {
+		ProcessInstance instancia = null;
 		try {
 			ProcessInstanceQuery query = rtService.createProcessInstanceQuery();
 			instancia = query.processInstanceId(idInstancia).singleResult();
 		} catch (Exception exc1) {
 			log.error(this.getClass().getName(), exc1);
-			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName() + " Método: "
+			throw new GisfppWorkflowException("Error de workflow. Clase: " + this.getClass().getName() + " Mï¿½todo: "
 					+ "getInstanciaProceso(idInstancia)", exc1);
 		}
-		if (instancia != null) {
-			return convertir(instancia);
-		}
-		return new InstanciaProceso();
+		return instancia;
+		
 	}
-
+	
+	
 	@Override
 	public String getIniciadorProceso(String idInstancia) throws GisfppWorkflowException {
 		try {
@@ -318,12 +346,12 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			log.error("Clase:" + this.getClass().getName() + "- Metodo: getProcesosActivos(String)", exc1);
 			throw new GisfppWorkflowException(
 					"Se ha generado un error al intertar recuperar los procesos activos en los cuales" + " el usuario "
-							+ idUsuario + " tiene algún grado de participación.");
+							+ idUsuario + " tiene algï¿½n grado de participaciï¿½n.");
 		} catch (Exception exc2) {
 			log.error("Clase:" + this.getClass().getName() + "- Metodo: getProcesosActivos(String)", exc2);
 			throw new GisfppWorkflowException(
 					"Se ha generado un error al intertar recuperar los procesos activos en los cuales" + " el usuario "
-							+ idUsuario + " tiene algún grado de participación.",
+							+ idUsuario + " tiene algï¿½n grado de participaciï¿½n.",
 					exc2);
 		}
 		return procesos;
@@ -343,12 +371,12 @@ public class GestorWorkflowImp implements GestorWorkflow {
 			log.error("Clase:" + this.getClass().getName() + "- Metodo: getProcesosFinalizados(idUsuario)", exc1);
 			throw new GisfppWorkflowException(
 					"Se ha generado un error al intertar recuperar los procesos finalizados en los cuales"
-							+ " el usuario " + idUsuario + " tuvo algún grado de participación.");
+							+ " el usuario " + idUsuario + " tuvo algï¿½n grado de participaciï¿½n.");
 		} catch (Exception exc2) {
 			log.error("Clase:" + this.getClass().getName() + "- Metodo: getProcesosFinalizados(idUsuario)", exc2);
 			throw new GisfppWorkflowException(
 					"Se ha generado un error al intertar recuperar los procesos finalizados en los cuales"
-							+ " el usuario " + idUsuario + " tuvo algún grado de participación.",
+							+ " el usuario " + idUsuario + " tuvo algï¿½n grado de participaciï¿½n.",
 					exc2);
 		}
 		return procesos;
@@ -421,7 +449,7 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		itemConvertido.setIdInstancia(item.getId());
 		itemConvertido.setKeyBusiness(item.getBusinessKey());
 		itemConvertido
-				.setTitulo((variableTitulo == null) ? "Título sin definir." : variableTitulo.getValue().toString());
+				.setTitulo((variableTitulo == null) ? "Tï¿½tulo sin definir." : variableTitulo.getValue().toString());
 		itemConvertido.setIniciador(getIniciadorProceso(item.getId()));
 		itemConvertido.setInicia(item.getStartTime());
 		itemConvertido.setFinaliza(item.getEndTime());

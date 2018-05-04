@@ -170,10 +170,16 @@
 			<artifactId>activiti-spring</artifactId>
 			<version>${activiti-version}</version>
 		</dependency>
-		<dependency>
+		<!--  <dependency>
 			<groupId>org.zkoss.zkforge</groupId>
 			<artifactId>ckez</artifactId>
 			<version>4.4.6.3</version>
+		</dependency>
+		-->
+		<dependency>
+		    <groupId>org.zkoss.zkforge</groupId>
+		    <artifactId>ckez</artifactId>
+		    <version>4.7.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>

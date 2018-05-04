@@ -73,6 +73,12 @@ public class ServiciosPersonaFisica implements IServicioPF {
 	public List<PersonaFisica> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly=true)
+	public List<PersonaFisica> getAlumnosConMail() throws Exception {
+		return dao.recuperarTodo();
+	}
 
 
 	@Override

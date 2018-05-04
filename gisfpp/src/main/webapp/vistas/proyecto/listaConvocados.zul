@@ -1,0 +1,31 @@
+<vbox spacing="6px" hflex="true" vflex="true">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
+			disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un Practicante a la Isfpp"
+				onClick="@command('verDlgLkpPracticante')"> Agregar</a>
+	</div>
+	<grid hflex="true" vflex="true" style="border: 2px solid #80ccff; border-radius: 5px;"
+		model="@load(vm.item.practicantes)" mold="paging" autopaging="true"
+		 emptyMessage="Esta Isfpp no tiene Practicantes asignados.">
+		 <columns>
+		 	<column label="Nombres y Apellido"  width="36%"/>
+		 	<column label="DNI" width="18%"/>
+		 	<column label="CUIL" width="18%"/>
+		 	<column label="N° Matricula" width="18%"/>
+		 	<column label="Quitar" width="10%" align="center"/>
+		 </columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.nombre)" onDoubleClick="@command('dlgVerDatosContacto', itemPersona= each)"/>
+				<label value="@load(each.dni)"/>
+				<label value="@load(each.cuil)"/>
+				<label value="@load(each.matricula)"/>
+				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar Practicante"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('quitarPracticante', practicante= each)"/>
+			</row>
+		</template>
+	</grid>
+	<label value="Doble Click sobre el Nombre y Apellido de un Practicante para ver sus datos de contacto"
+		style="color: #0000ff; font-size: 10px; font-style: italic;"/>
+</vbox>

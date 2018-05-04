@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -54,7 +55,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		if(resultado.isValido()){
 			dao.eliminar(instancia);
 			servGWkFl.instanciarProceso("Isfpp", "Eliminar", UtilSecurity.getNickName(), String.valueOf(instancia.getId()));
-			//Reactivamos las intancias de procesos en ejecución que han sido previamente suspendidas
+			//Reactivamos las intancias de procesos en ejecuciï¿½n que han sido previamente suspendidas
 			//asociadas a la Isfpp.
 			List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(instancia.getId()));
 			for (InstanciaProceso wkfl : instanciasEnEjecucion) {
@@ -131,7 +132,7 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		dao.actualizarEstado(idIsfpp, EEstadosIsfpp.ACTIVA);
 		servGWkFl.instanciarProceso("Isfpp", "Reactivar", UtilSecurity.getNickName(), String.valueOf(idIsfpp));
 		
-		//Reactivamos las intancias de procesos en ejecución que han sido previamente suspendidas
+		//Reactivamos las intancias de procesos en ejecuciï¿½n que han sido previamente suspendidas
 		//asociadas a la Isfpp.
 		List<InstanciaProceso> instanciasEnEjecucion = servGWkFl.getInstanciasProcesos(String.valueOf(idIsfpp));
 		for (InstanciaProceso instancia : instanciasEnEjecucion) {
@@ -212,6 +213,14 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 	@Autowired(required=true)
 	public void setServMotorWf(GestorMotorBpm servMotorWf) {
 		this.servMotorWf = servMotorWf;
+	}
+
+	@Override
+	public Convocatoria getUltimaConvocatoria(Integer idIsfpp) throws Exception {
+		/*
+		 * TODO: Implementar buscar la ultima convocatoria activa
+		 */
+		return null;
 	}
 
 	@Override

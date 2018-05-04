@@ -1,0 +1,38 @@
+<zk>
+	<window id="dlgLkpPracticante" title="Asignar Practicantes"
+		sizable="true" border="normal" width="800px" vflex="true"
+		closable="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgLkpPracticante')">
+		<vbox height="400px" hflex="true" spacing="6px">
+			<grid hflex="true" vflex="true"
+				style="border: 2px solid #80ccff; border-radius: 5px;"
+				model="@load(vm.resultado)" emptyMessage="@load(vm.mensaje)">
+				<columns sizable="true">
+					<column label="Nombre y Apellido" sort="auto"
+						width="40%" />
+					<column label="DNI" width="15%" />
+					<column label="CUIT" width="15%" />
+					<column label="N° Matricula" width="15%" />
+					<column label="N° Legajo" width="15%" />
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.persona.nombre)"
+							onDoubleClick="@command('seleccion', item=each)" />
+						<label value="@load(each.persona.dni)" />
+						<label value="@load(each.persona.cuit)" />
+						<label value="@load(each.persona.matricula)" />
+						<label value="@load(each.persona.legajo)" />
+					</row>
+				</template>
+			</grid>
+			<label
+				value="Doble click en el nombre de la Persona para seleccionarla"
+				hflex="true"
+				style="color: #0000ff; font-size: 10px; font-style: italic;" />
+			<toolbarbutton image="recursos/img/icon-save.png"
+				label="Finalizar" class="btn btn-success btn-xs"
+				onClick="@command('finalizar')" />
+		</vbox>
+	</window>
+</zk>

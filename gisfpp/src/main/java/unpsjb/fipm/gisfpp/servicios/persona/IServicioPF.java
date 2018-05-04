@@ -18,6 +18,13 @@ public interface IServicioPF extends IServicioGenerico<PersonaFisica, Integer> {
 	public List<PersonaFisica> getxNombre(String patronNombre) throws Exception;
 	
 	/**
+	 * Recupera todos las personas con rol alumno 
+	 * @return Listado de Personas Fisicas (List<PersonaFisica>)
+	 * @throws Exception
+	 */
+	public List<PersonaFisica> getAlumnosConMail() throws Exception;
+	
+	/**
 	 * 
 	 * @param campo (String): Tipo de identificador por el que se desea realizar la busqueda
 	 * @param patronValor (String): Valor del identificador a buscar

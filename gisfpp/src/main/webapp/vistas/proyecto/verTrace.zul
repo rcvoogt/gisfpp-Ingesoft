@@ -1,0 +1,27 @@
+<vbox hflex="true" spacing="5px" vflex="true"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVVerTrace')">
+
+	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
+		style="border: 2px solid #80ccff; border-radius: 5px;"
+		emptyMessage="Esta isfpp no tiene solicitudes pendientes."
+		model="@load(vm.actividades)">
+		<columns menupopup="auto">
+			<column label="Fecha Inicio" sort="auto" width="10%" />
+			<column label="Fecha Fin" sort="auto" width="10%" />
+			<column label="Nombre" sort="auto" width="40%" />
+			<column label="Tipo" width="12%" />
+			<column label="Asignado" width="10%" />
+		</columns>
+		<template name="model">
+			<row>
+				<label
+					value="@load(each.inicia) @converter('formatedDate', format ='dd/MM/yyyy')" />
+				<label
+					value="@load(each.finaliza) @converter('formatedDate', format='dd/MM/yyyy')" />
+				<label value="@load(each.nombre)" />
+				<label value="@load(each.tipo)" />
+				<label value="@load(each.asignado)" />
+			</row>
+		</template>
+	</grid>
+</vbox>

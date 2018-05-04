@@ -24,7 +24,12 @@ public enum Operaciones {
 	CUD_ENTIDADES_AUX("Crear, Actualizar o Eliminar Entidades Auxiliares"),
 	CONSULTAR_ENTIDADES_AUX("Consultar Entidades Auxiliares"),
 	MANTENIMIENTO_WORKFLOW("Tareas de mantenimiento en motor de workflow"),
-	CONCEDER_REVOCAR_PERMISOS("Conceder o revocar permisos a los diversos roles de la app");
+	CONCEDER_REVOCAR_PERMISOS("Conceder o revocar permisos a los diversos roles de la app"),
+	CREAR_CONVOCATORIA("Crear convocatoria"),
+	ACEPTAR_CONVOCATORIA("Aceptar convocatoria"),
+	SELECCIONAR_CONVOCADOS("Seleccionar convocados")
+	;
+	
 	
 	private String titulo;
 

@@ -1,4 +1,5 @@
-<tabbox width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+<tabbox id="tbbxISFPP" width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+class="tabBoxIsfpp"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudIsfpp')">
 	<tabs>
 		<tab label="Datos Generales" selected="true" />
@@ -7,7 +8,20 @@
 		<tab label="Ver Trace" visible="@load(vm.verTrace)" />		
 	</tabs>
 	<toolbar>
-
+		<toolbarbutton id="btnNuevaConvocatoria"
+			image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
+			disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
+			class="btn btn-success btn-xs"
+			onClick="@command('nuevaConvocatoria')"
+			visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and not vm.existeConvocatoriaAbierta)"
+			/>
+		<toolbarbutton id="btnVerConvocatoria"
+			image="recursos/img/icon-plus-sign.png" label="Ver Convocatoria"
+			disabled="@load((vm.creando or vm.editando) and vm.existeConvocatoriaAbierta)"
+			class="btn btn-success btn-xs"
+			onClick="@command('verConvocatoria')"
+			/>	
+			
 		<toolbarbutton image="recursos/img/estados.png" label=" Estado"
 			tooltiptext="Editar Estado"
 			popup="ppBotoneraEstados, position=after_center"
