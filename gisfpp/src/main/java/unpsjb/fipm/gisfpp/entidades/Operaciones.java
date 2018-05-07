@@ -27,7 +27,8 @@ public enum Operaciones {
 	CONCEDER_REVOCAR_PERMISOS("Conceder o revocar permisos a los diversos roles de la app"),
 	CREAR_CONVOCATORIA("Crear convocatoria"),
 	ACEPTAR_CONVOCATORIA("Aceptar convocatoria"),
-	SELECCIONAR_CONVOCADOS("Seleccionar convocados")
+	SELECCIONAR_CONVOCADOS("Seleccionar convocados"),
+	VER_TRACE("Ver Trace"),
 	;
 	
 	

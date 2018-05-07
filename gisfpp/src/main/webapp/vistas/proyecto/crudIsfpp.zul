@@ -5,7 +5,7 @@ class="tabBoxIsfpp"
 		<tab label="Datos Generales" selected="true" />
 		<tab label="Staff" visible="@load(vm.modo ne 'NUEVO')" />
 		<tab label="Practicantes" visible="@load(vm.modo ne 'NUEVO')" />
-		<tab label="Ver Trace" visible="@load(vm.verTrace)" />		
+		<tab label="Ver Trace" visible="@load(sec:isAutorizado2('VER_TRACE','isfpp',vm.item.id) or sec:isAutorizado('VER_TRACE'))" />		
 	</tabs>
 	<toolbar>
 		<toolbarbutton id="btnNuevaConvocatoria"
