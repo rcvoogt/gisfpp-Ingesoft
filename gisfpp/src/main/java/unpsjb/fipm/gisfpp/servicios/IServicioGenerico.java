@@ -2,6 +2,8 @@ package unpsjb.fipm.gisfpp.servicios;
 
 import java.util.List;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
+
 public interface IServicioGenerico<T, K> {
 
 	public K persistir(T instancia) throws Exception;
@@ -13,5 +15,6 @@ public interface IServicioGenerico<T, K> {
 	public T getInstancia(K id) throws Exception;
 
 	public List<T> getListado() throws Exception;
+
 
 }

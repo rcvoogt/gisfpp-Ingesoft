@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Convocatoria">
+  <collaboration id="Collaboration">
+    <participant id="pool1" name="Pool" processRef="nuevaConvocatoria"></participant>
+  </collaboration>
+  <process id="nuevaConvocatoria" name="nuevaConvocatoria" isExecutable="true">
+    <laneSet id="laneSet_nuevaConvocatoria">
+      <lane id="lane1">
+        <flowNodeRef>startConvocatoria</flowNodeRef>
+        <flowNodeRef>envioMailConvocatoria</flowNodeRef>
+        <flowNodeRef>inclusivegateway1</flowNodeRef>
+        <flowNodeRef>inclusivegateway3</flowNodeRef>
+        <flowNodeRef>timerintermediatecatchevent1</flowNodeRef>
+        <flowNodeRef>indicarInteresEnConvocatoria</flowNodeRef>
+        <flowNodeRef>endevent1</flowNodeRef>
+        <flowNodeRef>seleccionarConvocados</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="startConvocatoria" name="Start Convocatoria" activiti:async="true">
+      <documentation>Inicio de nueva convocatoria</documentation>
+      <extensionElements>
+        <activiti:executionListener event="end" class="unpsjb.fipm.gisfpp.servicios.workflow.nuevaConvocatoria.InitNuevaConvocatoria"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="envioMailConvocatoria" name="Mail convocados" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${mailsConvocados}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Nueva convocatoria a ISFPP]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<html lang="es">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+ ${mensaje}
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[${mensaje}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+        <loopCardinality>${cantidadConvocados}</loopCardinality>
+      </multiInstanceLoopCharacteristics>
+    </serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
+    <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+        <loopCardinality>${cantidadConvocados}</loopCardinality>
+        <completionCondition>${todosContestados}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="inclusivegateway1" targetRef="indicarInteresEnConvocatoria"></sequenceFlow>
+    <inclusiveGateway id="inclusivegateway3" name="Inclusive Gateway"></inclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="indicarInteresEnConvocatoria" targetRef="inclusivegateway3"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDate>${vencimiento}</timeDate>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow6" sourceRef="inclusivegateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent1" targetRef="inclusivegateway3"></sequenceFlow>
+    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
+    <sequenceFlow id="flow8" sourceRef="inclusivegateway3" targetRef="seleccionarConvocados"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="seleccionarConvocados" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="191.0" width="851.0" x="40.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="191.0" width="831.0" x="60.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startConvocatoria" id="BPMNShape_startConvocatoria">
+        <omgdc:Bounds height="35.0" width="35.0" x="89.0" y="199.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="envioMailConvocatoria" id="BPMNShape_envioMailConvocatoria">
+        <omgdc:Bounds height="55.0" width="105.0" x="169.0" y="189.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway1" id="BPMNShape_inclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="319.0" y="197.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="indicarInteresEnConvocatoria" id="BPMNShape_indicarInteresEnConvocatoria">
+        <omgdc:Bounds height="65.0" width="105.0" x="404.0" y="186.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusivegateway3" id="BPMNShape_inclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="554.0" y="198.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="439.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="seleccionarConvocados" id="BPMNShape_seleccionarConvocados">
+        <omgdc:Bounds height="66.0" width="105.0" x="650.0" y="186.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="800.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="124.0" y="216.0"></omgdi:waypoint>
+        <omgdi:waypoint x="169.0" y="216.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="274.0" y="216.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="359.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="404.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="509.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="554.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="339.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="439.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="474.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="574.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="574.0" y="198.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="594.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="219.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="755.0" y="219.0"></omgdi:waypoint>
+        <omgdi:waypoint x="800.0" y="219.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

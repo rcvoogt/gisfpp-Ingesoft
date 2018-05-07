@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.xml.sax.SAXException;
 
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaActividad;
@@ -16,7 +17,7 @@ import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
 public interface GestorWorkflow {
 
 	/**
-	 * Genera una nueva isntancia del proceso (o procesos) asociado con la categoria y operacion establecidos como parámetros. 
+	 * Genera una nueva isntancia del proceso (o procesos) asociado con la categoria y operacion establecidos como parï¿½metros. 
 	 * @param categoria (String): 
 	 * @param operacion (String):
 	 * @param iniciador (String):
@@ -26,7 +27,7 @@ public interface GestorWorkflow {
 	public void instanciarProceso(String categoria, String operacion, String iniciador, String keyBusiness) throws GisfppWorkflowException;
 	
 	/**
-	 * Devuelve las variables de proceso de una instancia de proceso referenciado con el "id" pasado como parámetro.	
+	 * Devuelve las variables de proceso de una instancia de proceso referenciado con el "id" pasado como parï¿½metro.	
 	 * @param id: "id" de la instancia del proceso.
 	 * @return variables de proceso (Map <String, Object>)
 	 */
@@ -44,11 +45,11 @@ public interface GestorWorkflow {
 	public void setVariables(String idInstanciaProceso, Map<String, Object> variables) throws GisfppWorkflowException;
 	
 	/**
-	 * Devuelve el "Id" de la instancia del proceso asociado con el "keyBusiness" y el "idDefinicion"pasados como parámetro.	
+	 * Devuelve el "Id" de la instancia del proceso asociado con el "keyBusiness" y el "idDefinicion"pasados como parï¿½metro.	
 	 * @param keyBusiness(String): clave del negocio que se asocia de forma univoca con la instancia del proceso. Por ejemplo: "id" de la 
 	 * Isfpp.
 	 * @param idDefinicion(String): Identificador de la definicion del proceso.
-	 * @return "Id" (String) que identifica de forma unívoca una instancia ejecutable del proceso.
+	 * @return "Id" (String) que identifica de forma unï¿½voca una instancia ejecutable del proceso.
 	  */
 	public String getIdInstanciaProceso(String keyBusiness, String idDefinicion);
 	
@@ -66,11 +67,13 @@ public interface GestorWorkflow {
 	
 	public InstanciaProceso getInstanciaProceso(String idInstancia) throws GisfppWorkflowException;
 	
+	public ProcessInstance getProcessInstance(String idInstancia) throws GisfppWorkflowException;
+	
 	public String getIniciadorProceso(String idInstancia) throws GisfppWorkflowException;
 	
 	/**
-	 * Devuelve el listado de procesos activos en los cuales el usuario pasado como parámetro tiene cierto 
-	 * grado de participación en los mismos.
+	 * Devuelve el listado de procesos activos en los cuales el usuario pasado como parï¿½metro tiene cierto 
+	 * grado de participaciï¿½n en los mismos.
 	 * @param "id" del usuario
 	 * @return listado de instancias de procesos.
 	 * @throws GisfppWorkflowException
@@ -78,8 +81,8 @@ public interface GestorWorkflow {
 	public List<InstanciaProceso> getProcesosActivos(String idUsuario) throws GisfppWorkflowException;
 	
 	/**
-	 * Devuelve el listado de procesos ya ejecutados en los cuales el usuario pasado como parametro tuvo algún grado
-	 * de participación.
+	 * Devuelve el listado de procesos ya ejecutados en los cuales el usuario pasado como parametro tuvo algï¿½n grado
+	 * de participaciï¿½n.
 	 * @param "id" del usuario
 	 * @return listado de procesos ejecutados.
 	 * @throws GisfppWorkflowException

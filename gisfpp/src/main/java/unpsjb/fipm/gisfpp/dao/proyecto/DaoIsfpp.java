@@ -14,6 +14,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
@@ -73,7 +74,7 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 
 	@Override
 	public Isfpp recuperarxId(Integer id) throws DataAccessException {
-		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff  left join fetch isfpp.practicantes  where isfpp.id = ?";
+		String query = "select isfpp from Isfpp as isfpp left join fetch isfpp.staff  left join fetch isfpp.practicantes left join fetch isfpp.convocatorias  where isfpp.id = ?";
 		List<Isfpp> result;
 		try {
 			result = (List<Isfpp>) getHibernateTemplate().find(query, id);
@@ -90,6 +91,7 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 				getHibernateTemplate().initialize(persona.getIdentificadores());
 				getHibernateTemplate().initialize(persona.getDatosDeContacto());
 			}
+			
 			return result.get(0);
 		} else {
 			return null;
@@ -206,6 +208,26 @@ public class DaoIsfpp extends HibernateDaoSupport implements IDaoIsfpp {
 			throw exc;
 		}
 		
+	}
+	
+	@Override
+	public List<Convocatoria> getConvocatorias(Integer idIsfpp) throws Exception {
+		String query ="select p from Isfpp as i join i.convocatorias as p where i.id = ?";
+		List<Convocatoria> resultado;
+		try {
+			resultado = (List<Convocatoria>) getHibernateTemplate().find(query, idIsfpp);
+		} catch (Exception exc) {
+			log.error("Clase: "+ this.getClass().getName() +"- Metodo: List<Convocatoria> getConvocatoria(Integer idIsfpp)", exc);
+			throw exc;
+		}
+		if (resultado!=null) {
+			for (Convocatoria convocatoria : resultado) {
+				getHibernateTemplate().initialize(convocatoria.getConvocados());
+				
+			}
+			return resultado;
+		}
+		return new ArrayList<Convocatoria>();
 	}
 
 	@SuppressWarnings("unchecked")

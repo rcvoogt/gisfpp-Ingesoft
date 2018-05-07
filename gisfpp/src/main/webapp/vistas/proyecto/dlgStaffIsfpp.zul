@@ -14,7 +14,7 @@
 			</div>
 			<div>
 				<label value="Miembro" class="form-label" width="45%"/>
-				<combobox width="95%" model="@load(vm.listaPersonas)"
+				<combobox width="95%" model="@load(vm.listaStaff)"
 					selectedItem="@bind(vm.item.miembro)" disabled="@load(vm.modo eq 'EDICION')">
 					<template name="model">
 						<comboitem>

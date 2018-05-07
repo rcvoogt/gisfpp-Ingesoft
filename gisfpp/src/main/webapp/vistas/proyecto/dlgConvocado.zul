@@ -1,0 +1,27 @@
+<zk>
+	<window id="dlgConvocado" title="@load(vm.titulo)" border="normal" height="250px" width="400px"
+		closable="true" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgConvocado')">
+		<vbox spacing="8px" hflex="true" vflex="true">
+			<div>
+				<label value="Miembro" class="form-label" width="45%"/>
+				<combobox width="95%" model="@load(vm.listaStaff)"
+					selectedItem="@bind(vm.item)" disabled="@load(vm.modo eq 'EDICION')">
+					<template name="model">
+						<comboitem>
+							<attribute name="label">${each.miembro.nombre} (DNI:${each.miembro.dni})</attribute>
+						</comboitem>
+					</template>
+				</combobox>	
+			</div>
+			<hbox spacing="8px" pack="center" align="center" hflex="1" vflex="1">
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptarOtro')" > Aceptar y agregar otro</a>
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-ok-sign.png"
+					onClick="@command('aceptar')" > Aceptar</a>
+				<a class="btn btn-success btn-sm" image="recursos/img/icon-remove-sign.png"
+					onClick="@command('cancelar')"> Cancelar</a>
+			</hbox>	
+		</vbox>	
+	</window>
+</zk>

@@ -1,0 +1,28 @@
+<vbox hflex="true" spacing="5px" vflex="true">
+	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
+		style="border: 2px solid #80ccff; border-radius: 5px;"
+		emptyMessage="Esta isfpp no tiene solicitudes pendientes.">
+		<columns>
+			<column label="Titulo" width="40%" />
+			<column label="Estado" width="12%" />
+			<column label="Asignado" width="10%" />
+			<column label="Fecha Vencimiento" width="10%" />
+		</columns>
+		<template name="model">
+			<!-- <row
+				style="@load(util:isFechaPasada(each.fin)?'background-color: #f2dede;':'')">
+				<label value="@load(each.id)" />
+				<label value="@load(each.titulo)" />
+				<label value="@load(each.estado.titulo)" />
+				<label
+				value="@load(each.inicio) @converter('formatedDate', format ='dd/MM/yyyy')" />
+				<label
+				value="@load(each.fin) @converter('formatedDate', format='dd/MM/yyyy')"
+				style="@load(util:isFechaPasada(each.fin)?'color: red; font-weight: bold;':'')" />
+				<toolbarbutton image="recursos/img/icon-preview.png"
+				tooltiptext="Ver detalle"
+				onClick="@command('verIsfpp', item=each)" />
+				</row>  -->
+		</template>
+	</grid>
+</vbox>

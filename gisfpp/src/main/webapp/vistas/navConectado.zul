@@ -1,5 +1,5 @@
 <div xmlns:n="native" vflex="true">
-	<n:nav class="navbar navbar-default" style="height: 74px; margin-bottom: 1px;">
+	<n:nav class="navbar navbar-default" style="height: 51px; margin-bottom: 1px;">
 		<n:div class="container-fluid">
 			
 			<n:div class="navbar-header">
@@ -15,17 +15,18 @@
 			<n:div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
 				<n:ul class="nav navbar-nav">
 					<n:li class="dropdown">
-						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 72px;"
+						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 51px;"
 							role="button" aria-expanded="false">
 								Proyectos <n:span class="caret"></n:span></n:a>
 						<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verListaProyectos')">Listado de Proyectos</a></n:li>
 								<n:li><a onClick="@command('verListaIsfpps')">Listado de Isfpps</a></n:li>
 								<n:li><a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a></n:li>
+								<n:li><a onClick="@command('verPantallaPracticantes')">Listado de Practicantes</a></n:li>
 						</n:ul>		
 					</n:li>	
 					<n:li class="dropdown">
-						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 72px;"
+						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" style="height: 51px;"
 								role="button" aria-expanded="false">
 									Configuración <n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
@@ -44,7 +45,7 @@
 					</n:li>
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-expanded="false" style="height: 72px;">
+							aria-expanded="false" style="height: 51px;">
 							Workflow <n:span class="caret"></n:span>
 						</n:a>
 						<n:ul class="dropdown-menu" role="menu">
@@ -57,12 +58,14 @@
 				<n:ul class="nav navbar-nav navbar-right">
 					<n:li class="dropdown">
 						<n:a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" 
-							role="button" aria-expanded="false" style="height: 72px;">
+							role="button" aria-expanded="false" style="height: 51px;">
 							<label value="${sec:getUsuarioConectado().getPersona().getNombre()}" style="font-size: 14px;"/> 
 								<n:span class="caret"></n:span></n:a>
 							<n:ul class="dropdown-menu" role="menu">
 								<n:li><a onClick="@command('verDlgPerfilUsuario')">Perfil</a></n:li>
 								<n:li><a onClick="@command('verPnlDatosPersonales')">Datos Personales</a></n:li>
+								
+								
 								<n:li><a href="logout-gisfpp">Salir</a></n:li>
 							</n:ul>
 					</n:li>

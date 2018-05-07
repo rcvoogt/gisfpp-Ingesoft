@@ -260,11 +260,11 @@ insert into staff_fi (id, rol, desde, hasta, personaId) values (41, 'AUXILIAR', 
 insert into staff_fi (id, rol, desde, hasta, personaId) values (42, 'AUXILIAR', '2016-04-20', '2019-04-20', 112);
 insert into staff_fi (id, rol, desde, hasta, personaId) values (43, 'AUXILIAR', '2016-04-20', '2019-04-20', 190);
 insert into staff_fi (id, rol, desde, hasta, personaId) values (44, 'AUXILIAR', '2016-04-20', '2019-04-20', 122);
-insert into staff_fi (id, rol, desde, hasta, personaId) values (45, 'AUXILIAR', '2016-04-20', '2019-04-20', 167);
-insert into staff_fi (id, rol, desde, hasta, personaId) values (46, 'AUXILIAR', '2016-04-20', '2019-04-20', 88);
-insert into staff_fi (id, rol, desde, hasta, personaId) values (47, 'AUXILIAR', '2016-04-20', '2019-04-20', 88);
-insert into staff_fi (id, rol, desde, hasta, personaId) values (48, 'AUXILIAR', '2016-04-20', '2019-04-20', 126);
-insert into staff_fi (id, rol, desde, hasta, personaId) values (49, 'AUXILIAR', '2016-04-20', '2019-04-20', 193);
+insert into staff_fi (id, rol, desde, hasta, personaId) values (45, 'ALUMNO', '2016-04-20', '2019-04-20', 167);
+insert into staff_fi (id, rol, desde, hasta, personaId) values (46, 'ALUMNO', '2016-04-20', '2019-04-20', 88);
+insert into staff_fi (id, rol, desde, hasta, personaId) values (47, 'ALUMNO', '2016-04-20', '2019-04-20', 88);
+insert into staff_fi (id, rol, desde, hasta, personaId) values (48, 'ALUMNO', '2016-04-20', '2019-04-20', 126);
+insert into staff_fi (id, rol, desde, hasta, personaId) values (49, 'ALUMNO', '2016-04-20', '2019-04-20', 193);
 insert into staff_fi (id, rol, desde, hasta, personaId) values (50, 'DELEGADO', '2016-04-20', '2019-04-20', 108);
 
 
@@ -383,7 +383,7 @@ VALUES (1,' ',' ','Sistema Monitoreo invernáculo',1),
 (27,' ',' ','Sistema Monitoreo invernáculo parte dos',1),
 (28,' ',' ','Sistema de riego en Azampay parte dos',18);
 
-INSERT INTO isfpp(id, detalle, estado, fecha_fin, fecha_inicio, objetivos, titulo, subProyectoId)
+/*INSERT INTO isfpp(id, detalle, estado, fecha_fin, fecha_inicio, objetivos, titulo, subProyectoId)
 VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cultivos',2),
 (3,' ','RECHAZADA','2018-12-12','2018-03-12','','CORREL. GEOLÓGICAS Y PALEOMAG',3),
 (4,' ','CONCLUIDA','2018-12-12','2018-01-12','','PRODUCCION DE COLZA-CANOLA',4),
@@ -410,3 +410,4 @@ VALUES (2,' ','GENERADA','2018-12-12','2018-02-12','','Sistema en Grid para cult
 (25,' ','ACTIVA','2018-12-12','2018-04-12','','SIEECObservatorio emprendedor',25),
 (26,' ','GENERADA','2018-12-12','2018-03-12','','Sistema para cultivo orienta',26),
 (28,' ','SUSPENDIDA','2018-12-12','2018-01-12','','Sistema de riego en Azampay parte dos',18);
+*/

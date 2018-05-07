@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -89,5 +90,7 @@ public interface IServiciosIsfpp extends IServicioGenerico<Isfpp, Integer> {
 	public void concluirIsfpp(Integer idIsfpp) throws Exception;
 
 	public Isfpp getInstancia(Date createTime);
+	
+	public Convocatoria getUltimaConvocatoria(Integer idIsfpp) throws Exception;
 	
 }

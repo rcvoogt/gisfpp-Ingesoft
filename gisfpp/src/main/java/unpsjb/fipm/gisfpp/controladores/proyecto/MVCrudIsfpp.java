@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
@@ -16,16 +17,22 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.Button;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Tab;
+import org.zkoss.zul.Tabbox;
+import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -50,9 +57,12 @@ public class MVCrudIsfpp {
 	private boolean creando;
 	private boolean editando;
 	private boolean ver;
+	private boolean existeConvocatoriaAbierta;
 	private boolean verTrace;
 	private HashMap<String, Object> args;
 	private boolean tabIsfppCreado;
+	private Tab tab;
+	private Tabbox tabboxIsfpp;
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -70,6 +80,7 @@ public class MVCrudIsfpp {
 			item = new Isfpp(perteneceA, getTituloNewIsfpp(), "", new Date(), new Date(), "", null, null);
 			creando = true;
 			editando = (ver = false);
+			existeConvocatoriaAbierta = false;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -77,6 +88,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
+			existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -110,7 +122,26 @@ public class MVCrudIsfpp {
 		}
 		return false;
 	}
+	private boolean puedeCrearConvocatoria() {
+		if(item.getConvocatorias().size() > 0) {
+			for(Convocatoria convocatoria : item.getConvocatorias()) {
+				//Si hay una convocatoria con fecha de vencimiento posterior al dia de hoy, es que estï¿½ activa
+				if(convocatoria.getFechaVencimiento().after(new Date()) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 
+	public boolean isExisteConvocatoriaAbierta() {
+		return existeConvocatoriaAbierta;
+	}
+	public void setExisteConvocatoriaAbierta(boolean existeConvocatoriaAbierta) {
+		this.existeConvocatoriaAbierta = existeConvocatoriaAbierta;
+	}
 	public Isfpp getItem() {
 		return item;
 	}
@@ -163,7 +194,7 @@ public class MVCrudIsfpp {
 			creando = editando = false;
 			ver = true;
 		} catch (ConstraintViolationException cve) {
-			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validaciï¿½n de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
 			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
@@ -245,7 +276,15 @@ public class MVCrudIsfpp {
 		Window dlg = (Window) Executions.createComponents("vistas/persona/dlgLookupPersona.zul", null, null);
 		dlg.doModal();
 	}
-
+	
+	//Para la prueba de seleccion con la lista de convocados aceptadores
+//	@Command("verDlgLkpPracticantes")
+//	public void verDlgLkpPracticantes(){
+//		Window dlg = (Window) Executions.createComponents("vistas/proyecto/asignarPracticantesIsfpp.zul", null, null);
+//		dlg.doModal();
+//	}
+	
+	
 	@GlobalCommand("obtenerLkpPersona")
 	@NotifyChange("item")
 	public void retornoLkpPracticante(@BindingParam("seleccion") PersonaFisica arg1) {
@@ -290,7 +329,7 @@ public class MVCrudIsfpp {
 	public void suspenderIsfpp() throws Exception {
 		Messagebox.show(
 				"Desea realmente \"Suspender\" esta Isfpp ? Si la suspende todo Workflow activo asociada a la misma"
-						+ " también será suspendido.",
+						+ " tambiï¿½n serï¿½ suspendido.",
 				"Gisfpp: Suspendiendo Isfpp", new Button[] { Button.YES, Button.NO }, Messagebox.QUESTION,
 				new EventListener<Messagebox.ClickEvent>() {
 
@@ -317,8 +356,8 @@ public class MVCrudIsfpp {
 	@Command("cancelarIsfpp")
 	public void cancelarIsfpp() throws Exception {
 		Messagebox.show(
-				"Desea realmente \"Cancelar\" esta Isfpp ? Si la cancela, no podrá volver a activarla y todo Workflow activo asociada a la misma"
-						+ " será eliminado.",
+				"Desea realmente \"Cancelar\" esta Isfpp ? Si la cancela, no podrï¿½ volver a activarla y todo Workflow activo asociada a la misma"
+						+ " serï¿½ eliminado.",
 				"Gisfpp: Cancelando Isfpp", new Button[] { Button.YES, Button.NO }, Messagebox.QUESTION,
 				new EventListener<Messagebox.ClickEvent>() {
 
@@ -365,8 +404,69 @@ public class MVCrudIsfpp {
 					}
 				});
 	}
-
-	private String getTituloNewIsfpp() {
+	
+	@Command("nuevaConvocatoria")
+	public void nuevaConvocatoria() {
+		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Convocatoria", item.getId());
+		tabIsfppCreado=true;
+	}
+	
+	@Command("verConvocatoria")
+	public void verConvocatoria() {
+		if(!tabIsfppCreado) {
+			crearTab(UtilGisfpp.MOD_VER, "Ver Convocatoria", item.getId());
+			
+		}else {
+			tabboxIsfpp.setSelectedTab(tab);
+		}
+	}
+	
+	private void crearTab(String modo, String titulo, Integer id) {
+		//Obtengo el tabbox de subproyecto
+		Tabbox tabBoxSubProyecto = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
+		tabboxIsfpp = null;
+		//El problema es buscar el tabbox inferior porque se genera dinamicamente
+		//Busco el panel de isffp dentro del tabbox de subproyecto
+		// Es totalmente duro esto, pero funciona... 
+		// hasta que no funcionen los selectores, no encuentro mejor solucion
+		for (Component component : (List<Component>) tabBoxSubProyecto.getTabpanels().getChildren()) {
+			Tabpanel tabpanel = (Tabpanel) component;
+			// Si es el tab que hardcodee el id al crearlo
+			if(tabpanel.getId() == "pisfppTP") {
+				List<Component> componentes = (List<Component>) tabpanel.getChildren();
+				for (Component component2 : (List<Component>) tabpanel.getChildren()) {
+					 tabboxIsfpp = (Tabbox)component2.getChildren().get(0);
+					
+				}
+					
+			}
+		}
+		
+		
+		if(tabboxIsfpp != null ) {
+			//Tabbox tabbox = (Tabbox) Component.
+			tab = new Tab(titulo);
+			Tabpanel tabPanel = new Tabpanel();
+			tabPanel.setId("pConvocatoriaTP");
+			Include include = new Include("vistas/proyecto/verCrearConvocatoria.zul");
+			HashMap<String, Object> args = new HashMap<>();
+			args.put("isfpp", item);
+			args.put("modo", modo);
+			args.put("idItem", id);
+			args.put("tab", tab);
+			
+			include.setDynamicProperty("argsCrudConvocatoria", args);
+			tabboxIsfpp.getTabs().appendChild(tab);
+			tabPanel.getChildren().add(include);
+			
+			
+			tabboxIsfpp.getTabpanels().getChildren().add(tabPanel);
+			tabIsfppCreado=true;
+			tabboxIsfpp.setSelectedTab(tab);
+		}
+	}
+	
+	private String getTituloNewIsfpp(){
 		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
 		String hoy = formateador.format(new Date());
 		String solicitante = UtilSecurity.getNickName();

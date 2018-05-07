@@ -9,7 +9,6 @@ CKEDITOR.editorConfig = function( config ) {
 	          		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
 	          		{ name: 'styles', items: [ 'Styles', 'Format' ] },
 	  ];
-	config.skin = 'bootstrapck';
 	config.toolbarCanCollapse = true;
 	config.removePlugins = 'elementspath'; 
 };

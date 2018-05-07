@@ -48,6 +48,7 @@ public class MVDlgAsignarPracticantes {
 	@NotifyChange("item")
 	public void retornoSeleccion(@BindingParam("seleccion")PersonaFisica arg1){
 		item.addPracticante(arg1);
+		
 	}
 	
 	@Command("guardar")
