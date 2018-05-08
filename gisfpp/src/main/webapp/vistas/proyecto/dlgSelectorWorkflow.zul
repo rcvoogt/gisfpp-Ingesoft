@@ -1,0 +1,25 @@
+<window id="dlgSelectorWorkflow"
+	title="Gisfpp: Aplicar Filtros a Listado de Isfpps" border="normal"
+	closable="true" vflex="true" width="400px"
+	apply="org.zkoss.bind.BindComposer" sizable="true"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgSelectorWorkflow')">
+	<vbox hflex="1" vflex="1" spacing="8px">
+		<div hflex="true">
+			<label value="Workflow" class="form-label" width="45%" />
+			<combobox model="@load(vm.procesos)"
+				selectedItem="@bind(vm.proceso)" width="75%">
+				<template name="model">
+					<comboitem label="@load(each)" />
+				</template>
+			</combobox>
+		</div>
+		<separator bar="true" />
+		<hbox hflex="true" pack="center" align="center" height="15%">
+			<a class="btn btn-success btn-sm"
+				onClick="@command('filtrar')"
+				image="/recursos/img/icon-filter.png">
+				Filtrar
+			</a>
+		</hbox>
+	</vbox>
+</window>
