@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.proyecto"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.workflow"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.aspectos"/>
+	
+	<tx:annotation-driven/>
+	<!-- <bean id="sessionFactoryHB" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/gisfpp?autoReconnect=true" />
+        <property name="username" value="user_gisfpp" />
+        <property name="password" value="unpsjbfipm" />
+    </bean> -->
+    <bean id="dataSource"
+	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <property name="url" value="jdbc:mysql://localhost:3306/gisfpp?autoReconnect=true" />
+	    <property name="username" value="user_gisfpp" />
+        <property name="password" value="unpsjbfipm" />
+    
+	</bean>
+	
+	<bean id="sessionFactoryHB"
+	      class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource"/>
+	    <property name="packagesToScan" >
+	    	<list>
+				<value>unpsjb.fipm.gisfpp.entidades</value>
+				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
+				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
+				<value>unpsjb.fipm.gisfpp.entidades.staff</value>
+			</list>
+	    </property>
+	    <property name="hibernateProperties">
+	        <props>
+	            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+	        </props>
+	    </property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+		<qualifier value="gisfpp"/>
+	</bean>
+	
+	<bean id="transactionManager2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="pool2" />
+    	 <qualifier value="activiti"/>
+  	</bean>
+  	
+    <bean id="pool2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/gisfpp_activiti?autoReconnect=true" />
+        <property name="username" value="user_gisfpp" />
+        <property name="password" value="unpsjbfipm" />
+    </bean>
+	
+	<bean id="daoConvocatoria" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoConvocatoria">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoConvocado" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoConvocado">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoProyectoImpl">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoSubProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoSubProyecto">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoIsfpp" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoIsfpp">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPersona" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersona">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPF" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisica">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPJ" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridica">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoUsuario" class="unpsjb.fipm.gisfpp.dao.persona.DaoUsuario">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+		
+	
+	<bean id="daoStaff" class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>
+	
+	<bean id="daoPermisos" class="unpsjb.fipm.gisfpp.dao.DaoPermisosImp">
+		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	</bean>	
+	
+	<bean id="mySpringUtil" class="unpsjb.fipm.gisfpp.util.MySpringUtil"/>
+	
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="pool2"/>
+		<property name="transactionManager" ref="transactionManager2"/>
+		<property name="databaseSchemaUpdate" value="true"/>
+		
+		<property name="deploymentResources" value="classpath*:/definicionProcesos/*.bpmn"/>
+		<property name="deploymentMode" value="single-resource"/>
+		
+		<property name="mailServerHost" value="smtp.gmail.com"/>
+		<property name="mailServerPort" value="465"/>
+		<property name="mailServerDefaultFrom" value="isfpp.fipm.unpsjb@gmail.com"/>
+		<property name="mailServerUsername" value="isfpp.fipm.unpsjb@gmail.com"/>
+		<property name="mailServerPassword" value="gisfppfipm"/>
+		<property name="mailServerUseSSL" value="true"/>
+		
+		<property name="asyncExecutorEnabled" value="true"/>
+		<property name="asyncExecutorActivate" value="true"/>
+	</bean>
+	
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+  		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<bean id="repoService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+</beans>
