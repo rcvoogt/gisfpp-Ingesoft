@@ -54,8 +54,8 @@
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:dueDate="${vencimiento}" activiti:category="NuevaConvocatoria" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:assignee="${convocado}" activiti:dueDate="${vencimiento}" activiti:category="NuevaConvocatoria" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="convocado">
         <loopCardinality>${cantidadConvocados}</loopCardinality>
       </multiInstanceLoopCharacteristics>
     </userTask>

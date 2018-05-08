@@ -86,7 +86,7 @@ public class InitNuevaConvocatoria implements ExecutionListener {
 			variables.put("cantidadConvocados",convocatoria.getConvocados().size());
 			variables.put("convocados",convocatoria.getConvocados());
 			
-			variables.put("convocado",new Convocado());
+			//variables.put("convocado",new Convocado());
 			variables.put("vencimiento",convocatoria.getFechaVencimiento());
 			variables.put("convocador",usuarioSolicitante);
 			
@@ -94,6 +94,7 @@ public class InitNuevaConvocatoria implements ExecutionListener {
 			//variables.put("convocadosonvocados",new String(asignadosConvocados));
 			variables.put("asignadosConvocados",new String(asignadosConvocados));
 			variables.put("mailsConvocados",new String(mailsConvocados));
+			variables.put("Contador",new Integer(0));
 			
 			
 			execution.setVariables(variables);
