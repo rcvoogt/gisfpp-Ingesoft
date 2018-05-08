@@ -99,11 +99,11 @@ public class MVCrudConvocatoria {
 		return modo;
 	}
 	
-	public List<Convocado> getConvocados() {
+	/*public List<Convocado> getConvocados() {
 		List<Convocado> convocados = new ArrayList<Convocado>();
 		convocados.addAll(item.getConvocados());
 		return convocados;
-	}
+	}*/
 	
 
 	public boolean isCreando() {
@@ -173,8 +173,9 @@ public class MVCrudConvocatoria {
 	@GlobalCommand("retornoDlgConvocado")
 	@NotifyChange("item")
 	public void retornoDlgConvocado(@BindingParam("modo")String arg1, @BindingParam("newItem") Convocado arg2){
-		
+		System.out.println("intenta grabar:" + arg2.getPersona().getNombre());
 		item.agregarConvocado(arg2);
+		System.out.println("despues de grabar");
 		
 	}
 	

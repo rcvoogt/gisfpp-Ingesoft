@@ -2,8 +2,10 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -47,8 +49,18 @@ public class Convocatoria implements Serializable {
 	private String mensaje;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "isfppId", nullable = false, foreignKey=@ForeignKey(name="fk_isfpp_convocatoria"))
+	@JoinColumn(name = "isfppId", nullable = true, foreignKey=@ForeignKey(name="fk_isfpp_convocatoria"))
 	private Isfpp isfpp;
+	
+	/*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "subproyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_subproyecto_convocatoria"))
+	private SubProyecto subproyecto;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "proyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_proyecto_convocatoria"))
+	private Proyecto proyecto;*/
+	
+	
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="convocatoria")
 	private Set<Convocado> convocados;
@@ -104,8 +116,7 @@ public class Convocatoria implements Serializable {
 	
 	public void agregarConvocado(Convocado convocado) {
 		if(convocado!=null){
-			System.out.println("graba?");
-			convocados.add(convocado);
+			 convocados.add(convocado);
 			
 		}
 	}
@@ -117,11 +128,21 @@ public class Convocatoria implements Serializable {
 	}
 	
 	
-	@NotNull(message="La convocatoria debe tener una \"ISFPP\".")
+	
+	/*public SubProyecto getSubproyecto() {
+		return subproyecto;
+	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}*/
+
 	public Isfpp getIsfpp() {
 		return isfpp;
 	}
 
+	
+	
 	@AssertTrue(message = "La \"fecha de vencimiento\" debe ser posterior a la \"fecha creacion\".")
 	private boolean isFechaVencimientoValida() {
 		if (fechaVencimiento.after(fechaCreacion)) {

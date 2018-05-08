@@ -93,6 +93,11 @@ public class DaoConvocado extends HibernateDaoSupport implements IDaoConvocado {
 		
 		return conv.getRespuesta();
 	}
+	
+	public void setRespuesta(Convocado conv, ERespuestaConvocado respuesta) {
+		conv.setRespuesta(respuesta);
+		this.actualizar(conv);
+	}
 
 	@Override
 	public PersonaFisica getPersonaFisica(Convocado conv) throws Exception {

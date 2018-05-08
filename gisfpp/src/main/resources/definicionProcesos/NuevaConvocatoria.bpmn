@@ -54,10 +54,9 @@
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:dueDate="${vencimiento}" activiti:category="NuevaConvocatoria" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
       <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
         <loopCardinality>${cantidadConvocados}</loopCardinality>
-        <completionCondition>${todosContestados}</completionCondition>
       </multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="inclusivegateway1" targetRef="indicarInteresEnConvocatoria"></sequenceFlow>
@@ -70,7 +69,7 @@
     </intermediateCatchEvent>
     <sequenceFlow id="flow6" sourceRef="inclusivegateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent1" targetRef="inclusivegateway3"></sequenceFlow>
-    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
+    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:category="NuevaConvocatoria" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
     <sequenceFlow id="flow8" sourceRef="inclusivegateway3" targetRef="seleccionarConvocados"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow9" sourceRef="seleccionarConvocados" targetRef="endevent1"></sequenceFlow>

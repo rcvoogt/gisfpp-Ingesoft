@@ -51,6 +51,7 @@ public class ServiciosConvocado implements IServiciosConvocado{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Convocado instancia) throws Exception {
+		System.out.println("entra a actualizar en el servicio");
 		dao.actualizar(instancia);
 	}
 	@Override
@@ -67,10 +68,9 @@ public class ServiciosConvocado implements IServiciosConvocado{
 	
 	@Override
 	public Convocado getConvocado(String usuario, Convocatoria convocatoria) throws Exception {
-		Usuario user = servUsuario.getUsuario(usuario);
 		
 		for (Convocado convocado : convocatoria.getConvocados()) {
-			if(convocado.getPersona().getUsuario().getNickname() == usuario){
+			if(convocado.getPersona().getUsuario().getNickname().equals(usuario) ){
 				return convocado;
 			}
 		}	
