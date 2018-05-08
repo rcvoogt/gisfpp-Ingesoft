@@ -1,8 +1,9 @@
 package unpsjb.fipm.gisfpp.entidades.workflow;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class InstanciaActividad implements Comparable{
+public class InstanciaActividad implements Serializable, Comparable{
 	
 	private String idActividad;
 	private String idInstanciaProceso;

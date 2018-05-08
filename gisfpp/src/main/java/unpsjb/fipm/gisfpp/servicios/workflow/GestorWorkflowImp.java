@@ -521,4 +521,10 @@ public class GestorWorkflowImp implements GestorWorkflow {
 		return instanciasActividad;
 	}
 
+	@Override
+	public List<DefinicionProceso> getDefinicionProcesos() throws GisfppWorkflowException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }// fin de la clase
