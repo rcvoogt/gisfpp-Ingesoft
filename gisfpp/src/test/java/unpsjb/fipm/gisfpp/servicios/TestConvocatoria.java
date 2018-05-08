@@ -1,23 +1,17 @@
 package unpsjb.fipm.gisfpp.servicios;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.BaseMatcher.*;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import unpsjb.fipm.gisfpp.util.MySpringUtil;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocado;
+
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,14 +20,15 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
 		"file:src/main/webapp/WEB-INF/app-security.xml"/*,
 		"file:src/main/webapp/WEB-INF/activiti-config.xml"*/
 })
-public class TestConvocado {
+public class TestConvocatoria {
     @Autowired
     private IServiciosConvocatoria servConvocatoria;
     Integer idConvocado = new Integer(16);
     
     
+    
     @Test
-    public void testSampleService() {
+    public void testGetInstancia() {
         try {
 			assertEquals(
 			        new Integer(16),
@@ -43,6 +38,20 @@ public class TestConvocado {
 			e.printStackTrace();
 		}
     }
+    
+    @Test
+    public void testPersistir() {
+    	
+    }
+    
+    //Solo puedo probar si agrego uno, que muestre la cantidad que habia mas uno dado que no conozco los datos existentes en la base
+    @Test
+    public void testGetListado() {
+
+    }
+
+    
+    
 
     
 }
