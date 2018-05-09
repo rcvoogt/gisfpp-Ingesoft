@@ -2,7 +2,7 @@ package unpsjb.fipm.gisfpp.servicios;
 
 import java.util.List;
 
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 
 public interface IServicioGenerico<T, K> {
 

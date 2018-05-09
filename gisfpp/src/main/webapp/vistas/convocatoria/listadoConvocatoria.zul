@@ -1,0 +1,51 @@
+<div id="pnlListConvocatoria" class="panel panel-primary" hflex="true"
+	vflex="true" xmlns:n="native" apply="org.zkoss.bind.BindComposer"
+	style="margin-bottom: 2px;"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVListarConvocatoria')">
+
+	<n:div class="btn-toolbar pull-right">
+		<n:div class="btn-group">
+			<a image="recursos/img/icon-filter.png"
+				class="btn btn-success btn-sm" onClick="@command('dlgFiltro')"
+				tooltiptext="Aplicar filtros al Listado">
+				Filtrar
+			</a>
+			<a image="recursos/img/icon-remove-sign.png"
+				class="btn btn-success btn-sm"
+				tooltiptext="Quitar el filtro aplicado al Listado"
+				visible="@load(vm.listadoFiltrado)" onClick="@command('quitarFiltro')"
+				style="margin-left:1px">
+				Quitar Filtro
+			</a>
+		</n:div>
+	</n:div>
+
+	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
+		style="border: 2px solid #80ccff; border-radius: 5px;"
+		emptyMessage="No exisnte convocatorias para los filtros ingresados"
+		model="@load(vm.convocatorias)">
+		<columns>
+			<column label="Actividad" width="50%" />
+			<column label="Originante" width="18%" />
+
+			<column label="Fecha de creacion" width="12%" />
+			<column label="Fecha de vencimiento" width="12%" />
+			<column label="Ver" width="7%" align="center" />
+
+		</columns>
+		<template name="model">
+			<row>
+				<label value="@load(each.isfpp.titulo)" />
+				<label value="@load(each.usuarioOriginante)" />
+				<label
+					value="@load(each.fechaCreacion) @converter('formatedDate', format ='dd/MM/yyyy')" />
+				<label
+					value="@load(each.fechaVencimiento) @converter('formatedDate', format ='dd/MM/yyyy')" />
+				<toolbarbutton image="recursos/img/icon-preview.png"
+					tooltiptext="Ver detalle"
+					onClick="@command('verIsfpp', idItem=each.id)" />
+
+			</row>
+		</template>
+	</grid>
+</div>

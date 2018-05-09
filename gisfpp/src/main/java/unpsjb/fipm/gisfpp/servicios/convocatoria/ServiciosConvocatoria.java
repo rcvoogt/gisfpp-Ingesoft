@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios.proyecto;
+package unpsjb.fipm.gisfpp.servicios.convocatoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import unpsjb.fipm.gisfpp.dao.proyecto.IDaoConvocatoria;
+import unpsjb.fipm.gisfpp.dao.convocatoria.IDaoConvocatoria;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;

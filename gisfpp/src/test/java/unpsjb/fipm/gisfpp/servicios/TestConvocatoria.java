@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/daoContext-test.xml",

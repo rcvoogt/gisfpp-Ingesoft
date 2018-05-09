@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.dao.proyecto;
+package unpsjb.fipm.gisfpp.dao.convocatoria;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
@@ -62,7 +62,7 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 
 	@Override
 	public List<Convocatoria> recuperarTodo() throws DataAccessException {
-		String query = "from Isfpp as isffpp inner join fecth isfpp.perteneceA";
+		String query = "from Convocatoria as conv";
 		try {
 			return (List<Convocatoria>) getHibernateTemplate().find(query, null);
 		} catch (Exception e) {

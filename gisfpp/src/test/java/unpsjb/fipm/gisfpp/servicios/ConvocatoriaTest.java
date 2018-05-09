@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -164,8 +163,8 @@ public class ConvocatoriaTest {
 		// hoy + 5 dias
 		long ltime=nueva.getTime()+5*24*60*60*1000;
 		Date vencimiento=new Date(ltime);
-		return new Convocatoria(nueva, vencimiento, "Detalle",isfppPadre);
-		
+	//	return new Convocatoria(nueva, vencimiento, "Detalle",isfppPadre,);
+		return null;
 	}
 
 }

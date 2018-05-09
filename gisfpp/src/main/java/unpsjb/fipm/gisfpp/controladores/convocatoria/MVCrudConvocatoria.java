@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.controladores.proyecto;
+package unpsjb.fipm.gisfpp.controladores.convocatoria;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,13 +31,14 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -48,6 +49,7 @@ public class MVCrudConvocatoria {
 	private Logger log;
 	private Convocatoria item;
 
+	private IServicioUsuario servUsuario;
 	private GestorWorkflow gestorWkFl;
 	private IServiciosConvocatoria servicio;
 	private Isfpp isfpp;
@@ -64,6 +66,7 @@ public class MVCrudConvocatoria {
 		log = UtilGisfpp.getLogger();
 		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
+		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
 		isfpp = (Isfpp) args.get("isfpp");
 		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");
@@ -71,7 +74,7 @@ public class MVCrudConvocatoria {
 		detalle = (String) args.get("detalle");
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new Convocatoria(new Date(), null,detalle, isfpp);
+			item = new Convocatoria(new Date(), null,detalle, isfpp,servUsuario.getUsuario(UtilSecurity.getNickName()));
 			creando = true;
 			editando = (ver = false);
 			break;
@@ -165,7 +168,7 @@ public class MVCrudConvocatoria {
 		Map<String, Object> args = new HashMap<>();
 		args.put("modo", arg1);
 		args.put("de", item);
-		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgConvocado.zul", null, args);
+		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgConvocado.zul", null, args);
 		dlg.doModal();
 		System.out.println("Sale de  cargar convocado");
 	}
@@ -197,7 +200,7 @@ public class MVCrudConvocatoria {
 			Clients.showNotification("Nueva ISFPP guardada", Clients.NOTIFICATION_TYPE_INFO, null, "top_right",
 					3500);
 			String listaWf = UtilGisfpp.convertirEnCadena(gestorWkFl
-					.nombreProcesosInstanciados(String.valueOf(item.getId()), "Isfpp", "Crear"));
+					.nombreProcesosInstanciados(String.valueOf(item.getId()), "Convocatoria", "Crear"));
 			if (!listaWf.isEmpty()) {
 				Clients.showNotification("Workflows instanciados: "+listaWf, Clients.NOTIFICATION_TYPE_INFO, null, 
 						"middle_right", 4000);

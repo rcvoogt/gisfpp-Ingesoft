@@ -14,6 +14,7 @@
 
 
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.convocatoria"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.proyecto"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
@@ -42,6 +43,7 @@
 	    <property name="packagesToScan" >
 	    	<list>
 				<value>unpsjb.fipm.gisfpp.entidades</value>
+				<value>unpsjb.fipm.gisfpp.entidades.convocatoria</value>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
 				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
 				<value>unpsjb.fipm.gisfpp.entidades.staff</value>
@@ -71,11 +73,11 @@
         <property name="password" value="unpsjbfipm" />
     </bean>
 	
-	<bean id="daoConvocatoria" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoConvocatoria">
+	<bean id="daoConvocatoria" class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocatoria">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	
-	<bean id="daoConvocado" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoConvocado">
+	<bean id="daoConvocado" class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocado">
 		<property name="sessionFactory" ref="sessionFactoryHB"/>
 	</bean>
 	

@@ -1,4 +1,4 @@
-<vbox viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudConvocatoria')" 
+<vbox viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVCrudConvocatoria')" 
 	spacing="6px" hflex="true" vflex="true" 
 	
 	>

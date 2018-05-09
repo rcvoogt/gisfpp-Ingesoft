@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.entidades.proyecto;
+package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 import java.io.Serializable;
 
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 
 @Entity
 @Table(name = "convocado")

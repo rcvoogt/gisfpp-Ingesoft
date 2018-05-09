@@ -34,6 +34,11 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/isfpp/listadoIsfpp.zul");
 	}
 	
+	@Command("verListaConvocatorias")
+	public void verListaConvocatorias() {
+		UtilGuiGisfpp.loadPnlCentral("vistas/convocatoria/listadoConvocatoria.zul");
+	}
+	
 	@Command("verListaOfertasActividades")
 	public void verListaOfertasActividades(){
 		UtilGuiGisfpp.loadPnlCentral("vistas/proyecto/listaOfertaActividades.zul");

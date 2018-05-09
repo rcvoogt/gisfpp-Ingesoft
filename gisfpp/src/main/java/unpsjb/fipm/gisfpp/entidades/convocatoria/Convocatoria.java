@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.entidades.proyecto;
+package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +26,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+
 
 @Entity
 @Table(name = "convocatoria")
@@ -52,6 +55,11 @@ public class Convocatoria implements Serializable {
 	@JoinColumn(name = "isfppId", nullable = true, foreignKey=@ForeignKey(name="fk_isfpp_convocatoria"))
 	private Isfpp isfpp;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "usuarioId", nullable = true, foreignKey=@ForeignKey(name="fk_usuario_convocatoria"))
+	private Usuario usuarioOriginante;
+	
+	
 	/*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "subproyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_subproyecto_convocatoria"))
 	private SubProyecto subproyecto;
@@ -73,8 +81,9 @@ public class Convocatoria implements Serializable {
 		convocados = new HashSet<Convocado>();
 	}
 
-	public Convocatoria(Date creacion, Date vencimiento, String detalle,Isfpp isfppPadre) {
+	public Convocatoria(Date creacion, Date vencimiento, String detalle,Isfpp isfppPadre, Usuario usuario) {
 		super();
+		this.usuarioOriginante = usuario;
 		this.fechaCreacion = (creacion==null)?new Date():creacion;
 		this.fechaVencimiento = (vencimiento==null)?new Date():vencimiento;
 		this.isfpp = isfppPadre;
@@ -139,6 +148,13 @@ public class Convocatoria implements Serializable {
 
 	public Isfpp getIsfpp() {
 		return isfpp;
+	}
+	
+	public Usuario getUsuarioOriginante() {
+		return usuarioOriginante;
+	}
+	public void setUsuarioOriginante(Usuario usuarioOriginante) {
+		this.usuarioOriginante = usuarioOriginante;
 	}
 
 	

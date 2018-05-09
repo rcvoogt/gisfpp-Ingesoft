@@ -31,8 +31,8 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -448,7 +448,7 @@ public class MVCrudIsfpp {
 			tab = new Tab(titulo);
 			Tabpanel tabPanel = new Tabpanel();
 			tabPanel.setId("pConvocatoriaTP");
-			Include include = new Include("vistas/proyecto/verCrearConvocatoria.zul");
+			Include include = new Include("vistas/convocatoria/verCrearConvocatoria.zul");
 			HashMap<String, Object> args = new HashMap<>();
 			args.put("isfpp", item);
 			args.put("modo", modo);
