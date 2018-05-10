@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.activiti.engine.repository.ProcessDefinition;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
@@ -47,7 +50,7 @@ public class MVVerTrace {
 
 	@SuppressWarnings("unchecked")
 	@Init
-	@NotifyChange({ "modo", "item", "creando", "editando", "ver", "titulo", "tareas" })
+	@NotifyChange({ "modo", "item", "creando", "editando", "ver", "titulo", "actividades" , "workflow" })
 	public void init() throws Exception {
 		ver = true;
 		modo = UtilGisfpp.MOD_VER;
@@ -58,10 +61,8 @@ public class MVVerTrace {
 		item.setPerteneceA(perteneceA);
 		creando = (editando = false);
 		setTitulo("Trace de ISFPP: " + item.getTitulo());
-		setWorkflow("Workflow Actual: " + "Solicitud Nueva ISFPP");
-		actividades = servGTareas.getInstanciasActividades(servGTareas.getProcessDefinition(BusinessKey.solicitudNuevaIsfpp.getKeyBusiness()), item.getTitulo());
-		
-		
+		actividades = new ArrayList<InstanciaActividad>();
+		setWorkflow("Debe seleccionar un Workflow");		
 	}
 	
 
@@ -112,12 +113,21 @@ public class MVVerTrace {
 		this.workflow = workflow;
 	}
 	
+	
 	@Command("dlgSelectorWorkflow")
 	public void verDlgSelectorWorkflow() {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("listSinFiltro", actividades);
+		map.put("isfpp",item);
 		Window dlg = (Window) Executions.createComponents("vistas/proyecto/dlgSelectorWorkflow.zul", null, map);
 		dlg.doModal();
+	}
+	
+	@GlobalCommand("retornoDlgSelectorWorkflow")
+	@NotifyChange({ "actividades", "workflow" })
+	public void retornoDlgSelectorWorkflow(@BindingParam("listConFiltro") List<InstanciaActividad> arg1,@BindingParam("definicionProceso") ProcessDefinition definicionProceso) {
+		actividades = arg1;
+		setWorkflow("Workflow Actual: " + definicionProceso.getName());
 	}
 
 }

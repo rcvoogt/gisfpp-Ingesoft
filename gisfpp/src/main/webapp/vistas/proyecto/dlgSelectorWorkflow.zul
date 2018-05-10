@@ -6,19 +6,19 @@
 	<vbox hflex="1" vflex="1" spacing="8px">
 		<div hflex="true">
 			<label value="Workflow" class="form-label" width="45%" />
-			<combobox model="@load(vm.procesos)"
-				selectedItem="@bind(vm.proceso)" width="75%">
+			<combobox model="@load(vm.definicionProcesos)"
+				selectedItem="@bind(vm.definicionProceso)" width="75%">
 				<template name="model">
-					<comboitem label="@load(each)" />
+					<comboitem label="@load(each.name)" />
 				</template>
 			</combobox>
 		</div>
 		<separator bar="true" />
 		<hbox hflex="true" pack="center" align="center" height="15%">
 			<a class="btn btn-success btn-sm"
-				onClick="@command('filtrar')"
+				onClick="@command('seleccionar')"
 				image="/recursos/img/icon-filter.png">
-				Filtrar
+				Seleccionar
 			</a>
 		</hbox>
 	</vbox>

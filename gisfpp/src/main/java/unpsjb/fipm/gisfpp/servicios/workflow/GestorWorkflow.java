@@ -10,7 +10,6 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.xml.sax.SAXException;
 
-import unpsjb.fipm.gisfpp.entidades.workflow.DefinicionProceso;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaActividad;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.util.GisfppWorkflowException;
@@ -95,10 +94,10 @@ public interface GestorWorkflow {
 	public List<InstanciaActividad> getInstanciasActividades(ProcessDefinition processDefinition, String isfpp);
 	/**
 	 * 
-	 * @return Todas las definiciones de proceso que existen
+	 * @return Todas las definiciones de proceso que existen en la ultima versión
 	 * @throws GisfppWorkflowException
 	 */
-	public List<DefinicionProceso> getDefinicionProcesos() throws GisfppWorkflowException;
+	public List<ProcessDefinition> getDefinicionProcesos() throws GisfppWorkflowException;
 
 	
 }
