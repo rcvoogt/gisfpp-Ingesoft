@@ -1,0 +1,40 @@
+<window id="dlgFiltroConvocatoria"
+	title="Gisfpp: Aplicar Filtros a Listado de Isfpps" border="normal"
+	closable="true" vflex="true" width="400px"
+	apply="org.zkoss.bind.BindComposer" sizable="true"
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVDlgFiltroConvocatoria')">
+	<vbox hflex="1" vflex="1" spacing="8px">
+		<div hflex="true">
+			<label value="Usuarios" class="form-label" width="25%" />
+			<combobox model="@load(vm.usuariosOriginantes)"
+				selectedItem="@bind(vm.originante)" 
+				value="--Filtro Vacio--"
+				width="75%">
+				<template name="model">
+					<comboitem label="@load(each.nickname)" />
+				</template>
+			</combobox>
+		</div>
+		<div hflex="true">
+			<label value="Solo vigentes" class="form-label" width="20%" />
+			<checkbox checked="@bind(vm.vigente)"/>
+		</div>
+		<div hflex="true">
+			<label value="Solo por vencer" class="form-label" width="20%" />
+			<checkbox checked="@bind(vm.porVencer)"/>
+		</div>
+		<div hflex="true">
+			<label value="Solo propias" class="form-label" width="20%" />
+			<checkbox checked="@bind(vm.misConvocatorias)"/>
+		</div>
+		
+		<separator bar="true" />
+		<hbox hflex="true" pack="center" align="center" height="15%">
+			<a class="btn btn-success btn-sm"
+				onClick="@command('filtrar')"
+				image="/recursos/img/icon-filter.png">
+				Filtrar
+			</a>
+		</hbox>
+	</vbox>
+</window>

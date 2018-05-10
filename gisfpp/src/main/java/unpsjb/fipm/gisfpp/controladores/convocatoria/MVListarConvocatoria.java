@@ -31,6 +31,7 @@ public class MVListarConvocatoria {
 	private HashMap<String, Object> args;
 	private Convocable item;
 	private boolean listadoFiltrado = false;
+	private String titulo;
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -38,8 +39,10 @@ public class MVListarConvocatoria {
 	public void init() throws Exception {
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsListarConvocatoria");
+		titulo = "Listado de Convocatorias";
 		if(args != null) {
 			item = (Convocable) args.get("masterId");
+			titulo += " a " + item.getTipo() + item.toString() ;
 		}
 		if(args == null && item == null) {
 			
@@ -62,11 +65,11 @@ public class MVListarConvocatoria {
 	public void dlgFiltro() {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("listSinFiltro", convocatorias);
-		Window dlg = (Window) Executions.createComponents("vistas/Convocatoria/dlgFiltrosConvocatoria.zul", null, map);
+		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgFiltrosConvocatoria.zul", null, map);
 		dlg.doModal();
 	}
 	@GlobalCommand("retornoDlgFiltroConvocatoria")
-	@NotifyChange({ "convocatorias", "filtrado" })
+	@NotifyChange({ "convocatorias", "listadoFiltrado" })
 	public void retornoDlgFiltroIsfpp(@BindingParam("listConFiltro") List<Convocatoria> arg1) {
 		// si el listado no tiene un filtro aplicado, mantenemos una referencia
 		// a dicho listado original, para luego recuperarlo
@@ -79,7 +82,7 @@ public class MVListarConvocatoria {
 	}
 	
 	@Command("quitarFiltro")
-	@NotifyChange("convocatorias")
+	@NotifyChange({"convocatorias","listadoFiltrado"})
 	public void quitarFiltro() {
 		convocatorias = temp;
 		listadoFiltrado = false;
@@ -110,5 +113,8 @@ public class MVListarConvocatoria {
 		return this;
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
 	
 }// fin de la clase

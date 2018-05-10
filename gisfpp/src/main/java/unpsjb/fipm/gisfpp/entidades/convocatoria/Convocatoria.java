@@ -168,6 +168,29 @@ public class Convocatoria implements Serializable {
 		}
 	}
 	
+	public Boolean isVigente(Date fechaComparacion) {
+		if(fechaComparacion.before(fechaVencimiento)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public Boolean isPorVencer() {
+		Date hoy = new Date();
+		// hoy - 5 dias
+		long ltime = fechaVencimiento.getTime()-5*24*60*60*1000;
+		Date porVencer = new Date(ltime);
+		if(hoy.before(porVencer)) {
+			return false;
+		}else {
+			return true;
+		}
+		
+		
+	}
+	
 	
 	@Override
 	public int hashCode() {

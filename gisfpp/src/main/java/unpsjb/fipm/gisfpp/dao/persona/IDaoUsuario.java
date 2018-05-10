@@ -17,4 +17,5 @@ public interface IDaoUsuario extends DaoGenerico<Usuario, Integer> {
 
 	public List<RolUsuario> getRoles(Usuario usuario) throws Exception;
 
+	public List<Usuario> getUsuariosAptos(String operacion) throws Exception;
 }

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+
 @Entity
 @Table(name="usuario", indexes=@Index(name="uk_nickname",columnList="nickname", unique=true))
 public class Usuario implements Serializable {
@@ -52,6 +54,11 @@ public class Usuario implements Serializable {
 		this.nickname = (nickname==null)?"":nickname;
 		this.password = (password==null)?"":password;
 		this.activo = activo;
+	}
+	
+	public Usuario(Integer id, String nickname) {
+		this.id = id;
+		this.nickname = nickname;
 	}
 
 	public Integer getId() {
@@ -96,6 +103,23 @@ public class Usuario implements Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }// Fin de la clase Usuario
