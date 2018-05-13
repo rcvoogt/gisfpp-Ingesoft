@@ -16,7 +16,6 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;

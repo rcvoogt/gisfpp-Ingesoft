@@ -92,5 +92,12 @@ public interface GestorWorkflow {
 	public long getCantidadProcesosFinalizados(String idUsuario) throws GisfppWorkflowException;
 
 	public List<InstanciaActividad> getInstanciasActividades(ProcessDefinition processDefinition, String isfpp);
+	/**
+	 * 
+	 * @return Todas las definiciones de proceso que existen en la ultima versión
+	 * @throws GisfppWorkflowException
+	 */
+	public List<ProcessDefinition> getDefinicionProcesos() throws GisfppWorkflowException;
+
 	
 }

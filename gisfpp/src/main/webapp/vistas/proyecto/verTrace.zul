@@ -1,27 +1,57 @@
-<vbox hflex="true" spacing="5px" vflex="true"
-	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVVerTrace')">
+<vbox hflex="true" spacing="5px" vflex="true" >
+	<div id="pnlTrace" class="panel panel-primary" vflex="true"
+		xmlns:n="native" apply="org.zkoss.bind.BindComposer"
+		style="margin-bottom: 1px;" viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVVerTrace')">
+		<div class="panel-heading">
+			<n:h3 class="panel-title">
+				<label value="@load(vm.titulo)"
+					style="font-size: 14px;" />
+			</n:h3>
+			<n:h4 class="panel-title">
+				<label value="@load(vm.workflow)"
+					style="font-size: 14px;" />
+			</n:h4>
+		</div>
 
-	<grid hflex="1" vflex="1" mold="paging" autopaging="true"
-		style="border: 2px solid #80ccff; border-radius: 5px;"
-		emptyMessage="Esta isfpp no tiene solicitudes pendientes."
-		model="@load(vm.actividades)">
-		<columns menupopup="auto">
-			<column label="Fecha Inicio" sort="auto" width="10%" />
-			<column label="Fecha Fin" sort="auto" width="10%" />
-			<column label="Nombre" sort="auto" width="40%" />
-			<column label="Tipo" width="12%" />
-			<column label="Asignado" width="10%" />
-		</columns>
-		<template name="model">
-			<row>
-				<label
-					value="@load(each.inicia) @converter('formatedDate', format ='dd/MM/yyyy')" />
-				<label
-					value="@load(each.finaliza) @converter('formatedDate', format='dd/MM/yyyy')" />
-				<label value="@load(each.nombre)" />
-				<label value="@load(each.tipo)" />
-				<label value="@load(each.asignado)" />
-			</row>
-		</template>
-	</grid>
+		<div class="panel-body" vflex="true">
+			<vbox vflex="1" spacing="6px">
+				<n:div class="btn-toolbar pull-right">
+					<n:div class="btn-group">
+						<a 	class="btn btn-info btn-sm" 
+							onClick="@command('dlgSelectorWorkflow')"
+							tooltiptext="Seleccione el Worflow del cual desea ver el trace">
+							Seleccionar Workflow
+						</a>						
+					</n:div>
+				</n:div>
+				<grid hflex="1" vflex="1" mold="paging"
+					autopaging="true"
+					style="border: 2px solid #80ccff; border-radius: 5px;"
+					emptyMessage="Esta isfpp no tiene solicitudes pendientes."
+					model="@load(vm.actividades)">
+					<columns menupopup="auto">
+						<column label="Fecha Inicio" sort="auto"
+							width="10%" />
+						<column label="Fecha Fin" sort="auto"
+							width="10%" />
+						<column label="Nombre" sort="auto" width="40%" />
+						<column label="Tipo" width="12%" />
+						<column label="Asignado" width="10%" />
+					</columns>
+					<template name="model">
+						<row>
+							<label
+								value="@load(each.inicia) @converter('formatedDate', format ='dd/MM/yyyy')" />
+							<label
+								value="@load(each.finaliza) @converter('formatedDate', format='dd/MM/yyyy')" />
+							<label value="@load(each.nombre)" />
+							<label value="@load(each.tipo)" />
+							<label value="@load(each.asignado)" />
+						</row>
+					</template>
+				</grid>
+			</vbox>
+		</div>
+	</div>
+
 </vbox>
