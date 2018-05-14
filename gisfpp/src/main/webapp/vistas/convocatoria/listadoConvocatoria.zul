@@ -50,7 +50,7 @@
 							value="@load(each.fechaVencimiento) @converter('formatedDate', format ='dd/MM/yyyy')" />
 						<toolbarbutton
 							image="recursos/img/icon-preview.png" tooltiptext="Ver detalle"
-							onClick="@command('verIsfpp', idItem=each.id)" />
+							onClick="@command('verConvocatoria', conv=each)" />
 
 					</row>
 				</template>

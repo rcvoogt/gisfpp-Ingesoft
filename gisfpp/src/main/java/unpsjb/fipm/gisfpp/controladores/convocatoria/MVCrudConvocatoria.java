@@ -20,6 +20,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
@@ -42,6 +43,7 @@ import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVCrudConvocatoria {
@@ -57,8 +59,11 @@ public class MVCrudConvocatoria {
 	private boolean creando;
 	private boolean editando;
 	private boolean ver;
+	private boolean modoTab;
 	private HashMap<String, Object> args;
 	private String detalle;
+	private String volverA;
+	private String configCKEditor;
 
 	@Init
 	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
@@ -68,10 +73,26 @@ public class MVCrudConvocatoria {
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
-		isfpp = (Isfpp) args.get("isfpp");
+		
+		if (args == null) {
+			modoTab = false;
+			args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
+			volverA = args.get("volverA") == null? "" : (String) args.get("volverA");
+			Integer idConvocatoria = (Integer) args.get("convocatoria");
+			item = servicio.getInstancia(idConvocatoria);
+			detalle = item.getMensaje();
+			configCKEditor = "/recursos/js/ckeditor-config-readonly.js";
+		}
+		else {
+			modoTab = true;
+			isfpp = (Isfpp) args.get("isfpp");
+			detalle = "";
+			configCKEditor = "/recursos/js/ckeditor-config.js";
+		}
+		
 		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");
 		
-		detalle = (String) args.get("detalle");
+		
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
 			item = new Convocatoria(new Date(), null,detalle, isfpp,servUsuario.getUsuario(UtilSecurity.getNickName()));
@@ -80,13 +101,13 @@ public class MVCrudConvocatoria {
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
-			item = servicio.getInstancia((Integer) args.get("idItem"));
+			
 			creando = (ver = false);
 			editando = true;
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
-			item = servicio.getInstancia((Integer) args.get("idItem"));
+			
 			creando = (editando = false);
 			ver = true;
 		}
@@ -120,6 +141,10 @@ public class MVCrudConvocatoria {
 	public boolean isVer() {
 		return ver;
 	}
+	
+	public String getConfigCKEditor() {
+		return configCKEditor;
+	}
 
 	@Command("guardar")
 	@NotifyChange({ "item", "creando", "editando", "ver" })
@@ -151,15 +176,20 @@ public class MVCrudConvocatoria {
 
 	@Command("salir")
 	public void salir() {
-		Map<String, Object> map = new HashMap<>();
-		if(modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)){
-			map.put("actualizar", true);
-		}else{
-			map.put("actualizar", false);
+		if(modoTab) {
+			Map<String, Object> map = new HashMap<>();
+			if(modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)){
+				map.put("actualizar", true);
+			}else{
+				map.put("actualizar", false);
+			}
+			BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
+			Tab tab = (Tab) args.get("tab");
+			tab.close();
+		}else {
+			HashMap<String, Object> mapAux = new HashMap<>();
+			UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlVerConvocatoria", (String) args.get("volverA"), mapAux);
 		}
-		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
-		Tab tab = (Tab) args.get("tab");
-		tab.close();
 	}
 	
 	@Command("verDlgConvocado")

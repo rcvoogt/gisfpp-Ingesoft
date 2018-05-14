@@ -53,7 +53,7 @@
 			<label value="Mensaje" class="form-label" width="100%"/>
 			<ckeditor width="100%" value="@bind(vm.item.mensaje)"
 				disabled="@load((not vm.creando) and (not vm.editando))"
-					customConfigurationsPath="/recursos/js/ckeditor-config.js">
+					customConfigurationsPath="@load(vm.configCKEditor)">
 			</ckeditor>
 			
 			

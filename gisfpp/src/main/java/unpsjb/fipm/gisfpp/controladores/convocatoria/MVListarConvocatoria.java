@@ -55,9 +55,12 @@ public class MVListarConvocatoria {
 	}
 
 	@Command("verConvocatoria")
-	@NotifyChange("tabIsfppCreado")
-	public void verIsfpp(@BindingParam("idItem") Integer id) {
-		
+	public void verIsfpp(@BindingParam("conv") Convocatoria convActual) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("convocatoria", convActual.getId());
+		map.put("modo", UtilGisfpp.MOD_VER);
+		map.put("volverA", "/vistas/convocatoria/listadoConvocatoria.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListConvocatoria", "/vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
 	}
 	
 	@Command("dlgFiltro")

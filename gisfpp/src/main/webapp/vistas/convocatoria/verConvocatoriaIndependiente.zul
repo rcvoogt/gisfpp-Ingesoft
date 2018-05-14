@@ -1,0 +1,6 @@
+<div id="pnlVerConvocatoria" xmlns:n="native" class="panel panel-primary"
+	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true" style="margin-bottom: 2px;"
+	>
+		<include src="vistas/convocatoria/verCrearConvocatoria.zul"/>
+				
+</div>
