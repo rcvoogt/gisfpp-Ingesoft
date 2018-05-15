@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
@@ -22,7 +23,7 @@ public class MVListOfertasActividades {
 
 	private IServicioSubProyecto servSubProyecto;
 	private IServiciosProyecto servProyecto;
-	private List<SubProyecto> items;
+	private List<OfertaActividad> items;
 	private String tituloPanel;
 	private Logger log;
 	
@@ -31,12 +32,12 @@ public class MVListOfertasActividades {
 	public void init() throws Exception{
 		servSubProyecto = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
 		servProyecto = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
-		items = servSubProyecto.getOfertasActividades();
+		items = servProyecto.getAllOfertas();
 		tituloPanel ="Listado de Ofertas de Actividades.";
-		log = UtilGisfpp.getLogger();
+		log = UtilGisfpp.getLogger();	
 	}
 
-	public List<SubProyecto> getItems() {
+	public List<OfertaActividad> getItems() {
 		return items;
 	}
 

@@ -96,7 +96,8 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 
 	@Override
 	public List<OfertaActividad> getAllOfertas() {
-		String query = "select p from Proyecto as p  where p.estado = ?";
+		String query = "select new OfertaActividad(p,s) from Proyecto as p left join p.subProyectos as s where p.estado = ? ";
+		//String query = "select p,s from Proyecto as p join fetch p.subProyectos as s where p.estado = ?";
 		List<OfertaActividad> resultado;
 		try {
 			resultado = (List<OfertaActividad>) getHibernateTemplate().find(query,EstadoProyecto.ACTIVO);
