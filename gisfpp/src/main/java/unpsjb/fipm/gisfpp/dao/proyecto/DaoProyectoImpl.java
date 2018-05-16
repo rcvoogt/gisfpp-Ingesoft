@@ -102,16 +102,13 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 		List<OfertaActividad> resultado2 = new ArrayList<OfertaActividad>();
 		try {
 			resultado = (List<Proyecto>) getHibernateTemplate().find(query,EstadoProyecto.ACTIVO);
-			//resultado3 = (List<Proyecto>) getHibernateTemplate().find(query2,EstadoProyecto.ACTIVO);
 			if (resultado!= null && !resultado.isEmpty()) {
-				System.out.println("LA CANTIDAD DE PROYECTOS SON SUB ES DE: " + resultado.size());
 				//Eliminamos duplicados
 				Set<Proyecto> sinDuplicados = new HashSet<Proyecto>(resultado);
 				resultado.clear();
 				resultado.addAll(sinDuplicados);
 				//Reparamos los casos de proyectos con varios subproyectos)
 				for(Proyecto aux : resultado) {
-					System.out.println("LA CANTIDAD DE SUBPROYECTOS ES DE: " + aux.getSubProyectos().size());
 					if(aux.getSubProyectos().size() != 0) {
 						for(SubProyecto sAux : aux.getSubProyectos()) {
 							//Aca validar que el subProyecto siga vigente
