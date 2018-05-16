@@ -51,19 +51,34 @@ public class MVListOfertasActividades {
 	}
 	
 	@Command("tratarSP")
-	public void tratarSP(@BindingParam("item") SubProyecto arg1,
+	public void tratarSP(@BindingParam("item") OfertaActividad arg1,
 			@BindingParam("modo") String arg2) throws Exception {
-		try {
-			Proyecto perteneceA = servProyecto.getInstancia(arg1.getPerteneceA().getId());
-			Map<String, Object> args = new HashMap<String, Object>();
-			args.put("perteneceA", perteneceA);
-			args.put("idItem", arg1.getId());
-			args.put("modo", arg2);
-			args.put("volverA", "/vistas/proyecto/listaOfertaActividades.zul");
-			UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListOfertaActividades", "/vistas/proyecto/crudSubProyecto.zul", args);
-		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
-			throw e;
+		if(arg1.getSubProyecto() != null) {
+			try {
+				Proyecto perteneceA = servProyecto.getInstancia(arg1.getSubProyecto().getPerteneceA().getId());
+				Map<String, Object> args = new HashMap<String, Object>();
+				args.put("perteneceA", perteneceA);
+				args.put("idItem", arg1.getSubProyecto().getId());
+				args.put("modo", arg2);
+				args.put("volverA", "/vistas/proyecto/listaOfertaActividades.zul");
+				UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListOfertaActividades", "/vistas/proyecto/crudSubProyecto.zul", args);
+			} catch (Exception e) {
+				log.error(this.getClass().getName(), e);
+				throw e;
+			}
+		}else {
+			try {
+				//Proyecto perteneceA = servProyecto.getInstancia(arg1.getSubProyecto().getPerteneceA().getId());
+				Map<String, Object> args = new HashMap<String, Object>();
+				//args.put("perteneceA", perteneceA);
+				args.put("idItem", arg1.getProyecto().getId());
+				args.put("modo", arg2);
+				args.put("volverA", "/vistas/proyecto/listaOfertaActividades.zul");
+				UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListOfertaActividades", "/vistas/proyecto/crudProyecto.zul", args);
+			} catch (Exception e) {
+				log.error(this.getClass().getName(), e);
+				throw e;
+			}
 		}
 	}
 	
