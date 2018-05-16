@@ -222,6 +222,11 @@ public class Convocatoria implements Serializable {
 		return true;
 	}
 
+	public Convocable getConvocable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }// fin de la clase

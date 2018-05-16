@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.servicios;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,6 +20,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.jdbc.AssertionFailedException;
+
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
@@ -84,24 +88,24 @@ public class AsignarTest {
 
 	@Test
 	@Transactional
-	public void testCrearConvocatoria() {
-		try {
-			//assertNotNull(servConvocatoria.getInstancia(convocatoria.getId()));
+	public void testCrearConvocatoria() throws Exception {
+		Convocatoria convocatoria = servConvocatoria.getInstancia(this.convocatoria.getId());
+		assertEquals(servConvocatoria.getCantidadConvocados(convocatoria.getId()), convocados.size());
+		assertEquals(convocatoria.getConvocados().size(),convocados.size());
+		assertEquals(servConvocatoria.getConvocadosAceptadores(convocatoria.getId()).get(0),personaAcepto);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 	}
 
 
 	@Test
 	public void testAsignarPersona() throws Exception {
-		Convocatoria convocatoria = servConvocatoria.getInstancia(this.convocatoria.getId());
-		assertEquals(servConvocatoria.getCantidadConvocados(convocatoria.getId()), convocados.size());
-		assertEquals(convocatoria.getConvocados().size(),convocados.size());
-		assertEquals(servConvocatoria.getConvocadosAceptadores(convocatoria.getId()).size(),1);
 		
+		servConvocatoria.asignar(personaAcepto);
+		Convocatoria convocatoria = servConvocatoria.getInstancia(this.convocatoria.getId());
+		Convocable convocable;
+		convocable = convocatoria.getConvocable();
+		assertTrue(servConvocatoria.isAsignado(convocado.getPersona(),convocable));
 	}
 	@Test
 	public void testGetListado() {	

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.convocatoria.IDaoConvocatoria;
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -94,6 +95,15 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 		}
 			
 		return aceptadores;
+	}
+	@Override
+	public void asignar(Convocado personaAcepto) {
+		
+	}
+	@Override
+	public boolean isAsignado(PersonaFisica persona, Convocable convocable) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	
