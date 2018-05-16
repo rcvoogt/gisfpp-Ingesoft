@@ -31,6 +31,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -265,7 +266,7 @@ public class Proyecto implements Serializable {
 			return false;
 		return true;
 	}
-	
+	@Transactional
 	public List<PersonaFisica> getResponsables(){
 		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
 		for (MiembroStaffProyecto miembro : staff) {

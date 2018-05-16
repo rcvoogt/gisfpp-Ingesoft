@@ -87,10 +87,21 @@ public class MVInicio {
 		UtilGuiGisfpp.loadPnlCentral("vistas/persona/crudPersona.zul", argsLlamada);
 	}
 	
-	
+	/**
+	 * Metodo de prueba para probar diagolo
+	 */
 	@Command("verPantallaPracticantes")
 	public void verListaPracticantes() {
 		Window dlg = (Window) Executions.createComponents("vistas/proyecto/asignarPracticantesIsfpp.zul", null, null);
+		dlg.doModal();
+	}
+	/**
+	 * Metodo de prueba para probar dialogo
+	 */
+	@Command
+	("pruebaAgregarConvocados")
+	public void pruebaAgregarConvocados(){
+		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgAsignarConvocados.zul", null, null);
 		dlg.doModal();
 	}
 	
