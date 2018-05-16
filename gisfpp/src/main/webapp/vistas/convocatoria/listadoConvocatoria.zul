@@ -41,7 +41,7 @@
 				</columns>
 				<template name="model">
 					<row>
-						<label value="@load(each.isfpp.titulo)" />
+						<label value="@load(each.convocable.tipoConvocatoria)" />
 						<label
 							value="@load(each.usuarioOriginante.nickname)" />
 						<label

@@ -42,7 +42,7 @@ public class MVListarConvocatoria {
 		titulo = "Listado de Convocatorias";
 		if(args != null) {
 			item = (Convocable) args.get("masterId");
-			titulo += " a " + item.getTipo() + item.toString() ;
+			titulo += " a " + item.getTipoConvocatoria() + item.toString() ;
 		}
 		if(args == null && item == null) {
 			

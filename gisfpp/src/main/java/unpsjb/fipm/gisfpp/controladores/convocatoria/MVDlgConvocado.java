@@ -57,7 +57,8 @@ public class MVDlgConvocado {
 			listaPersonas = new ArrayList<>();
 			servicioPF = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
 			servicioStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
-			listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			//listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			listaStaff = servicioStaff.getListado();
 			thisDlg= (Window) Path.getComponent("/dlgConvocado");
 			args = (Map<String, Object>) Executions.getCurrent().getArg();
 			modo = (String) args.get("modo");

@@ -134,7 +134,6 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 		return convocados.size();
 	}
 
-	
 
 			
 }// fin de la clase

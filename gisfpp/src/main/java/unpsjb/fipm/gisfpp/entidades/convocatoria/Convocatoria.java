@@ -1,11 +1,8 @@
 package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,10 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 
 
 @Entity
@@ -60,18 +58,19 @@ public class Convocatoria implements Serializable {
 	private Usuario usuarioOriginante;
 	
 	
-	/*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "subproyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_subproyecto_convocatoria"))
-	private SubProyecto subproyecto;
+	private SubProyecto sub_proyecto;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "proyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_proyecto_convocatoria"))
-	private Proyecto proyecto;*/
+	private Proyecto proyecto;
 	
 	
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="convocatoria")
 	private Set<Convocado> convocados;
+	
 	
 	
 	public Convocatoria() {
@@ -81,13 +80,26 @@ public class Convocatoria implements Serializable {
 		convocados = new HashSet<Convocado>();
 	}
 
-	public Convocatoria(Date creacion, Date vencimiento, String detalle,Isfpp isfppPadre, Usuario usuario) {
+	
+	public Convocatoria(Date creacion, Date vencimiento, String detalle,Convocable convocable, Usuario usuario) {
+		
 		super();
+		System.out.println("ALGOOOOOOOO "+ convocable);
+		
 		this.usuarioOriginante = usuario;
 		this.fechaCreacion = (creacion==null)?new Date():creacion;
 		this.fechaVencimiento = (vencimiento==null)?new Date():vencimiento;
-		this.isfpp = isfppPadre;
 		convocados = new HashSet<Convocado>();
+		
+		if(convocable instanceof Isfpp){
+			this.isfpp = (Isfpp) convocable;
+		}
+		if(convocable instanceof Proyecto){
+			this.proyecto = (Proyecto) convocable;
+		}
+		if(convocable instanceof SubProyecto){
+			this.sub_proyecto = (SubProyecto) convocable;
+		}
 		
 	}
 	
@@ -137,14 +149,21 @@ public class Convocatoria implements Serializable {
 	}
 	
 	
-	
-	/*public SubProyecto getSubproyecto() {
-		return subproyecto;
+	public Convocable getConvocable() {
+		if(this.isfpp!=null)
+			return (Convocable) isfpp;
+		if(this.proyecto!=null)
+			return (Convocable) proyecto;
+		if(this.sub_proyecto!=null)
+			return (Convocable) sub_proyecto;
+		return null;
 	}
 
-	public Proyecto getProyecto() {
-		return proyecto;
-	}*/
+
+//	public void setConvocable(Convocable convocable) {
+//		this.convocable = convocable;
+//	}
+
 
 	public Isfpp getIsfpp() {
 		return isfpp;
@@ -153,6 +172,11 @@ public class Convocatoria implements Serializable {
 	public Usuario getUsuarioOriginante() {
 		return usuarioOriginante;
 	}
+		
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
 	public void setUsuarioOriginante(Usuario usuarioOriginante) {
 		this.usuarioOriginante = usuarioOriginante;
 	}

@@ -1,5 +1,6 @@
 <div id="pnlCrudProyecto" xmlns:n="native" class="panel panel-primary"
-	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true" style="margin-bottom: 2px;"
+	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true"
+	style="margin-bottom: 2px;"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudProyecto')">
 	<n:div class="panel-heading">
 		<n:h3 class="panel-title">
@@ -16,100 +17,141 @@
 					visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
 			<toolbar>
-				
-				<space bar="true" spacing="10px" visible="@load(btnNuevo.visible or btnEditar.visible)"/>
-				<toolbarbutton label=" Volver" disabled="@load(vm.creando or vm.editando)"
+
+
+				<toolbarbutton id="btnNuevaConvocatoria"
+					image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
+					tooltiptext="Nueva Convocatoria"
+					disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
+					class="btn btn-success btn-xs"
+					onClick="@command('nuevaConvocatoria')"
+					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and not vm.existeConvocatoriaAbierta)" />
+
+
+				<space bar="true" spacing="10px"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<toolbarbutton label=" Volver"
+					disabled="@load(vm.creando or vm.editando)"
 					class="btn btn-success btn-xs"
 					image="recursos/img/icon-arrow-left.png"
-					onClick="@command('volver')" tooltiptext="Volver al listado de Proyectos"/>
-				<toolbarbutton label="Salir" class="btn btn-success btn-xs"
-					image="recursos/img/icon-exit.png" disabled="@load(vm.creando or vm.editando)"
-						onClick="@command('salir')"/>	
+					onClick="@command('volver')"
+					tooltiptext="Volver al listado de Proyectos" />
+				<toolbarbutton label="Salir"
+					class="btn btn-success btn-xs" image="recursos/img/icon-exit.png"
+					disabled="@load(vm.creando or vm.editando)"
+					onClick="@command('salir')" />
+
 			</toolbar>
+
+
 			<tabpanels hflex="1" vflex="1">
 				<tabpanel id="tabDatosGenerales" vflex="1" hflex="1">
 					<grid hflex="1" vflex="1" sclass="fgrid">
 						<columns>
-							<column width="33%"/>
-							<column width="33%"/>
-							<column width="34%"/>
+							<column width="33%" />
+							<column width="33%" />
+							<column width="34%" />
 						</columns>
 						<rows vflex="true">
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
+
 								<div>
-									<label value="Codigo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.codigo)" width="95%" class="form-control"
-										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
+
+									<label value="Codigo"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.codigo)" width="95%" class="form-control"
+										maxlength="20"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 								<div>
-									<label value="Numero de Resolucion" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.resolucion)" width="95%" class="form-control"
-										maxlength="20" readonly="@load((not vm.creando) and (not vm.editando))" />
+									<label value="Numero de Resolucion"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.resolucion)" width="95%"
+										class="form-control" maxlength="20"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
 								<div>
-									<label value="Titulo" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.titulo)" width="95%" class="form-control"
-										maxlength="80" readonly="@load((not vm.creando) and (not vm.editando))" />
+									<label value="Titulo"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.titulo)" width="95%" class="form-control"
+										maxlength="80"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
 								<div>
-									<label value="Descripcion" class="form-label" width="45%"/>
-									<textbox value="@bind(vm.item.descripcion)" width="95%" class="form-control"
-										maxlength="500" cols="50" rows="4" 
-											readonly="@load((not vm.creando) and (not vm.editando))" />
+									<label value="Descripcion"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.descripcion)" width="95%"
+										class="form-control" maxlength="500" cols="50" rows="4"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
 								<div>
-									<label value="Tipo" class="form-label" width="45%"/>
-									<combobox model="@load(vm.tipos)" selectedItem="@bind(vm.item.tipo)"
-										disabled="@load((not vm.creando) and (not vm.editando))" width="45%">
-									<template name="model">
-										<comboitem
-											label="@load(each.descripcion)" />
-									</template>
-									</combobox>
-								</div>
-								<div>
-									<label value="Estado" class="form-label" width="45%"/>
-									<combobox model="@load(vm.estados)" selectedItem="@bind(vm.item.estado)"
-										disabled="@load((not vm.creando) and (not vm.editando) or (vm.modo eq 'NUEVO'))" 
+									<label value="Tipo"
+										class="form-label" width="45%" />
+									<combobox model="@load(vm.tipos)"
+										selectedItem="@bind(vm.item.tipo)"
+										disabled="@load((not vm.creando) and (not vm.editando))"
 										width="45%">
 										<template name="model">
 											<comboitem
-												label="@load(each.descripcion)" value="@load(each)"/>
+												label="@load(each.descripcion)" />
+										</template>
+									</combobox>
+								</div>
+								<div>
+									<label value="Estado"
+										class="form-label" width="45%" />
+									<combobox model="@load(vm.estados)"
+										selectedItem="@bind(vm.item.estado)"
+										disabled="@load((not vm.creando) and (not vm.editando) or (vm.modo eq 'NUEVO'))"
+										width="45%">
+										<template name="model">
+											<comboitem
+												label="@load(each.descripcion)" value="@load(each)" />
 										</template>
 									</combobox>
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
 							<row>
 								<div>
-									<label value="Fecha inicio" class="form-label" width="45%"/>
-									<datebox format="dd/MM/yyyy" buttonVisible="true"
-										value="@bind(vm.item.fecha_inicio)" width="35%"
-											disabled="@load((not vm.creando) and (not vm.editando))" />
-									</div>
+									<label value="Fecha inicio"
+										class="form-label" width="45%" />
+									<datebox format="dd/MM/yyyy"
+										buttonVisible="true" value="@bind(vm.item.fecha_inicio)"
+										width="35%"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
 								<div>
-									<label value="Fecha fin" class="form-label" width="45%"/>
-									<datebox format="dd/MM/yyyy" mold="rounded" buttonVisible="true"
+									<label value="Fecha fin"
+										class="form-label" width="45%" />
+									<datebox format="dd/MM/yyyy"
+										mold="rounded" buttonVisible="true"
 										value="@bind(vm.item.fecha_fin)" width="35%"
-											disabled="@load((not vm.creando) and (not vm.editando))" />
+										disabled="@load((not vm.creando) and (not vm.editando))" />
 								</div>
 							</row>
-							<row height="15px"/>
+							<row height="15px" />
 							<row spans="2">
 								<div>
-									<label value="Detalle" class="form-label" width="45%"/>
-									<ckeditor width="100%" value="@bind(vm.item.detalle)"
-											customConfigurationsPath="/recursos/js/ckeditor-config.js">
+									<label value="Detalle"
+										class="form-label" width="45%" />
+									<ckeditor width="100%"
+										value="@bind(vm.item.detalle)"
+										customConfigurationsPath="/recursos/js/ckeditor-config.js">
 									</ckeditor>
 								</div>
 							</row>
@@ -117,10 +159,11 @@
 					</grid>
 				</tabpanel>
 				<tabpanel id="tabStaff">
-					<include src="vistas/proyecto/listaStaffProyecto.zul"/>
+					<include
+						src="vistas/proyecto/listaStaffProyecto.zul" />
 				</tabpanel>
 				<tabpanel id="tabDemandantes">
-					<include src="vistas/proyecto/listaDemandantes.zul"/>
+					<include src="vistas/proyecto/listaDemandantes.zul" />
 				</tabpanel>
 				<tabpanel id="tabSubProyectos">
 					<include src="vistas/proyecto/listadoSP.zul" />

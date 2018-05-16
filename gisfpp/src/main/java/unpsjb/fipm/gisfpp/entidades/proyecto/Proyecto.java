@@ -32,6 +32,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
@@ -39,7 +41,7 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 @Table(name = "proyecto", indexes={@Index(name="uk_codigo", columnList="codigo", unique=true), 
 		@Index(name="uk_num_resolucion",columnList="num_resolucion", unique=true), 
 			@Index(name="uk_titulo",columnList="titulo", unique=true)})
-public class Proyecto implements Serializable {
+public class Proyecto implements Serializable, Convocable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -83,6 +85,9 @@ public class Proyecto implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private Set<SubProyecto> subProyectos;
 	
+	@OneToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
+	private List<Convocatoria> convocatorias;
+	
 	@ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId", foreignKey=@ForeignKey(name="fk_proyecto_demandante")), 
 		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_demandante")))
@@ -118,6 +123,16 @@ public class Proyecto implements Serializable {
 		this.staff = (staff==null)? new HashSet<>(): staff;
 	}
 
+	
+	public List<Convocatoria> getConvocatorias() {
+		return convocatorias;
+	}
+
+	public void setConvocatorias(List<Convocatoria> convocatorias) {
+		this.convocatorias = convocatorias;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -228,7 +243,7 @@ public class Proyecto implements Serializable {
 	public void setStaff(Set<MiembroStaffProyecto> staff) {
 		this.staff = staff;
 	}
-
+	
 	@AssertTrue(message = "La Fecha de finalizacion del proyecto debe ser posterior a la fecha de inicio.")
 	private boolean isFechaFinValida() {
 		if(fecha_inicio!=null && fecha_fin!=null){
@@ -274,6 +289,12 @@ public class Proyecto implements Serializable {
 			}
 		}
 		return resultado;
+	}
+
+	@Override
+	public String getTipoConvocatoria() throws Exception {
+		// TODO Auto-generated method stub
+		return "Proyecto: "+titulo;
 	}
 	
 }// Fin de la clase Entity Proyecto

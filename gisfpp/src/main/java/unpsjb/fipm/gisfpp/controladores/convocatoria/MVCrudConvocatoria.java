@@ -32,6 +32,7 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -54,7 +55,7 @@ public class MVCrudConvocatoria {
 	private IServicioUsuario servUsuario;
 	private GestorWorkflow gestorWkFl;
 	private IServiciosConvocatoria servicio;
-	private Isfpp isfpp;
+	private Convocable convocable;
 	private String modo;
 	private boolean creando;
 	private boolean editando;
@@ -72,20 +73,21 @@ public class MVCrudConvocatoria {
 		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
-		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
-		
+		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
+		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
+
 		if (args == null) {
 			modoTab = false;
 			args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 			volverA = args.get("volverA") == null? "" : (String) args.get("volverA");
 			Integer idConvocatoria = (Integer) args.get("convocatoria");
 			item = servicio.getInstancia(idConvocatoria);
-			detalle = item.getMensaje();
-			configCKEditor = "/recursos/js/ckeditor-config-readonly.js";
+
+			
 		}
 		else {
 			modoTab = true;
-			isfpp = (Isfpp) args.get("isfpp");
+			convocable = (Convocable) args.get("convocable");
 			detalle = "";
 			configCKEditor = "/recursos/js/ckeditor-config.js";
 		}
@@ -95,21 +97,24 @@ public class MVCrudConvocatoria {
 		
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
-			item = new Convocatoria(new Date(), null,detalle, isfpp,servUsuario.getUsuario(UtilSecurity.getNickName()));
+			item = new Convocatoria(new Date(), null,detalle, convocable,servUsuario.getUsuario(UtilSecurity.getNickName()));
 			creando = true;
 			editando = (ver = false);
+			configCKEditor = "/recursos/js/ckeditor-config.js";
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
 			
 			creando = (ver = false);
 			editando = true;
+			configCKEditor = "/recursos/js/ckeditor-config.js";
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
 			
 			creando = (editando = false);
 			ver = true;
+			configCKEditor = "/recursos/js/ckeditor-config-readonly.js";
 		}
 		}
 
