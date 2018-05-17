@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffProyecto;
@@ -83,6 +84,15 @@ public class ServiciosProyecto implements IServiciosProyecto {
 		this.dao = dao;
 	}
 	
+
+	@Override
+	public List<OfertaActividad> getAllOfertas() {
+		try {
+			return dao.getAllOfertas();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 	public List<Convocatoria> getConvocatorias(Integer idProyecto) throws Exception{
 		return dao.getConvocatorias(idProyecto);
