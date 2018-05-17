@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
 import unpsjb.fipm.gisfpp.util.GisfppException;
@@ -74,6 +75,15 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	@Autowired(required = true)
 	public void setDao(DaoProyecto dao) {
 		this.dao = dao;
+	}
+
+	@Override
+	public List<OfertaActividad> getAllOfertas() {
+		try {
+			return dao.getAllOfertas();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }// fin de la clase

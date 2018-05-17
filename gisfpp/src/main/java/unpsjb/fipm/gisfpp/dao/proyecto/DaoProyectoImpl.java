@@ -9,12 +9,13 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
-import unpsjb.fipm.gisfpp.entidades.persona.Persona;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto {
@@ -96,15 +97,28 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 
 	@Override
 	public List<OfertaActividad> getAllOfertas() {
-		String query = "select p from Proyecto as p  where p.estado = ?";
-		List<OfertaActividad> resultado;
+		String query = "select p from Proyecto as p left join fetch p.subProyectos where p.estado = ?";
+		List<Proyecto> resultado;
+		List<OfertaActividad> resultado2 = new ArrayList<OfertaActividad>();
 		try {
-			resultado = (List<OfertaActividad>) getHibernateTemplate().find(query,EstadoProyecto.ACTIVO);
+			resultado = (List<Proyecto>) getHibernateTemplate().find(query,EstadoProyecto.ACTIVO);
 			if (resultado!= null && !resultado.isEmpty()) {
-				Set<OfertaActividad> sinDuplicados = new HashSet<OfertaActividad>(resultado);
+				//Eliminamos duplicados
+				Set<Proyecto> sinDuplicados = new HashSet<Proyecto>(resultado);
 				resultado.clear();
 				resultado.addAll(sinDuplicados);
-				return resultado;
+				//Reparamos los casos de proyectos con varios subproyectos)
+				for(Proyecto aux : resultado) {
+					if(aux.getSubProyectos().size() != 0) {
+						for(SubProyecto sAux : aux.getSubProyectos()) {
+							//Aca validar que el subProyecto siga vigente
+							resultado2.add(new OfertaActividad(aux,sAux));
+						}
+					}else{
+						resultado2.add(new OfertaActividad(aux,null));
+					}
+				}
+				return resultado2;
 			}
 			return new ArrayList<OfertaActividad>();
 		} catch (Exception e) {
