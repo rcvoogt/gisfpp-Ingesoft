@@ -75,7 +75,7 @@ public class MVCrudIsfpp {
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		srvStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
 		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
-		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL +"/pnlCrudSP");
+		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		perteneceA = (SubProyecto) args.get("perteneceA");
 		modo = (String) args.get("modo");
 		switch (modo) {
@@ -417,7 +417,8 @@ public class MVCrudIsfpp {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudIsfpp.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "/vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "/vistas/convocatoria/verConvocatoriaIndependiente.zul",
+				map);
 		
 	}
 	
