@@ -213,15 +213,26 @@ public class MVCrudSubProyecto {
 	@Command("nuevaIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void nuevaIsfpp() {
-		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
-		tabIsfppCreado = true;
+//		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Isfpp", null);
+//		tabIsfppCreado = true;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("perteneceA", item);
+		map.put("modo", UtilGisfpp.MOD_NUEVO);
+		map.put("volverA", "/vistas/proyecto/crudSubProyecto.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
 	}
 
 	@Command("editarIsfpp")
 	@NotifyChange("tabIsfppCreado")
 	public void editarIsfpp(@BindingParam("idItem") Integer id) {
-		crearTab(UtilGisfpp.MOD_EDICION, "Editar Isfpp", id);
-		tabIsfppCreado = true;
+//		crearTab(UtilGisfpp.MOD_EDICION, "Editar Isfpp", id);
+//		tabIsfppCreado = true;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("perteneceA", item);
+		map.put("idItem", id);
+		map.put("modo", UtilGisfpp.MOD_EDICION);
+		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
 	}
 
 	@Command("verIsfpp")
@@ -231,10 +242,11 @@ public class MVCrudSubProyecto {
 //		tabIsfppCreado = true;
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("perteneceA", item);
-		map.put("Ver Isfpp", id);
+		map.put("idItem", id);
 		map.put("modo", UtilGisfpp.MOD_VER);
 		map.put("volverA", "/vistas/proyecto/crudSubProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudIsfpp.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
+		
 	}
 
 	@Command("eliminarIsfpp")
