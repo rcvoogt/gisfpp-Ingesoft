@@ -1,11 +1,10 @@
 package unpsjb.fipm.gisfpp.controladores.convocatoria;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 
@@ -19,29 +18,20 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Messagebox.Button;
-import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
-import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocado;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.ServiciosConvocado;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -53,6 +43,7 @@ public class MVCrudConvocatoria {
 	private Convocatoria item;
 
 	private IServicioUsuario servUsuario;
+	private IServiciosConvocado servConvocado;
 	private GestorWorkflow gestorWkFl;
 	private IServiciosConvocatoria servicio;
 	private Convocable convocable;
@@ -65,14 +56,17 @@ public class MVCrudConvocatoria {
 	private String detalle;
 	private String volverA;
 	private String configCKEditor;
+	private List<Convocado> convocados;
 
 	@Init
-	@NotifyChange({ "modo", "item", "creando", "editando", "ver" })
+	@NotifyChange({ "modo", "item", "creando", "editando", "ver"})
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
 		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
+		servConvocado = (IServiciosConvocado) SpringUtil.getBean("servConvocado");
+
 		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
 		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 
@@ -82,7 +76,7 @@ public class MVCrudConvocatoria {
 			volverA = args.get("volverA") == null? "" : (String) args.get("volverA");
 			Integer idConvocatoria = (Integer) args.get("convocatoria");
 			item = servicio.getInstancia(idConvocatoria);
-
+			convocados = servConvocado.getConvocados(item.getId());
 			
 		}
 		else {
@@ -118,6 +112,8 @@ public class MVCrudConvocatoria {
 		}
 		}
 
+
+
 	}
 
 	public Convocatoria getItem() {
@@ -128,11 +124,20 @@ public class MVCrudConvocatoria {
 		return modo;
 	}
 	
-	/*public List<Convocado> getConvocados() {
-		List<Convocado> convocados = new ArrayList<Convocado>();
-		convocados.addAll(item.getConvocados());
-		return convocados;
-	}*/
+	public List<Convocado> getConvocados() {
+//		List<Convocado> convocados = new ArrayList<Convocado>();
+//		convocados.addAll(item.getConvocados());
+		List<Convocado> convocados;
+		try {
+			Integer idConvocatoria = (Integer) args.get("convocatoria");
+			item = servicio.getInstancia(idConvocatoria);
+			convocados = servConvocado.getConvocados(item.getId());
+			return convocados;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 
 	public boolean isCreando() {
@@ -224,7 +229,16 @@ public class MVCrudConvocatoria {
 		
 	}
 	
-	
+	@Command("verDlgAsignarConvocados")
+	public void verDlgConvocado(){
+		System.out.println("Entra a cargar convocado");
+		Map<String, Object> args = new HashMap<>();
+		args.put("convocatoria", item);
+		args.put("convocable", item.getConvocable());
+		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgAsignarConvocados.zul", null, args);
+		dlg.doModal();
+		System.out.println("Sale de  cargar convocado");
+	}
 	
 	
 	
@@ -254,9 +268,7 @@ public class MVCrudConvocatoria {
 		}	
 		
 		
-	}
-	
-	
+	}	
 	
 	private String getTituloNewIsfpp(){
 		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
@@ -277,8 +289,13 @@ public class MVCrudConvocatoria {
 	}
 	
 	
+	
 	private MVCrudConvocatoria getAutoReferencia(){
 		return this;
+	}
+	
+	public boolean isVencida() {
+		return true;
 	}
 
 }// fin de la clase

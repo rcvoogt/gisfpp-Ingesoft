@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.entidades.proyecto;
+package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 public enum ERespuestaConvocado {
 	

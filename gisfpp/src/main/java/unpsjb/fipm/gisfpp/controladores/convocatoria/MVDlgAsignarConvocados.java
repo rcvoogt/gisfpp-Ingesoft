@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.controladores.convocatoria;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.idom.Item;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zhtml.Messagebox;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.CheckEvent;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listcell;
@@ -38,6 +40,7 @@ public class MVDlgAsignarConvocados {
 	private Convocado convocado;
 	private Set practicantes;
 	private Boolean checked;
+	private Map<String, Object> args;
 
 	@Init
 	@NotifyChange("convocados")
@@ -45,17 +48,26 @@ public class MVDlgAsignarConvocados {
 		// String titulo = item.getTituloConvocable();
 		// servConvocado = (IServiciosConvocado) SpringUtil.getBean("servConvocado");
 		// practicantes = new HashSet<Convocado>();
+		args = (Map<String, Object>) Executions.getCurrent().getArg();
 		servConvocatoria = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
-		convocados = new ArrayList<Convocado>();
-		PersonaFisica p1 = new PersonaFisica("Jose Arza");
-		p1.setId(1);
-		convocados.add(new Convocado(null, p1));
-		PersonaFisica p2 = new PersonaFisica("Juan Arza");
-		p2.setId(2);
-		convocados.add(new Convocado(null, p2));
-		PersonaFisica p3 = new PersonaFisica("Pablo Martinez");
-		p3.setId(3);
-		convocados.add(new Convocado(null, p3));
+		convocatoria = (Convocatoria) args.get("convocatoria");
+		//convocable = args.get("convocable");
+		try {
+			convocados = servConvocatoria.getConvocadosAceptadores(convocatoria.getId());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		convocados = new ArrayList<Convocado>();
+//		PersonaFisica p1 = new PersonaFisica("Jose Arza");
+//		p1.setId(1);
+//		convocados.add(new Convocado(null, p1));
+//		PersonaFisica p2 = new PersonaFisica("Juan Arza");
+//		p2.setId(2);
+//		convocados.add(new Convocado(null, p2));
+//		PersonaFisica p3 = new PersonaFisica("Pablo Martinez");
+//		p3.setId(3);
+//		convocados.add(new Convocado(null, p3));
 		list = new ListModelList<Convocado>();
 		list.addAll(convocados);
 		list.setMultiple(true);

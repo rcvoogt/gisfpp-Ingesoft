@@ -88,7 +88,6 @@ public class Convocatoria implements Serializable {
 	public Convocatoria(Date creacion, Date vencimiento, String detalle,Convocable convocable, Usuario usuario) {
 		
 		super();
-		System.out.println("ALGOOOOOOOO "+ convocable);
 		
 		this.usuarioOriginante = usuario;
 		this.fechaCreacion = (creacion==null)?new Date():creacion;

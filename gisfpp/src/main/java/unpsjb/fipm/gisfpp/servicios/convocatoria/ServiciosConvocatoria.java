@@ -16,9 +16,9 @@ import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -44,7 +44,7 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Convocatoria instancia) throws Exception {
 		int idConvocatoria = dao.crear(instancia);
-		servGWkFl.instanciarProceso("Convocatoria", "Crear", UtilSecurity.getNickName(), String.valueOf(idConvocatoria));
+		//servGWkFl.instanciarProceso("Convocatoria", "Crear", UtilSecurity.getNickName(), String.valueOf(idConvocatoria));
 		return idConvocatoria;
 	}
 	@Override
@@ -117,10 +117,11 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	}
 	@Override
 	public void asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception {
+		Proyecto proyecto = (Proyecto) convocable;
+		Proyecto p = servProyecto.getInstancia(proyecto.getId());
 		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString())) {
-			servProyecto.agregarMiembrosStaff(convertir(practicantes),(Proyecto) convocable);			
-		}
-		
+			servProyecto.agregarMiembrosStaff(convertir(practicantes),p);			
+		}	
 	}
 	private Set<PersonaFisica> convertir(Set<Convocado> practicantes) {
 		Set<PersonaFisica> personas = new HashSet<PersonaFisica>();

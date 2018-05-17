@@ -81,6 +81,7 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
+		getHibernateTemplate().initialize(result.get(0).getConvocados());
 		if (result != null && !result.isEmpty()) {
 			for (Convocado convocado : result.get(0).getConvocados()) {
 				getHibernateTemplate().initialize(convocado.getPersona().getIdentificadores());
