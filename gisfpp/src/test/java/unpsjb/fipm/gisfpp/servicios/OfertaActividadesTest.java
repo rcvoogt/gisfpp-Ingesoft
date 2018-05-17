@@ -17,7 +17,6 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosOfertaActividades;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 
 
@@ -27,9 +26,7 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 }) 
 public class OfertaActividadesTest {
 
-		
-	@Autowired
-    private IServiciosOfertaActividades servOfertaActividades;
+	
 	@Autowired
 	private IServiciosProyecto servProyecto;
 	
@@ -63,7 +60,7 @@ public class OfertaActividadesTest {
 	
 	@Test
 	public void test() {
-		List<OfertaActividad> ofertas = servOfertaActividades.getAllOfertas();
+		List<OfertaActividad> ofertas = servProyecto.getAllOfertas();
 		assertEquals(2,ofertas.size());
 		//assertNull(ofertas);
 	}
