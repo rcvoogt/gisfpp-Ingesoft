@@ -3,7 +3,6 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +23,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 
 @Entity
 @Table(name = "sub_proyecto")
@@ -155,8 +155,7 @@ public class SubProyecto implements Serializable, Convocable {
 
 	@Override
 	public String getTipoConvocatoria() throws Exception {
-		// TODO Auto-generated method stub
-		return "Subproyecto: "+titulo;
+		return TipoConvocatoria.SUBPROYECTO.toString();
 	}
 	
 	

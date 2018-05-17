@@ -28,6 +28,7 @@
 							role="button" aria-expanded="false">
 								Actividades <n:span class="caret"></n:span></n:a>
 						<n:ul class="dropdown-menu" role="menu">
+								<n:li><a onClick="@command('pruebaAgregarConvocados')">Prueba Agregar Convocados</a></n:li>
 								<n:li><a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a></n:li>
 								<n:li><a onClick="@command('verListaIsfpps')">Listado de Isfpps</a></n:li>
 								<n:li><a onClick="@command('verListaConvocatorias')">Listado de Convocatorias</a></n:li>

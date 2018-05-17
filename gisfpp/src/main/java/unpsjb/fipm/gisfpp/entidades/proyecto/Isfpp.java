@@ -33,6 +33,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
@@ -278,8 +279,7 @@ public class Isfpp implements Serializable, Convocable {
 
 	@Override
 	public String getTipoConvocatoria() throws Exception {
-		// TODO Auto-generated method stub
-		return "Isfpp: "+titulo;
+		return TipoConvocatoria.ISFPP.toString();
 	}
 	
 }// fin de la clase

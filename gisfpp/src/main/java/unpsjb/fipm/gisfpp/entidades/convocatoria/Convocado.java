@@ -80,6 +80,11 @@ public class Convocado implements Serializable {
 	}
 
 	
+	
+	public void setConvocatoria(Convocatoria convocatoria) {
+		this.convocatoria = convocatoria;
+	}
+
 	public void setRespuesta(ERespuestaConvocado respuesta) {
 		this.respuesta = respuesta;
 	}

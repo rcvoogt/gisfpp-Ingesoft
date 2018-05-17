@@ -57,6 +57,10 @@ public class Convocatoria implements Serializable {
 	@JoinColumn(name = "usuarioId", nullable = true, foreignKey=@ForeignKey(name="fk_usuario_convocatoria"))
 	private Usuario usuarioOriginante;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "convocableId",
+//    foreignKey = @ForeignKey(name = "PERSON_ID_FK")
+//	private Convocable convocable;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "subproyectoId", nullable = true, foreignKey=@ForeignKey(name="fk_subproyecto_convocatoria"))
@@ -240,6 +244,8 @@ public class Convocatoria implements Serializable {
 			return false;
 		return true;
 	}
+
+
 
 	
 	
