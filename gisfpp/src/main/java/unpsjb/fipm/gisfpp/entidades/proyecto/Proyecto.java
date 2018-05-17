@@ -31,21 +31,23 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
-@Table(name = "proyecto", indexes={@Index(name="uk_codigo", columnList="codigo", unique=true), 
-		@Index(name="uk_num_resolucion",columnList="num_resolucion", unique=true), 
-			@Index(name="uk_titulo",columnList="titulo", unique=true)})
+@Table(name = "proyecto", indexes = { @Index(name = "uk_codigo", columnList = "codigo", unique = true),
+		@Index(name = "uk_num_resolucion", columnList = "num_resolucion", unique = true),
+		@Index(name = "uk_titulo", columnList = "titulo", unique = true) })
 public class Proyecto implements Serializable, Convocable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id 
+	@Id
 	@Column(name = "idProyecto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -84,21 +86,20 @@ public class Proyecto implements Serializable, Convocable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, mappedBy = "perteneceA")
 	private Set<SubProyecto> subProyectos;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proyecto")
 	private List<Convocatoria> convocatorias;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="demandantes", joinColumns=@JoinColumn(name="proyectoId", foreignKey=@ForeignKey(name="fk_proyecto_demandante")), 
-		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_demandante")))
-	private Set <Persona> demandantes; 
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "demandantes", joinColumns = @JoinColumn(name = "proyectoId", foreignKey = @ForeignKey(name = "fk_proyecto_demandante")), inverseJoinColumns = @JoinColumn(name = "personaId", foreignKey = @ForeignKey(name = "fk_persona_demandante")))
+	private Set<Persona> demandantes;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proyecto")
 	private Set<MiembroStaffProyecto> staff;
 
 	protected Proyecto() {
-		tipo=TipoProyecto.INTERNO;
-		estado=EstadoProyecto.GENERADO;
+		tipo = TipoProyecto.INTERNO;
+		estado = EstadoProyecto.GENERADO;
 		fecha_inicio = new Date();
 		fecha_fin = new Date();
 		subProyectos = new HashSet<SubProyecto>();
@@ -107,23 +108,22 @@ public class Proyecto implements Serializable, Convocable {
 	}
 
 	public Proyecto(String codigo, String resolucion, String titulo, String descripcion, TipoProyecto tipo,
-			Date fecha_inicio, Date fecha_fin, String detalle, Set<SubProyecto> subProyectos, 
-				Set<Persona> demandantes, Set<MiembroStaffProyecto> staff) {
+			Date fecha_inicio, Date fecha_fin, String detalle, Set<SubProyecto> subProyectos, Set<Persona> demandantes,
+			Set<MiembroStaffProyecto> staff) {
 		this.codigo = codigo;
 		this.resolucion = resolucion;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-		this.tipo = (tipo==null)?TipoProyecto.INTERNO:tipo;
+		this.tipo = (tipo == null) ? TipoProyecto.INTERNO : tipo;
 		this.estado = EstadoProyecto.GENERADO;
-		this.fecha_inicio = (fecha_inicio==null)?new Date():fecha_inicio;
-		this.fecha_fin = (fecha_fin==null)?new Date():fecha_fin;
+		this.fecha_inicio = (fecha_inicio == null) ? new Date() : fecha_inicio;
+		this.fecha_fin = (fecha_fin == null) ? new Date() : fecha_fin;
 		this.detalle = detalle;
-		this.subProyectos =(subProyectos==null)? new HashSet<>(): subProyectos;
-		this.demandantes = (demandantes==null)? new HashSet<>(): demandantes;
-		this.staff = (staff==null)? new HashSet<>(): staff;
+		this.subProyectos = (subProyectos == null) ? new HashSet<>() : subProyectos;
+		this.demandantes = (demandantes == null) ? new HashSet<>() : demandantes;
+		this.staff = (staff == null) ? new HashSet<>() : staff;
 	}
 
-	
 	public List<Convocatoria> getConvocatorias() {
 		return convocatorias;
 	}
@@ -131,8 +131,7 @@ public class Proyecto implements Serializable, Convocable {
 	public void setConvocatorias(List<Convocatoria> convocatorias) {
 		this.convocatorias = convocatorias;
 	}
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -186,16 +185,16 @@ public class Proyecto implements Serializable, Convocable {
 		this.tipo = tipo;
 	}
 
-	@NotNull(message="Debe especificarle una \"fecha de inicio\" al Proyecto.")
+	@NotNull(message = "Debe especificarle una \"fecha de inicio\" al Proyecto.")
 	public Date getFecha_inicio() {
 		return fecha_inicio;
 	}
-	
+
 	public void setFecha_inicio(Date fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	@NotNull(message="Debe especificarle una \"fecha de finalización\" al Proyecto.")
+	@NotNull(message = "Debe especificarle una \"fecha de finalizaciï¿½n\" al Proyecto.")
 	public Date getFecha_fin() {
 		return fecha_fin;
 	}
@@ -227,7 +226,7 @@ public class Proyecto implements Serializable, Convocable {
 	public void setSubProyectos(Set<SubProyecto> subProyectos) {
 		this.subProyectos = subProyectos;
 	}
-	
+
 	public Set<Persona> getDemandantes() {
 		return demandantes;
 	}
@@ -235,7 +234,7 @@ public class Proyecto implements Serializable, Convocable {
 	public void setDemandantes(Set<Persona> demandantes) {
 		this.demandantes = demandantes;
 	}
-	
+
 	public Set<MiembroStaffProyecto> getStaff() {
 		return staff;
 	}
@@ -243,10 +242,10 @@ public class Proyecto implements Serializable, Convocable {
 	public void setStaff(Set<MiembroStaffProyecto> staff) {
 		this.staff = staff;
 	}
-	
+
 	@AssertTrue(message = "La Fecha de finalizacion del proyecto debe ser posterior a la fecha de inicio.")
 	private boolean isFechaFinValida() {
-		if(fecha_inicio!=null && fecha_fin!=null){
+		if (fecha_inicio != null && fecha_fin != null) {
 			if (fecha_fin.after(fecha_inicio)) {
 				return true;
 			} else {
@@ -280,11 +279,12 @@ public class Proyecto implements Serializable, Convocable {
 			return false;
 		return true;
 	}
-	
-	public List<PersonaFisica> getResponsables(){
+
+	@Transactional
+	public List<PersonaFisica> getResponsables() {
 		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
 		for (MiembroStaffProyecto miembro : staff) {
-			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE_PROYECTO){
+			if (miembro.getRol() == ERolStaffProyecto.RESPONSABLE_PROYECTO) {
 				resultado.add(miembro.getMiembro());
 			}
 		}
@@ -294,7 +294,6 @@ public class Proyecto implements Serializable, Convocable {
 	@Override
 	public String getTipoConvocatoria() throws Exception {
 		// TODO Auto-generated method stub
-		return "Proyecto: "+titulo;
+		return TipoConvocatoria.PROYECTO.toString();
 	}
-	
 }// Fin de la clase Entity Proyecto

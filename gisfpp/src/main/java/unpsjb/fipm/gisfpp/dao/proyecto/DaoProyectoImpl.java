@@ -5,10 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
@@ -115,6 +118,25 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 				return resultado;
 			}
 			return new ArrayList<Convocatoria>();
+	}
+
+	/**
+	 * Consulta usando la clase Query de hibernate
+	 */
+	@Override
+	@Transactional
+	public List<Proyecto> getProyectosActivos() {
+		String hql =  "select p "
+					+ "from Proyecto p "
+					+ "where p.estado = :estado ";
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		query.setParameter("estado", EstadoProyecto.ACTIVO);
+		List<Proyecto> proyectosActivos = query.list();
+		for(Proyecto p: proyectosActivos) {
+			getHibernateTemplate().initialize(p.getStaff());
+
+		}
+		return proyectosActivos;
 	}	
 	
 	

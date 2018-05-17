@@ -90,4 +90,9 @@ public class ServicioUsuario implements IServicioUsuario {
 		this.dao = dao;
 	}
 
+	@Override
+	public List<Usuario> recuperarTodo() throws Exception {
+		return dao.recuperarTodo();
+	}
+
 }// fin de la clase

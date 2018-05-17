@@ -10,6 +10,8 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 public interface DaoProyecto extends DaoGenerico<Proyecto, Integer> {
 
 	public List<Convocatoria> getConvocatorias(Integer idProyecto) throws Exception;
+
+	public List<Proyecto> getProyectosActivos();
 	
 
 }

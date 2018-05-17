@@ -11,6 +11,9 @@ public interface IServicioUsuario extends IServicioGenerico<Usuario, Integer> {
 
 	public List<Usuario> getListadoAutorizado() throws Exception; 
 	
+	public List<Usuario> recuperarTodo() throws Exception; 
+
+	
 	public Usuario getUsuario(PersonaFisica persona) throws Exception;
 
 	public Usuario getUsuario(String nickname) throws Exception;
