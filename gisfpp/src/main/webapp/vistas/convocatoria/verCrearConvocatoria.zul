@@ -12,8 +12,8 @@
 		</a>
 		<a class="btn btn-success btn-xs"
 			image="recursos/img/icon-plus-sign.png"
-			visible="true))"
-			disabled="@load((not vm.creando) and (not vm.editando))"
+			
+			disabled="@load((vm.creando) or ( vm.editando))"
 			tooltiptext="Asignar un convocado que acepto la convocatoria"
 			onClick="@command('verDlgAsignarConvocados')">
 			Asignar Convocados
@@ -23,7 +23,7 @@
 	<div>
 		<grid hflex="1" vflex="1"
 			style="border: 2px solid #80ccff; border-radius: 5px;"
-			model="@load(vm.convocados)" mold="paging" autopaging="true"
+			model="@load(vm.item.convocados)" mold="paging" autopaging="true"
 			emptyMessage="No hay ningún Convocado para esta convocatoria.">
 			<columns>
 				<column label="Nombre y Apellido" width="35%" />

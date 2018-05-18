@@ -1,14 +1,11 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Set;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-=======
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
->>>>>>> OfertaActividades
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;

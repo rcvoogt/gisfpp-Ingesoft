@@ -130,8 +130,8 @@ public class DaoConvocado extends HibernateDaoSupport implements IDaoConvocado {
 	@Override
 	public List<Convocado> recuperarConvocados(Integer id) throws Exception {
 		String query = "select c "
-					 + "from Convocado as c"
-					 + "where c.convocatoriaId = ?";
+					 + "from Convocado as c "
+					 + "where c.convocatoria.id = ?";
 		try {
 			return (List<Convocado>) getHibernateTemplate().find(query, id);
 		} catch (Exception e) {
