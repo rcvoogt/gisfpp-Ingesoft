@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.servicios.persona;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.dao.persona.IDaoUsuario;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
+import unpsjb.fipm.gisfpp.util.security.DetalleUsuario;
 import unpsjb.fipm.gisfpp.util.security.RolUsuario;
 
 @Service("servUsuario")
@@ -18,6 +20,7 @@ import unpsjb.fipm.gisfpp.util.security.RolUsuario;
 public class ServicioUsuario implements IServicioUsuario {
 
 	private IDaoUsuario dao;
+	
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
@@ -49,6 +52,13 @@ public class ServicioUsuario implements IServicioUsuario {
 	public List<Usuario> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly = true)
+	public List<Usuario> getListadoAutorizado() throws Exception {
+		return null;
+		
+	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = true)
@@ -67,10 +77,22 @@ public class ServicioUsuario implements IServicioUsuario {
 	public List<RolUsuario> getRoles(Usuario usuario) throws Exception {
 		return dao.getRoles(usuario);
 	}
+	
+	
+	@Override
+	@Transactional(value="gisfpp", readOnly = true)
+	public List<Usuario> getUsuariosAptos(String operacion) throws Exception {
+		return dao.getUsuariosAptos(operacion);
+	}
 
 	@Autowired(required = true)
 	public void setDao(IDaoUsuario dao) {
 		this.dao = dao;
+	}
+
+	@Override
+	public List<Usuario> recuperarTodo() throws Exception {
+		return dao.recuperarTodo();
 	}
 
 }// fin de la clase

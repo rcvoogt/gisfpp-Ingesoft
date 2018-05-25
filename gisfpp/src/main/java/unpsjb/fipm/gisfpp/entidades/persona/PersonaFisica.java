@@ -74,6 +74,12 @@ public class PersonaFisica extends Persona {
 		this.usuario = usuario;
 	}
 	
+	public void agregarDatoDeContacto(DatoDeContacto datoDeContacto) {
+		if(datoDeContacto == null)
+			throw new NullPointerException();
+		this.datosDeContacto.add(datoDeContacto);
+	}
+	
 	//Este metodo "get" se implementa solo con fines de
 	//validacion de datos (mediante Hibernate Validator), en este caso para validar la existencia
 	//de al menos 1 e-mail al crear o editar una Persona Fisica y

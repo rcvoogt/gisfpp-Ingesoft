@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.controladores.proyecto;
+package unpsjb.fipm.gisfpp.controladores.convocatoria;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +17,9 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
@@ -29,7 +29,11 @@ import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
-
+/**
+ * El listado se hace con respecto a miembros del staff. Deberían ser con personas cargadas en el sistema.
+ * @author isaia
+ *
+ */
 public class MVDlgConvocado {
 
 	private StaffFI item;
@@ -57,7 +61,8 @@ public class MVDlgConvocado {
 			listaPersonas = new ArrayList<>();
 			servicioPF = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
 			servicioStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
-			listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			//listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			listaStaff = servicioStaff.getListado();
 			thisDlg= (Window) Path.getComponent("/dlgConvocado");
 			args = (Map<String, Object>) Executions.getCurrent().getArg();
 			modo = (String) args.get("modo");

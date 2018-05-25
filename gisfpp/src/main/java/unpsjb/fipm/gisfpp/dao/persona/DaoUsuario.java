@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.Operaciones;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -123,5 +124,40 @@ public class DaoUsuario extends HibernateDaoSupport implements IDaoUsuario {
 		}
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> getUsuariosAptos(String operacion) throws Exception {
+		int idOperacion = Operaciones.valueOf(operacion).ordinal();
+		List<Usuario> result = new ArrayList<Usuario>();
+		//Todos los usuarios que tengan los roles
+		//	que tengan permitida esta operacion
+		String queryNativo = "select u.id, u.nickname from roles_usuario as ru "
+				+ 				"inner join permisos as perm on perm.rol = ru.rol "
+				+ 				"inner join persona as p on p.idPersona = ru.personaId "
+				+ 				"inner join usuario as u on u.personaId = p.idPersona "
+				+ 			"where perm.operacion = " + idOperacion;
+		List<Object[]> resultQuery;
+		
+		
+		try {
+			resultQuery = getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(queryNativo)
+				.list();
+		}catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
+		
+		if (resultQuery != null && !resultQuery.isEmpty()) {
+			
+			for(Object[] resultadoQuery : resultQuery) {
+				result.add(new Usuario((Integer)resultadoQuery[0],(String) resultadoQuery[1]));
+				
+			}
+		}
+		
+		return result;
+	}
+	
 
 }// fin de la clase

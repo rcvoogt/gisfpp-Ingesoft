@@ -249,13 +249,18 @@ public class MVBandejaWorkflow {
 		resultado.addAll(tareasDelegadas);
 		resultado.addAll(tareasPropuestas);
 		
-		Collections.sort(resultado, new Comparator<InfoTarea>() {
-
-			@Override
-			public int compare(InfoTarea o1, InfoTarea o2) {
-				return (o1.getFecha_vencimiento().compareTo(o2.getFecha_vencimiento()));
-			}
-		});
+		if(!resultado.isEmpty()) {
+			Collections.sort(resultado, new Comparator<InfoTarea>() {
+	
+				@Override
+				public int compare(InfoTarea o1, InfoTarea o2) {
+					if(o2 == null) 
+						return -1;
+					
+					return (o1.getFecha_vencimiento().compareTo(o2.getFecha_vencimiento()));
+				}
+			});
+		}
 		return resultado;
 	}
 	

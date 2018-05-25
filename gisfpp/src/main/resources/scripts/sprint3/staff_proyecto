@@ -1,0 +1,10 @@
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (2, 'RESPONSABLE_PROYECTO', 1,1);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (3, 'RESPONSABLE_PROYECTO', 2,2);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (4, 'RESPONSABLE_PROYECTO', 3,3);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (5, 'RESPONSABLE_PROYECTO', 4,4);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (6, 'RESPONSABLE_PROYECTO', 5,5);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (7, 'RESPONSABLE_PROYECTO', 6,6);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (8, 'RESPONSABLE_PROYECTO', 7,7);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (9, 'RESPONSABLE_PROYECTO', 8,8);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (10, 'RESPONSABLE_PROYECTO', 9,9);
+insert into staff_proyecto (idStaffProyecto, rol, personaId, proyectoId) values (1, 'RESPONSABLE_PROYECTO', 10,10);

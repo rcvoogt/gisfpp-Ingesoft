@@ -14,13 +14,13 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Window;
 
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocado;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocado;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflowImp;
@@ -55,9 +55,9 @@ public class VMDlgResponderConvocatoria {
 		
 		String business = instancia.getBusinessKey();
 		Integer integ = Integer.parseInt(business);
+		System.out.println("id:"+ integ);
 		convocatoria = servConvocatoria.getInstancia( integ);
-		System.out.println("prueba");
-		
+		System.out.println("convocatoria:" + convocatoria.getId());
 		
 		
 	}
@@ -71,7 +71,12 @@ public class VMDlgResponderConvocatoria {
 	public void completarRespuesta(@BindingParam("respuesta") boolean arg1) throws GisfppWorkflowException, InterruptedException{
 		Map<String, Object> args = new HashMap<String, Object>();
 		
-		//guardarRespuesta();
+		try {
+			guardarRespuesta(arg1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		servGTareas.tratarTarea(tarea, args);
 		
@@ -92,12 +97,15 @@ public class VMDlgResponderConvocatoria {
 	
 	private void guardarRespuesta(boolean respuesta) throws Exception {
 		Convocado convocado = servConvocado.getConvocado(asignado, convocatoria);
+		System.out.println("convocatoria: " + convocatoria.getId() +" asignado:"+ asignado + " respuesta:" + respuesta);
+		
 		if(respuesta) {
 			convocado.setRespuesta(ERespuestaConvocado.ACEPTADA);
 		}else {
 			convocado.setRespuesta(ERespuestaConvocado.RECHAZADA);
 		}
 		servConvocado.editar(convocado);
+		
 		
 		
 	}
@@ -107,7 +115,7 @@ public class VMDlgResponderConvocatoria {
 		dlg.detach();
 	}
 	
-	public String getTitulo() {
-		return this.convocatoria.getIsfpp().getTitulo();
+	public String getTitulo() throws Exception {
+		return this.convocatoria.getConvocable().getTitulo();
 	}
 }

@@ -24,14 +24,14 @@
 				<columns>
 					<column label="Titulo Sub-Proyecto" width="40%" sort="auto"/>
 					<column label="Cod. Proyecto" width="14%"/>
-					<column label="Título Proyecto" width="40%" sort="auto"/>
+					<column label="Titulo Proyecto" width="40%" sort="auto"/>
 					<column label="Ver" width="6%" align="center"/>
 				</columns>
 				<template name="model">
 					<row>
-						<label value="@load(each.titulo)"/>
-						<label value="@load(each.perteneceA.codigo)"/>
-						<label value="@load(each.perteneceA.titulo)"/>
+						<label value="@load(each.subProyecto.titulo)"/>
+						<label value="@load(each.proyecto.codigo)"/>
+						<label value="@load(each.proyecto.titulo)"/>
 						<toolbarbutton image="recursos/img/icon-preview.png" onClick="@command('tratarSP', item = each, modo='VER')"
 							tooltiptext="Ver detalle del Sub-Proyecto" disabled="${not sec:isAutorizado('CONSULTAR_SUBPROYECTO') }"/>
 					</row>

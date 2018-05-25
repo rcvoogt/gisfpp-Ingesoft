@@ -46,7 +46,7 @@ public abstract class Persona implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_dato_contacto"))
-	private List<DatoDeContacto> datosDeContacto;
+	protected List<DatoDeContacto> datosDeContacto;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_identificador"))

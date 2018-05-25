@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.entidades.proyecto;
+package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 import java.io.Serializable;
 
@@ -79,16 +79,24 @@ public class Convocado implements Serializable {
 	}
 
 	
+	
+	public void setConvocatoria(Convocatoria convocatoria) {
+		this.convocatoria = convocatoria;
+	}
+
 	public void setRespuesta(ERespuestaConvocado respuesta) {
 		this.respuesta = respuesta;
 	}
 
+	/*
+	 * Como la entidad aun no fue persistida cuando se crea el convocado, no tiene ID, por lo tanto con el metodo standard retorna siempre el mismo valor. 
+	 * Por lo tanto, para este caso se va a utilizar el hash de la persona, que debe estar persisitida en la base de datos con un id cargado
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return this.getPersona().getId();
 	}
 
 	@Override
@@ -116,7 +124,10 @@ public class Convocado implements Serializable {
 		this.aceptado = aceptado;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.getPersona().getNombre();
+	}
 	
 	
 	
