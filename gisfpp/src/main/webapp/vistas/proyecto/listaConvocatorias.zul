@@ -1,0 +1,31 @@
+<zk>
+	<window id="dlgLkpConvocatoria" title="Lista de Convocatorias"
+		sizable="true" border="normal" width="800px" vflex="true"
+		closable="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgConvocatorias')">
+		<vbox height="400px" hflex="true" spacing="6px">
+			<grid hflex="true" vflex="true"
+				style="border: 2px solid #80ccff; border-radius: 5px;"
+				model="@load(vm.resultado)" emptyMessage="@load(vm.mensaje)">
+				<columns sizable="true">
+					<column label="Nombre Isfpp" sort="auto"
+						width="60%" />
+					<column label="Mensaje" width="40%" sort="auto"  />
+				</columns>
+				<template name="model">
+					<row>
+						<label value="@load(each.isfpp.titulo)"/>
+						<label value="@load(each.mensaje)" />
+					</row>
+				</template>
+			</grid>
+			<label
+				value="Doble click en el nombre de la Persona para seleccionarla"
+				hflex="true"
+				style="color: #0000ff; font-size: 10px; font-style: italic;" />
+			<toolbarbutton image="recursos/img/icon-save.png"
+				label="Finalizar" class="btn btn-success btn-xs"
+				onClick="@command('finalizar')" />
+		</vbox>
+	</window>
+</zk>

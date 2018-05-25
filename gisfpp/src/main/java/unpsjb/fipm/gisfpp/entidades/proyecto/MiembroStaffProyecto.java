@@ -89,36 +89,33 @@ public class MiembroStaffProyecto implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((miembro == null) ? 0 : miembro.getId());
-		result = prime * result + ((rol == null) ? 0 : rol.hashCode());
+		result = prime * result + ((miembro == null) ? 0 : miembro.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (!(obj instanceof MiembroStaffProyecto)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		MiembroStaffProyecto other = (MiembroStaffProyecto) obj;
 		if (miembro == null) {
-			if (other.miembro != null) {
+			if (other.miembro != null)
 				return false;
-			}
-		} else if (!miembro.getId().equals(other.getMiembro().getId())) {
+		} else if (!miembro.equals(other.miembro))
 			return false;
-		}
-		if (rol != other.rol) {
-			return false;
-		}
 		return true;
 	}
 
+
+	
+
+	
+
+	
 		
 		
 }//fin de la clase

@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.servicios.convocatoria;
 
 import java.util.List;
+import java.util.Set;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
@@ -23,7 +24,7 @@ public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, 
 	
 	public List<Convocado> getConvocadosAceptadores(Integer idConvocatoria) throws Exception;
 
-	public void asignar(Convocado personaAcepto);
+	public void asignar(Convocado personaAcepto) throws Exception;
 
 	/**
 	 * 
@@ -31,5 +32,7 @@ public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, 
 	 * @param convocable
 	 * @return true si la persona esta asignada al convocable
 	 */
-	public boolean isAsignado(PersonaFisica persona, Convocable convocable);	
+	public boolean isAsignado(PersonaFisica persona, Convocable convocable) throws Exception;
+
+	public void asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception;	
 }

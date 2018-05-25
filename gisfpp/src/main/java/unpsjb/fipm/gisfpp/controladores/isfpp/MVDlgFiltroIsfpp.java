@@ -31,6 +31,7 @@ public class MVDlgFiltroIsfpp {
 	private EEstadosIsfpp estado;
 	private IServicioSubProyecto srvSubProyecto;
 	private IServiciosProyecto srvProyecto;
+	private String filtro;
 
 	@Init
 	public void init() {
@@ -61,12 +62,15 @@ public class MVDlgFiltroIsfpp {
 		}*/
 		if (proyecto != null) {
 			filtro = filtro.and(item -> item.getPerteneceA().getPerteneceA().equals(proyecto));
+			System.out.println("Se filtro por proyecto "+ proyecto.getTitulo());
 		}
 		if (subProyecto != null) {
 			filtro = filtro.and(item -> item.getPerteneceA().equals(subProyecto));
+			System.out.println("Se filtro por subproyecto "+ subProyecto.getTitulo());
 		}
 		if (estado != null) {
 			filtro = filtro.and(item -> item.getEstado().equals(estado));
+			System.out.println("Se filtro por estado "+ estado.getTitulo());
 		}
 		return filtro;
 	}

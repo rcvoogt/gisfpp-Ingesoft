@@ -1,62 +1,80 @@
-<vbox viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVCrudConvocatoria')" 
-	spacing="6px" hflex="true" vflex="true" 
-	
-	>
-		  <div class="btn-toolbar pull-right">
-			<a class="btn btn-success btn-xs" image="recursos/img/icon-plus-sign.png"
-				disabled="@load((not vm.creando) and (not vm.editando))" tooltiptext="Agregar un nuevo convocado"
-					onClick="@command('verDlgConvocado', modo='NUEVO')"> Agregar</a>
-		</div>
-		
-		<div>
-			<grid hflex="1" vflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
-				model="@load(vm.item.convocados)" mold="paging" autopaging="true"
-				 emptyMessage="No hay ningún Convocado para esta convocatoria.">
-				 <columns>
-				 	<column label="Nombre y Apellido"  width="35%"/>
-				 	<column label="DNI" width="15%"/>
-				 	<column label="EMAIL" width="30%"/>
-				 	<column label="Quitar" width="12%" align="center"/>
-				 </columns>
-				<template name="model">
-					<row>
-						<label value="@load(each.persona.nombre)"/>
-						<label value="@command('buscarDNI',each.persona)"/>
-						<label value="@command('buscarEmail',each.persona)"/>
-						
-						<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Quitar miembro del Staff"
-							disabled="@load((not vm.creando) and (not vm.editando))"
-								onClick="@command('quitarConvocado', itemConvocado=each)"/>
-					</row>
-				</template>
-			</grid>
-		</div>
-		<div>
+
+<vbox
+	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVCrudConvocatoria')"
+	spacing="6px" hflex="true" vflex="true">
+	<div class="btn-toolbar pull-right">
+		<a class="btn btn-success btn-xs"
+			image="recursos/img/icon-plus-sign.png"
+			visible="true"
+			disabled="@load((not vm.creando) and (not vm.editando))"
+			tooltiptext="Agregar un nuevo convocado"
+			onClick="@command('verDlgConvocado', modo='NUEVO')">
+			Agregar
+		</a>
+		<a class="btn btn-success btn-xs"
+			image="recursos/img/icon-plus-sign.png"
+			
+			disabled="@load((vm.creando) or ( vm.editando))"
+			tooltiptext="Asignar un convocado que acepto la convocatoria"
+			onClick="@command('verDlgAsignarConvocados')">
+			Asignar Convocados
+		</a>
+	</div>
+
+	<div >
+		<grid hflex="1" vflex="1"
+			style="border: 2px solid #80ccff; border-radius: 5px;"
+			model="@load(vm.item.convocados)" mold="paging" autopaging="true"
+			emptyMessage="No hay ningún Convocado para esta convocatoria.">
+			<columns>
+				<column label="Nombre y Apellido" width="35%" />
+				<column label="DNI" width="15%" />
+				<column label="EMAIL" width="30%" />
+				<column label="Quitar" width="12%" align="center" />
+			</columns>
+			<template name="model">
+				<row>
+					<label value="@load(each.persona.nombre)" />
+					<label value="@command('buscarDNI',each.persona)" />
+					<label value="@command('buscarEmail',each.persona)" />
+
+					<toolbarbutton image="recursos/img/icon-trash.png"
+						tooltiptext="Quitar miembro del Staff"
+						disabled="@load((not vm.creando) and (not vm.editando))"
+						onClick="@command('quitarConvocado', itemConvocado=each)" />
+				</row>
+			</template>
+		</grid>
+	</div>
+	<div>
+		<hlayout hflex="1">
+			<vlayout hflex="1">
+				<label value="Fecha Vencimiento" class="form-label"
+					width="25%" />
+				<datebox value="@bind(vm.item.fechaVencimiento)"
+					buttonVisible="true" width="35%" format="dd/MM/yyyy"
+					disabled="@load((not vm.creando) and (not vm.editando))" />
+			</vlayout>
 			<hlayout hflex="1">
-				<vlayout hflex="1">
-					<label value="Fecha Vencimiento"
-						class="form-label" width="25%" />
-					<datebox value="@bind(vm.item.fechaVencimiento)"
-						buttonVisible="true" width="35%" format="dd/MM/yyyy"
-						disabled="@load((not vm.creando) and (not vm.editando))" />
-				</vlayout >	
-				<vlayout hflex="1">
-					<button  label="Iniciar Convocatoria" onClick="@command('iniciarConvocatoria')" 
-						disabled="@load((not vm.creando) and (not vm.editando))" />
-					<button  image="recursos/img/icon-exit.png" class="btn btn-success btn-xs"
-					 label="Salir" onClick="@command('salir')" 
-					 disabled="@load(vm.creando or vm.editando)"/>
-				</vlayout >	
+				<button label="Iniciar Convocatoria"
+					class="btn btn-info btn-xs pull-right"
+					onClick="@command('iniciarConvocatoria')"
+					disabled="@load((not vm.creando) and (not vm.editando))" />
+				<button image="recursos/img/icon-exit.png"
+					class="btn btn-info btn-xs pull-right" label="Salir"
+					onClick="@command('salir')"
+					disabled="@load(vm.creando or vm.editando)" />
 			</hlayout>
-		</div>
-		<div>
-			<label value="Mensaje" class="form-label" width="100%"/>
-			<ckeditor width="100%" value="@bind(vm.item.mensaje)"
-				disabled="@load((not vm.creando) and (not vm.editando))"
-					customConfigurationsPath="@load(vm.configCKEditor)">
-			</ckeditor>
-			
-			
-		</div>
-	
+		</hlayout>
+	</div>
+	<div>
+		<label value="Mensaje" class="form-label" width="100%" />
+		<ckeditor width="100%" value="@bind(vm.item.mensaje)"
+			disabled="@load((not vm.creando) and (not vm.editando))"
+			customConfigurationsPath="@load(vm.configCKEditor)">
+		</ckeditor>
+
+
+	</div>
+
 </vbox>

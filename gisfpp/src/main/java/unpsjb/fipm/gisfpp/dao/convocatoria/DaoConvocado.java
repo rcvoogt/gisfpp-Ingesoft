@@ -13,13 +13,13 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 import unpsjb.fipm.gisfpp.entidades.persona.TDatosContacto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
@@ -125,6 +125,19 @@ public class DaoConvocado extends HibernateDaoSupport implements IDaoConvocado {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public List<Convocado> recuperarConvocados(Integer id) throws Exception {
+		String query = "select c "
+					 + "from Convocado as c "
+					 + "where c.convocatoria.id = ?";
+		try {
+			return (List<Convocado>) getHibernateTemplate().find(query, id);
+		} catch (Exception e) {
+			log.error(this.getClass().getName(), e);
+			throw e;
+		}
 	}
 
 	

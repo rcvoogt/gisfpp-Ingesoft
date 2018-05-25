@@ -1,6 +1,5 @@
 package unpsjb.fipm.gisfpp.controladores.isfpp;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,8 +14,10 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -29,16 +30,21 @@ public class MVListarIsfpp {
 	private ServiciosIsfpp servicio;
 	private Logger log = UtilGisfpp.getLogger();
 	private String titulo;
-	private MVListarIsfpp autoRef;//autoreferencia utilizada en metodo eliminarIsfpp
+	private String filtro;
+	private MVListarIsfpp autoRef;// autoreferencia utilizada en metodo
+									// eliminarIsfpp
+	private Proyecto proyecto;
+	private SubProyecto subProyecto;
+	private EEstadosIsfpp estado;
 
 	@Init
-	@NotifyChange({"titulo","listaIsfpps"})
+	@NotifyChange({ "titulo", "listaIsfpps", "filtro" })
 	public void init() throws Exception {
 		try {
 			servicio = (ServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 			recuperarTodo();
 			titulo = "Listado de Isfpps";
-			autoRef= this;
+			autoRef = this;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -65,7 +71,6 @@ public class MVListarIsfpp {
 		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlListaIsfpps");
 	}
 
-	
 	@Command("verIsfpp")
 	public void verIsfpp(@BindingParam("item") Isfpp item) {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
@@ -73,9 +78,8 @@ public class MVListarIsfpp {
 		map.put("modo", UtilGisfpp.MOD_VER);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaIsfpps", "vistas/isfpp/verIsfpp.zul", map);
 	}
-	
 
-	//Inicio Bloque "Aplicacion Filtro de Listado"
+	// Inicio Bloque "Aplicacion Filtro de Listado"
 	@Command("dlgFiltro")
 	public void verDlgFiltro() {
 		HashMap<String, Object> map = new HashMap<>();
@@ -85,7 +89,7 @@ public class MVListarIsfpp {
 	}
 
 	@GlobalCommand("retornoDlgFiltroIsfpp")
-	@NotifyChange({ "listaIsfpps", "filtrado", "titulo" })
+	@NotifyChange({ "listaIsfpps", "filtrado", "titulo", "filtro" })
 	public void retornoDlgFiltroIsfpp(@BindingParam("listConFiltro") List<Isfpp> arg1) {
 		// si el listado no tiene un filtro aplicado, mantenemos una referencia
 		// a dicho listado original, para luego recuperarlo
@@ -95,23 +99,53 @@ public class MVListarIsfpp {
 		listaIsfpps = arg1;
 		listadoFiltrado = true;
 		titulo = "Listado Filtrado";
+		@SuppressWarnings("unchecked")
+		HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
+				.getAttribute("argUltFiltroIsfpps");
+		if (map != null) {
+			proyecto = (Proyecto) map.get("proyecto");
+			subProyecto = (SubProyecto) map.get("subProyecto");
+			estado = (EEstadosIsfpp) map.get("estado");
+			filtro = getFiltro();
+		}
+		
+		
 	}
 
 	@Command("quitarFiltro")
-	@NotifyChange({ "listaIsfpps", "filtrado", "titulo" })
+	@NotifyChange({ "listaIsfpps", "filtrado", "titulo", "filtro" })
 	public void quitarFiltro() {
 		listaIsfpps = temp;
 		listadoFiltrado = false;
 		titulo = "Listado de Isfpps";
 		// Limpiamos los argumentos de listadoFiltrado de la sesion.
 		Sessions.getCurrent().setAttribute("argUltFiltroIsfpps", null);
+		filtro = "";
 	}
+
 	public boolean isFiltrado() {
 		return listadoFiltrado;
 	}
 
 	public String getTitulo() {
 		return titulo;
+	}
+
+
+	public String getFiltro() {
+		String filtros= "";
+		if (proyecto != null)
+			filtros+= "Proyecto: "+proyecto.getTitulo()+"\n";
+		if (subProyecto != null)
+			filtros+="SubProyecto: "+subProyecto.getTitulo()+"\n";
+		if (estado != null)
+			filtros+="Estado: "+estado.getTitulo()+"\n";
+
+		return filtros;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
 	}
 
 }

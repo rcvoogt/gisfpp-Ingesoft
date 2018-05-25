@@ -16,7 +16,7 @@ import org.zkoss.zul.Window;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocado;
@@ -115,7 +115,7 @@ public class VMDlgResponderConvocatoria {
 		dlg.detach();
 	}
 	
-	public String getTitulo() {
-		return this.convocatoria.getIsfpp().getTitulo();
+	public String getTitulo() throws Exception {
+		return this.convocatoria.getConvocable().getTitulo();
 	}
 }

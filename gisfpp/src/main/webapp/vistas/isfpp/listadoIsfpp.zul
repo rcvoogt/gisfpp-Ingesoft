@@ -6,11 +6,16 @@
 		<n:h3 class="panel-title">
 			<label value="@load(vm.titulo)" style="font-size: 14px;" />
 		</n:h3>
+		<n:h3 class="panel-title">
+			<label value="@load(vm.filtro)" style="font-size: 14px;" />
+		</n:h3>
+		
 	</div>
 	<div class="panel-body" vflex="true">
 		<vbox hflex="true" spacing="5px" vflex="true">
 			<n:div class="btn-toolbar pull-right">
 				<n:div class="btn-group">
+
 					<a image="recursos/img/icon-filter.png"
 						class="btn btn-success btn-sm" onClick="@command('dlgFiltro')"
 						tooltiptext="Aplicar filtros al Listado">
@@ -29,6 +34,7 @@
 				style="border: 2px solid #80ccff; border-radius: 5px;"
 				emptyMessage="Este Sub-Proyecto no tiene Isfpp's asignadas."
 				model="@load(vm.listaIsfpps)">
+			
 				<columns>
 					<column label="Id." width="7%" />
 					<column label="Titulo" width="40%"

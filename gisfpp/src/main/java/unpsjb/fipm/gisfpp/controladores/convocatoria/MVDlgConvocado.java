@@ -29,7 +29,11 @@ import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
-
+/**
+ * El listado se hace con respecto a miembros del staff. Deberían ser con personas cargadas en el sistema.
+ * @author isaia
+ *
+ */
 public class MVDlgConvocado {
 
 	private StaffFI item;
@@ -57,7 +61,8 @@ public class MVDlgConvocado {
 			listaPersonas = new ArrayList<>();
 			servicioPF = (IServicioPF) SpringUtil.getBean("servPersonaFisica");
 			servicioStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
-			listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			//listaStaff = servicioStaff.getMiembroPorRol(ECargosStaffFi.ALUMNO);
+			listaStaff = servicioStaff.getListado();
 			thisDlg= (Window) Path.getComponent("/dlgConvocado");
 			args = (Map<String, Object>) Executions.getCurrent().getArg();
 			modo = (String) args.get("modo");

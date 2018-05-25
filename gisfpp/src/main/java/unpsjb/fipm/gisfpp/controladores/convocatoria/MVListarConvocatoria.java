@@ -35,14 +35,14 @@ public class MVListarConvocatoria {
 
 	@SuppressWarnings("unchecked")
 	@Init
-	@NotifyChange({ "modo", "titulo", "creando", "editando", "ver" })
+	@NotifyChange({ "modo", "titulo", "creando", "editando", "ver" ,"convocatorias"})
 	public void init() throws Exception {
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsListarConvocatoria");
 		titulo = "Listado de Convocatorias";
 		if(args != null) {
 			item = (Convocable) args.get("masterId");
-			titulo += " a " + item.getTipo() + item.toString() ;
+			titulo += " a " + item.getTipoConvocatoria() + item.toString() ;
 		}
 		if(args == null && item == null) {
 			
@@ -55,7 +55,7 @@ public class MVListarConvocatoria {
 	}
 
 	@Command("verConvocatoria")
-	public void verIsfpp(@BindingParam("conv") Convocatoria convActual) {
+	public void verConvocatoria(@BindingParam("conv") Convocatoria convActual) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("convocatoria", convActual.getId());
 		map.put("modo", UtilGisfpp.MOD_VER);

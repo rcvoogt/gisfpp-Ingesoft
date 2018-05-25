@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import unpsjb.fipm.gisfpp.entidades.Operaciones;
 import unpsjb.fipm.gisfpp.entidades.Permiso;
 import unpsjb.fipm.gisfpp.entidades.Roles;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoPermisosImp extends HibernateDaoSupport implements DaoPermisos {

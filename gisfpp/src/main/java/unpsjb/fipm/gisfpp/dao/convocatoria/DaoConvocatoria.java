@@ -73,14 +73,21 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 
 	@Override
 	public Convocatoria recuperarxId(Integer id) throws DataAccessException {
-		String query = "select convocatoria from Convocatoria as convocatoria left join fetch convocatoria.convocados where convocatoria.id = ?";
+		String query = "select convocatoria "
+					 + "from Convocatoria as convocatoria "
+					 + "left outer join fetch convocatoria.isfpp "
+					 + "left outer join fetch convocatoria.sub_proyecto "
+					 + "left outer join fetch convocatoria.proyecto "
+					 + "where convocatoria.id = ?";
 		List<Convocatoria> result;
+		Convocatoria convocatoria;
 		try {
 			result = (List<Convocatoria>) getHibernateTemplate().find(query, id);
 		} catch (Exception e) {
-			log.error(this.getClass().getName(), e);
+			//log.error(this.getClass().getName(), e);
 			throw e;
 		}
+		getHibernateTemplate().initialize(result.get(0).getConvocados());
 		if (result != null && !result.isEmpty()) {
 			for (Convocado convocado : result.get(0).getConvocados()) {
 				getHibernateTemplate().initialize(convocado.getPersona().getIdentificadores());
@@ -134,7 +141,6 @@ public class DaoConvocatoria extends HibernateDaoSupport implements IDaoConvocat
 		return convocados.size();
 	}
 
-	
 
 			
 }// fin de la clase

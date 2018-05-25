@@ -92,6 +92,12 @@ public class ServiciosConvocado implements IServiciosConvocado{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Convocado> getConvocados(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		List<Convocado> convocados = dao.recuperarConvocados(id);
+		return convocados;
+	}
 	
 
 	}// fin de la clase

@@ -21,9 +21,13 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
+
 @Entity
 @Table(name = "sub_proyecto")
-public class SubProyecto implements Serializable {
+public class SubProyecto implements Serializable, Convocable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +38,9 @@ public class SubProyecto implements Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "proyectoId", nullable = false, foreignKey=@ForeignKey(name="fk_proyecto_subproyecto"))
 	private Proyecto perteneceA;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= CascadeType.ALL, orphanRemoval=true, mappedBy="sub_proyecto")
+	private List<Convocatoria> convocatorias;
 
 	@Column(length = 80, name = "titulo", nullable = false)
 	private String titulo;
@@ -59,6 +66,17 @@ public class SubProyecto implements Serializable {
 		this.instanciasIsfpp = new ArrayList<>();
 	}
 
+	
+	
+	public List<Convocatoria> getConvocatorias() {
+		return convocatorias;
+	}
+
+	public void setConvocatorias(List<Convocatoria> convocatorias) {
+		this.convocatorias = convocatorias;
+	}
+	
+	
 	public Integer getId() {
 		return Id;
 	}
@@ -133,6 +151,11 @@ public class SubProyecto implements Serializable {
 		} else if (!Id.equals(other.Id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String getTipoConvocatoria() throws Exception {
+		return TipoConvocatoria.SUBPROYECTO.toString();
 	}
 	
 	

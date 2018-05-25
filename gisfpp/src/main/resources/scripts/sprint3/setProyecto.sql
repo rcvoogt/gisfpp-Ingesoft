@@ -1,5 +1,5 @@
 INSERT INTO `proyecto`(`idProyecto`, `codigo`, `descripcion`, `detalle`, `estado`,
-`fecha_fin`, `fecha_inicio`, `num_resolucion`, `tipo`, `titulo`)
+ `fecha_inicio`, `fecha_fin`, `num_resolucion`, `tipo`, `titulo`)
 VALUES (1,1425,'Proyecto concluido Nº1','Datos para pruebas de aceptación ','CONCLUIDO' ,'2017-03-01' ,'2017-09-01' ,'Resolucion Nº 0001', 'EXTENSION' ,'Sistema Monitoreo invernáculo'),
 (2,9115,'Proyecto concluido Nº2','Datos para pruebas de aceptación','CONCLUIDO' ,'2017-03-01' ,'2017-09-01' ,'Resolucion Nº 0002', 'EXTENSION' ,'Sistema en Grid para cultivos'),
 (3,8926,'Proyecto concluido Nº3','Datos para pruebas de aceptación','CONCLUIDO','2017-03-01' ,'2017-09-01' ,'Resolucion Nº 0003', 'EXTENSION' ,'CORREL. GEOLÓGICAS Y PALEOMAG'),

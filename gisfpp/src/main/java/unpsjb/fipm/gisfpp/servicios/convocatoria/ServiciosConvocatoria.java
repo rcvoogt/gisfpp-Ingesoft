@@ -1,7 +1,9 @@
 package unpsjb.fipm.gisfpp.servicios.convocatoria;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,27 +12,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.convocatoria.IDaoConvocatoria;
-import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
+import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.ERespuestaConvocado;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
-import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
-import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
-import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorMotorBpm;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
-import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 @Service("servConvocatoria")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServiciosConvocatoria implements IServiciosConvocatoria {
-	
+	@Autowired
+	private IServiciosProyecto servProyecto;
 	@Autowired
 	private IDaoConvocatoria dao;
 	@Autowired
@@ -97,15 +98,40 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 		return aceptadores;
 	}
 	@Override
-	public void asignar(Convocado personaAcepto) {
-		
+	@Transactional(value="gisfpp", readOnly = false)
+	public void asignar(Convocado personaAcepto) throws Exception {
+		Convocable convocable = personaAcepto.getConvocatoria().getConvocable();
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString())) {
+			servProyecto.agregarMiembroStaff(personaAcepto.getPersona(),(Proyecto) convocable);			
+		}
 	}
 	@Override
-	public boolean isAsignado(PersonaFisica persona, Convocable convocable) {
-		// TODO Auto-generated method stub
-		return true;
+	public boolean isAsignado(PersonaFisica persona, Convocable convocable) throws Exception {
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString())) {
+			MiembroStaffProyecto miembro = new MiembroStaffProyecto();
+			miembro.setMiembro(persona);
+			Proyecto proyecto = (Proyecto) convocable;	
+			return proyecto.getStaff().contains(miembro);
+		}
+		return false;
+	}
+	@Override
+	public void asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception {
+		Proyecto proyecto = (Proyecto) convocable;
+		Proyecto p = servProyecto.getInstancia(proyecto.getId());
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString())) {
+			servProyecto.agregarMiembrosStaff(convertir(practicantes),p);			
+		}	
+	}
+	private Set<PersonaFisica> convertir(Set<Convocado> practicantes) {
+		Set<PersonaFisica> personas = new HashSet<PersonaFisica>();
+		for(Convocado practicante: practicantes) {
+			personas.add(practicante.getPersona());
+		}
+		return personas;
 	}
 	
+
 	
 	
 	}// fin de la clase
