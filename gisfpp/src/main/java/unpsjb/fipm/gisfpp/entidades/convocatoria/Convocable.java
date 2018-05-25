@@ -8,4 +8,6 @@ public interface Convocable {
 	
 	public String getTipoConvocatoria() throws Exception ;
 	
+	public String getTitulo() throws Exception ;
+	
 }

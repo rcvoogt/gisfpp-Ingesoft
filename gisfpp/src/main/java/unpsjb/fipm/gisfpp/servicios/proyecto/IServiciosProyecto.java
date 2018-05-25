@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Set;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+
+import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
 public interface IServiciosProyecto extends IServicioGenerico<Proyecto, Integer> {
+	
+	public List<OfertaActividad> getAllOfertas();
 
 	public List<Proyecto> getProyectosActivos() throws Exception;
 	/**

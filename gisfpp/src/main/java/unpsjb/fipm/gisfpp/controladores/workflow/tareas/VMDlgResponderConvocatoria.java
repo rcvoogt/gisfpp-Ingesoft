@@ -115,7 +115,7 @@ public class VMDlgResponderConvocatoria {
 		dlg.detach();
 	}
 	
-	public String getTitulo() {
-		return this.convocatoria.getIsfpp().getTitulo();
+	public String getTitulo() throws Exception {
+		return this.convocatoria.getConvocable().getTitulo();
 	}
 }

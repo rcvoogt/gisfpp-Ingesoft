@@ -66,26 +66,27 @@ public class MVCrudConvocatoria {
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		servConvocado = (IServiciosConvocado) SpringUtil.getBean("servConvocado");
+		Integer idConvocatoria = null;
 
-		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
-		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
+		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
+		//args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 
 		if (args == null) {
 			modoTab = false;
 			args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 			volverA = args.get("volverA") == null? "" : (String) args.get("volverA");
-			Integer idConvocatoria = (Integer) args.get("convocatoria");
-			item = servicio.getInstancia(idConvocatoria);
-			convocados = servConvocado.getConvocados(item.getId());			
+			idConvocatoria = (Integer) args.get("convocatoria");
+			
+			
+			
 		}
 		else {
 			modoTab = true;
-			convocable = (Convocable) args.get("convocable");
 			detalle = "";
 			configCKEditor = "/recursos/js/ckeditor-config.js";
 		}
-		
-		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");		
+		convocable = (Convocable) args.get("convocable");
+		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");
 		
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
@@ -100,6 +101,7 @@ public class MVCrudConvocatoria {
 			creando = (ver = false);
 			editando = true;
 			configCKEditor = "/recursos/js/ckeditor-config.js";
+			item = servicio.getInstancia(idConvocatoria);
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -107,6 +109,7 @@ public class MVCrudConvocatoria {
 			creando = (editando = false);
 			ver = true;
 			configCKEditor = "/recursos/js/ckeditor-config-readonly.js";
+			item = servicio.getInstancia(idConvocatoria);
 		}
 		}
 
@@ -126,9 +129,13 @@ public class MVCrudConvocatoria {
 //		List<Convocado> convocados = new ArrayList<Convocado>();
 //		convocados.addAll(item.getConvocados());
 		List<Convocado> convocados;
+		if(item == null){
+			System.out.println("es null el item");
+		}
+			
 		try {
 			Integer idConvocatoria = (Integer) args.get("convocatoria");
-			item = servicio.getInstancia(idConvocatoria);
+			
 			convocados = servConvocado.getConvocados(item.getId());
 			return convocados;
 		} catch (Exception e) {
@@ -167,7 +174,7 @@ public class MVCrudConvocatoria {
 			creando = editando = false;
 			ver=true;
 		} catch (ConstraintViolationException cve) {
-			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validaciï¿½n de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
 			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
@@ -253,7 +260,7 @@ public class MVCrudConvocatoria {
 			creando = editando = false;
 			ver=true;
 		} catch (ConstraintViolationException cve) {
-			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validaciï¿½n de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
 			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
