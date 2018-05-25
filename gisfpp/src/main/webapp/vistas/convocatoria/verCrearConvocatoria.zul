@@ -1,3 +1,4 @@
+
 <vbox
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVCrudConvocatoria')"
 	spacing="6px" hflex="true" vflex="true">
@@ -20,7 +21,7 @@
 		</a>
 	</div>
 
-	<div>
+	<div >
 		<grid hflex="1" vflex="1"
 			style="border: 2px solid #80ccff; border-radius: 5px;"
 			model="@load(vm.convocados)" mold="paging" autopaging="true"
@@ -54,15 +55,16 @@
 					buttonVisible="true" width="35%" format="dd/MM/yyyy"
 					disabled="@load((not vm.creando) and (not vm.editando))" />
 			</vlayout>
-			<vlayout hflex="1">
+			<hlayout hflex="1">
 				<button label="Iniciar Convocatoria"
+					class="btn btn-info btn-xs pull-right"
 					onClick="@command('iniciarConvocatoria')"
 					disabled="@load((not vm.creando) and (not vm.editando))" />
 				<button image="recursos/img/icon-exit.png"
-					class="btn btn-success btn-xs" label="Salir"
+					class="btn btn-info btn-xs pull-right" label="Salir"
 					onClick="@command('salir')"
 					disabled="@load(vm.creando or vm.editando)" />
-			</vlayout>
+			</hlayout>
 		</hlayout>
 	</div>
 	<div>

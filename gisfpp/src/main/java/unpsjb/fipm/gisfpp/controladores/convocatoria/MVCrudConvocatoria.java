@@ -76,8 +76,7 @@ public class MVCrudConvocatoria {
 			volverA = args.get("volverA") == null? "" : (String) args.get("volverA");
 			Integer idConvocatoria = (Integer) args.get("convocatoria");
 			item = servicio.getInstancia(idConvocatoria);
-			convocados = servConvocado.getConvocados(item.getId());
-			
+			convocados = servConvocado.getConvocados(item.getId());			
 		}
 		else {
 			modoTab = true;
@@ -86,8 +85,7 @@ public class MVCrudConvocatoria {
 			configCKEditor = "/recursos/js/ckeditor-config.js";
 		}
 		
-		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");
-		
+		modo = args.get("modo") == null? UtilGisfpp.MOD_NUEVO : (String) args.get("modo");		
 		
 		switch (modo) {
 		case UtilGisfpp.MOD_NUEVO: {
@@ -161,12 +159,10 @@ public class MVCrudConvocatoria {
 	public void guardar() throws Exception {
 		try {
 			if (creando) {
-				servicio.persistir(item);
-				
+				servicio.persistir(item);				
 			}
 			if (editando) {
-				servicio.editar(item);
-				
+				servicio.editar(item);				
 			}
 			creando = editando = false;
 			ver=true;

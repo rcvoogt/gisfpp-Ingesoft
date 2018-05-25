@@ -1,6 +1,13 @@
-<div id="pnlVerConvocatoria" xmlns:n="native" class="panel panel-primary"
-	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true" style="margin-bottom: 2px;"
-	>
-		<include src="vistas/convocatoria/verCrearConvocatoria.zul"/>
-				
+<div id="pnlVerConvocatoria" xmlns:n="native"
+	class="panel panel-primary" apply="org.zkoss.bind.BindComposer"
+	vflex="true" hflex="true" style="margin-bottom: 2px;">
+	<div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="Convocatoria" style="font-size: 14px;" />
+		</n:h3>
+	</div>
+	<div class="panel panel-body" vflex="true">
+		<include src="vistas/convocatoria/verCrearConvocatoria.zul" />
+	</div>
+
 </div>
