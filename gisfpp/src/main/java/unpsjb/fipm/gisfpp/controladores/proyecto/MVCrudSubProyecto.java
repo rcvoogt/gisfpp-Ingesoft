@@ -100,9 +100,9 @@ public class MVCrudSubProyecto {
 		 * fechas del proyecto
 		 */
 
-		if (!(item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) || 
+		/*if (!(item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) || 
 				item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)))
-			return true;
+			return true;*/
 //		if (item.getPerteneceA().getFecha_fin().equals(new Date()) || 
 //				item.getPerteneceA().getFecha_fin().before(new Date()))
 //			return true;

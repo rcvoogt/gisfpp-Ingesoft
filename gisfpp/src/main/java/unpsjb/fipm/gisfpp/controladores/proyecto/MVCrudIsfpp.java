@@ -65,6 +65,7 @@ public class MVCrudIsfpp {
 	private boolean tabIsfppCreado;
 	private Tab tab;
 	private Tabbox tabboxIsfpp;
+	private String titulo;
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -235,7 +236,7 @@ public class MVCrudIsfpp {
 
 	@Command("salir")
 	public void salir() {
-		Map<String, Object> map = new HashMap<String, Object>();
+		/*Map<String, Object> map = new HashMap<String, Object>();
 		if (modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)) {
 			map.put("actualizar", true);
 		} else {
@@ -243,7 +244,8 @@ public class MVCrudIsfpp {
 		}
 		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
 		Tab tab = (Tab) args.get("tab");
-		tab.close();
+		tab.close();*/
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlCrudISFPP");
 	}
 
 	@Command("verDlgStaff")
@@ -485,6 +487,9 @@ public class MVCrudIsfpp {
 		return "Solicita: " + solicitante + " el " + hoy;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
 	private MVCrudIsfpp getAutoReferencia() {
 		return this;
 	}

@@ -7,6 +7,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -16,6 +17,7 @@ import unpsjb.fipm.gisfpp.entidades.workflow.InstanciaProceso;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 
 /**
  * 
@@ -46,8 +48,10 @@ public class MVVerTrace {
 		ver = true;
 		modo = UtilGisfpp.MOD_VER;
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
-		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
+		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
+		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		servGTareas = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
+		System.out.println("Id item de isfpp en ver trace: " + (Integer) args.get("idItem"));
 		item = servicio.getInstancia((Integer) args.get("idItem"));
 		item.setPerteneceA(perteneceA);
 		creando = (editando = false);

@@ -44,6 +44,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -52,7 +53,7 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVCrudProyecto {
 
-	private ServiciosProyecto servicio;
+	private IServiciosProyecto servicio;
 	private Proyecto item;
 	private Logger log;
 	private boolean creando = false;
@@ -66,7 +67,7 @@ public class MVCrudProyecto {
 	@NotifyChange({ "modo", "creando", "editando", "ver", "titulo", "item" })
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
-		servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
+		servicio = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
 				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
@@ -93,14 +94,14 @@ public class MVCrudProyecto {
 
 	}
 
-	@Transactional
+	
 	private boolean puedeCrearConvocatoria() {
 		/*
 		 * TODO: Agregar validacion con respecto al estado del proyecto 
 	 * 			 y las fechas del proyecto
 		 */
 		
-		if (!(item.getEstado().equals(EstadoProyecto.ACTIVO) || 
+		/*if (!(item.getEstado().equals(EstadoProyecto.ACTIVO) || 
 				item.getEstado().equals(EstadoProyecto.GENERADO)) )
 			return true;
 //		if(item.getFecha_fin().equals(new Date()) || item.getFecha_fin().before(new Date()))
@@ -113,7 +114,7 @@ public class MVCrudProyecto {
 					return true;
 				}
 			}
-		}
+		}*/
 		return false;
 	}
 

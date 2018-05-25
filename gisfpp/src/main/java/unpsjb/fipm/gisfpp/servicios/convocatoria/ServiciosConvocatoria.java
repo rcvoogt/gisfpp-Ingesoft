@@ -44,7 +44,7 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Convocatoria instancia) throws Exception {
 		int idConvocatoria = dao.crear(instancia);
-		//servGWkFl.instanciarProceso("Convocatoria", "Crear", instancia.getUsuarioOriginante().getNickname(), String.valueOf(idConvocatoria));
+		servGWkFl.instanciarProceso("Convocatoria", "Crear", instancia.getUsuarioOriginante().getNickname(), String.valueOf(idConvocatoria));
 		return idConvocatoria;
 	}
 	@Override
