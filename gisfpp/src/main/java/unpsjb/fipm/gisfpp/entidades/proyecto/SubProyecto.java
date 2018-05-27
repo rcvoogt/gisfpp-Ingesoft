@@ -3,6 +3,7 @@ package unpsjb.fipm.gisfpp.entidades.proyecto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,8 +23,10 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
 @Table(name = "sub_proyecto")
@@ -156,6 +159,16 @@ public class SubProyecto implements Serializable, Convocable {
 	@Override
 	public String getTipoConvocatoria() throws Exception {
 		return TipoConvocatoria.SUBPROYECTO.toString();
+	}
+
+	@Override
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws Exception {
+		this.perteneceA.setConvocados(nuevosPracticantes);		
+	}
+
+	@Override
+	public boolean isAsignador(PersonaFisica persona) throws Exception {
+		return this.perteneceA.isAsignador(persona);
 	}
 	
 	

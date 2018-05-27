@@ -32,6 +32,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -280,6 +281,18 @@ public class Isfpp implements Serializable, Convocable {
 	@Override
 	public String getTipoConvocatoria() throws Exception {
 		return TipoConvocatoria.ISFPP.toString();
+	}
+
+	@Override
+	public void setConvocados(Set<Convocado> nuevosConvocados) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isAsignador(PersonaFisica persona) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }// fin de la clase

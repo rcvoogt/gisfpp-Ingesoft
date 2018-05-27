@@ -34,5 +34,5 @@ public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, 
 	 */
 	public boolean isAsignado(PersonaFisica persona, Convocable convocable) throws Exception;
 
-	public void asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception;	
+	public boolean asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception;	
 }

@@ -1,7 +1,6 @@
 package unpsjb.fipm.gisfpp.servicios.convocatoria;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.convocatoria.IDaoConvocatoria;
-import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
@@ -22,10 +20,11 @@ import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorMotorBpm;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
-import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 @Service("servConvocatoria")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -38,7 +37,8 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	private GestorWorkflow servGWkFl;
 	@Autowired
 	private GestorMotorBpm servMotorWf;
-	
+	@Autowired
+	private IServicioSubProyecto servSubProyecto;
 	
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
@@ -116,20 +116,21 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 		return false;
 	}
 	@Override
-	public void asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception {
-		Proyecto proyecto = (Proyecto) convocable;
-		Proyecto p = servProyecto.getInstancia(proyecto.getId());
-		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString())) {
-			servProyecto.agregarMiembrosStaff(convertir(practicantes),p);			
+	public boolean asignar(Set<Convocado> nuevosPracticantes, Convocable convocable) throws Exception {
+		
+		convocable.setConvocados(nuevosPracticantes);
+			
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.PROYECTO.toString()) ) {	
+			servProyecto.editar((Proyecto) convocable);
+			return true;
 		}	
-	}
-	private Set<PersonaFisica> convertir(Set<Convocado> practicantes) {
-		Set<PersonaFisica> personas = new HashSet<PersonaFisica>();
-		for(Convocado practicante: practicantes) {
-			personas.add(practicante.getPersona());
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.SUBPROYECTO.toString()) ) {
+			servSubProyecto.editar((SubProyecto) convocable);
+			return true;
 		}
-		return personas;
+		return false;
 	}
+	
 	
 
 	

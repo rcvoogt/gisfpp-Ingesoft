@@ -34,6 +34,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
@@ -291,7 +292,20 @@ public class Proyecto implements Serializable, Convocable {
 
 	@Override
 	public String getTipoConvocatoria() throws Exception {
-		// TODO Auto-generated method stub
 		return TipoConvocatoria.PROYECTO.toString();
+	}
+
+	@Override
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws Exception {
+		MiembroStaffProyecto nuevo;
+		for(Convocado c: nuevosPracticantes) {
+			nuevo = new MiembroStaffProyecto(this, c.getPersona(), ERolStaffProyecto.MIEMBRO_STAFF_PROYECTO);
+			this.staff.add(nuevo);
+		}
+	}
+
+	@Override
+	public boolean isAsignador(PersonaFisica persona) throws Exception {
+		return getResponsables().contains(persona);
 	}
 }// Fin de la clase Entity Proyecto
