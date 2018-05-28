@@ -11,10 +11,10 @@
 			<div class="btn-toolbar pull-right">
 				<div class="btn-group">
 					<a image="recursos/img/icon-filter.png" class="btn btn-success btn-sm"
-						onClick="" tooltiptext="Aplicar filtros al listado" visible="false"> Filtrar</a>
+						onClick="@command('dlgFiltro')" tooltiptext="Aplicar filtros al listado"> Filtrar</a>
 					<a image="recursos/img/icon-remove-sign.png" class="btn btn-success btn-sm"
-						onClick="" tooltiptext="Quitar filtros aplicados al listado"
-							style="margin-left:2px" visible="false"> Quitar Filtro</a>
+						onClick="@command('quitarFiltro')" tooltiptext="Quitar filtros aplicados al listado"
+							style="margin-left:2px" visible="@load(vm.filtrado)"> Quitar Filtro</a>
 				</div>
 				<a image="recursos/img/icon-exit.png"
 					class="btn btn-success btn-sm" onClick="@command('salir')"	> 	Salir</a>
