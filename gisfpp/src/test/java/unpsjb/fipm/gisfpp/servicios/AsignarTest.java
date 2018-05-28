@@ -91,7 +91,7 @@ public class AsignarTest {
 		assertNotNull(convocatoria);
 		assertEquals(servConvocatoria.getCantidadConvocados(convocatoria.getId()), convocados.size());
 		assertEquals(convocatoria.getConvocados().size(),convocados.size());
-		assertEquals(servConvocatoria.getConvocadosAceptadores(convocatoria.getId()).get(0),personaAcepto);
+		assertEquals(servConvocatoria.getConvocadosAceptadores(convocatoria).get(0),personaAcepto);
 		//assertNotNull(proyecto);
 
 	}

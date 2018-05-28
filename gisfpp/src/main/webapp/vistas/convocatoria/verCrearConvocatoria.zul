@@ -1,11 +1,9 @@
-
 <vbox
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVCrudConvocatoria')"
 	spacing="6px" hflex="true" vflex="true">
 	<div class="btn-toolbar pull-right">
 		<a class="btn btn-success btn-xs"
-			image="recursos/img/icon-plus-sign.png"
-			visible="true"
+			image="recursos/img/icon-plus-sign.png" visible="true"
 			disabled="@load((not vm.creando) and (not vm.editando))"
 			tooltiptext="Agregar un nuevo convocado"
 			onClick="@command('verDlgConvocado', modo='NUEVO')">
@@ -13,7 +11,7 @@
 		</a>
 		<a class="btn btn-success btn-xs"
 			image="recursos/img/icon-plus-sign.png"
-			
+			visible="@load(vm.isConvocador())"
 			disabled="@load((vm.creando) or ( vm.editando))"
 			tooltiptext="Asignar un convocado que acepto la convocatoria"
 			onClick="@command('verDlgAsignarConvocados')">
@@ -21,7 +19,7 @@
 		</a>
 	</div>
 
-	<div >
+	<div>
 		<grid hflex="1" vflex="1"
 			style="border: 2px solid #80ccff; border-radius: 5px;"
 			model="@load(vm.item.convocados)" mold="paging" autopaging="true"
@@ -30,6 +28,7 @@
 				<column label="Nombre y Apellido" width="35%" />
 				<column label="DNI" width="15%" />
 				<column label="EMAIL" width="30%" />
+				<column label="RESPUESTA" width="30%" />
 				<column label="Quitar" width="12%" align="center" />
 			</columns>
 			<template name="model">
@@ -37,6 +36,7 @@
 					<label value="@load(each.persona.nombre)" />
 					<label value="@command('buscarDNI',each.persona)" />
 					<label value="@command('buscarEmail',each.persona)" />
+					<label value="@load(each.respuesta.respuesta)" />
 
 					<toolbarbutton image="recursos/img/icon-trash.png"
 						tooltiptext="Quitar miembro del Staff"
@@ -58,7 +58,6 @@
 			<hlayout hflex="1">
 				<button label="Iniciar Convocatoria"
 					class="btn btn-info btn-xs pull-right"
-					
 					onClick="@command('iniciarConvocatoria')"
 					disabled="@load((not vm.creando) and (not vm.editando))" />
 				<button image="recursos/img/icon-exit.png"

@@ -16,5 +16,7 @@ public interface Convocable {
 	
 	public void setConvocados(Set<Convocado> nuevosConvocados) throws MiembroExistenteException,Exception;
 	
+	public List<PersonaFisica> getMiembros();
+
 	public boolean isAsignador(PersonaFisica persona) throws Exception;
 }

@@ -46,7 +46,7 @@ public class MVDlgLkpPracticante {
 		
 	    asignados = new ArrayList<Convocado>();
 	   
-		resultado = servicio.getConvocadosAceptadores(idConvocatoria);
+		resultado = servicio.getConvocadosAceptadores(c);
 
 	}	
 	
