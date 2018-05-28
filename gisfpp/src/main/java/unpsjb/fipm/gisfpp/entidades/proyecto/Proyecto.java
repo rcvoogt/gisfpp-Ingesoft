@@ -31,7 +31,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
@@ -39,6 +38,7 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 @Entity
 @Table(name = "proyecto", indexes = { @Index(name = "uk_codigo", columnList = "codigo", unique = true),
@@ -95,7 +95,7 @@ public class Proyecto implements Serializable, Convocable {
 	@JoinTable(name = "demandantes", joinColumns = @JoinColumn(name = "proyectoId", foreignKey = @ForeignKey(name = "fk_proyecto_demandante")), inverseJoinColumns = @JoinColumn(name = "personaId", foreignKey = @ForeignKey(name = "fk_persona_demandante")))
 	private Set<Persona> demandantes;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proyecto")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "proyecto")
 	private Set<MiembroStaffProyecto> staff;
 
 	protected Proyecto() {
@@ -296,16 +296,17 @@ public class Proyecto implements Serializable, Convocable {
 	}
 
 	@Override
-	public void setConvocados(Set<Convocado> nuevosPracticantes) throws Exception {
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws MiembroExistenteException,Exception {
 		MiembroStaffProyecto nuevo;
 		for(Convocado c: nuevosPracticantes) {
-			nuevo = new MiembroStaffProyecto(this, c.getPersona(), ERolStaffProyecto.MIEMBRO_STAFF_PROYECTO);
-			this.staff.add(nuevo);
+			nuevo = new MiembroStaffProyecto(this, c.getPersona(), ERolStaffProyecto.MIEMBRO_STAFF_PROYECTO);	
+			if(!this.staff.add(nuevo)) throw new MiembroExistenteException(c.getPersona());
 		}
 	}
 
 	@Override
 	public boolean isAsignador(PersonaFisica persona) throws Exception {
-		return getResponsables().contains(persona);
+		List<PersonaFisica> responsables = getResponsables();
+		return responsables.contains(persona);
 	}
 }// Fin de la clase Entity Proyecto

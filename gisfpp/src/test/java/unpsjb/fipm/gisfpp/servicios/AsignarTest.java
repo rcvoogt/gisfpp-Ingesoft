@@ -21,28 +21,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysql.jdbc.AssertionFailedException;
-
-import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.ERespuestaConvocado;
-import unpsjb.fipm.gisfpp.entidades.persona.DatoDeContacto;
-import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
-import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.persona.TDatosContacto;
-import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
-import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersona;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
-import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,6 +45,8 @@ public class AsignarTest {
 	private IServicioPF servPersona;
 	@Autowired
 	private IServiciosProyecto servProyecto;
+	@Autowired
+	private IServicioSubProyecto servSubproyecto;
 	@Autowired
 	private IServiciosIsfpp servIsfpp;
 	@Autowired
@@ -139,6 +132,13 @@ public class AsignarTest {
 		
 	}
 	
+	@Test
+	public void testAsignarPersonaSubproyecto() throws Exception{
+		
+//		SubProyecto subProyecto = servSubproyecto.getSubProyectos(proyecto).get(0);
+//		servConvocatoria.asignar(personaAcepto);
+		
+	}
 	
 	@After
 	@Transactional
@@ -156,7 +156,7 @@ public class AsignarTest {
 		Date nueva = c.getTime();
 		c.set(Calendar.DATE, c.get(Calendar.DATE) + 5);
 		Date vencimiento = c.getTime();		
-		Convocatoria convocatoria = new Convocatoria(nueva, vencimiento, "Convocatoria para proyecto: " + proyecto.getTitulo(), proyecto, convocador);
+		Convocatoria convocatoria = new Convocatoria(nueva, vencimiento, "Convocatoria para proyecto: " + proyecto.getTitulo(), proyecto, convocador);		
 		return convocatoria;
 
 	}

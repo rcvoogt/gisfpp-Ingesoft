@@ -1,7 +1,6 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.transaction.annotation.Transactional;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -18,22 +16,16 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Messagebox.Button;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
-import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
@@ -41,12 +33,9 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
-import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
-import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
-import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
@@ -54,6 +43,7 @@ import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 public class MVCrudProyecto {
 
 	private IServiciosProyecto servicio;
+	private IServicioUsuario servUsuario;
 	private Proyecto item;
 	private Logger log;
 	private boolean creando = false;
@@ -68,6 +58,7 @@ public class MVCrudProyecto {
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
 		servicio = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
+		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		@SuppressWarnings("unchecked")
 		final HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
 				.getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
@@ -94,27 +85,22 @@ public class MVCrudProyecto {
 
 	}
 
-	
 	private boolean puedeCrearConvocatoria() {
 		/*
-		 * TODO: Agregar validacion con respecto al estado del proyecto 
-	 * 			 y las fechas del proyecto
+		 * TODO: Agregar validacion con respecto al estado del proyecto y las fechas del
+		 * proyecto
 		 */
-		
-		/*if (!(item.getEstado().equals(EstadoProyecto.ACTIVO) || 
-				item.getEstado().equals(EstadoProyecto.GENERADO)) )
-			return true;
-//		if(item.getFecha_fin().equals(new Date()) || item.getFecha_fin().before(new Date()))
-//			return true;
-    	if (item.getConvocatorias().size() > 0) {
-			for (Convocatoria convocatoria : item.getConvocatorias()) {
-				// Si hay una convocatoria con fecha de vencimiento posterior al
-				// dia de hoy, es que est� activa
-				if (convocatoria.getFechaVencimiento().after(new Date())) {
-					return true;
-				}
-			}
-		}*/
+
+		/*
+		 * if (!(item.getEstado().equals(EstadoProyecto.ACTIVO) ||
+		 * item.getEstado().equals(EstadoProyecto.GENERADO)) ) return true; //
+		 * if(item.getFecha_fin().equals(new Date()) || item.getFecha_fin().before(new
+		 * Date())) // return true; if (item.getConvocatorias().size() > 0) { for
+		 * (Convocatoria convocatoria : item.getConvocatorias()) { // Si hay una
+		 * convocatoria con fecha de vencimiento posterior al // dia de hoy, es que
+		 * est� activa if (convocatoria.getFechaVencimiento().after(new Date())) {
+		 * return true; } } }
+		 */
 		return false;
 	}
 
@@ -335,11 +321,24 @@ public class MVCrudProyecto {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto",
+				"/vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
 	}
 
 	private MVCrudProyecto getAutoReferencia() {
 		return this;
+	}
+
+	@NotifyChange("item")
+	public boolean isAsignador() {
+		PersonaFisica personaFisica;
+		try {
+			personaFisica = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
+			return item.isAsignador(personaFisica);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }// fin de la clase

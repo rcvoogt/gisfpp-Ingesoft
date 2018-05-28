@@ -36,6 +36,7 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 @Entity
 @Table(name = "isfpp")
@@ -71,7 +72,7 @@ public class Isfpp implements Serializable, Convocable {
 	@Enumerated(EnumType.STRING)
 	private EEstadosIsfpp estado;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
 	private Set<MiembroStaffIsfpp> staff;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
@@ -284,7 +285,7 @@ public class Isfpp implements Serializable, Convocable {
 	}
 
 	@Override
-	public void setConvocados(Set<Convocado> nuevosConvocados) throws Exception {
+	public void setConvocados(Set<Convocado> nuevosConvocados) throws MiembroExistenteException,Exception {
 		// TODO Auto-generated method stub
 		
 	}

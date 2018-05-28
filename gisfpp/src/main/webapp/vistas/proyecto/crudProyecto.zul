@@ -25,7 +25,7 @@
 					disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
 					class="btn btn-success btn-xs"
 					onClick="@command('nuevaConvocatoria')"
-					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and not vm.existeConvocatoriaAbierta)" />
+					visible="@load(vm.isAsignador())" />
 
 
 				<space bar="true" spacing="10px"

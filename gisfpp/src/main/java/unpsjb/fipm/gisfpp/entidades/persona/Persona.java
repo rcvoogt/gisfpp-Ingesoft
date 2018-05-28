@@ -171,7 +171,7 @@ public abstract class Persona implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Persona))
+		if (getClass() != obj.getClass())
 			return false;
 		Persona other = (Persona) obj;
 		if (id == null) {
@@ -181,5 +181,7 @@ public abstract class Persona implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }// Fin de la clase Entity Persona

@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.Date;
 import java.util.HashMap;
+
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
@@ -26,20 +27,23 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
-import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
+import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVCrudSubProyecto {
 
 	private IServicioSubProyecto servicio;
+	private IServicioUsuario servUsuario;
 	private SubProyecto item;
 	private Proyecto perteneceA;
 	private Logger log;
@@ -58,6 +62,7 @@ public class MVCrudSubProyecto {
 	public void init() throws Exception {
 		log = UtilGisfpp.getLogger();
 		servicio = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
+		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		map = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		modo = (String) map.get("modo");
 		perteneceA = (Proyecto) map.get("perteneceA");
@@ -340,6 +345,17 @@ public class MVCrudSubProyecto {
 
 	public MVCrudSubProyecto getAutoReferencia() {
 		return this;
+	}
+	
+	public boolean isAsignador() {
+		PersonaFisica personaFisica;
+		try {
+			personaFisica = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
+			return item.isAsignador(personaFisica);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }// fin de la clase

@@ -25,6 +25,7 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorMotorBpm;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 @Service("servConvocatoria")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -116,7 +117,7 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 		return false;
 	}
 	@Override
-	public boolean asignar(Set<Convocado> nuevosPracticantes, Convocable convocable) throws Exception {
+	public boolean asignar(Set<Convocado> nuevosPracticantes, Convocable convocable) throws MiembroExistenteException,Exception {
 		
 		convocable.setConvocados(nuevosPracticantes);
 			
@@ -125,7 +126,9 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 			return true;
 		}	
 		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.SUBPROYECTO.toString()) ) {
-			servSubProyecto.editar((SubProyecto) convocable);
+			SubProyecto s = (SubProyecto) convocable;
+			servSubProyecto.editar(s);
+			servProyecto.editar(s.getPerteneceA());
 			return true;
 		}
 		return false;

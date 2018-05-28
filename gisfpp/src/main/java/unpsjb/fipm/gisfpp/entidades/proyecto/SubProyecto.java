@@ -27,6 +27,7 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 @Entity
 @Table(name = "sub_proyecto")
@@ -162,7 +163,7 @@ public class SubProyecto implements Serializable, Convocable {
 	}
 
 	@Override
-	public void setConvocados(Set<Convocado> nuevosPracticantes) throws Exception {
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws MiembroExistenteException ,Exception {
 		this.perteneceA.setConvocados(nuevosPracticantes);		
 	}
 

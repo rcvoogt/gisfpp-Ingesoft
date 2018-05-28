@@ -58,6 +58,7 @@
 			<hlayout hflex="1">
 				<button label="Iniciar Convocatoria"
 					class="btn btn-info btn-xs pull-right"
+					
 					onClick="@command('iniciarConvocatoria')"
 					disabled="@load((not vm.creando) and (not vm.editando))" />
 				<button image="recursos/img/icon-exit.png"

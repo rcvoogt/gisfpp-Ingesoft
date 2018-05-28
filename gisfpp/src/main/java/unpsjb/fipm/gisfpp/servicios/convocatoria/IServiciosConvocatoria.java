@@ -8,9 +8,8 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
-import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, Integer> {
 
@@ -34,5 +33,5 @@ public interface IServiciosConvocatoria extends IServicioGenerico<Convocatoria, 
 	 */
 	public boolean isAsignado(PersonaFisica persona, Convocable convocable) throws Exception;
 
-	public boolean asignar(Set<Convocado> practicantes, Convocable convocable) throws Exception;	
+	public boolean asignar(Set<Convocado> practicantes, Convocable convocable) throws MiembroExistenteException,Exception;	
 }

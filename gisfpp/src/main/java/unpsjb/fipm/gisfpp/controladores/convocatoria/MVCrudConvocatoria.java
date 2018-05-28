@@ -28,9 +28,10 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocable;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocado;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
-import unpsjb.fipm.gisfpp.servicios.convocatoria.ServiciosConvocado;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPersona;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -44,6 +45,9 @@ public class MVCrudConvocatoria {
 
 	private IServicioUsuario servUsuario;
 	private IServiciosConvocado servConvocado;
+	private IServicioPersona servPersona;
+	private IServiciosConvocable servConvocable;
+
 	private GestorWorkflow gestorWkFl;
 	private IServiciosConvocatoria servicio;
 	private Convocable convocable;
@@ -66,6 +70,8 @@ public class MVCrudConvocatoria {
 		servicio = (IServiciosConvocatoria) SpringUtil.getBean("servConvocatoria");
 		servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 		servConvocado = (IServiciosConvocado) SpringUtil.getBean("servConvocado");
+		servPersona =  (IServicioPersona) SpringUtil.getBean("servPersona");
+		servConvocable = (IServiciosConvocable) SpringUtil.getBean("servConvocable");
 		Integer idConvocatoria = null;
 
 		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudConvocatoria");
@@ -299,6 +305,19 @@ public class MVCrudConvocatoria {
 	
 	public boolean isVencida() {
 		return true;
+	}
+	
+	@NotifyChange("convocable")
+	public boolean isConvocador() {
+		PersonaFisica personaFisica;
+		//Convocable convocable = servConvocable.getInstancia();
+		try {
+			personaFisica = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
+			return item.getConvocable().isAsignador(personaFisica);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }// fin de la clase

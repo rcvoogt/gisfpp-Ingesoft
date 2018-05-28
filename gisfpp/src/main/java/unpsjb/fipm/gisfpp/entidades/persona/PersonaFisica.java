@@ -39,6 +39,11 @@ public class PersonaFisica extends Persona {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	@Override
+	public Integer getId() {
+		return super.getId();
+	}
 
 	@Override
 	public String getDni() {

@@ -84,11 +84,13 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 			if ((result.isEmpty()) || (result == null)) {
 				return null;
 			} else {
+				//getHibernateTemplate().initialize(result.get(0).getStaff());
 				for (Persona demandante : result.get(0).getDemandantes()) {
 					getHibernateTemplate().initialize(demandante.getIdentificadores());
 				}
 				for(MiembroStaffProyecto miembroStaff: result.get(0).getStaff()){
 					PersonaFisica persona= miembroStaff.getMiembro();
+					getHibernateTemplate().initialize(persona.getId());
 					getHibernateTemplate().initialize(persona.getIdentificadores());
 					getHibernateTemplate().initialize(persona.getDatosDeContacto());
 
