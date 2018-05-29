@@ -21,6 +21,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 
@@ -31,6 +32,7 @@ public class MVDlgFiltrosOferta {
 	private SubProyecto subProyecto;
 	private OfertaActividad oferta;
 	private EEstadosIsfpp estado;
+	private TipoProyecto tipo;
 	private IServicioSubProyecto srvSubProyecto;
 	private IServiciosProyecto srvProyecto;
 
@@ -38,6 +40,7 @@ public class MVDlgFiltrosOferta {
 	public void init() {
 		HashMap<String, Object> map = (HashMap<String, Object>) Executions.getCurrent().getArg();
 		listSinFiltro = (List<OfertaActividad>) map.get("listSinFiltro");
+		System.out.println(listSinFiltro);
 		srvSubProyecto = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
 		srvProyecto = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
 		recuperarArgUltFiltro();
@@ -48,7 +51,7 @@ public class MVDlgFiltrosOferta {
 		List<OfertaActividad> resultado = listSinFiltro.stream().filter(getPredicadoFiltro()).collect(Collectors.toList());
 		HashMap<String, Object> prm = new HashMap<>();
 		prm.put("listConFiltro", resultado);
-		BindUtils.postGlobalCommand(null, null, "retornoDlgFiltroIsfpp", prm);
+		BindUtils.postGlobalCommand(null, null, "retornoDlgFiltrosOferta", prm);
 		guardarArgUltFiltro();
 		cerrar();
 	}
@@ -70,11 +73,14 @@ public class MVDlgFiltrosOferta {
 		if (estado != null) {
 			filtro = filtro.and(item -> item.getEstado().equals(estado));
 		}*/
+		if (tipo != null) {
+			filtro = filtro.and(item -> item.getProyecto().getTipo().equals(tipo));
+		}
 		return filtro;
 	}
 
 	private void cerrar() {
-		Window thisDlg = (Window) Path.getComponent("/dlgFiltroIsfpp");
+		Window thisDlg = (Window) Path.getComponent("/dlgFiltroOferta");
 		thisDlg.detach();
 	}
 
@@ -91,8 +97,9 @@ public class MVDlgFiltrosOferta {
 		map.put("tipo", tipo);*/
 		map.put("proyecto", proyecto);
 		map.put("subProyecto", subProyecto);
-		map.put("estado", estado);
-		Sessions.getCurrent().setAttribute("argUltFiltroIsfpps", map);
+		map.put("oferta", oferta);
+		map.put("tipo", tipo);
+		Sessions.getCurrent().setAttribute("argUltFiltrosOferta", map);
 	}
 
 	/**
@@ -103,14 +110,14 @@ public class MVDlgFiltrosOferta {
 	private void recuperarArgUltFiltro() {
 		@SuppressWarnings("unchecked")
 		HashMap<String, Object> map = (HashMap<String, Object>) Sessions.getCurrent()
-				.getAttribute("argUltFiltroProyectos");
+				.getAttribute("argUltFiltrosOferta");
 		if (map != null) {
 			/*codigo = (String) map.get("codigo");
 			resolucion = (String) map.get("resolucion");
 			titulo = (String) map.get("titulo");*/
 			proyecto = (Proyecto) map.get("proyecto");
 			subProyecto = (SubProyecto) map.get("subProyecto");
-			estado = (EEstadosIsfpp) map.get("estado");
+			tipo = (TipoProyecto) map.get("tipo");
 		}
 	}
 
@@ -186,12 +193,35 @@ public class MVDlgFiltrosOferta {
 		this.proyecto = proyecto;
 	}
 
-	public EEstadosIsfpp getEstado() {
+	/*public EEstadosIsfpp getEstado() {
 		return estado;
 	}
 
 	public void setEstado(EEstadosIsfpp estado) {
 		this.estado = estado;
+	}*/
+	
+	public OfertaActividad getOferta() {
+		return oferta;
 	}
+
+	public TipoProyecto getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoProyecto tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setOferta(OfertaActividad oferta) {
+		this.oferta = oferta;
+	}
+	
+
+	public List<TipoProyecto> getTipos() {
+		return Arrays.asList(TipoProyecto.values());
+	}
+	
+	
 
 }// fin de la clase

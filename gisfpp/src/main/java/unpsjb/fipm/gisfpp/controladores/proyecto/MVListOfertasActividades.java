@@ -98,7 +98,7 @@ public class MVListOfertasActividades {
 			dlg.doModal();
 		}
 
-		@GlobalCommand("retornoDlgFiltroIsfpp")
+		@GlobalCommand("retornoDlgFiltrosOferta")
 		@NotifyChange({ "items", "filtrado", "tituloPanel" })
 		public void retornoDlgFiltroIsfpp(@BindingParam("listConFiltro") List<OfertaActividad> arg1) {
 			// si el listado no tiene un filtro aplicado, mantenemos una referencia
