@@ -16,14 +16,16 @@ import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaJuridica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.TipoProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
+import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 
 public class MVDlgFiltrosOferta {
 
@@ -33,8 +35,10 @@ public class MVDlgFiltrosOferta {
 	private OfertaActividad oferta;
 	private EEstadosIsfpp estado;
 	private TipoProyecto tipo;
+	private PersonaFisica responsable;
 	private IServicioSubProyecto srvSubProyecto;
 	private IServiciosProyecto srvProyecto;
+	private IServiciosStaffFI srvStaff;
 
 	@Init
 	public void init() {
@@ -43,6 +47,7 @@ public class MVDlgFiltrosOferta {
 		System.out.println(listSinFiltro);
 		srvSubProyecto = (IServicioSubProyecto) SpringUtil.getBean("servSubProyecto");
 		srvProyecto = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
+		srvStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
 		recuperarArgUltFiltro();
 	}
 
@@ -76,6 +81,9 @@ public class MVDlgFiltrosOferta {
 		if (tipo != null) {
 			filtro = filtro.and(item -> item.getProyecto().getTipo().equals(tipo));
 		}
+		if (responsable != null) {
+			filtro = filtro.and(item -> item.getProyecto().getResponsables().contains(responsable));
+		}
 		return filtro;
 	}
 
@@ -99,6 +107,7 @@ public class MVDlgFiltrosOferta {
 		map.put("subProyecto", subProyecto);
 		map.put("oferta", oferta);
 		map.put("tipo", tipo);
+		map.put("responsable", responsable);
 		Sessions.getCurrent().setAttribute("argUltFiltrosOferta", map);
 	}
 
@@ -118,6 +127,7 @@ public class MVDlgFiltrosOferta {
 			proyecto = (Proyecto) map.get("proyecto");
 			subProyecto = (SubProyecto) map.get("subProyecto");
 			tipo = (TipoProyecto) map.get("tipo");
+			responsable = (PersonaFisica) map.get("responsable");
 		}
 	}
 
@@ -220,6 +230,24 @@ public class MVDlgFiltrosOferta {
 
 	public List<TipoProyecto> getTipos() {
 		return Arrays.asList(TipoProyecto.values());
+	}
+	
+	public List<PersonaFisica> getStaff() {
+		try {
+			return srvStaff.getListadoStaffPersonas();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public PersonaFisica getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(PersonaFisica responsable) {
+		this.responsable = responsable;
 	}
 	
 	

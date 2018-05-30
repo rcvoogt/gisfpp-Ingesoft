@@ -55,6 +55,15 @@
 				</template>
 			</combobox>
 		</div>
+		<div hflex="true">
+			<label value="Staff" class="form-label" width="45%" />
+			<combobox model="@load(vm.staff)"
+				selectedItem="@bind(vm.responsable)" width="75%">
+				<template name="model">
+					<comboitem label="@load(each.nombre)" />
+				</template>
+			</combobox>
+		</div>
 		<separator bar="true" />
 		<hbox hflex="true" pack="center" align="center" height="15%">
 			<a class="btn btn-success btn-sm"

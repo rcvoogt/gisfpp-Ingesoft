@@ -88,7 +88,7 @@ public class Proyecto implements Serializable {
 		inverseJoinColumns=@JoinColumn(name="personaId", foreignKey=@ForeignKey(name="fk_persona_demandante")))
 	private Set <Persona> demandantes; 
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="proyecto")
 	private Set<MiembroStaffProyecto> staff;
 
 	protected Proyecto() {
