@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
@@ -26,6 +27,7 @@ import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -96,6 +98,8 @@ public class MVCrudSubProyecto {
 			break;
 		}
 		}
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudSubProyecto.zul",titulo,map)));
 	}
 
 	@Transactional
@@ -224,7 +228,7 @@ public class MVCrudSubProyecto {
 		map.put("perteneceA", item);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("volverA", "/vistas/proyecto/crudSubProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "vistas/proyecto/crudIsfpp.zul", map);
 	}
 
 	@Command("editarIsfpp")
@@ -237,7 +241,7 @@ public class MVCrudSubProyecto {
 		map.put("idItem", id);
 		map.put("modo", UtilGisfpp.MOD_EDICION);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "vistas/proyecto/crudIsfpp.zul", map);
 	}
 
 	@Command("verIsfpp")
@@ -250,7 +254,7 @@ public class MVCrudSubProyecto {
 		map.put("idItem", id);
 		map.put("modo", UtilGisfpp.MOD_VER);
 		map.put("volverA", "/vistas/proyecto/crudSubProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/proyecto/crudIsfpp.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "vistas/proyecto/crudIsfpp.zul", map);
 		
 	}
 
@@ -326,7 +330,7 @@ public class MVCrudSubProyecto {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudSubProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "/vistas/convocatoria/verConvocatoriaIndependiente.zul",
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", "vistas/convocatoria/verConvocatoriaIndependiente.zul",
 				map);
 	}
 

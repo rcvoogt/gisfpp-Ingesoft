@@ -61,12 +61,21 @@ public class MVVerTrace {
 		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		servGTareas = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		System.out.println("Id item de isfpp en ver trace: " + (Integer) args.get("idItem"));
-		item = servicio.getInstancia((Integer) args.get("idItem"));
-		item.setPerteneceA(perteneceA);
-		creando = (editando = false);
-		setTitulo("Trace de ISFPP: " + item.getTitulo());
-		actividades = new ArrayList<InstanciaActividad>();
-		setWorkflow("Debe seleccionar un Workflow");		
+		
+		try{
+			item = servicio.getInstancia((Integer) args.get("idItem"));
+		
+			item.setPerteneceA(perteneceA);
+			
+			creando = (editando = false);
+			setTitulo("Trace de ISFPP: " + item.getTitulo());
+			actividades = new ArrayList<InstanciaActividad>();
+			setWorkflow("Debe seleccionar un Workflow");
+		}
+		catch(NullPointerException exception) {
+			System.out.println("Va a tirar null pointer exception cuando es nueva isfpp porque todavia no esta instanciada");
+			
+		}
 	}
 	
 

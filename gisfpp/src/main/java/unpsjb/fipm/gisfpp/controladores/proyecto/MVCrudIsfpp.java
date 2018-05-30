@@ -21,7 +21,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
@@ -32,6 +34,7 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -92,6 +95,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
+			titulo = "Editando ISFPP " + this.item.getTitulo();
 			existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
@@ -100,9 +104,12 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (editando = false);
 			ver = true;
+			titulo = "Ver ISFPP " + this.item.getTitulo();
 		}
 		}
 		verTrace = isUsuarioValido();
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,args)));
 	}
 
 	/**
@@ -419,7 +426,7 @@ public class MVCrudIsfpp {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudIsfpp.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "/vistas/convocatoria/verConvocatoriaIndependiente.zul",
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "vistas/convocatoria/verConvocatoriaIndependiente.zul",
 				map);
 		
 	}

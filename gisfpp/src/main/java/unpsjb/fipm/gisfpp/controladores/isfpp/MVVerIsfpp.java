@@ -11,9 +11,12 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -52,6 +55,8 @@ public class MVVerIsfpp {
 		creando = (editando = false);
 		setTitulo("Ver Isfpp: " + item.getTitulo());
 		ver = true;
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/isfpp/verIsfpp.zul",titulo,args)));
 
 	}
 
