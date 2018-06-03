@@ -11,4 +11,6 @@ public interface IServiciosProyecto extends IServicioGenerico<Proyecto, Integer>
 	
 	public List<OfertaActividad> getAllOfertas();
 
+	public boolean cumpleVencimientoMeses(Proyecto proyecto, Integer venc);
+
 }

@@ -37,15 +37,34 @@
 				</template>
 			</combobox>
 		</div>
+		
+		<div class="input-group">
+                  <select class="form-control" ng-disabled="(selectedOrigin == undefined)" ng-model="tipoOrigen" placeholder="Tipo de Origen" required>
+                    <option value="" disabled selected>Seleccione Tipo de Origen</option>
+                    <option value="1">Punto Aleatorio</option>
+                    <option value="2" >Centralidad Aleatoria</option>
+                    <option value="3">Centralidad Ponderada</option>
+                  </select>
+                </div> -->
+		
+		
 		<div hflex="true">
-			<label value="Estado" class="form-label" width="45%" />
-			<combobox model="@load(vm.estados)"
-				selectedItem="@bind(vm.estado)" width="75%">
-				<template name="model">
-					<comboitem label="@load(each.titulo)" />
-				</template>
+		
+			<!--  <select class="form-control" ng-model="vm.venc" placeholder="Vencimiento mayor a" required>
+                    <option value="" disabled selected>Seleccione Vencimiento Mayor a</option>
+                    <option value="3">Mayor a 3 meses</option>
+                    <option value="6" >Mayor a 6 meses</option>
+            </select>-->
+            
+            
+			<label value="Vencimiento mayor a" class="form-label" width="45%" />
+			<combobox selectedItem="@save(vm.venc)" width="75%">
+				<comboitem label="Mayor a 3 meses" value="3"></comboitem>
+				<comboitem label="Mayor a 6 meses" value="6"></comboitem>
 			</combobox>
-		</div>  -->
+		</div>  
+		
+		
 		<div hflex="true">
 			<label value="Tipo" class="form-label" width="45%" />
 			<combobox model="@load(vm.tipos)"

@@ -22,9 +22,10 @@
 			<grid mold="paging" autopaging="true" vflex="1" hflex="1" style="border: 2px solid #80ccff; border-radius: 5px;"
 				emptyMessage="No existe Ofertas de Actividades para mostrar." model="@load(vm.items)">
 				<columns>
-					<column label="Titulo Sub-Proyecto" width="40%" sort="auto"/>
+					<column label="Titulo Sub-Proyecto" width="35%"/>
 					<column label="Cod. Proyecto" width="14%"/>
-					<column label="Titulo Proyecto" width="40%" sort="auto"/>
+					<column label="Titulo Proyecto" width="35%"/>
+					<column label="Fecha de Final" width="10%" sort="auto"/>
 					<column label="Ver" width="6%" align="center"/>
 				</columns>
 				<template name="model">
@@ -32,6 +33,7 @@
 						<label value="@load(each.subProyecto.titulo)"/>
 						<label value="@load(each.proyecto.codigo)"/>
 						<label value="@load(each.proyecto.titulo)"/>
+						<label value="@load(each.proyecto.fecha_fin) @converter('formatedDate', format ='dd/MM/yyyy')"/>
 						<toolbarbutton image="recursos/img/icon-preview.png" onClick="@command('tratarSP', item = each, modo='VER')"
 							tooltiptext="Ver detalle del Sub-Proyecto" disabled="${not sec:isAutorizado('CONSULTAR_SUBPROYECTO') }"/>
 					</row>

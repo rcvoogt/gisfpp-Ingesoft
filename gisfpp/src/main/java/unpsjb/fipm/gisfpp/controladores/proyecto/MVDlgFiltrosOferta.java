@@ -36,6 +36,7 @@ public class MVDlgFiltrosOferta {
 	private EEstadosIsfpp estado;
 	private TipoProyecto tipo;
 	private PersonaFisica responsable;
+	private Integer venc;
 	private IServicioSubProyecto srvSubProyecto;
 	private IServiciosProyecto srvProyecto;
 	private IServiciosStaffFI srvStaff;
@@ -83,6 +84,9 @@ public class MVDlgFiltrosOferta {
 		}
 		if (responsable != null) {
 			filtro = filtro.and(item -> item.getProyecto().getResponsables().contains(responsable));
+		}
+		if (venc != null) {
+			filtro = filtro.and(item -> srvProyecto.cumpleVencimientoMeses(item.getProyecto(),venc));
 		}
 		return filtro;
 	}
@@ -249,6 +253,15 @@ public class MVDlgFiltrosOferta {
 	public void setResponsable(PersonaFisica responsable) {
 		this.responsable = responsable;
 	}
+	
+	public Integer getVenc() {
+		return venc;
+	}
+	
+	public void setVenc(Integer venc) {
+		this.venc = venc;
+	}
+	
 	
 	
 

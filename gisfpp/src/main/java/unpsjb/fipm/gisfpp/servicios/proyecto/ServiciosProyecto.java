@@ -1,5 +1,8 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +87,19 @@ public class ServiciosProyecto implements IServiciosProyecto {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public boolean cumpleVencimientoMeses(Proyecto proyecto, Integer venc) {
+		//Fecha del proyecto en calendar
+		Calendar fechaPiola = Calendar.getInstance();
+		fechaPiola.setTime(proyecto.getFecha_fin());
+		//La fecha de hoy
+		Calendar fechaComparar = Calendar.getInstance();
+		//Le agregamos 3 meses
+		fechaComparar.add(Calendar.MONTH, venc);
+		//Si la fecha de hoy + los meses solicitados sigue siendo antes del vencimiento del proyecto, este es Valido
+		return fechaComparar.before(fechaPiola);
 	}
 
 }// fin de la clase
