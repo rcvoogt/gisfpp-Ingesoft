@@ -134,3 +134,8 @@ como <combobox> <datebox> etc., se establece las reglas de estilos para estos el
 	filter: alpha(opacity=100);
 }
 
+.z-label .glyphicon {
+	margin-right: 5;
+}
+
+

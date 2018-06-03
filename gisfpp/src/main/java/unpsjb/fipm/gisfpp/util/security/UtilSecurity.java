@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import unpsjb.fipm.gisfpp.entidades.Operaciones;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 
@@ -153,5 +154,17 @@ public class UtilSecurity {
 		}
 		return false;
 	}
+	
+//	public static boolean isResponsableConvocable(Convocable convocable) {
+//		PersonaFisica persona;
+//		try {
+//			persona = serv
+//			return convocable.isAsignador(persona);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
 	
 }//fin de la clase

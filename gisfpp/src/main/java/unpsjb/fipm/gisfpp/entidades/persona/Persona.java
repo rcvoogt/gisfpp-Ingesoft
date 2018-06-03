@@ -46,7 +46,7 @@ public abstract class Persona implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_dato_contacto"))
-	private List<DatoDeContacto> datosDeContacto;
+	protected List<DatoDeContacto> datosDeContacto;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "personaId", foreignKey=@ForeignKey(name="fk_persona_identificador"))
@@ -171,7 +171,7 @@ public abstract class Persona implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Persona))
+		if (getClass() != obj.getClass())
 			return false;
 		Persona other = (Persona) obj;
 		if (id == null) {
@@ -181,5 +181,7 @@ public abstract class Persona implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }// Fin de la clase Entity Persona

@@ -1,8 +1,10 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,11 +32,16 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.TipoConvocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
 
 @Entity
 @Table(name = "isfpp")
-public class Isfpp implements Serializable {
+public class Isfpp implements Serializable, Convocable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -66,13 +73,13 @@ public class Isfpp implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EEstadosIsfpp estado;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
 	private Set<MiembroStaffIsfpp> staff;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
-	private Set<Convocatoria> convocatorias;
+	private List<Convocatoria> convocatorias;
 	
-		@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId")
 			, foreignKey=@ForeignKey(name="fk_isfpp_practicantes"), inverseForeignKey=@ForeignKey(name="fk_persona_practicantes"))
 	private Set<PersonaFisica> practicantes;
@@ -99,11 +106,11 @@ public class Isfpp implements Serializable {
 		this.practicantes = (practicantes==null)? new HashSet<>(): practicantes;
 	}
 
-	public Set<Convocatoria> getConvocatorias() {
+	public List<Convocatoria> getConvocatorias() {
 		return convocatorias;
 	}
 
-	public void setConvocatorias(Set<Convocatoria> convocatorias) {
+	public void setConvocatorias(List<Convocatoria> convocatorias) {
 		this.convocatorias = convocatorias;
 	}
 	
@@ -271,6 +278,45 @@ public class Isfpp implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<PersonaFisica> getResponsables(){
+		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
+		for (MiembroStaffIsfpp miembro : staff) {
+			if (miembro.getRol() == ERolStaffIsfpp.TUTOR_ACADEMICO) {
+				resultado.add(miembro.getMiembro());
+			}
+		}
+		return resultado;
+	}
+	
+	@Override
+	public String getTipoConvocatoria() throws Exception {
+		return TipoConvocatoria.ISFPP.toString();
+	}
+
+	@Override
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws MiembroExistenteException,Exception {
+		for(Convocado c: nuevosPracticantes) {	
+			if(!this.practicantes.add(c.getPersona())) throw new MiembroExistenteException(c.getPersona());
+		}
+		
+	}
+
+	@Override
+	public boolean isAsignador(PersonaFisica persona) throws Exception {
+		List<PersonaFisica> responsables = getResponsables();
+		return responsables.contains(persona);
+	}
+
+	@Override
+	public List<PersonaFisica> getMiembros() {
+		List<PersonaFisica> miembros = new ArrayList<PersonaFisica>();
+		for(MiembroStaffIsfpp  m : getStaff()){
+			miembros.add(m.getMiembro());
+		}
+		miembros.addAll(practicantes);
+		return miembros;
 	}
 	
 }// fin de la clase

@@ -1,0 +1,47 @@
+<zk>
+	<window id="dlgAsignarConvocados" title="Asignar Convocados"
+		border="normal" sizable="true" closable="true" width="50%"
+		vflex="true" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVDlgAsignarConvocados')">
+		<vbox hflex="true" vflex="true">
+			<label value="Titulo : " style="font-weight: bold;"
+				hflex="true" />
+			<!--<label value="@load(vm.titulo)" multiline="true" hflex="true" vflex="true" style="font-style: italic;"/>-->
+			<separator bar="true" />
+			<vlayout>
+				<listbox hflex="true" height="260px" 
+					model="@bind(vm.list)" selectedItems="@bind(vm.practicantes)" multiple="true" checkmark="true">
+					<listhead sizable="true">
+						<listheader label="Apellido y Nombres"
+							sort="asc" width="65%" />
+						<!--  <listheader label="DNI" /> -->
+					</listhead>
+					<template name="model" var="item">
+						<listitem>
+							<listcell
+								label="@bind(item.persona.nombre)" />
+						<!-- 	<listcell label="@bind(s.index)" />  -->
+						</listitem>
+					</template>
+					<listfoot>
+					<listfooter><label value="Solo se muestran los convocados que aceptaron pero no son miembros"/></listfooter>
+					</listfoot>
+				</listbox>
+			</vlayout>
+
+
+		<!-- 	<vlayout id="vlayout" children="@load(vm.convocados)">
+				<template name="children">
+					<checkbox label="@load(each.persona.nombre)"
+						onCheck="@command('pick', checked=self.checked, picked=each)">
+					</checkbox>
+				</template>
+			</vlayout>  -->
+			<separator bar="true" />
+			<hbox hflex="true" align="center" pack="end">
+				<a label="Asignar" onClick="@command('asignar')"
+					class="btn btn-primary btn-sm" />
+			</hbox>
+		</vbox>
+	</window>
+</zk>

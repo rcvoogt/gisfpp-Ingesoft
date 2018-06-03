@@ -20,7 +20,10 @@ import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
@@ -31,8 +34,11 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -42,6 +48,7 @@ import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
+import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVCrudIsfpp {
@@ -63,6 +70,7 @@ public class MVCrudIsfpp {
 	private boolean tabIsfppCreado;
 	private Tab tab;
 	private Tabbox tabboxIsfpp;
+	private String titulo;
 
 	@SuppressWarnings("unchecked")
 	@Init
@@ -72,7 +80,8 @@ public class MVCrudIsfpp {
 		gestorWkFl = (GestorWorkflow) SpringUtil.getBean("servGestionWorkflow");
 		servicio = (IServiciosIsfpp) SpringUtil.getBean("servIsfpp");
 		srvStaff = (IServiciosStaffFI) SpringUtil.getBean("servStaffFI");
-		args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
+		//args = (HashMap<String, Object>) Executions.getCurrent().getAttribute("argsCrudIsfpp");
+		args = (HashMap<String, Object>) Sessions.getCurrent().getAttribute(UtilGuiGisfpp.PRM_PNL_CENTRAL);
 		perteneceA = (SubProyecto) args.get("perteneceA");
 		modo = (String) args.get("modo");
 		switch (modo) {
@@ -80,7 +89,7 @@ public class MVCrudIsfpp {
 			item = new Isfpp(perteneceA, getTituloNewIsfpp(), "", new Date(), new Date(), "", null, null);
 			creando = true;
 			editando = (ver = false);
-			existeConvocatoriaAbierta = false;
+			//existeConvocatoriaAbierta = false;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -88,7 +97,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
-			existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -96,9 +105,12 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (editando = false);
 			ver = true;
+			titulo = "Ver ISFPP " + this.item.getTitulo();
 		}
 		}
 		verTrace = isUsuarioValido();
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,args)));
 	}
 
 	/**
@@ -122,6 +134,7 @@ public class MVCrudIsfpp {
 		}
 		return false;
 	}
+	
 	private boolean puedeCrearConvocatoria() {
 		if(item.getConvocatorias().size() > 0) {
 			for(Convocatoria convocatoria : item.getConvocatorias()) {
@@ -142,6 +155,7 @@ public class MVCrudIsfpp {
 	public void setExisteConvocatoriaAbierta(boolean existeConvocatoriaAbierta) {
 		this.existeConvocatoriaAbierta = existeConvocatoriaAbierta;
 	}
+	
 	public Isfpp getItem() {
 		return item;
 	}
@@ -231,7 +245,7 @@ public class MVCrudIsfpp {
 
 	@Command("salir")
 	public void salir() {
-		Map<String, Object> map = new HashMap<String, Object>();
+		/*Map<String, Object> map = new HashMap<String, Object>();
 		if (modo.equals(UtilGisfpp.MOD_NUEVO) || modo.equals(UtilGisfpp.MOD_EDICION)) {
 			map.put("actualizar", true);
 		} else {
@@ -239,7 +253,8 @@ public class MVCrudIsfpp {
 		}
 		BindUtils.postGlobalCommand(null, null, "cerrandoTab", map);
 		Tab tab = (Tab) args.get("tab");
-		tab.close();
+		tab.close();*/
+		UtilGuiGisfpp.quitarPnlCentral("/panelCentro/pnlCrudISFPP");
 	}
 
 	@Command("verDlgStaff")
@@ -407,21 +422,28 @@ public class MVCrudIsfpp {
 	
 	@Command("nuevaConvocatoria")
 	public void nuevaConvocatoria() {
-		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Convocatoria", item.getId());
-		tabIsfppCreado=true;
+//		crearTab(UtilGisfpp.MOD_NUEVO, "Nueva Convocatoria", item);
+//		tabIsfppCreado=true;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("modo", UtilGisfpp.MOD_NUEVO);
+		map.put("convocable", item);
+		map.put("volverA", "/vistas/proyecto/crudIsfpp.zul");
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "vistas/convocatoria/verConvocatoriaIndependiente.zul",
+				map);
+		
 	}
 	
 	@Command("verConvocatoria")
 	public void verConvocatoria() {
 		if(!tabIsfppCreado) {
-			crearTab(UtilGisfpp.MOD_VER, "Ver Convocatoria", item.getId());
+			crearTab(UtilGisfpp.MOD_VER, "Ver Convocatoria", item);
 			
 		}else {
 			tabboxIsfpp.setSelectedTab(tab);
 		}
 	}
 	
-	private void crearTab(String modo, String titulo, Integer id) {
+	private void crearTab(String modo, String titulo, Isfpp isfpp) {
 		//Obtengo el tabbox de subproyecto
 		Tabbox tabBoxSubProyecto = (Tabbox) Path.getComponent("/panelCentro/tbbxSP");
 		tabboxIsfpp = null;
@@ -448,11 +470,11 @@ public class MVCrudIsfpp {
 			tab = new Tab(titulo);
 			Tabpanel tabPanel = new Tabpanel();
 			tabPanel.setId("pConvocatoriaTP");
-			Include include = new Include("vistas/proyecto/verCrearConvocatoria.zul");
+			Include include = new Include("vistas/convocatoria/verCrearConvocatoria.zul");
 			HashMap<String, Object> args = new HashMap<>();
 			args.put("isfpp", item);
 			args.put("modo", modo);
-			args.put("idItem", id);
+			args.put("idItem", isfpp.getId());
 			args.put("tab", tab);
 			
 			include.setDynamicProperty("argsCrudConvocatoria", args);
@@ -474,8 +496,32 @@ public class MVCrudIsfpp {
 		return "Solicita: " + solicitante + " el " + hoy;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
 	private MVCrudIsfpp getAutoReferencia() {
 		return this;
 	}
 
+	
+	@NotifyChange("item")
+	public boolean isValido(){
+		
+		if ((item.getEstado().equals(EEstadosIsfpp.ACTIVA) ||
+				  item.getEstado().equals(EEstadosIsfpp.GENERADA)) ) 
+			return true;
+//		if((item.getInicio().equals(new Date()) || item.getInicio().after(new
+//				  Date())) && item.getFin().before(new Date()) || item.getFin().equals(new Date())) 
+//			return true; 
+//		if (item.getConvocatorias().size() > 0) { 
+//			for(Convocatoria convocatoria : item.getConvocatorias()) {
+//				if (convocatoria.getFechaVencimiento().after(new Date())) {
+//				 return true; } 
+//				}
+//			}
+	return false;
+}
+	
+	
+	
 }// fin de la clase

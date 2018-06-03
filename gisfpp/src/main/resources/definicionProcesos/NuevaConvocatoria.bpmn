@@ -10,7 +10,6 @@
         <flowNodeRef>envioMailConvocatoria</flowNodeRef>
         <flowNodeRef>inclusivegateway1</flowNodeRef>
         <flowNodeRef>inclusivegateway3</flowNodeRef>
-        <flowNodeRef>timerintermediatecatchevent1</flowNodeRef>
         <flowNodeRef>indicarInteresEnConvocatoria</flowNodeRef>
         <flowNodeRef>endevent1</flowNodeRef>
         <flowNodeRef>seleccionarConvocados</flowNodeRef>
@@ -54,23 +53,15 @@
     <sequenceFlow id="flow1" sourceRef="startConvocatoria" targetRef="envioMailConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="envioMailConvocatoria" targetRef="inclusivegateway1"></sequenceFlow>
-    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:candidateUsers="${asignadosConvocados}" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
-      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="${convocado}">
+    <userTask id="indicarInteresEnConvocatoria" name="Indicar Interés en Convocatoria" activiti:assignee="${convocado}" activiti:dueDate="${vencimiento}" activiti:category="NuevaConvocatoria" activiti:formKey="dlgResponderConvocatoria.zul" activiti:priority="25">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${convocados}" activiti:elementVariable="convocado">
         <loopCardinality>${cantidadConvocados}</loopCardinality>
-        <completionCondition>${todosContestados}</completionCondition>
       </multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="inclusivegateway1" targetRef="indicarInteresEnConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway3" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="indicarInteresEnConvocatoria" targetRef="inclusivegateway3"></sequenceFlow>
-    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
-      <timerEventDefinition>
-        <timeDate>${vencimiento}</timeDate>
-      </timerEventDefinition>
-    </intermediateCatchEvent>
-    <sequenceFlow id="flow6" sourceRef="inclusivegateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent1" targetRef="inclusivegateway3"></sequenceFlow>
-    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
+    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:category="NuevaConvocatoria" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
     <sequenceFlow id="flow8" sourceRef="inclusivegateway3" targetRef="seleccionarConvocados"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow9" sourceRef="seleccionarConvocados" targetRef="endevent1"></sequenceFlow>
@@ -98,9 +89,6 @@
       <bpmndi:BPMNShape bpmnElement="inclusivegateway3" id="BPMNShape_inclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="554.0" y="198.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="439.0" y="120.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="seleccionarConvocados" id="BPMNShape_seleccionarConvocados">
         <omgdc:Bounds height="66.0" width="105.0" x="650.0" y="186.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -122,16 +110,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="509.0" y="218.0"></omgdi:waypoint>
         <omgdi:waypoint x="554.0" y="218.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="339.0" y="197.0"></omgdi:waypoint>
-        <omgdi:waypoint x="339.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="439.0" y="137.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="474.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="574.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="574.0" y="198.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="594.0" y="218.0"></omgdi:waypoint>
