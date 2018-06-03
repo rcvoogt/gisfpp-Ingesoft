@@ -22,6 +22,7 @@ import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorMotorBpm;
 import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
@@ -40,6 +41,11 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	private GestorMotorBpm servMotorWf;
 	@Autowired
 	private IServicioSubProyecto servSubProyecto;
+	@Autowired
+	private IServiciosIsfpp servIsfpp;
+	@Autowired
+	private IServiciosConvocable servConvocable;
+	
 	
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
@@ -88,14 +94,18 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 	
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
-	public List<Convocado> getConvocadosAceptadores(Integer idConvocatoria) throws Exception {
-		List<Convocado> aux =dao.getConvocados(idConvocatoria); 
+	public List<Convocado> getConvocadosAceptadores(Convocatoria convocatoria) throws Exception {
+		List<Convocado> aux =dao.getConvocados(convocatoria.getId()); 
 		List<Convocado> aceptadores = new ArrayList<Convocado>();
+		List<PersonaFisica> miembros = servConvocable.getMiembros(convocatoria.getConvocable());
+		System.out.println("Convocatoria Id: " + convocatoria.getId());
+		System.out.println("Lista de miembros: " + miembros);
+		System.out.println("Convocable: " +convocatoria.getConvocable());
+
 		for(Convocado c : aux){
-			if(c.getRespuesta().equals(ERespuestaConvocado.ACEPTADA))
+			if(c.getRespuesta().equals(ERespuestaConvocado.ACEPTADA) && !miembros.contains(c.getPersona()))
 				aceptadores.add(c);	
 		}
-			
 		return aceptadores;
 	}
 	@Override
@@ -131,6 +141,11 @@ public class ServiciosConvocatoria implements IServiciosConvocatoria {
 			servProyecto.editar(s.getPerteneceA());
 			return true;
 		}
+		
+		if(convocable.getTipoConvocatoria().equals(TipoConvocatoria.ISFPP.toString())){
+			servIsfpp.editar((Isfpp) convocable);
+		}
+		
 		return false;
 	}
 	

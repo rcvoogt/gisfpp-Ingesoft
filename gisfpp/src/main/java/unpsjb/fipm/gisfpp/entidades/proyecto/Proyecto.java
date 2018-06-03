@@ -309,4 +309,13 @@ public class Proyecto implements Serializable, Convocable {
 		List<PersonaFisica> responsables = getResponsables();
 		return responsables.contains(persona);
 	}
+
+	@Override
+	public List<PersonaFisica> getMiembros() {
+		List<PersonaFisica> miembros = new ArrayList<PersonaFisica>();
+		for(MiembroStaffProyecto  m : getStaff()){
+			miembros.add(m.getMiembro());
+		}
+		return miembros;
+	}
 }// Fin de la clase Entity Proyecto

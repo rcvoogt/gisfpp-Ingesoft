@@ -21,7 +21,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
@@ -32,8 +34,11 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -84,7 +89,7 @@ public class MVCrudIsfpp {
 			item = new Isfpp(perteneceA, getTituloNewIsfpp(), "", new Date(), new Date(), "", null, null);
 			creando = true;
 			editando = (ver = false);
-			existeConvocatoriaAbierta = false;
+			//existeConvocatoriaAbierta = false;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -92,7 +97,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
-			existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -100,9 +105,12 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (editando = false);
 			ver = true;
+			titulo = "Ver ISFPP " + this.item.getTitulo();
 		}
 		}
 		verTrace = isUsuarioValido();
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,args)));
 	}
 
 	/**
@@ -126,6 +134,7 @@ public class MVCrudIsfpp {
 		}
 		return false;
 	}
+	
 	private boolean puedeCrearConvocatoria() {
 		if(item.getConvocatorias().size() > 0) {
 			for(Convocatoria convocatoria : item.getConvocatorias()) {
@@ -419,7 +428,7 @@ public class MVCrudIsfpp {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudIsfpp.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "/vistas/convocatoria/verConvocatoriaIndependiente.zul",
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/tbbxISFPP", "vistas/convocatoria/verConvocatoriaIndependiente.zul",
 				map);
 		
 	}
@@ -494,4 +503,25 @@ public class MVCrudIsfpp {
 		return this;
 	}
 
+	
+	@NotifyChange("item")
+	public boolean isValido(){
+		
+		if ((item.getEstado().equals(EEstadosIsfpp.ACTIVA) ||
+				  item.getEstado().equals(EEstadosIsfpp.GENERADA)) ) 
+			return true;
+//		if((item.getInicio().equals(new Date()) || item.getInicio().after(new
+//				  Date())) && item.getFin().before(new Date()) || item.getFin().equals(new Date())) 
+//			return true; 
+//		if (item.getConvocatorias().size() > 0) { 
+//			for(Convocatoria convocatoria : item.getConvocatorias()) {
+//				if (convocatoria.getFechaVencimiento().after(new Date())) {
+//				 return true; } 
+//				}
+//			}
+	return false;
+}
+	
+	
+	
 }// fin de la clase

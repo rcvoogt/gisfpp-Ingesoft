@@ -25,7 +25,7 @@
 					disabled="@load(vm.creando )"
 					class="btn btn-success btn-xs"
 					onClick="@command('nuevaConvocatoria')"
-					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') )" />
+					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and vm.isValido())" />
 				<toolbarbutton id="btnVerConvocatoria"
 					image="recursos/img/icon-plus-sign.png" label="Ver Convocatoria"
 					disabled="@load((vm.creando or vm.editando) and vm.existeConvocatoriaAbierta)"

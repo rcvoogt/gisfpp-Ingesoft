@@ -1,0 +1,8 @@
+<hlayout id="m_hlayout" hflex="1" height="20px" spacing="10px"
+	apply="unpsjb.fipm.gisfpp.controladores.ControllerBreadcrumb"
+>
+	<label class="glyphicon glyphicon-home fa-fw"  />
+	<label value="INICIO"  />
+	<space bar="true"/>
+	 
+</hlayout>

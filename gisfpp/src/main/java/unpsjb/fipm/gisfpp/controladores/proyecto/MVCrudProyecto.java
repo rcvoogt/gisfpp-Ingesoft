@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.controladores.proyecto;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +19,16 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.Button;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
-import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
@@ -69,39 +72,23 @@ public class MVCrudProyecto {
 			editando = false;
 			ver = false;
 			titulo = "Nuevo Proyecto";
-			existeConvocatoriaAbierta = false;
+			//existeConvocatoriaAbierta = false;
 		} else if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			editando = true;
 			creando = ver = false;
 			titulo = "Editando Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
-			existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
 		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			ver = true;
 			creando = editando = false;
 			titulo = "Ver Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
 		}
+		
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,map)));
 
-	}
-
-	private boolean puedeCrearConvocatoria() {
-		/*
-		 * TODO: Agregar validacion con respecto al estado del proyecto y las fechas del
-		 * proyecto
-		 */
-
-		/*
-		 * if (!(item.getEstado().equals(EstadoProyecto.ACTIVO) ||
-		 * item.getEstado().equals(EstadoProyecto.GENERADO)) ) return true; //
-		 * if(item.getFecha_fin().equals(new Date()) || item.getFecha_fin().before(new
-		 * Date())) // return true; if (item.getConvocatorias().size() > 0) { for
-		 * (Convocatoria convocatoria : item.getConvocatorias()) { // Si hay una
-		 * convocatoria con fecha de vencimiento posterior al // dia de hoy, es que
-		 * estï¿½ activa if (convocatoria.getFechaVencimiento().after(new Date())) {
-		 * return true; } } }
-		 */
-		return false;
 	}
 
 	public boolean isExisteConvocatoriaAbierta() {
@@ -179,7 +166,7 @@ public class MVCrudProyecto {
 			creando = (editando = false);
 			ver = true;
 		} catch (ConstraintViolationException cve) {
-			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validación de datos.", Messagebox.OK,
+			Messagebox.show(UtilGisfpp.getMensajeValidations(cve), "Error: Validaciï¿½n de datos.", Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (DataIntegrityViolationException | org.hibernate.exception.ConstraintViolationException dive) {
 			Messagebox.show(dive.getMessage(), "Error: Violacion Restricciones de Integridad BD.", Messagebox.OK,
@@ -215,7 +202,7 @@ public class MVCrudProyecto {
 		map.put("perteneceA", item);
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
 	@Command("verSP")
@@ -225,7 +212,7 @@ public class MVCrudProyecto {
 		map.put("idItem", idItem);
 		map.put("modo", UtilGisfpp.MOD_VER);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
 	@Command("editarSP")
@@ -235,7 +222,7 @@ public class MVCrudProyecto {
 		map.put("idItem", idItem);
 		map.put("modo", UtilGisfpp.MOD_EDICION);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "/vistas/proyecto/crudSubProyecto.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/crudSubProyecto.zul", map);
 	}
 
 	@Command("eliminarSP")
@@ -321,8 +308,7 @@ public class MVCrudProyecto {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto",
-				"/vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
 	}
 
 	private MVCrudProyecto getAutoReferencia() {
@@ -340,5 +326,23 @@ public class MVCrudProyecto {
 		}
 		return false;
 	}
+
+	@NotifyChange("item")
+	public boolean isValido(){
+		
+		if ((item.getEstado().equals(EstadoProyecto.ACTIVO) ||
+				  item.getEstado().equals(EstadoProyecto.GENERADO)) ) 
+			return true; 
+//		if((item.getFecha_inicio().equals(new Date()) || item.getFecha_inicio().after(new
+//				  Date())) && item.getFecha_fin().before(new Date()) || item.getFecha_fin().equals(new Date())) 
+//			return true; 
+//		if (item.getConvocatorias().size() > 0) { 
+//			for(Convocatoria convocatoria : item.getConvocatorias()) {
+//				if (convocatoria.getFechaVencimiento().after(new Date())) {
+//				 return true; } 
+//				}
+//			}
+	return false;
+}
 
 }// fin de la clase

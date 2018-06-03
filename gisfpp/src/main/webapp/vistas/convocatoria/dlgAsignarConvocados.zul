@@ -1,12 +1,12 @@
 <zk>
 	<window id="dlgAsignarConvocados" title="Asignar Convocados"
-		border="normal" sizable="true" closable="true" width="26%"
+		border="normal" sizable="true" closable="true" width="50%"
 		vflex="true" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVDlgAsignarConvocados')">
 		<vbox hflex="true" vflex="true">
 			<label value="Titulo : " style="font-weight: bold;"
 				hflex="true" />
-			<!-- <label value="@load(vm.item.titulo)" multiline="true" hflex="true" vflex="true" style="font-style: italic;"/> -->
+			<!--<label value="@load(vm.titulo)" multiline="true" hflex="true" vflex="true" style="font-style: italic;"/>-->
 			<separator bar="true" />
 			<vlayout>
 				<listbox hflex="true" height="260px" 
@@ -23,6 +23,9 @@
 						<!-- 	<listcell label="@bind(s.index)" />  -->
 						</listitem>
 					</template>
+					<listfoot>
+					<listfooter><label value="Solo se muestran los convocados que aceptaron pero no son miembros"/></listfooter>
+					</listfoot>
 				</listbox>
 			</vlayout>
 

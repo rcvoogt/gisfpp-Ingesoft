@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.proyecto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -78,7 +79,7 @@ public class Isfpp implements Serializable, Convocable {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="isfpp")
 	private List<Convocatoria> convocatorias;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="practicantes", joinColumns=@JoinColumn(name="isfppId"), inverseJoinColumns=@JoinColumn(name="personaId")
 			, foreignKey=@ForeignKey(name="fk_isfpp_practicantes"), inverseForeignKey=@ForeignKey(name="fk_persona_practicantes"))
 	private Set<PersonaFisica> practicantes;
@@ -279,21 +280,43 @@ public class Isfpp implements Serializable, Convocable {
 		return true;
 	}
 
+	public List<PersonaFisica> getResponsables(){
+		List<PersonaFisica> resultado = new ArrayList<PersonaFisica>();
+		for (MiembroStaffIsfpp miembro : staff) {
+			if (miembro.getRol() == ERolStaffIsfpp.TUTOR_ACADEMICO) {
+				resultado.add(miembro.getMiembro());
+			}
+		}
+		return resultado;
+	}
+	
 	@Override
 	public String getTipoConvocatoria() throws Exception {
 		return TipoConvocatoria.ISFPP.toString();
 	}
 
 	@Override
-	public void setConvocados(Set<Convocado> nuevosConvocados) throws MiembroExistenteException,Exception {
-		// TODO Auto-generated method stub
+	public void setConvocados(Set<Convocado> nuevosPracticantes) throws MiembroExistenteException,Exception {
+		for(Convocado c: nuevosPracticantes) {	
+			if(!this.practicantes.add(c.getPersona())) throw new MiembroExistenteException(c.getPersona());
+		}
 		
 	}
 
 	@Override
 	public boolean isAsignador(PersonaFisica persona) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		List<PersonaFisica> responsables = getResponsables();
+		return responsables.contains(persona);
+	}
+
+	@Override
+	public List<PersonaFisica> getMiembros() {
+		List<PersonaFisica> miembros = new ArrayList<PersonaFisica>();
+		for(MiembroStaffIsfpp  m : getStaff()){
+			miembros.add(m.getMiembro());
+		}
+		miembros.addAll(practicantes);
+		return miembros;
 	}
 	
 }// fin de la clase

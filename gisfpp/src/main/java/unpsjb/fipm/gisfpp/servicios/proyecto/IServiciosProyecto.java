@@ -14,6 +14,8 @@ public interface IServiciosProyecto extends IServicioGenerico<Proyecto, Integer>
 	
 	public List<OfertaActividad> getAllOfertas();
 
+	public boolean cumpleVencimientoMeses(Proyecto proyecto, Integer venc);
+
 	public List<Proyecto> getProyectosActivos() throws Exception;
 	/**
 	 * Agrega un miembro al staff del proyecto

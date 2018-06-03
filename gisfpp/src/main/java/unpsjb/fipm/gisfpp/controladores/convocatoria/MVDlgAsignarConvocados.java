@@ -46,7 +46,6 @@ public class MVDlgAsignarConvocados {
 	@Init
 	@NotifyChange("convocados")
 	public void init() {
-		// String titulo = item.getTituloConvocable();
 		// servConvocado = (IServiciosConvocado) SpringUtil.getBean("servConvocado");
 		// practicantes = new HashSet<Convocado>();
 		args = (Map<String, Object>) Executions.getCurrent().getArg();
@@ -56,21 +55,12 @@ public class MVDlgAsignarConvocados {
 		convocatoria = (Convocatoria) args.get("convocatoria");
 		// convocable = args.get("convocable");
 		try {
-			convocados = servConvocatoria.getConvocadosAceptadores(convocatoria.getId());
+			System.out.println("Convocatoria "+ convocatoria);
+			convocados = servConvocatoria.getConvocadosAceptadores(convocatoria);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// convocados = new ArrayList<Convocado>();
-		// PersonaFisica p1 = new PersonaFisica("Jose Arza");
-		// p1.setId(1);
-		// convocados.add(new Convocado(null, p1));
-		// PersonaFisica p2 = new PersonaFisica("Juan Arza");
-		// p2.setId(2);
-		// convocados.add(new Convocado(null, p2));
-		// PersonaFisica p3 = new PersonaFisica("Pablo Martinez");
-		// p3.setId(3);
-		// convocados.add(new Convocado(null, p3));
 		list = new ListModelList<Convocado>();
 		list.addAll(convocados);
 		list.setMultiple(true);
@@ -94,6 +84,14 @@ public class MVDlgAsignarConvocados {
 
 	public Convocado getConvocado() {
 		return convocado;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	@SuppressWarnings("unchecked")

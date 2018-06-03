@@ -310,10 +310,10 @@ public class MVCrudConvocatoria {
 	@NotifyChange("convocable")
 	public boolean isConvocador() {
 		PersonaFisica personaFisica;
-		//Convocable convocable = servConvocable.getInstancia();
 		try {
+			Convocable convocable = servConvocable.getInstancia(item.getConvocable());
 			personaFisica = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
-			return item.getConvocable().isAsignador(personaFisica);
+			return convocable.isAsignador(personaFisica);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

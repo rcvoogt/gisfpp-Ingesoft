@@ -171,6 +171,11 @@ public class SubProyecto implements Serializable, Convocable {
 	public boolean isAsignador(PersonaFisica persona) throws Exception {
 		return this.perteneceA.isAsignador(persona);
 	}
+
+	@Override
+	public List<PersonaFisica> getMiembros() {
+		return this.perteneceA.getMiembros();
+	}
 	
 	
 }// fin de la entidad SubProyecto
