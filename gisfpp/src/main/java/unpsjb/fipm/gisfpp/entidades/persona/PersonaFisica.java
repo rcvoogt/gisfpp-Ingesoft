@@ -39,6 +39,11 @@ public class PersonaFisica extends Persona {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	@Override
+	public Integer getId() {
+		return super.getId();
+	}
 
 	@Override
 	public String getDni() {
@@ -72,6 +77,12 @@ public class PersonaFisica extends Persona {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public void agregarDatoDeContacto(DatoDeContacto datoDeContacto) {
+		if(datoDeContacto == null)
+			throw new NullPointerException();
+		this.datosDeContacto.add(datoDeContacto);
 	}
 	
 	//Este metodo "get" se implementa solo con fines de

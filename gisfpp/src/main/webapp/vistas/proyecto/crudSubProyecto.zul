@@ -14,6 +14,16 @@
 				<tab label="ISFPP" visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
 			<toolbar>
+
+				<toolbarbutton id="btnNuevaConvocatoria"
+					image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
+					tooltiptext="Nueva Convocatoria"
+					disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
+					class="btn btn-success btn-xs"
+					onClick="@command('nuevaConvocatoria')"
+					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and vm.isValido())" />
+
+
 				<toolbarbutton image="recursos/img/icon-lupa.png"
 					label="Proyecto" class="btn btn-primary btn-xs"
 					popup="ppDetalleProyecto, position =after_start" />

@@ -5,17 +5,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
-import unpsjb.fipm.gisfpp.entidades.persona.Persona;
-import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto {
@@ -73,21 +76,27 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	public Proyecto recuperarxId(Integer id) throws DataAccessException {
 		String query = "select p from Proyecto as p left join fetch p.subProyectos left join fetch p.demandantes"
 				+ " left join fetch p.staff where p.id=?";
+		Proyecto p;
 		List<Proyecto> result;
 		try {
 			result = (List<Proyecto>) getHibernateTemplate().find(query, id);
+			p = result.get(0);
 			if ((result.isEmpty()) || (result == null)) {
 				return null;
 			} else {
+				//getHibernateTemplate().initialize(result.get(0).getStaff());
 				for (Persona demandante : result.get(0).getDemandantes()) {
 					getHibernateTemplate().initialize(demandante.getIdentificadores());
 				}
 				for(MiembroStaffProyecto miembroStaff: result.get(0).getStaff()){
 					PersonaFisica persona= miembroStaff.getMiembro();
+					getHibernateTemplate().initialize(persona.getId());
 					getHibernateTemplate().initialize(persona.getIdentificadores());
 					getHibernateTemplate().initialize(persona.getDatosDeContacto());
+
 				}
-				return result.get(0);
+				getHibernateTemplate().initialize(p.getConvocatorias());
+				return p;
 			}
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
@@ -127,4 +136,44 @@ public class DaoProyectoImpl extends HibernateDaoSupport implements DaoProyecto 
 	}
 		}
 
+	@Override
+	public List<Convocatoria> getConvocatorias(Integer idProyecto) throws Exception {
+			String query ="select c from Proyecto as p join p.convocatorias as p where p.id = ?";
+			List<Convocatoria> resultado;
+			try {
+				resultado = (List<Convocatoria>) getHibernateTemplate().find(query, idProyecto);
+			} catch (Exception exc) {
+				log.error("Clase: "+ this.getClass().getName() +"- Metodo: List<Convocatoria> getConvocatoria(Integer idProyecto)", exc);
+				throw exc;
+			}
+			if (resultado!=null) {
+				for (Convocatoria convocatoria : resultado) {
+					getHibernateTemplate().initialize(convocatoria.getConvocados());
+					
+				}
+				return resultado;
+			}
+			return new ArrayList<Convocatoria>();
+	}
+
+	/**
+	 * Consulta usando la clase Query de hibernate
+	 */
+	@Override
+	@Transactional
+	public List<Proyecto> getProyectosActivos() {
+		String hql =  "select p "
+					+ "from Proyecto p "
+					+ "where p.estado = :estado ";
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		query.setParameter("estado", EstadoProyecto.ACTIVO);
+		List<Proyecto> proyectosActivos = query.list();
+		for(Proyecto p: proyectosActivos) {
+			getHibernateTemplate().initialize(p.getStaff());
+
+		}
+		return proyectosActivos;
+	}	
+	
+	
 }// fin de la clase

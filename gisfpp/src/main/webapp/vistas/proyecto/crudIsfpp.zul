@@ -1,161 +1,178 @@
-<tabbox id="tbbxISFPP" width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
-class="tabBoxIsfpp"
+<div id="pnlCrudISFPP" xmlns:n="native" class="panel panel-primary"
+	apply="org.zkoss.bind.BindComposer" vflex="true" hflex="true"
+	style="margin-bottom: 2px;"
 	viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVCrudIsfpp')">
-	<tabs>
-		<tab label="Datos Generales" selected="true" />
-		<tab label="Staff" visible="@load(vm.modo ne 'NUEVO')" />
-		<tab label="Practicantes" visible="@load(vm.modo ne 'NUEVO')" />
-		<tab label="Ver Trace" visible="@load(sec:isAutorizado2('VER_TRACE','isfpp',vm.item.id) or sec:isAutorizado('VER_TRACE'))" />		
-	</tabs>
-	<toolbar>
-		<toolbarbutton id="btnNuevaConvocatoria"
-			image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
-			disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
-			class="btn btn-success btn-xs"
-			onClick="@command('nuevaConvocatoria')"
-			visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and not vm.existeConvocatoriaAbierta)"
-			/>
-		<toolbarbutton id="btnVerConvocatoria"
-			image="recursos/img/icon-plus-sign.png" label="Ver Convocatoria"
-			disabled="@load((vm.creando or vm.editando) and vm.existeConvocatoriaAbierta)"
-			class="btn btn-success btn-xs"
-			onClick="@command('verConvocatoria')"
-			/>	
-			
-		<toolbarbutton image="recursos/img/estados.png" label=" Estado"
-			tooltiptext="Editar Estado"
-			popup="ppBotoneraEstados, position=after_center"
-			class="btn btn-primary btn-xs"
-			disabled="#{not btnEditar.visible}"/>
-		<toolbarbutton id="btnNuevo"
-			image="recursos/img/icon-plus-sign.png" label="Nuevo"
-			disabled="@load(vm.creando or vm.editando)"
-			class="btn btn-success btn-xs"
-			visible="@load(sec:isAutorizado2('CREAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
-				 or	sec:isAutorizado('MODIFICAR_PROYECTOS'))"
-			onClick="@command('nuevaIsfpp')" />
-		<toolbarbutton id="btnEditar" image="recursos/img/icon-edit.png"
-			label="Editar" disabled="@load(vm.creando or vm.editando)"
-			class="btn btn-success btn-xs"
-			visible="@load(sec:isAutorizado2('MODIFICAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
-				 or	sec:isAutorizado2('MODIFICAR_ISFPP', 'isfpp', vm.item.id) or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
-			onClick="@command('editarIsfpp')" />
-		<space bar="true" spacing="10px"
-			visible="@load(btnNuevo.visible or btnEditar.visible)" />
-		<toolbarbutton image="recursos/img/icon-save.png"
-			label="Guardar" class="btn btn-success btn-xs"
-			disabled="@load((not vm.creando) and (not vm.editando))"
-			onClick="@command('guardar')"
-			visible="@load(btnNuevo.visible or btnEditar.visible)" />
-		<toolbarbutton image="recursos/img/icon-remove-sign.png"
-			label="Cancelar" class="btn btn-success btn-xs"
-			disabled="@load((not vm.creando) and (not vm.editando))"
-			onClick="@command('cancelar')"
-			visible="@load(btnNuevo.visible or btnEditar.visible)" />
-			
-		<space bar="true" spacing="10px"
-			visible="@load(btnNuevo.visible or btnEditar.visible)" />
-		<toolbarbutton image="recursos/img/icon-exit.png" label="Salir"
-			onClick="@command('salir')" class="btn btn-success btn-xs"
-			disabled="@load(vm.creando or vm.editando)" />
-	</toolbar>
-	<tabpanels>
-		<tabpanel id="tabDatosGen">
-			<grid hflex="1" vflex="1" sclass="fgrid">
-				<columns>
-					<column width="33%" />
-					<column width="33%" />
-					<column width="34%" />
-				</columns>
-				<rows>
-					<row width="15px" />
-					<row>
-						<div>
-							<label value="Titulo" sclass="form-label"
-								width="45%" />
-							<textbox value="@bind(vm.item.titulo)"
-								width="95%" maxlength="80" class="form-control"
-								readonly="@load((not vm.creando) and (not vm.editando))" />
-						</div>
-						<div>
-							<label value="Estado" sclass="form-label"
-								width="45%" />
-							<textbox
-								value="@load(vm.item.estado.titulo)" readonly="true" width="85%"
-								class="form-control" />
-						</div>
-					</row>
-					<row height="15px" />
-					<row>
-						<div>
-							<label value="Objetivos" class="form-label"
-								width="45%" />
-							<textbox value="@bind(vm.item.objetivos)"
-								class="form-control" cols="60" rows="5" maxlength="500"
-								width="95%"
-								readonly="@load((not vm.creando) and (not vm.editando))" />
-						</div>
-					</row>
-					<row height="15px" />
-					<row>
-						<div>
-							<label value="Fecha inicio"
-								class="form-label" width="45%" />
-							<datebox value="@bind(vm.item.inicio)"
-								buttonVisible="true" width="35%" format="dd/MM/yyyy"
-								disabled="@load((not vm.creando) and (not vm.editando))" />
-						</div>
-						<div>
-							<label value="Fecha fin" class="form-label"
-								width="45%" />
-							<datebox value="@bind(vm.item.fin)"
-								buttonVisible="true" width="35%" format="dd/MM/yyyy"
-								disabled="@load((not vm.creando) and (not vm.editando))" />
-						</div>
-					</row>
-					<row height="15px" />
-					<row spans="2">
-						<div>
-							<label value="Detalle" sclass="form-label"
-								width="45%" />
-							<ckeditor width="100%"
-								value="@bind(vm.item.detalle)"
-								customConfigurationsPath="/recursos/js/ckeditor-config.js">
-							</ckeditor>
-						</div>
-					</row>
-				</rows>
-			</grid>
-			<popup id="ppBotoneraEstados">
-				<hbox spacing="4px">
-					<toolbarbutton image="recursos/img/play.png"
-						tooltiptext="Reactivar la Isfpp"
-						disabled="@load(vm.item.estado.titulo ne 'Suspendida')"
-						onClick="@command('activarIsfpp')" />
-					<toolbarbutton image="recursos/img/pause.png"
-						tooltiptext="Suspender temporalmente la Isfpp"
-						disabled="@load(vm.item.estado.titulo eq 'Suspendida')"
-						onClick="@command('suspenderIsfpp')" />
-					<toolbarbutton image="recursos/img/cancelar.png"
-						tooltiptext="Cancelar definitivamente la Isfpp"
-						disabled="@load(vm.item.estado.titulo ne 'Activa')"
-						onClick="@command('cancelarIsfpp')" />
-					<toolbarbutton image="recursos/img/concluir.png"
-						tooltiptext="Isfpp concluida"
-						disabled="@load(vm.item.estado.titulo ne 'Activa')"
-						onClick="@command('concluirIsfpp')" />
-				</hbox>
-			</popup>
-		</tabpanel>
-		<tabpanel id="tabStaff">
-			<include src="vistas/proyecto/listaStaffIsfpp.zul" />
-		</tabpanel>
-		<tabpanel id="tabPracticantes">
-			<include src="vistas/proyecto/listaPracticantes.zul" />
-		</tabpanel>
-		<tabpanel id="tabVerTrace">
-			<include src="vistas/proyecto/verTrace.zul" />
-		</tabpanel>
-	</tabpanels>
-</tabbox>
+	<n:div class="panel-heading">
+		<n:h3 class="panel-title">
+			<label value="@load(vm.titulo)" style="font-size:14px;" />
+		</n:h3>
+	</n:div>
+	<div class="panel-body" vflex="true">
+		<tabbox id="tbbxISFPP" 
+			class="tabBoxIsfpp"
+			>
+			<tabs>
+				<tab label="Datos Generales" selected="true" />
+				<tab label="Staff" visible="@load(vm.modo ne 'NUEVO')" />
+				<tab label="Practicantes"
+					visible="@load(vm.modo ne 'NUEVO')" />
+				<tab label="Ver Trace"
+					visible="@load(sec:isAutorizado2('VER_TRACE','isfpp',vm.item.id) or sec:isAutorizado('VER_TRACE'))" />
+			</tabs>
+			<toolbar>
+				<toolbarbutton id="btnNuevaConvocatoria"
+					image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
+					disabled="@load(vm.creando )"
+					class="btn btn-success btn-xs"
+					onClick="@command('nuevaConvocatoria')"
+					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and vm.isValido())" />
+				<toolbarbutton id="btnVerConvocatoria"
+					image="recursos/img/icon-plus-sign.png" label="Ver Convocatoria"
+					disabled="@load((vm.creando or vm.editando) and vm.existeConvocatoriaAbierta)"
+					class="btn btn-success btn-xs"
+					onClick="@command('verConvocatoria')" />
 
+				<toolbarbutton image="recursos/img/estados.png"
+					label=" Estado" tooltiptext="Editar Estado"
+					popup="ppBotoneraEstados, position=after_center"
+					class="btn btn-primary btn-xs" disabled="#{not btnEditar.visible}" />
+				<toolbarbutton id="btnNuevo"
+					image="recursos/img/icon-plus-sign.png" label="Nuevo"
+					disabled="@load(vm.creando or vm.editando)"
+					class="btn btn-success btn-xs"
+					visible="@load(sec:isAutorizado2('CREAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
+				 or	sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					onClick="@command('nuevaIsfpp')" />
+				<toolbarbutton id="btnEditar"
+					image="recursos/img/icon-edit.png" label="Editar"
+					disabled="@load(vm.creando or vm.editando)"
+					class="btn btn-success btn-xs"
+					visible="@load(sec:isAutorizado2('MODIFICAR_ISFPP', 'proyecto', vm.item.perteneceA.perteneceA.id)
+				 or	sec:isAutorizado2('MODIFICAR_ISFPP', 'isfpp', vm.item.id) or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+					onClick="@command('editarIsfpp')" />
+				<space bar="true" spacing="10px"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<toolbarbutton image="recursos/img/icon-save.png"
+					label="Guardar" class="btn btn-success btn-xs"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('guardar')"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<toolbarbutton image="recursos/img/icon-remove-sign.png"
+					label="Cancelar" class="btn btn-success btn-xs"
+					disabled="@load((not vm.creando) and (not vm.editando))"
+					onClick="@command('cancelar')"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+
+				<space bar="true" spacing="10px"
+					visible="@load(btnNuevo.visible or btnEditar.visible)" />
+				<toolbarbutton image="recursos/img/icon-exit.png"
+					label="Salir" onClick="@command('salir')"
+					class="btn btn-success btn-xs"
+					disabled="@load(vm.creando or vm.editando)" />
+			</toolbar>
+			<tabpanels>
+				<tabpanel id="tabDatosGen">
+					<grid hflex="1" vflex="1" sclass="fgrid">
+						<columns>
+							<column width="33%" />
+							<column width="33%" />
+							<column width="34%" />
+						</columns>
+						<rows>
+							<row width="15px" />
+							<row>
+								<div>
+									<label value="Titulo"
+										sclass="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.titulo)" width="95%" maxlength="80"
+										class="form-control"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+								<div>
+									<label value="Estado"
+										sclass="form-label" width="45%" />
+									<textbox
+										value="@load(vm.item.estado.titulo)" readonly="true"
+										width="85%" class="form-control" />
+								</div>
+							</row>
+							<row height="15px" />
+							<row>
+								<div>
+									<label value="Objetivos"
+										class="form-label" width="45%" />
+									<textbox
+										value="@bind(vm.item.objetivos)" class="form-control"
+										cols="60" rows="5" maxlength="500" width="95%"
+										readonly="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px" />
+							<row>
+								<div>
+									<label value="Fecha inicio"
+										class="form-label" width="45%" />
+									<datebox
+										value="@bind(vm.item.inicio)" buttonVisible="true" width="35%"
+										format="dd/MM/yyyy"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+								<div>
+									<label value="Fecha fin"
+										class="form-label" width="45%" />
+									<datebox value="@bind(vm.item.fin)"
+										buttonVisible="true" width="35%" format="dd/MM/yyyy"
+										disabled="@load((not vm.creando) and (not vm.editando))" />
+								</div>
+							</row>
+							<row height="15px" />
+							<row spans="2">
+								<div>
+									<label value="Detalle"
+										sclass="form-label" width="45%" />
+									<ckeditor width="100%"
+										value="@bind(vm.item.detalle)"
+										customConfigurationsPath="/recursos/js/ckeditor-config.js">
+									</ckeditor>
+								</div>
+							</row>
+						</rows>
+					</grid>
+					<popup id="ppBotoneraEstados">
+						<hbox spacing="4px">
+							<toolbarbutton image="recursos/img/play.png"
+								tooltiptext="Reactivar la Isfpp"
+								disabled="@load(vm.item.estado.titulo ne 'Suspendida')"
+								onClick="@command('activarIsfpp')" />
+							<toolbarbutton
+								image="recursos/img/pause.png"
+								tooltiptext="Suspender temporalmente la Isfpp"
+								disabled="@load(vm.item.estado.titulo eq 'Suspendida')"
+								onClick="@command('suspenderIsfpp')" />
+							<toolbarbutton
+								image="recursos/img/cancelar.png"
+								tooltiptext="Cancelar definitivamente la Isfpp"
+								disabled="@load(vm.item.estado.titulo ne 'Activa')"
+								onClick="@command('cancelarIsfpp')" />
+							<toolbarbutton
+								image="recursos/img/concluir.png" tooltiptext="Isfpp concluida"
+								disabled="@load(vm.item.estado.titulo ne 'Activa')"
+								onClick="@command('concluirIsfpp')" />
+						</hbox>
+					</popup>
+				</tabpanel>
+				<tabpanel id="tabStaff">
+					<include src="vistas/proyecto/listaStaffIsfpp.zul" />
+				</tabpanel>
+				<tabpanel id="tabPracticantes">
+					<include
+						src="vistas/proyecto/listaPracticantes.zul" />
+				</tabpanel>
+				<tabpanel id="tabVerTrace">
+					<include src="vistas/proyecto/verTrace.zul" />
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</div>
+</div>

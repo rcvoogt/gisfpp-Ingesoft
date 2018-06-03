@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -73,15 +74,18 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 	@Override
 	public SubProyecto recuperarxId(Integer id) throws DataAccessException {
 		String query = "select sp from SubProyecto as sp left join fetch sp.instanciasIsfpp where sp.id=?";
+		SubProyecto sp;
 		List<SubProyecto> result;
 		try {
 			result = (List<SubProyecto>) getHibernateTemplate().find(query, id);
+			sp = result.get(0);
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
 		if (result != null && !result.isEmpty()) {
-			return result.get(0);
+			getHibernateTemplate().initialize(sp.getConvocatorias());
+			return sp;
 		} else {
 			return null;
 		}
@@ -143,4 +147,6 @@ public class DaoSubProyecto extends HibernateDaoSupport implements IDaoSubProyec
 			throw exc1;
 		}
 	}
+
+	
 }// fin de la clase

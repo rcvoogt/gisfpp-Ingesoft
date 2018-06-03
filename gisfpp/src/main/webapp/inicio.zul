@@ -15,6 +15,7 @@
 <?script type="text/javascript" src="recursos/bootstrap/js/bootstrap.min.js"?>
 
 
+
 <zk xmlns:n="native">
 	<borderlayout id="layout" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.MVInicio')" vflex="true" hflex="true">
@@ -30,6 +31,7 @@
 		</north>
 		<center id="centro" style="padding-top: 4px;">
 			<div vflex="true">
+				<include  src='${(empty param.login)? "":"/vistas/breadcrumb.zul"}' if="${param.login != 0}"/>
 				<include id="panelCentro" src='${(empty param.login)? "":"/vistas/workflow/bandejaActividades.zul"}' 
 					if="${param.login != 0}"/>
 				<include src="/vistas/config/loguin_error.zul" if="${param.login == 0}"/>

@@ -24,7 +24,7 @@
 			<combobox model="@load(vm.proyectos)"
 				selectedItem="@bind(vm.proyecto)" width="75%">
 				<template name="model">
-					<comboitem label="@load(each.titulo)" />
+					<comboitem label="@load(each.id)" />
 				</template>
 			</combobox>
 		</div>

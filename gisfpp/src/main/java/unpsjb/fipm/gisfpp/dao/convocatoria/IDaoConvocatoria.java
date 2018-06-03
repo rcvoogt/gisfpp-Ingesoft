@@ -1,13 +1,13 @@
-package unpsjb.fipm.gisfpp.dao.proyecto;
+package unpsjb.fipm.gisfpp.dao.convocatoria;
 
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
 import unpsjb.fipm.gisfpp.dao.DaoGenerico;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;

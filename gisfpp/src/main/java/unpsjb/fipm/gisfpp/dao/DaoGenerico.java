@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
+
 /**
  * Interface DAO Generica: Interface generica con los métodos comunes que
  * deberan implementar todos los DAO de la aplicacion
@@ -64,5 +66,6 @@ public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 	 * @throws DataAccessException
 	 */
 	public T recuperarxId(K id) throws DataAccessException;
+	
 
 }

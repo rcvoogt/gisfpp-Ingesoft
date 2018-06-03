@@ -14,4 +14,8 @@ public enum EEstadosIsfpp {
 	public String getTitulo() {
 		return titulo;
 	}
+
+	public void setTitulo(String string) {
+		titulo=string;
+	}
 }

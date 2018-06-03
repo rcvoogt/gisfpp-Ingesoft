@@ -1,7 +1,7 @@
 <zk>
 	<window id="dlgConvocado" title="@load(vm.titulo)" border="normal" height="250px" width="400px"
 		closable="true" apply="org.zkoss.bind.BindComposer"
-			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.proyecto.MVDlgConvocado')">
+			viewModel="@id('vm') @init('unpsjb.fipm.gisfpp.controladores.convocatoria.MVDlgConvocado')">
 		<vbox spacing="8px" hflex="true" vflex="true">
 			<div>
 				<label value="Miembro" class="form-label" width="45%"/>

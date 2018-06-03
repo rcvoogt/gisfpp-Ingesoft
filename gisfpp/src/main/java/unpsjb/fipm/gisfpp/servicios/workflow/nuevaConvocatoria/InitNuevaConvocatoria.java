@@ -11,16 +11,17 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.task.IdentityLinkType;
 import org.slf4j.Logger;
+
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServicioSubProyecto;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosIsfpp;
 import unpsjb.fipm.gisfpp.util.MySpringUtil;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -35,7 +36,7 @@ public class InitNuevaConvocatoria implements ExecutionListener {
 	private IServiciosConvocatoria servConvocatoria;
 	private RuntimeService rtService;
 	
-	private Isfpp isfpp;
+	private Convocable convocable;
 	private SubProyecto sp;
 	private Proyecto proyecto;
 	private Convocatoria convocatoria;
@@ -68,15 +69,15 @@ public class InitNuevaConvocatoria implements ExecutionListener {
 			rtService = MySpringUtil.getRunTimeService();
 						
 			convocatoria = servConvocatoria.getInstancia(Integer.valueOf(execution.getProcessBusinessKey()));
-			isfpp = convocatoria.getIsfpp();
-			sp = isfpp.getPerteneceA();
-			proyecto = sp.getPerteneceA();
-			
+			convocable = convocatoria.getConvocable();
+//			sp = convocable.getPerteneceA();
+//			proyecto = sp.getPerteneceA();
+//			
 			recuperarDatosConvocador(execution);
 			
 			
-			tituloIsfpp = isfpp.getTitulo();
-			perteneceA = sp.getTitulo()+"/"+proyecto.getTitulo();
+			//tituloIsfpp = isfpp.getTitulo();
+			//perteneceA = sp.getTitulo()+"/"+proyecto.getTitulo();
 			recuperarmailsConvocados();
 			
 			

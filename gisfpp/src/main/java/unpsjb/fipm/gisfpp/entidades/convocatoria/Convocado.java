@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.entidades.proyecto;
+package unpsjb.fipm.gisfpp.entidades.convocatoria;
 
 import java.io.Serializable;
 
@@ -79,6 +79,11 @@ public class Convocado implements Serializable {
 	}
 
 	
+	
+	public void setConvocatoria(Convocatoria convocatoria) {
+		this.convocatoria = convocatoria;
+	}
+
 	public void setRespuesta(ERespuestaConvocado respuesta) {
 		this.respuesta = respuesta;
 	}

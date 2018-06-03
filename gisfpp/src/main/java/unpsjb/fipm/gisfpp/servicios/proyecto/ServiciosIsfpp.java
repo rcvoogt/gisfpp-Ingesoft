@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.IDaoIsfpp;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
@@ -252,6 +252,11 @@ public class ServiciosIsfpp implements IServiciosIsfpp {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<Convocatoria> getConvocatorias(Integer idIsfpp) throws Exception{
+		return dao.getConvocatorias(idIsfpp);
+	}
+	
 	
 
 }// fin de la clase

@@ -15,12 +15,12 @@ import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
+import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocado;
-import unpsjb.fipm.gisfpp.entidades.proyecto.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
-import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosConvocatoria;
+import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class MVDlgLkpPracticante {
@@ -46,7 +46,7 @@ public class MVDlgLkpPracticante {
 		
 	    asignados = new ArrayList<Convocado>();
 	   
-		resultado = servicio.getConvocadosAceptadores(idConvocatoria);
+		resultado = servicio.getConvocadosAceptadores(c);
 
 	}	
 	
