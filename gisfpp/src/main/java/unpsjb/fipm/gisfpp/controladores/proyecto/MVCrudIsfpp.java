@@ -37,6 +37,8 @@ import org.zkoss.zul.Window;
 import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EEstadosIsfpp;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffIsfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -87,7 +89,7 @@ public class MVCrudIsfpp {
 			item = new Isfpp(perteneceA, getTituloNewIsfpp(), "", new Date(), new Date(), "", null, null);
 			creando = true;
 			editando = (ver = false);
-			existeConvocatoriaAbierta = false;
+			//existeConvocatoriaAbierta = false;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -95,8 +97,7 @@ public class MVCrudIsfpp {
 			item.setPerteneceA(perteneceA);
 			creando = (ver = false);
 			editando = true;
-			titulo = "Editando ISFPP " + this.item.getTitulo();
-			existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
@@ -133,6 +134,7 @@ public class MVCrudIsfpp {
 		}
 		return false;
 	}
+	
 	private boolean puedeCrearConvocatoria() {
 		if(item.getConvocatorias().size() > 0) {
 			for(Convocatoria convocatoria : item.getConvocatorias()) {
@@ -501,4 +503,25 @@ public class MVCrudIsfpp {
 		return this;
 	}
 
+	
+	@NotifyChange("item")
+	public boolean isValido(){
+		
+		if ((item.getEstado().equals(EEstadosIsfpp.ACTIVA) ||
+				  item.getEstado().equals(EEstadosIsfpp.GENERADA)) ) 
+			return true;
+//		if((item.getInicio().equals(new Date()) || item.getInicio().after(new
+//				  Date())) && item.getFin().before(new Date()) || item.getFin().equals(new Date())) 
+//			return true; 
+//		if (item.getConvocatorias().size() > 0) { 
+//			for(Convocatoria convocatoria : item.getConvocatorias()) {
+//				if (convocatoria.getFechaVencimiento().after(new Date())) {
+//				 return true; } 
+//				}
+//			}
+	return false;
+}
+	
+	
+	
 }// fin de la clase

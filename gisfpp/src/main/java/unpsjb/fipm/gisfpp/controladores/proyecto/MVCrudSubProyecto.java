@@ -30,6 +30,7 @@ import org.zkoss.zul.Tabpanel;
 import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Isfpp;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.SubProyecto;
@@ -73,7 +74,7 @@ public class MVCrudSubProyecto {
 			item = new SubProyecto(perteneceA, "", "");
 			creando = true;
 			editando = ver = false;
-			existeConvocatoriaAbierta = false;
+			//existeConvocatoriaAbierta = false;
 			titulo = "Nuevo Sub-Proyecto / Proyecto: (Cod.: " + item.getPerteneceA().getCodigo() + ") "
 					+ item.getPerteneceA().getTitulo();
 			break;
@@ -83,7 +84,7 @@ public class MVCrudSubProyecto {
 			item.setPerteneceA(perteneceA);
 			creando = ver = false;
 			editando = true;
-			existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
 			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (Cod.: " + perteneceA.getCodigo()
 					+ ") " + perteneceA.getTitulo();
 			break;
@@ -101,33 +102,8 @@ public class MVCrudSubProyecto {
 		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
 		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudSubProyecto.zul",titulo,map)));
 	}
-
-	@Transactional
-	private boolean puedeCrearConvocatoria() {
-		/*
-		 * TODO: Agregar validacion con respecto al estado del proyecto y las
-		 * fechas del proyecto
-		 */
-
-		/*if (!(item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) || 
-				item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)))
-			return true;*/
-//		if (item.getPerteneceA().getFecha_fin().equals(new Date()) || 
-//				item.getPerteneceA().getFecha_fin().before(new Date()))
-//			return true;
-
-		if (item.getConvocatorias().size() > 0) {
-			for (Convocatoria convocatoria : item.getConvocatorias()) {
-				// Si hay una convocatoria con fecha de vencimiento posterior al
-				// dia de hoy, es que est� activa
-				if (convocatoria.getFechaVencimiento().after(new Date())) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
+	
+	
 	public boolean isExisteConvocatoriaAbierta() {
 		return existeConvocatoriaAbierta;
 	}
@@ -362,4 +338,24 @@ public class MVCrudSubProyecto {
 		return false;
 	}
 
+	@NotifyChange("item")
+	public boolean isValido(){
+		
+		if ((item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) ||
+				  item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)) ) 
+			return true; 
+//		if((item.getPerteneceA().getFecha_inicio().equals(new Date()) || item.getPerteneceA().getFecha_inicio().after(new
+//				  Date())) && item.getPerteneceA().getFecha_fin().before(new Date()) || item.getPerteneceA().getFecha_fin().equals(new Date())) 
+//			return true;  
+//		if (item.getConvocatorias().size() > 0) { 
+//			for(Convocatoria convocatoria : item.getConvocatorias()) {
+//				if (convocatoria.getFechaVencimiento().after(new Date())) {
+//				 return true; } 
+//				}
+//			}
+	return false;
+}
+	
+	
+	
 }// fin de la clase
