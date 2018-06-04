@@ -48,8 +48,8 @@ public class ControllerBreadcrumb extends SelectorComposer<Component> {
 					limpiarBreadCrumb();
 					break;
 
-				case "onLoadEntity":
-					actualizarUltimaEntrada((String) evt.getData());
+				case "volver":
+					volver();
 					break;
 				default:
 					break;
@@ -95,32 +95,14 @@ public class ControllerBreadcrumb extends SelectorComposer<Component> {
 	}
 
 	@NotifyChange("m_hlayout")
-	private void actualizarUltimaEntrada(String nuevoTexto) {
-		System.out.println("Entra a actualizar?" + nuevoTexto);
-		ItemBreadCrumb actual = breadcrumb.get(breadcrumb.size() - 1);
-		List<Component> hijos = Selectors.find(m_hlayout, "label[value='" + actual.getTitulo() + "']");
-
-		Component ultimo = ((Component) m_hlayout).getLastChild(); // el primero es el separador
-
-		m_hlayout.removeChild(ultimo);
-
-		ultimo = ((Component) m_hlayout).getLastChild(); // el segundo es el label
-
-		m_hlayout.removeChild(ultimo);
-		System.out.println("En actualizar:" + ultimo.getAttribute("value") + " class:" + ultimo.getClass());
-		System.out.println("atributos" + ultimo.getAttributes());
-		ultimo.setAttribute("value", "nuevoTexto");
-		m_hlayout.appendChild(ultimo);
-		
-		Space separador = new Space();
-		separador.setBar(true);
-		separador.setClass(" separador");
-		m_hlayout.appendChild(separador);
-		
-
-		breadcrumb.remove(actual);
-		actual.setTitulo(nuevoTexto);
-		breadcrumb.add(actual);
+	private void volver() {
+		//Volver consta de borrar las ultimas dos entradas, ya que como llama al constructor nuevamente,
+		//	manda un agregar de la pantalla a la que esta yendo
+		//
+		m_hlayout.getLastChild().detach();
+		m_hlayout.getLastChild().detach();
+		breadcrumb.remove(breadcrumb.size()-1);
+		breadcrumb.remove(breadcrumb.size()-1);
 
 	}
 

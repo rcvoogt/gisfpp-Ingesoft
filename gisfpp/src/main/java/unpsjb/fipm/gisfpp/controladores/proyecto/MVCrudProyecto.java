@@ -190,6 +190,8 @@ public class MVCrudProyecto {
 
 	@Command("volver")
 	public void volver() {
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("volver", null, null));
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listadoProyectos.zul");
 	}
 
@@ -332,9 +334,9 @@ public class MVCrudProyecto {
 	@NotifyChange("item")
 	public boolean isValido(){
 		
-		if ((item.getEstado().equals(EstadoProyecto.ACTIVO) ||
-				  item.getEstado().equals(EstadoProyecto.GENERADO)) ) 
-			return true; 
+		//if ((item.getEstado().equals(EstadoProyecto.ACTIVO) ||
+		//		  item.getEstado().equals(EstadoProyecto.GENERADO)) ) 
+		//	return true; 
 //		if((item.getFecha_inicio().equals(new Date()) || item.getFecha_inicio().after(new
 //				  Date())) && item.getFecha_fin().before(new Date()) || item.getFecha_fin().equals(new Date())) 
 //			return true; 
