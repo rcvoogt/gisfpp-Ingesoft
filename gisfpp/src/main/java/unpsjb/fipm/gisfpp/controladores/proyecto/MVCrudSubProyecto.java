@@ -75,8 +75,7 @@ public class MVCrudSubProyecto {
 			creando = true;
 			editando = ver = false;
 			//existeConvocatoriaAbierta = false;
-			titulo = "Nuevo Sub-Proyecto / Proyecto: (Cod.: " + item.getPerteneceA().getCodigo() + ") "
-					+ item.getPerteneceA().getTitulo();
+			titulo = "Nuevo Sub-Proyecto" ;
 			break;
 		}
 		case UtilGisfpp.MOD_EDICION: {
@@ -85,8 +84,7 @@ public class MVCrudSubProyecto {
 			creando = ver = false;
 			editando = true;
 			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
-			titulo = "Editando Sub-Proyecto: " + item.getTitulo() + " / Proyecto: (Cod.: " + perteneceA.getCodigo()
-					+ ") " + perteneceA.getTitulo();
+			titulo = "Editando Sub-Proyecto: " + item.getTitulo(); 
 			break;
 		}
 		case UtilGisfpp.MOD_VER: {
