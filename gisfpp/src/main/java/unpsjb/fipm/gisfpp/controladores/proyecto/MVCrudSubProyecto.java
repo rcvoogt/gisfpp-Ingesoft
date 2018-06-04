@@ -315,6 +315,8 @@ public class MVCrudSubProyecto {
 		HashMap<String, Object> mapAux = new HashMap<>();
 		mapAux.put("idItem", perteneceA.getId());
 		mapAux.put("modo", UtilGisfpp.MOD_VER);
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
+		  .publish(new Event("volver", null, null));
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudSP", (String) map.get("volverA"), mapAux);
 	}
 
@@ -341,9 +343,9 @@ public class MVCrudSubProyecto {
 	@NotifyChange("item")
 	public boolean isValido(){
 		
-		if ((item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) ||
-				  item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)) ) 
-			return true; 
+		//if ((item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) ||
+		//		  item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)) ) 
+		//	return true; 
 //		if((item.getPerteneceA().getFecha_inicio().equals(new Date()) || item.getPerteneceA().getFecha_inicio().after(new
 //				  Date())) && item.getPerteneceA().getFecha_fin().before(new Date()) || item.getPerteneceA().getFecha_fin().equals(new Date())) 
 //			return true;  
