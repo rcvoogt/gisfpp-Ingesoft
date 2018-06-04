@@ -77,7 +77,7 @@ public class UtilGuiGisfpp {
 			include.setSrc(null);
 		}
 		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
-		  .publish(new Event("onExit", null, new ItemBreadCrumb(pnl,traducirZul(pnl),null)));
+		  .publish(new Event("onExit", null, null));
 	}
 	
 	public static void mostrarDialogoBox(String path, Map <String,Object> args){
