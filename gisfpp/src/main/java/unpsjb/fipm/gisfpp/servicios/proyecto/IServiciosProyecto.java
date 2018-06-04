@@ -31,4 +31,6 @@ public interface IServiciosProyecto extends IServicioGenerico<Proyecto, Integer>
 	 */
 	public void agregarMiembrosStaff(Set<PersonaFisica> practicantes, Proyecto proyecto);
 
+	boolean isMiembroStaff(Integer id, PersonaFisica persona) throws Exception;
+
 }

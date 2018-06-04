@@ -18,6 +18,7 @@ import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -172,6 +173,15 @@ public class ServiciosProyecto implements IServiciosProyecto {
 		miembro.setProyecto(proyecto);
 		miembro.setRol(rol);
 		return miembro;
+	}
+
+	@Override
+	public boolean isMiembroStaff(Integer id, PersonaFisica persona) throws Exception {
+		Proyecto proyecto = this.getInstancia(id);
+		MiembroStaffProyecto m = new MiembroStaffProyecto();
+		m.setMiembro(persona);
+		m.setProyecto(proyecto);
+		return proyecto.getStaff().contains(m);
 	}
 	
 }// fin de la clase

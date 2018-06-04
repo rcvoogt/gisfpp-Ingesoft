@@ -16,9 +16,7 @@
 				<tab label="Sub-Proyectos"
 					visible="@load(vm.modo ne 'NUEVO')" />
 			</tabs>
-			<toolbar>
-
-
+			<toolbar>			
 				<toolbarbutton id="btnNuevaConvocatoria"
 					image="recursos/img/icon-plus-sign.png" label="Nueva Convocatoria"
 					tooltiptext="Nueva Convocatoria"

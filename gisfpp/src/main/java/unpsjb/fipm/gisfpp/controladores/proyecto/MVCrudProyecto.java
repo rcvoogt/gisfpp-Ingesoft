@@ -32,6 +32,7 @@ import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.EstadoProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
@@ -73,23 +74,22 @@ public class MVCrudProyecto {
 			editando = false;
 			ver = false;
 			titulo = "Nuevo Proyecto";
-			//existeConvocatoriaAbierta = false;
+			// existeConvocatoriaAbierta = false;
 		} else if (modo.equals(UtilGisfpp.MOD_EDICION)) {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			editando = true;
 			creando = ver = false;
 			titulo = "Editando Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
-			//existeConvocatoriaAbierta = puedeCrearConvocatoria();
+			// existeConvocatoriaAbierta = puedeCrearConvocatoria();
 		} else if (modo.equals(UtilGisfpp.MOD_VER)) {
 			item = servicio.getInstancia((Integer) map.get("idItem"));
 			ver = true;
 			creando = editando = false;
 			titulo = "Ver Proyecto: " + item.getCodigo() + " - " + item.getTitulo();
 		}
-		
-		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
-		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,map)));
-		
+
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true).publish(
+				new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul", titulo, map)));
 
 	}
 
@@ -190,8 +190,7 @@ public class MVCrudProyecto {
 
 	@Command("volver")
 	public void volver() {
-		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
-		  .publish(new Event("volver", null, null));
+		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true).publish(new Event("volver", null, null));
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/proyecto/listadoProyectos.zul");
 	}
 
@@ -312,7 +311,8 @@ public class MVCrudProyecto {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		map.put("convocable", item);
 		map.put("volverA", "/vistas/proyecto/crudProyecto.zul");
-		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto", "vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
+		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlCrudProyecto",
+				"vistas/convocatoria/verConvocatoriaIndependiente.zul", map);
 	}
 
 	private MVCrudProyecto getAutoReferencia() {
@@ -332,21 +332,24 @@ public class MVCrudProyecto {
 	}
 
 	@NotifyChange("item")
-	public boolean isValido(){
-		
-		//if ((item.getEstado().equals(EstadoProyecto.ACTIVO) ||
-		//		  item.getEstado().equals(EstadoProyecto.GENERADO)) ) 
-		//	return true; 
-//		if((item.getFecha_inicio().equals(new Date()) || item.getFecha_inicio().after(new
-//				  Date())) && item.getFecha_fin().before(new Date()) || item.getFecha_fin().equals(new Date())) 
-//			return true; 
-//		if (item.getConvocatorias().size() > 0) { 
-//			for(Convocatoria convocatoria : item.getConvocatorias()) {
-//				if (convocatoria.getFechaVencimiento().after(new Date())) {
-//				 return true; } 
-//				}
-//			}
-	return false;
-}
+	public boolean isValido() {
+		if (item == null)
+			return false;
+		if ((item.getEstado().equals(EstadoProyecto.ACTIVO) || item.getEstado().equals(EstadoProyecto.GENERADO)))
+			return true;
+		if ((item.getFecha_inicio().equals(new Date()) || item.getFecha_inicio().after(new Date()))
+				&& item.getFecha_fin().before(new Date()) || item.getFecha_fin().equals(new Date()))
+			return true;
+		if (item.getConvocatorias().size() > 0) {
+			for (Convocatoria convocatoria : item.getConvocatorias()) {
+				if (convocatoria.getFechaVencimiento().after(new Date())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 
 }// fin de la clase

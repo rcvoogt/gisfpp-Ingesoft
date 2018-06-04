@@ -19,30 +19,38 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.persona.ServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.proyecto.IServiciosProyecto;
 import unpsjb.fipm.gisfpp.servicios.proyecto.ServiciosProyecto;
 import unpsjb.fipm.gisfpp.util.GisfppException;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
+import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVListarProyectos {
 
 	private List<Proyecto> listaProyectos;
 	private List<Proyecto> temp;
 	private boolean listadoFiltrado = false;
-	private ServiciosProyecto servicio;
+	private IServiciosProyecto servicio;
+	private IServicioUsuario servUsuario;
 	private Logger log = UtilGisfpp.getLogger();
 	private String titulo;
-	private MVListarProyectos autoRef;//autoreferencia utilizada en metodo eliminarProyecto
+	private MVListarProyectos autoRef;// autoreferencia utilizada en metodo eliminarProyecto
 
 	@Init
-	@NotifyChange({"titulo","listaProyectos"})
+	@NotifyChange({ "titulo", "listaProyectos" })
 	public void init() throws Exception {
 		try {
-			servicio = (ServiciosProyecto) SpringUtil.getBean("servProyecto");
+			servicio = (IServiciosProyecto) SpringUtil.getBean("servProyecto");
+			servUsuario = (IServicioUsuario) SpringUtil.getBean("servUsuario");
 			recuperarTodo();
 			titulo = "Listado de Proyectos";
-			autoRef= this;
+			autoRef = this;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -76,7 +84,7 @@ public class MVListarProyectos {
 		map.put("modo", UtilGisfpp.MOD_NUEVO);
 		UtilGuiGisfpp.loadPnlCentral("/panelCentro/pnlListaProyectos", "vistas/proyecto/crudProyecto.zul", map);
 	}
-	
+
 	@Command("editarProyecto")
 	public void editarProyecto(@BindingParam("item") Proyecto item) {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
@@ -97,30 +105,29 @@ public class MVListarProyectos {
 	@Command("eliminarProyecto")
 	public void eliminarProyecto(@BindingParam("item") Proyecto item) throws Exception {
 		Messagebox.show("Desea realmente eliminar este Proyecto?", "Gisfpp: Eliminando Proyecto",
-					Messagebox.YES + Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
+				Messagebox.YES + Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
 
-						public void onEvent(Event event) throws Exception {
-							if (event.getName().equals(Messagebox.ON_YES)) {
-								try {
-									servicio.eliminar(item);
-									Clients.showNotification("Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO,
-											null, "top_right", 3500);
-									listaProyectos.remove(item);
-									BindUtils.postNotifyChange(null, null, autoRef, "listaProyectos");
-								} catch (GisfppException exc) {
-									Messagebox.show(exc.getMessage(), "Gisfpp: Eliminando Proyecto", Messagebox.OK,
-											Messagebox.ERROR);
-								} catch (Exception e) {
-									log.error(this.getClass().getName(), e);
-									throw e;
-								}
+					public void onEvent(Event event) throws Exception {
+						if (event.getName().equals(Messagebox.ON_YES)) {
+							try {
+								servicio.eliminar(item);
+								Clients.showNotification("Proyecto eliminado.", Clients.NOTIFICATION_TYPE_INFO, null,
+										"top_right", 3500);
+								listaProyectos.remove(item);
+								BindUtils.postNotifyChange(null, null, autoRef, "listaProyectos");
+							} catch (GisfppException exc) {
+								Messagebox.show(exc.getMessage(), "Gisfpp: Eliminando Proyecto", Messagebox.OK,
+										Messagebox.ERROR);
+							} catch (Exception e) {
+								log.error(this.getClass().getName(), e);
+								throw e;
 							}
 						}
-					});
-		}
+					}
+				});
+	}
 
-
-	//Inicio Bloque "Aplicacion Filtro de Listado"
+	// Inicio Bloque "Aplicacion Filtro de Listado"
 	@Command("dlgFiltro")
 	public void verDlgFiltro() {
 		HashMap<String, Object> map = new HashMap<>();
@@ -151,12 +158,28 @@ public class MVListarProyectos {
 		// Limpiamos los argumentos de listadoFiltrado de la sesion.
 		Sessions.getCurrent().setAttribute("argUltFiltroProyectos", null);
 	}
+
 	public boolean isFiltrado() {
 		return listadoFiltrado;
 	}
 
 	public String getTitulo() {
 		return titulo;
+	}
+
+	public boolean isMember(@BindingParam("item") Proyecto item){
+		System.out.println("Entro " + item.getId());
+		PersonaFisica persona;
+		try {
+			persona = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
+			System.out.println("La persona: " + persona.getNombre());
+			boolean value = servicio.isMiembroStaff(item.getId(), persona);
+			System.out.println("Es miembro: " + value);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }// Fin de la clase MVListarProyectos

@@ -17,7 +17,7 @@
 			<column label="Fecha Inicio" width="10%"/>
 			<column label="Fecha Fin" width="10%"/>
 			<column label="Ver" width="7%" align="center"/>
-			<column label="Editar" width="7%" align="center"/>
+		<!--  	<column label="Editar" width="7%" align="center"/> -->
 			<column label="Eliminar" width="7%" align="center"/>
 		</columns>
 		<template name="model">
@@ -33,11 +33,11 @@
 						disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('CONSULTAR_ISFPP','proyecto',vm.item.perteneceA.id)
 							or sec:isAutorizado2('CONSULTAR_ISFPP', 'isfpp', each.id) or
 								sec:isAutorizado('MODIFICAR_PROYECTOS')))"/>
-				<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos" 
+			<!--  	<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos" 
 					disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('MODIFICAR_ISFPP','proyecto',vm.item.perteneceA.id)
 							or sec:isAutorizado2('MODIFICAR_ISFPP', 'isfpp', each.id) or
 								sec:isAutorizado('MODIFICAR_PROYECTOS')))"
-						onClick="@command('editarIsfpp', idItem=each.id)" />
+						onClick="@command('editarIsfpp', idItem=each.id)" />-->
 				<toolbarbutton image="recursos/img/icon-trash.png" tooltiptext="Eliminar la Isfpp"
 					disabled="@load(vm.tabIsfppCreado or not(sec:isAutorizado2('ELIMINAR_ISFPP','proyecto',vm.item.perteneceA.id)
 							or sec:isAutorizado2('ELIMINAR_ISFPP', 'isfpp', each.id) or

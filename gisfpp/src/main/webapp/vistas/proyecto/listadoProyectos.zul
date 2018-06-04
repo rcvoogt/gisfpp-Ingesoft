@@ -48,11 +48,13 @@
 							<column label="Inicio" width="8%" />
 							<column label="Finalizacion" width="8%" />
 							<column label="Ver" width="5%"
-								align="center" />
-							<column label="Editar" width="5%"
-								align="center" />
+								align="center"  />
+					  	<column label="Editar" width="5%"
+								align="center" visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('MODIFICAR_PROYECTOS'))"/> 
 							<column label="Baja" width="5%"
-								align="center" />
+								align="center" visible="@load(sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id)
+										or sec:isAutorizado('ELIMINAR_PROYECTOS'))"/>
 						</columns>
 						<template name="model">
 							<row style="@load(util:isFechaPasada(each.fecha_fin)?'background-color: #f2dede;':'')">
@@ -69,20 +71,20 @@
 								<toolbarbutton
 									image="recursos/img/icon-preview.png"
 									tooltip="Ver datos del Proyecto"
-									disabled="@load(not (sec:isAutorizado2('CONSULTAR_PROYECTO', 'proyecto', each.id)
-										or sec:isAutorizado('CONSULTAR_PROYECTOS')))"
+									visible="@load(sec:isAutorizado2('CONSULTAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('CONSULTAR_PROYECTOS') or vm.isMember(each)) "
 									onClick="@command('verProyecto', item=each)" />
-								<toolbarbutton
+						 		<toolbarbutton
 									image="recursos/img/icon-edit.png"
 									tooltiptext="Editar el Proyecto"
-									disabled="@load(not (sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
-										or sec:isAutorizado('MODIFICAR_PROYECTOS')))"
-									onClick="@command('editarProyecto', item=each)" />
+									visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+									onClick="@command('editarProyecto', item=each)" />  
 								<toolbarbutton
 									image="recursos/img/icon-trash.png"
 									tooltiptext="Eliminar Proyecto"
-									disabled="@load(not (sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id)
-										or sec:isAutorizado('ELIMINAR_PROYECTOS')))"
+									visible="@load(sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id)
+										or sec:isAutorizado('ELIMINAR_PROYECTOS'))"
 									onClick="@command('eliminarProyecto', item = each)" />
 							</row>
 						</template>
