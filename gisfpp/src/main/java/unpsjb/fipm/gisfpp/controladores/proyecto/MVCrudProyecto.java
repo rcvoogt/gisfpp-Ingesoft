@@ -28,6 +28,7 @@ import org.zkoss.zul.Messagebox.Button;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
@@ -88,6 +89,7 @@ public class MVCrudProyecto {
 		
 		EventQueues.lookup("breadcrumb", EventQueues.DESKTOP, true)
 		  .publish(new Event("onNavigate", null, new ItemBreadCrumb("vistas/proyecto/crudIsfpp.zul",titulo,map)));
+		
 
 	}
 
