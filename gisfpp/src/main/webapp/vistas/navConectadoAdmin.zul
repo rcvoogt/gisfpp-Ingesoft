@@ -1,0 +1,133 @@
+<div xmlns:n="native" vflex="true">
+	<n:nav class="navbar navbar-default"
+		style="height: 51px; margin-bottom: 1px;">
+		<n:div class="container-fluid">
+
+			<n:div class="navbar-header">
+				<n:button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<n:span class="sr-only">Toggle navigation</n:span>
+					<n:span class="icon-bar"></n:span>
+					<n:span class="icon-bar"></n:span>
+					<n:span class="icon-bar"></n:span>
+				</n:button>
+				<n:a class="navbar-brand">GISFPP</n:a>
+			</n:div>
+			<n:div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<n:ul class="nav navbar-nav">
+					<n:li class="dropdown">
+						<n:a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" style="height: 51px;" role="button"
+							aria-expanded="false">
+							Proyectos
+							<n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li>
+								<a onClick="@command('verListaProyectos')">
+									Listado de Proyectos</a>
+							</n:li>
+						</n:ul>
+					</n:li>
+					<n:li class="dropdown">
+						<n:a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" style="height: 51px;" role="button"
+							aria-expanded="false">
+							Actividades
+							<n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li>
+								<a onClick="@command('verListaOfertasActividades')">Oferta de Actividades</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verListaIsfpps')">Listado de Isfpps</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verListaConvocatorias')">Listado de Convocatorias</a>
+							</n:li>
+						</n:ul>
+					</n:li>
+					<n:li class="dropdown" >
+						<n:a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" style="height: 51px;" role="button"
+							aria-expanded="false"
+							visible="false">
+							Configuración
+							<n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li>
+								<a onClick="@command('verListaPersonas')"
+									disabled="${not(sec:isAutorizado('CONSULTAR_ENTIDADES_AUX')
+										or sec:isAutorizado('CUD_ENTIDADES_AUX'))}">Personas</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verListaOrganizaciones')"
+									disabled="${not (sec:isAutorizado('CONSULTAR_ENTIDADES_AUX')
+										or sec:isAutorizado('CUD_ENTIDADES_AUX'))}">Organizaciones</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verListaStaff')"
+									disabled="${not (sec:isAutorizado('CONSULTAR_ENTIDADES_AUX')
+										or sec:isAutorizado('CUD_ENTIDADES_AUX'))}">
+									Staff-FI</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verDlgPermisos')"
+									disabled="${not (sec:isAutorizado('CONCEDER_REVOCAR_PERMISOS'))}">
+									Permisos</a>
+							</n:li>
+						</n:ul>
+					</n:li>
+					<n:li class="dropdown">
+						<n:a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"
+							style="height: 51px;">
+							Workflow
+							<n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li>
+								<a onClick="@command('verBandejaActividades')">Bandeja de Actividades</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verPnlMantMotorBPM')"
+									visible="@load(sec:isAutorizado('MANTENIMIENTO_WORKFLOW'))">Mantenimiento Motor Workflow</a>
+							</n:li>
+						</n:ul>
+					</n:li>
+				</n:ul>
+				<n:ul class="nav navbar-nav navbar-right">
+					<n:li class="dropdown">
+						<n:a href="#"
+							class="dropdown-toggle glyphicon glyphicon-user"
+							data-toggle="dropdown" role="button" aria-expanded="false"
+							style="height: 51px;">
+							<label
+								value="${sec:getUsuarioConectado().getPersona().getNombre()}"
+								style="font-size: 14px;" />
+							<n:span class="caret"></n:span>
+						</n:a>
+						<n:ul class="dropdown-menu" role="menu">
+							<n:li>
+								<a onClick="@command('verDlgPerfilUsuario')">Perfil</a>
+							</n:li>
+							<n:li>
+								<a onClick="@command('verPnlDatosPersonales')">Datos Personales</a>
+							</n:li>
+							<n:li>
+								<a href="logout-gisfpp">Salir</a>
+							</n:li>
+						</n:ul>
+					</n:li>
+				</n:ul>
+			</n:div>
+		</n:div>
+	</n:nav>
+</div>
+
+
+

@@ -24,8 +24,11 @@
 				<div hflex="1" if="${not sec:isLogueado()}" vflex="true">
 					<include src="/vistas/navDesconectado.zul"/>
 				</div>
-				<div hflex="1" if="${sec:isLogueado()}" vflex="true">
-					<include src="/vistas/navConectado.zul"/>
+				<div hflex="1" if="${sec:isLogueado() and sec:isAutorizado('MANTENIMIENTO_WORKFLOW')}" vflex="true">
+					<include src="/vistas/navConectadoAdmin.zul"/>
+				</div>
+				<div hflex="1" if="${sec:isLogueado() and not(sec:isAutorizado('MANTENIMIENTO_WORKFLOW'))}" vflex="true">
+					<include src="/vistas/navConectadoNoAdmin.zul"/>
 				</div>
 			</div>
 		</north>
@@ -33,7 +36,7 @@
 			<div vflex="true">
 				<include  src='${(empty param.login)? "":"/vistas/breadcrumb.zul"}' if="${param.login != 0}"/>
 				<include id="panelCentro" src='${(empty param.login)? "":"/vistas/workflow/bandejaActividades.zul"}' 
-					if="${param.login != 0}"/>
+					if="${param.login != 0}"/> 
 				<include src="/vistas/config/loguin_error.zul" if="${param.login == 0}"/>
 			</div>
 		</center>
