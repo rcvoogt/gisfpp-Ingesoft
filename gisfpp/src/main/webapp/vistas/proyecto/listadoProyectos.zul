@@ -50,11 +50,9 @@
 							<column label="Ver" width="5%"
 								align="center"  />
 					  	<column label="Editar" width="5%"
-								align="center" visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
-										or sec:isAutorizado('MODIFICAR_PROYECTOS'))"/> 
+								align="center" /> 
 							<column label="Baja" width="5%"
-								align="center" visible="@load(sec:isAutorizado2('ELIMINAR_PROYECTO', 'Proyecto', each.id)
-										or sec:isAutorizado('ELIMINAR_PROYECTOS'))"/>
+								align="center" />
 						</columns>
 						<template name="model">
 							<row style="@load(util:isFechaPasada(each.fecha_fin)?'background-color: #f2dede;':'')">
@@ -77,8 +75,8 @@
 						 		<toolbarbutton
 									image="recursos/img/icon-edit.png"
 									tooltiptext="Editar el Proyecto"
-									visible="@load(sec:isAutorizado2('MODIFICAR_PROYECTO', 'proyecto', each.id)
-										or sec:isAutorizado('MODIFICAR_PROYECTOS'))"
+									
+									visible="@load(vm.puedeEditarProyecto(each))"
 									onClick="@command('editarProyecto', item=each)" />  
 								<toolbarbutton
 									image="recursos/img/icon-trash.png"

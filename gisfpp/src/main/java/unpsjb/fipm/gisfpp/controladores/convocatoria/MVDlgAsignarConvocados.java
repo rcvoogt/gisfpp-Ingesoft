@@ -1,9 +1,12 @@
 package unpsjb.fipm.gisfpp.controladores.convocatoria;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.activiti.engine.runtime.ProcessInstance;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -20,11 +23,15 @@ import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocable;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocado;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocable;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocado;
 import unpsjb.fipm.gisfpp.servicios.convocatoria.IServiciosConvocatoria;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioUsuario;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorTareas;
+import unpsjb.fipm.gisfpp.servicios.workflow.GestorWorkflow;
 import unpsjb.fipm.gisfpp.util.MiembroExistenteException;
+import unpsjb.fipm.gisfpp.util.MySpringUtil;
 import unpsjb.fipm.gisfpp.util.security.UtilSecurity;
 
 public class MVDlgAsignarConvocados {
@@ -42,6 +49,9 @@ public class MVDlgAsignarConvocados {
 	private Set practicantes;
 	private Boolean checked;
 	private Map<String, Object> args;
+	private boolean esWorkflow;
+	private GestorTareas servGTareas;
+	private InfoTarea tarea;
 
 	@Init
 	@NotifyChange("convocados")
@@ -54,13 +64,35 @@ public class MVDlgAsignarConvocados {
 		servConvocable = (IServiciosConvocable) SpringUtil.getBean("servConvocable");
 		convocatoria = (Convocatoria) args.get("convocatoria");
 		// convocable = args.get("convocable");
+		// Si esta la convocatoria en null es porque entro por el workflow, hay que rescatar la convocatoria por id
+		if(convocatoria == null) {
+			GestorWorkflow servGWorkflow = MySpringUtil.getServicioGestorWkFl();
+			
+			tarea = (InfoTarea) args.get("tarea");
+			String idProceso = tarea.getIdInstanciaProceso();
+			ProcessInstance instancia = servGWorkflow.getProcessInstance(idProceso);
+			String business = instancia.getBusinessKey();
+			Integer integ = Integer.parseInt(business);
+			
+			//
+			servGTareas = (GestorTareas) SpringUtil.getBean("servGestionTareas");
+			try {
+				convocatoria = servConvocatoria.getInstancia( integ);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			esWorkflow = true;
+			
+		}
 		try {
-			System.out.println("Convocatoria "+ convocatoria);
 			convocados = servConvocatoria.getConvocadosAceptadores(convocatoria);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+			
 		list = new ListModelList<Convocado>();
 		list.addAll(convocados);
 		list.setMultiple(true);
@@ -96,7 +128,7 @@ public class MVDlgAsignarConvocados {
 
 	@SuppressWarnings("unchecked")
 	@Command("asignar")
-	public void asignar() {
+	public void asignar() throws InterruptedException {
 		Set<Convocado> nuevosPracticantes = (Set<Convocado>) getPracticantes();
 		Messagebox.show("Desea realmente asignar esta persona al staff?", "Gisfpp: Eliminando Persona", 
 				Messagebox.YES+Messagebox.NO, Messagebox.QUESTION, new EventListener<Event>() {
@@ -116,6 +148,18 @@ public class MVDlgAsignarConvocados {
 			}	
 		}
 		});
+		if(esWorkflow) {
+			Map<String, Object> dev = new HashMap<String, Object>();
+			servGTareas.tratarTarea(tarea, dev);
+			
+			Thread.currentThread().sleep(3000);
+			
+			//Refrescamos las listas de tareas y procesos en la vista de la bandeja de actividades.
+			BindUtils.postGlobalCommand(null, null, "refrescarTareasAsignadas", null);
+			BindUtils.postGlobalCommand(null, null, "refrescarTareasRealizadas", null);
+			BindUtils.postGlobalCommand(null, null, "refrescarProcesosActivos", null);
+			BindUtils.postGlobalCommand(null, null, "refrescarProcesosFinalizados", null);
+		}
 	}
 
 	public Set getPracticantes() {

@@ -55,6 +55,8 @@ public class MVListarProyectos {
 			log.error(this.getClass().getName(), e);
 			throw e;
 		}
+		System.out.println("Al iniciar proyecto! isAutorizado2:"+ UtilSecurity.isAutorizado2("MODIFICAR_PROYECTO", "proyecto", 1)+" isAutorizado:"+ 
+				UtilSecurity.isAutorizado("MODIFICAR_PROYECTOS"));
 	}
 
 	@Command("recuperarTodo")
@@ -172,11 +174,26 @@ public class MVListarProyectos {
 		PersonaFisica persona;
 		try {
 			persona = servUsuario.getUsuario(UtilSecurity.getNickName()).getPersona();
-			System.out.println("La persona: " + persona.getNombre());
+			//System.out.println("La persona: " + persona.getNombre());
 			boolean value = servicio.isMiembroStaff(item.getId(), persona);
-			System.out.println("Es miembro: " + value);
+			//System.out.println("Es miembro: " + value);
 			return value;
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean puedeEditarProyecto(@BindingParam("item") Proyecto item) {
+		try {
+			System.out.println("puede editar?"+"id: "+item.getId()+" is2:"+UtilSecurity.isAutorizado2("MODIFICAR_PROYECTO", "proyecto", item.getId())
+						+		" is1:"+UtilSecurity.isAutorizado("MODIFICAR_PROYECTOS"));	
+			if(UtilSecurity.isAutorizado2("MODIFICAR_PROYECTO", "proyecto", item.getId())|| 
+					UtilSecurity.isAutorizado("MODIFICAR_PROYECTOS")) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
