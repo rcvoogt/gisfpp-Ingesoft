@@ -176,6 +176,7 @@ public class ServiciosProyecto implements IServiciosProyecto {
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public boolean isMiembroStaff(Integer id, PersonaFisica persona) throws Exception {
 		Proyecto proyecto = this.getInstancia(id);
 		MiembroStaffProyecto m = new MiembroStaffProyecto();

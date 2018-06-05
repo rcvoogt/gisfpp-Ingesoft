@@ -61,7 +61,7 @@
     <sequenceFlow id="flow4" sourceRef="inclusivegateway1" targetRef="indicarInteresEnConvocatoria"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway3" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow5" sourceRef="indicarInteresEnConvocatoria" targetRef="inclusivegateway3"></sequenceFlow>
-    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:category="NuevaConvocatoria" activiti:formKey="dlgSeleccionarConvocados.zul" activiti:priority="25"></userTask>
+    <userTask id="seleccionarConvocados" name="Seleccionar Convocados" activiti:assignee=" ${convocador}" activiti:dueDate="P10D" activiti:category="NuevaConvocatoria" activiti:formKey="dlgAsignarConvocados.zul" activiti:priority="25"></userTask>
     <sequenceFlow id="flow8" sourceRef="inclusivegateway3" targetRef="seleccionarConvocados"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow9" sourceRef="seleccionarConvocados" targetRef="endevent1"></sequenceFlow>

@@ -137,6 +137,7 @@ public class UtilSecurity {
 		switch (entidadMayuscula) {
 		case "PROYECTO":{
 			for (RolUsuario rol : roles) {
+				System.out.println("tabla:" + rol.getTabla()+ " id tabla:" + rol.getIdTabla());
 				if(rol.getTabla().equals(entidadMayuscula) && rol.getIdTabla()==id){
 					return true;
 				}
