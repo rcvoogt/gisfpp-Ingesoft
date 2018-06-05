@@ -69,15 +69,17 @@
 								<toolbarbutton
 									image="recursos/img/icon-preview.png"
 									tooltip="Ver datos del Proyecto"
-									visible="@load(sec:isAutorizado2('CONSULTAR_PROYECTO', 'proyecto', each.id)
-										or sec:isAutorizado('CONSULTAR_PROYECTOS') or vm.isMember(each)) "
+							
 									onClick="@command('verProyecto', item=each)" />
+										<!-- 	visible="@load(sec:isAutorizado2('CONSULTAR_PROYECTO', 'proyecto', each.id)
+										or sec:isAutorizado('CONSULTAR_PROYECTOS') or vm.isMember(each)) "  -->
 						 		<toolbarbutton
 									image="recursos/img/icon-edit.png"
 									tooltiptext="Editar el Proyecto"
 									
-									visible="@load(vm.puedeEditarProyecto(each))"
 									onClick="@command('editarProyecto', item=each)" />  
+																	<!--	visible="@load(vm.puedeEditarProyecto(each))" -->
+									
 								<toolbarbutton
 									image="recursos/img/icon-trash.png"
 									tooltiptext="Eliminar Proyecto"

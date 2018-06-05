@@ -185,6 +185,8 @@ public class MVListarProyectos {
 	}
 	
 	public boolean puedeEditarProyecto(@BindingParam("item") Proyecto item) {
+		if(item == null)
+			return true;
 		try {
 			System.out.println("puede editar?"+"id: "+item.getId()+" is2:"+UtilSecurity.isAutorizado2("MODIFICAR_PROYECTO", "proyecto", item.getId())
 						+		" is1:"+UtilSecurity.isAutorizado("MODIFICAR_PROYECTOS"));	
