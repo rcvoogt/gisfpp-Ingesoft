@@ -21,7 +21,7 @@
 					disabled="@load(vm.creando or vm.existeConvocatoriaAbierta)"
 					class="btn btn-success btn-xs"
 					onClick="@command('nuevaConvocatoria')"
-					visible="@load(sec:isAutorizado('CREAR_CONVOCATORIA') and vm.isValido())" />
+					visible="@load(vm.isAsignador() and vm.isValido())" />
 
 
 				<toolbarbutton image="recursos/img/icon-lupa.png"

@@ -26,9 +26,11 @@
 				</div>
 				<div hflex="1" if="${sec:isLogueado() and sec:isAutorizado('MANTENIMIENTO_WORKFLOW')}" vflex="true">
 					<include src="/vistas/navConectadoAdmin.zul"/>
+					<include  src='${(empty param.login)? "":"/vistas/breadcrumb.zul"}'/>
 				</div>
 				<div hflex="1" if="${sec:isLogueado() and not(sec:isAutorizado('MANTENIMIENTO_WORKFLOW'))}" vflex="true">
 					<include src="/vistas/navConectadoNoAdmin.zul"/>
+					<include id="layoutBreadcrumb" src='${(empty param.login)? "":"/vistas/breadcrumb.zul"}'/>
 				</div>
 			</div>
 		</north>

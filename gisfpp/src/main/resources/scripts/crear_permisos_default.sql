@@ -1,19 +1,26 @@
-
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Crear, Actualizar o Eliminar Entidades Auxiliares', current_timestamp(),15,'ADMINISTRADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Entidades Auxiliares', current_timestamp(),16,'ADMINISTRADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Tareas de mantenimiento en motor de workflow', current_timestamp(),17,'ADMINISTRADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Conceder o revocar permisos a los diversos roles de la app', current_timestamp(),18,'ADMINISTRADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'COORDINADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Crear Proyecto', current_timestamp(),0,'COORDINADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar cualquier Proyecto y sus derivaciones (Sub-Proyectos e Isfpp\s)', current_timestamp(),6,'COORDINADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Eliminar cualquier Proyecto', current_timestamp(),4,'COORDINADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Modificar cualquier Proyecto y sus derivaciones (Sub-Proyectos e Isfpp\s)', current_timestamp(),2,'COORDINADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'VISITANTE','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'DELEGADO','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'PROFESOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'INVESTIGADOR','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'JTP','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'RESPONSABLE_PROYECTO','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'MIEMBRO_STAFF_PROYECTO','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'DEMANDANTE_PROYECTO','jldevia');
-INSERT INTO `gisfpp`.`permisos` (`descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES ('Consultar Sub-Proyecto', current_timestamp(),10,'PRACTICANTE','jldevia');
+INSERT INTO `permisos` (`id`, `descripcion`, `fecha_creacion`, `operacion`, `rol`, `usuario_creador`) VALUES
+(1, 'Crear, Actualizar o Eliminar Entidades Auxiliares', '2018-06-04 23:49:51', 15, 'ADMINISTRADOR', 'jldevia'),
+(2, 'Consultar Entidades Auxiliares', '2018-06-04 23:49:51', 16, 'ADMINISTRADOR', 'jldevia'),
+(3, 'Tareas de mantenimiento en motor de workflow', '2018-06-04 23:49:51', 17, 'ADMINISTRADOR', 'jldevia'),
+(4, 'Conceder o revocar permisos a los diversos roles de la app', '2018-06-04 23:49:51', 18, 'ADMINISTRADOR', 'jldevia'),
+(5, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'COORDINADOR', 'jldevia'),
+(6, 'Crear Proyecto', '2018-06-04 23:49:52', 0, 'COORDINADOR', 'jldevia'),
+(7, 'Consultar cualquier Proyecto y sus derivaciones (Sub-Proyectos e Isfpps)', '2018-06-04 23:49:52', 6, 'COORDINADOR', 'jldevia'),
+(8, 'Eliminar cualquier Proyecto', '2018-06-04 23:49:52', 4, 'COORDINADOR', 'jldevia'),
+(9, 'Modificar cualquier Proyecto y sus derivaciones (Sub-Proyectos e Isfpps)', '2018-06-04 23:49:52', 2, 'COORDINADOR', 'jldevia'),
+(10, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'VISITANTE', 'jldevia'),
+(11, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'DELEGADO', 'jldevia'),
+(12, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'PROFESOR', 'jldevia'),
+(13, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'INVESTIGADOR', 'jldevia'),
+(14, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'JTP', 'jldevia'),
+(15, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'RESPONSABLE_PROYECTO', 'jldevia'),
+(16, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'MIEMBRO_STAFF_PROYECTO', 'jldevia'),
+(17, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'DEMANDANTE_PROYECTO', 'jldevia'),
+(18, 'Consultar Sub-Proyecto', '2018-06-04 23:49:52', 10, 'PRACTICANTE', 'jldevia'),
+(19, 'Crear Proyecto', '2018-06-04 23:53:16', 0, 'RESPONSABLE_PROYECTO', 'admin1'),
+(21, 'Consultar un Proyecto en particular', '2018-06-04 23:53:36', 5, 'RESPONSABLE_PROYECTO', 'admin1'),
+(22, 'Crear un Sub-Proyecto de un Proyecto en particular', '2018-06-04 23:53:45', 7, 'RESPONSABLE_PROYECTO', 'admin1'),
+(23, 'Modificar un Sub-Proyecto de un Proyecto en particular', '2018-06-04 23:53:54', 8, 'RESPONSABLE_PROYECTO', 'admin1'),
+(24, 'Crear Isfpp', '2018-06-04 23:54:09', 11, 'RESPONSABLE_PROYECTO', 'admin1'),
+(25, 'Modificar una Isfpp en particular', '2018-06-04 23:54:17', 12, 'RESPONSABLE_PROYECTO', 'admin1'),
+(26, 'Modificar un Proyecto en particular y sus derivaciones (Sub-Proyectos e Isfpp\'s)', '2018-06-04 23:54:26', 1, 'RESPONSABLE_PROYECTO', 'admin1');

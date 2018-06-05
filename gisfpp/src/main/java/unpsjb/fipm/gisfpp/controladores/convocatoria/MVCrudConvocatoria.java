@@ -244,7 +244,7 @@ public class MVCrudConvocatoria {
 		Map<String, Object> args = new HashMap<>();
 		args.put("convocatoria", item);
 		args.put("convocable", item.getConvocable());
-		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgAsignarConvocados.zul", null, args);
+		Window dlg = (Window) Executions.createComponents("vistas/workflow/tareas/dlgAsignarConvocados.zul", null, args);
 		dlg.doModal();
 		System.out.println("Sale de  cargar convocado");
 	}

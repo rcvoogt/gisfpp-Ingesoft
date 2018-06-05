@@ -101,7 +101,7 @@ public class MVInicio {
 	@Command
 	("pruebaAgregarConvocados")
 	public void pruebaAgregarConvocados(){
-		Window dlg = (Window) Executions.createComponents("vistas/convocatoria/dlgAsignarConvocados.zul", null, null);
+		Window dlg = (Window) Executions.createComponents("vistas/workflow/tareas/dlgAsignarConvocados.zul", null, null);
 		dlg.doModal();
 	}
 	
