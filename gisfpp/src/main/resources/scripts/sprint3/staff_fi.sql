@@ -15,5 +15,8 @@ insert into staff_fi (id, personaId, ROL, desde, hasta ) values (12, 12,'ALUMNO'
 insert into staff_fi (id, personaId, ROL, desde, hasta ) values (13, 13,'ALUMNO','2017,12,1','2021,12,1');
 insert into staff_fi (id, personaId, ROL, desde, hasta ) values (14, 14,'COORDINADOR','2017,12,1','2021,12,1');
 insert into staff_fi (id, personaId, ROL, desde, hasta ) values (15, 15,'DELEGADO','2017,12,1','2021,12,1');
-
-
+insert into staff_fi (id, personaId, ROL, desde, hasta ) values (16, 16,'JTP','2017,12,1','2021,12,1');
+insert into staff_fi (id, personaId, ROL, desde, hasta ) values (17, 17,'JTP','2017,12,1','2021,12,1');
+insert into staff_fi (id, personaId, ROL, desde, hasta ) values (18, 18,'ALUMNO','2017,12,1','2021,12,1');
+insert into staff_fi (id, personaId, ROL, desde, hasta ) values (19, 19,'ALUMNO','2017,12,1','2021,12,1');
+insert into staff_fi (id, personaId, ROL, desde, hasta ) values (20, 20,'COORDINADOR','2017,12,1','2021,12,1');
