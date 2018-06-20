@@ -23,12 +23,16 @@
 	<Resource name="jdbc/gisfpp" auth="Container" type="javax.sql.DataSource"
 		maxTotal="50" maxIdle="20" maxWaitMillis="10000" username="user_gisfpp"
 		password="unpsjbfipm" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/gisfpp"/>
+		url="jdbc:mysql://localhost:3306/gisfpp_test" />
 
-	<Resource name="jdbc/gisfpp_activiti" auth="Container" type="javax.sql.DataSource"
-		maxTotal="50" maxIdle="20" maxWaitMillis="10000" username="user_gisfpp"
-		password="unpsjbfipm" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/gisfpp_activiti"/>
-	
+	<Resource name="jdbc/gisfpp_activiti" auth="Container"
+		type="javax.sql.DataSource" maxTotal="50" maxIdle="20" maxWaitMillis="10000"
+		username="user_gisfpp" password="unpsjbfipm" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/gisfpp_activiti_test" />
+
+	<Resource name="jdbc/gisfpp_integracion" auth="Container"
+		type="javax.sql.DataSource" maxTotal="50" maxIdle="20" maxWaitMillis="10000"
+		username="user_gisfpp" password="unpsjbfipm" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/gisfpp_integracion" />
 
 </Context>
