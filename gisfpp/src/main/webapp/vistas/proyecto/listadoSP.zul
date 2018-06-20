@@ -26,10 +26,10 @@
 					disabled="@load(not (sec:isAutorizado2('CONSULTAR_SUBPROYECTO', 'proyecto', vm.item.id)
 					 or	sec:isAutorizado('CONSULTAR_PROYECTOS')))"
 						tooltip="Ver detalle" onClick="@command('verSP', idItem=each.id)" />
-			<!--  	<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos del SP" 
+			  	<toolbarbutton image="recursos/img/icon-edit.png" tooltiptext="Editar datos del SP" 
 					disabled="@load(not(sec:isAutorizado2('MODIFICAR_SUBPROYECTO','proyecto', vm.item.id) 
 							or sec:isAutorizado('MODIFICAR_PROYECTOS')))"
-								onClick="@command('editarSP', idItem=each.id)" /> -->
+								onClick="@command('editarSP', idItem=each.id)" /> 
 				<toolbarbutton image="recursos/img/icon-trash.png"
 					tooltiptext="Dar de baja" disabled="@load(not(sec:isAutorizado2('ELIMINAR_SUBPROYECTO', 'proyecto', vm.item.id) 
 						or	sec:isAutorizado('MODIFICAR_PROYECTOS')))"

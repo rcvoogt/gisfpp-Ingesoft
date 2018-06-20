@@ -19,8 +19,8 @@
 					<a image="recursos/img/icon-remove-sign.png"
 						class="btn btn-success btn-sm"
 						tooltiptext="Quitar el filtro aplicado al Listado"
-						visible="@load(vm.listadoFiltrado)" onClick="@command('quitarFiltro')"
-						style="margin-left:1px">
+						visible="@load(vm.listadoFiltrado)"
+						onClick="@command('quitarFiltro')" style="margin-left:1px">
 						Quitar Filtro
 					</a>
 				</n:div>
@@ -31,7 +31,8 @@
 				emptyMessage="No exisnte convocatorias para los filtros ingresados"
 				model="@load(vm.convocatorias)">
 				<columns>
-					<column label="Actividad" width="50%" />
+					<column label="Actividad" width="25%" />
+					<column label="Titulo" width="25%" />
 					<column label="Originante" width="18%" />
 
 					<column label="Fecha de creacion" width="12%" />
@@ -41,7 +42,10 @@
 				</columns>
 				<template name="model">
 					<row>
-						<label value="@load(each.convocable.tipoConvocatoria)" />
+						<label
+							value="@load(each.convocable.tipoConvocatoria)" />
+						<label value="@load(each.convocable.titulo)" />
+
 						<label
 							value="@load(each.usuarioOriginante.nickname)" />
 						<label
