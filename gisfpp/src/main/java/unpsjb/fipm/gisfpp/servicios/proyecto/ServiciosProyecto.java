@@ -1,9 +1,6 @@
 package unpsjb.fipm.gisfpp.servicios.proyecto;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,12 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.proyecto.DaoProyecto;
-import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.proyecto.ERolStaffProyecto;
 import unpsjb.fipm.gisfpp.entidades.proyecto.MiembroStaffProyecto;
+import unpsjb.fipm.gisfpp.entidades.proyecto.OfertaActividad;
 import unpsjb.fipm.gisfpp.entidades.proyecto.Proyecto;
 import unpsjb.fipm.gisfpp.servicios.ResultadoValidacion;
 import unpsjb.fipm.gisfpp.util.GisfppException;

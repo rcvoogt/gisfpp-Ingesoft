@@ -99,5 +99,17 @@ public class ServiciosPersonaFisica implements IServicioPF {
 			throw new NullPointerException("Persona: referencia null");
 		}
 	}
+
+	@Transactional
+	public void persistir(List<PersonaFisica> personasFisicas) {
+		
+	}
+
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=false)
+	public void actualizarOguardar(PersonaFisica persona) throws Exception {
+		dao.actualizarOguardar(persona);
+	}
 	
 }//fin de la clase

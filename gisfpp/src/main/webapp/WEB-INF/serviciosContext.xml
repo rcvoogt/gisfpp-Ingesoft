@@ -16,6 +16,7 @@
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.workflow"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.integracion"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.aspectos"/>
 	
 	<tx:annotation-driven/>

@@ -109,5 +109,10 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		}
 	}
 
+	@Override
+	public void actualizarOguardar(PersonaFisica instancia) throws DataAccessException {
+		getHibernateTemplate().saveOrUpdate(instancia);
+	}
+
 				
 }// fin de la clase
