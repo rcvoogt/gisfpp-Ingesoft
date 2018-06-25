@@ -11,69 +11,94 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-	<jee:jndi-lookup id="pool1" jndi-name="java:comp/env/jdbc/gisfpp"/>
-	
-	<bean id="sessionFactoryHB" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="pool1"/>
+	<jee:jndi-lookup id="pool1"
+		jndi-name="java:comp/env/jdbc/gisfpp" />
+
+	<bean id="sessionFactoryHB"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="pool1" />
 		<property name="packagesToScan">
 			<list>
 				<value>unpsjb.fipm.gisfpp.entidades</value>
 				<value>unpsjb.fipm.gisfpp.entidades.proyecto</value>
 				<value>unpsjb.fipm.gisfpp.entidades.persona</value>
 				<value>unpsjb.fipm.gisfpp.entidades.staff</value>
+				<value>unpsjb.fipm.gisfpp.integracion.entidades</value>
+
 			</list>
 		</property>
 		<property name="hibernateProperties">
-		<value>
+			<value>
 				hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 				hibernate.show_sql=false
 				hibernate.hbm2ddl.auto=update
-		</value>
+			</value>
 		</property>
 	</bean>
-	
-	<bean id="daoConvocatoria" class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocatoria">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
+
+	<bean id="daoConvocatoria"
+		class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocatoria">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoConvocado"
+		class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocado">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoProyecto"
+		class="unpsjb.fipm.gisfpp.dao.proyecto.DaoProyectoImpl">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoSubProyecto"
+		class="unpsjb.fipm.gisfpp.dao.proyecto.DaoSubProyecto">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoIsfpp"
+		class="unpsjb.fipm.gisfpp.dao.proyecto.DaoIsfpp">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoPersona"
+		class="unpsjb.fipm.gisfpp.dao.persona.DaoPersona">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoPF"
+		class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisica">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoPJ"
+		class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridica">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoUsuario"
+		class="unpsjb.fipm.gisfpp.dao.persona.DaoUsuario">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+
+	<bean id="daoStaff"
+		class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+
+	<bean id="daoPermisos"
+		class="unpsjb.fipm.gisfpp.dao.DaoPermisosImp">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
 	
-	<bean id="daoConvocado" class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocado">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	<bean id="daoMateriaAdapter"
+		class="unpsjb.fipm.gisfpp.integracion.dao.DaoMateriaAdapter">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
 	
-	<bean id="daoProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoProyectoImpl">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
+	<bean id="daoPersonaAdapter"
+		class="unpsjb.fipm.gisfpp.integracion.dao.DaoPersonaAdapter">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
-	
-	<bean id="daoSubProyecto" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoSubProyecto">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoIsfpp" class="unpsjb.fipm.gisfpp.dao.proyecto.DaoIsfpp">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoPersona" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersona">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoPF" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaFisica">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoPJ" class="unpsjb.fipm.gisfpp.dao.persona.DaoPersonaJuridica">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoUsuario" class="unpsjb.fipm.gisfpp.dao.persona.DaoUsuario">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-		
-	
-	<bean id="daoStaff" class="unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>
-	
-	<bean id="daoPermisos" class="unpsjb.fipm.gisfpp.dao.DaoPermisosImp">
-		<property name="sessionFactory" ref="sessionFactoryHB"/>
-	</bean>	
 </beans>

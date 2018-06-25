@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name="personaAdapter", schema ="gisfpp_integracion")
+@Table(name="personaAdapter")
 
 public class PersonaAdapter implements Serializable{
 	
@@ -44,6 +44,14 @@ public class PersonaAdapter implements Serializable{
 
 	public void setLegajo(String legajo) {
 		this.legajo = legajo;
+	}
+
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
 	}
 	
 	

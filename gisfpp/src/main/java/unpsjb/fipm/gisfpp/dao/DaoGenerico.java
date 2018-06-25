@@ -67,5 +67,5 @@ public interface DaoGenerico<T extends Serializable, K extends Serializable> {
 	 */
 	public T recuperarxId(K id) throws DataAccessException;
 	
-
+	
 }

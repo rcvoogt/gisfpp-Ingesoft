@@ -1,11 +1,10 @@
 package unpsjb.fipm.gisfpp.integracion.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -16,14 +15,6 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 
 	@Override
 	public Integer crear(PersonaAdapter instancia) throws DataAccessException {
-		try {
-			getHibernateTemplate().save(instancia);
-			return instancia.getId();
-		} catch (Exception e) {
-			log.debug(this.getClass().getName(), e);
-		}
-		
-		
 		getHibernateTemplate().saveOrUpdate(instancia);
 		return instancia.getId();
 	}
@@ -51,5 +42,7 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 	
 }

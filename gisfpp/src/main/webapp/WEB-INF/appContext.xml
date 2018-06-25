@@ -12,4 +12,37 @@
 <import resource="app-security.xml"/>
 <import resource="activiti-config.xml"/>
 
+<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+    <property name="messageConverters">
+      <list>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+      </list>
+    </property>
+  </bean>
+
+
+  <bean id="asyncRestTemplate" class="org.springframework.web.client.AsyncRestTemplate">
+    <property name="messageConverters">
+      <list>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+      </list>
+    </property>
+  </bean>
+  
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    <property name="ignoreResourceNotFound" value="true"/>
+    <property name="locations">
+      <list>
+        <value>classpath:/properties/config.properties</value>
+      </list>
+    </property>
+  </bean>
+  
+
 </beans>
