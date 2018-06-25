@@ -14,9 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="materiaAdapter", schema ="gisfpp_integracion")
-
 public class MateriaAdapter implements Serializable{
 
 	@Id
