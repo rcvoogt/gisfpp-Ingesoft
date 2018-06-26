@@ -1,7 +1,11 @@
 package unpsjb.fipm.gisfpp.integracion.entidades;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+/**
+ * Clase bean utilizada para parsear los datos desde un archivo xml
+ * @author isaia
+ *
+ */
 public class Persona {
 
     @JacksonXmlProperty(localName = "legajo")

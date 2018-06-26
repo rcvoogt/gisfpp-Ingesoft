@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.servicios;
+package unpsjb.fipm.gisfpp.integracion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -45,55 +45,7 @@ public class IntegracionTest {
 
 	}
 
-	@Test
-	public void testGetPersona() {
-		try {
-			persona = integracion.getPersona();
-			assertNotNull(persona);
-			assertEquals(persona.getApellido(), apellido);
-			System.out.println(persona);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testGetPersonas() {
-		try {
-			personas = integracion.getPersonas();
-			assertNotNull(personas);
-			assertEquals(personas.getPersonas().length, 4);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Test
-	public void testPersistirPersonas() {
-		try {
-			personas = integracion.getPersonas();
-			persistidas = integracion.persistirPersonas(personas);
-			System.out.println(persistidas);
-			assertNotNull(persistidas);
-			assertEquals(persistidas.size(),8);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		eliminarPersonas();
-	}
-
-	public void eliminarPersonas() {
-		for (Map.Entry<String, Object> persona : persistidas.entrySet()) {
-			try {
-				if (persona.getKey().equals("personasFisicas")) 
-					servPersonaFisica.eliminar((PersonaFisica) persona.getValue());
-				if(persona.getKey().equals("personasAdapter"))
-					servPersonaAdapter.eliminar((PersonaAdapter) persona.getValue());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 	@After
 	public void setAfter() {
 		

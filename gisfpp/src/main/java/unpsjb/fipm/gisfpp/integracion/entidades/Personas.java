@@ -5,7 +5,11 @@ import java.util.Arrays;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-
+/**
+ * Clase bean utilizada para parsear los datos desde un archivo xml
+ * @author isaia
+ *
+ */
 @JacksonXmlRootElement(localName = "Personas")
 public class Personas {
 	
@@ -35,6 +39,4 @@ public class Personas {
 		return "Personas [personas=" + Arrays.toString(personas) + "]";
 	}
 	
-	
-
 }

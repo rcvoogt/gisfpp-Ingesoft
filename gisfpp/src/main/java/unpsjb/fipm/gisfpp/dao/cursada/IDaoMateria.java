@@ -5,4 +5,5 @@ import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 
 public interface IDaoMateria extends DaoGenerico<Materia, Integer>{
 
+	public int actualizarOguardar(Materia instancia) throws Exception;
 }

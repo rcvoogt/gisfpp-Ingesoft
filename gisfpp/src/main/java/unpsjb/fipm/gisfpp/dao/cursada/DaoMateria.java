@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
@@ -50,6 +50,12 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria{
 	public Materia recuperarxId(Integer id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int actualizarOguardar(Materia instancia) throws Exception {
+		getHibernateTemplate().saveOrUpdate(instancia);
+		return instancia.getId();
 	}
 
 		

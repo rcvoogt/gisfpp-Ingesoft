@@ -5,4 +5,6 @@ import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 
 public interface IDaoMateriaAdapter extends DaoGenerico<MateriaAdapter, Integer>{
 
+	int actualizarOguardar(MateriaAdapter instancia) throws Exception;
+
 }
