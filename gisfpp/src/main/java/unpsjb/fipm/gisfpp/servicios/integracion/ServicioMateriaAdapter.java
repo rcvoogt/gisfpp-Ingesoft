@@ -3,10 +3,14 @@ package unpsjb.fipm.gisfpp.servicios.integracion;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Service;
 
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoMateriaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
-
+@Service("servMateriaAdapter")
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServicioMateriaAdapter implements IServicioMateriaAdapter{
 
 	IDaoMateriaAdapter dao;
