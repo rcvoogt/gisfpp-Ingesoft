@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.entidades.cursada;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import unpsjb.fipm.gisfpp.entidades.persona.Persona;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "cursada")
-public class Cursada {
+public class Cursada implements Serializable{
 
 	@Id
 	@Column(name = "idCursada")
