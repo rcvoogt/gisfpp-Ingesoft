@@ -52,6 +52,18 @@ public class DaoCursada extends HibernateDaoSupport implements IDaoMateria{
 		return null;
 	}
 
+	@Override
+	public int actualizarOguardar(Materia instancia) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean existe(String codigoMateria) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 	
 }

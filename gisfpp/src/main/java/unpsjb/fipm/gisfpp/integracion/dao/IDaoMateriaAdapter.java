@@ -7,4 +7,6 @@ public interface IDaoMateriaAdapter extends DaoGenerico<MateriaAdapter, Integer>
 
 	int actualizarOguardar(MateriaAdapter instancia) throws Exception;
 
+	int existe(String codigoMateria);
+
 }

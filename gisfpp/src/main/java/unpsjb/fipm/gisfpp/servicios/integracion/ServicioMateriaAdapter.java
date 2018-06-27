@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoMateriaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
@@ -21,35 +22,50 @@ public class ServicioMateriaAdapter implements IServicioMateriaAdapter{
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(MateriaAdapter instancia) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.crear(instancia);
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(MateriaAdapter instancia) throws Exception {
 		dao.actualizar(instancia);
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(MateriaAdapter instancia) throws Exception {
 		dao.eliminar(instancia);
 	}
 
 	@Override
+	@Transactional
 	public MateriaAdapter getInstancia(Integer id) throws Exception {
 		return dao.recuperarxId(id);
 	}
 
 	@Override
+	@Transactional
 	public List<MateriaAdapter> getListado() throws Exception {
 		return dao.recuperarTodo();
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(MateriaAdapter instancia) throws Exception {
-		dao.actualizarOguardar(instancia);
+		if(dao.existe(instancia.getMateria()) == -1) {
+			dao.crear(instancia);
+			return instancia.getId();
+		}
+		dao.actualizar(instancia);
 		return instancia.getId();
+	}
+
+	@Override
+	@Transactional
+	public int existe(String codigoMateria) throws Exception {
+		return dao.existe(codigoMateria);
 	}	
 
 }

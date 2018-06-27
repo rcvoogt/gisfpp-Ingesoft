@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria;
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
@@ -16,16 +17,19 @@ public class ServiciosMateria implements IServiciosMateria{
 	private IDaoMateria dao;
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public Integer persistir(Materia instancia) throws Exception {
 		return dao.crear(instancia);
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(Materia instancia) throws Exception {
 		dao.actualizar(instancia);
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void eliminar(Materia instancia) throws Exception {
 		dao.eliminar(instancia);
 	}
@@ -46,9 +50,19 @@ public class ServiciosMateria implements IServiciosMateria{
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(Materia instancia) throws Exception {
-		dao.actualizarOguardar(instancia);
+		if(dao.existe(instancia.getCodigoMateria())) {
+			dao.actualizar(instancia);
+			return instancia.getId();
+		}
+		dao.crear(instancia);
 		return instancia.getId();
+	}
+
+	@Override
+	public boolean existe(String codigoMateria) throws Exception {
+		return dao.existe(codigoMateria);
 	}
 
 }

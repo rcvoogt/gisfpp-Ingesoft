@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="materiaAdapter")
-
 public class MateriaAdapter implements Serializable{
 
 	@Id

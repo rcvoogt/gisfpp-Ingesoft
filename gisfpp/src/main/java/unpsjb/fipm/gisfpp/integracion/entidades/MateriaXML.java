@@ -41,6 +41,14 @@ public class MateriaXML {
 	public void setCodigoMateria(String codigoMateria) {
 		this.codigoMateria = codigoMateria;
 	}
+
+	@Override
+	public String toString() {
+		return "MateriaXML [nombre=" + nombre + ", nombreReducido=" + nombreReducido + ", codigoMateria="
+				+ codigoMateria + "]";
+	}
 	
+	
+
 	
 }

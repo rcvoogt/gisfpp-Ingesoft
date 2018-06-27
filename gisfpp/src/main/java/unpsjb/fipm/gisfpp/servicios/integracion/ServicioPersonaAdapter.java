@@ -50,4 +50,10 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	public void setDao(IDaoPersonaAdapter dao) {
 		this.dao = dao;
 	}
+
+	@Override
+	public int existe(int legajo) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

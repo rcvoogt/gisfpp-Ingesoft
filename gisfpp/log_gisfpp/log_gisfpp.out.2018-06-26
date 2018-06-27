@@ -1,0 +1,960 @@
+26 jun 2018 - 21:18:07 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:18:07 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+26 jun 2018 - 21:18:07 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:18:07 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+26 jun 2018 - 21:18:07 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:18:08 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:18:08 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:18:08 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:18:08 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:18:08 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:18:08 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:18:08 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:18:08 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:18:08 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:18:08 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:18:08 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:18:08 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:18:09 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:18:09 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:18:09 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:18:09 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:18:09 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:18:09 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:18:10 [WARN ] support.GenericApplicationContext - Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:18:10 [ERROR] context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1] to prepare test instance [unpsjb.fipm.gisfpp.integracion.ControladorMateriasTest@5793b87]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 43 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:18:10 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:18:11 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:18:11 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:18:11 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:18:11 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:18:11 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:18:11 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:18:11 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@4bc33720: startup date [Tue Jun 26 21:18:11 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:18:11 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:18:11 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:18:11 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:18:11 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:18:11 [WARN ] support.GenericApplicationContext - Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:18:11 [ERROR] context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1] to prepare test instance [unpsjb.fipm.gisfpp.integracion.ControladorMateriasTest@7e91ed74]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 43 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:19:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:19:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+26 jun 2018 - 21:19:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:19:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+26 jun 2018 - 21:19:17 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:19:18 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:19:18 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:19:18 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:19:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:19:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:19:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:19:18 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:19:18 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:19:18 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:19:18 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:19:18 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:19:18 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:19:19 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:19:19 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:19:19 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:19:19 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:19:19 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:19:19 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:19:20 [WARN ] support.GenericApplicationContext - Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:19:20 [ERROR] context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1] to prepare test instance [unpsjb.fipm.gisfpp.integracion.ControladorMateriasTest@12704e15]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 43 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:19:20 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:19:20 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:19:20 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:19:20 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:19:20 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:19:20 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:19:20 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:19:20 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@2dd0f797: startup date [Tue Jun 26 21:19:20 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:19:20 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:19:20 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:19:20 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:19:21 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:19:21 [WARN ] support.GenericApplicationContext - Exception encountered during context initialization - cancelling refresh attempt
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:19:21 [ERROR] context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1] to prepare test instance [unpsjb.fipm.gisfpp.integracion.ControladorMateriasTest@7df28f1]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:117)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:228)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:230)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:249)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'scopedTarget.servMateria': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:334)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:543)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:482)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:305)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:301)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:772)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:835)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:537)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:125)
+	at org.springframework.test.context.support.AbstractGenericContextLoader.loadContext(AbstractGenericContextLoader.java:60)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:109)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:261)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:116)
+	... 43 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire method: public void unpsjb.fipm.gisfpp.servicios.cursada.ServiciosMateria.setDao(unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria); nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:331)
+	... 59 more
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type [unpsjb.fipm.gisfpp.dao.cursada.IDaoMateria] found for dependency: expected at least 1 bean which qualifies as autowire candidate for this dependency. Dependency annotations: {}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoSuchBeanDefinitionException(DefaultListableBeanFactory.java:1373)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1119)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1014)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:616)
+	... 61 more
+26 jun 2018 - 21:20:58 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:20:58 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+26 jun 2018 - 21:20:58 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:20:58 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+26 jun 2018 - 21:20:58 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:20:59 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:20:59 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:20:59 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:20:59 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:20:59 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:20:59 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:20:59 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:20:59 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:20:59 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:20:59 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:20:59 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:21:00 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:21:00 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:21:00 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:21:00 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:21:00 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:21:00 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:21:01 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:21:02 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:21:03 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:21:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:21:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:21:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:21:03 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:21:03 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:21:03 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@69c532af] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:21:03 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:21:03 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@7a388990, org.springframework.security.web.header.HeaderWriterFilter@13213f26, org.springframework.security.web.authentication.logout.LogoutFilter@4e4162bc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4c319d52, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@72fbf94d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6839203b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d28fb02, org.springframework.security.web.session.SessionManagementFilter@6db328f8, org.springframework.security.web.access.ExceptionTranslationFilter@402f8592, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@61b65d54]
+26 jun 2018 - 21:21:03 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:21:04 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:20:59 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:21:04 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:21:04 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:21:04 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:21:36 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:21:36 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+26 jun 2018 - 21:21:36 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:21:36 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+26 jun 2018 - 21:21:36 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:21:37 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:21:37 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:21:37 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:21:37 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:21:37 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:21:37 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:21:37 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:21:37 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:21:37 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:21:37 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:21:37 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:21:38 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:21:38 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:21:38 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:21:38 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:21:38 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:21:38 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:21:39 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:21:40 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:21:41 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:21:41 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:21:41 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:21:41 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:21:41 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:21:41 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:21:41 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@76437e9b] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:21:41 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:21:41 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@61b65d54, org.springframework.security.web.header.HeaderWriterFilter@b2c4a8b, org.springframework.security.web.authentication.logout.LogoutFilter@7f2c57fe, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@43935e9c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@101cf747, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@790d8fdd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6403a4a5, org.springframework.security.web.session.SessionManagementFilter@3dbd7107, org.springframework.security.web.access.ExceptionTranslationFilter@4a6c0f38, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f8a02cf]
+26 jun 2018 - 21:21:41 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:21:42 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:21:37 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:21:42 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:21:42 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:21:42 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:22:18 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:22:18 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+26 jun 2018 - 21:22:18 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:22:18 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+26 jun 2018 - 21:22:18 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:22:18 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:22:18 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:22:18 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:22:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:22:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:22:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:22:18 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:22:18 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:22:18 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:22:19 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:22:19 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:22:19 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:22:19 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:22:19 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:22:19 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:22:19 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:22:19 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:22:20 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:22:22 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:22:23 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:22:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:22:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:22:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:22:23 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:22:23 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:22:23 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@69c532af] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:22:23 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:22:23 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@7a388990, org.springframework.security.web.header.HeaderWriterFilter@13213f26, org.springframework.security.web.authentication.logout.LogoutFilter@4e4162bc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4c319d52, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@72fbf94d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6839203b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d28fb02, org.springframework.security.web.session.SessionManagementFilter@6db328f8, org.springframework.security.web.access.ExceptionTranslationFilter@402f8592, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@61b65d54]
+26 jun 2018 - 21:22:23 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:22:24 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Tue Jun 26 21:22:18 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:22:24 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:22:24 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:22:24 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:25:54 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:25:54 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
+26 jun 2018 - 21:25:55 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:25:55 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
+26 jun 2018 - 21:25:55 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:25:55 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:25:55 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:25:55 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:25:55 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:25:55 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:25:55 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:25:55 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:25:55 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:25:55 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:25:56 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:25:56 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:25:56 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:25:56 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:25:56 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:25:56 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:25:56 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:25:57 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:25:57 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:25:58 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:25:59 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:25:59 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:25:59 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:25:59 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:25:59 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:25:59 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:25:59 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@236ae13d] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:25:59 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:26:00 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@13213f26, org.springframework.security.web.header.HeaderWriterFilter@4e4162bc, org.springframework.security.web.authentication.logout.LogoutFilter@4c319d52, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@72fbf94d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6839203b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d28fb02, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6db328f8, org.springframework.security.web.session.SessionManagementFilter@402f8592, org.springframework.security.web.access.ExceptionTranslationFilter@61b65d54, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@b2c4a8b]
+26 jun 2018 - 21:26:00 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:26:00 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:25:55 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:26:00 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:26:00 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:26:00 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:31:25 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:31:25 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
+26 jun 2018 - 21:31:25 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:31:25 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
+26 jun 2018 - 21:31:26 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:31:26 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:31:26 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:31:26 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:31:26 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:31:26 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:31:26 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:31:26 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:31:26 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:31:26 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:31:27 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:31:27 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:31:27 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:31:27 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:31:27 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:31:27 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:31:27 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:31:27 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:31:28 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:31:29 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:31:30 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:31:30 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:31:30 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:31:30 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:31:30 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:31:30 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:31:31 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@7fb8bad0] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:31:31 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:31:31 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@6403a4a5, org.springframework.security.web.header.HeaderWriterFilter@3dbd7107, org.springframework.security.web.authentication.logout.LogoutFilter@4a6c0f38, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5f8a02cf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@26d5a317, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70b6db83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5a090f62, org.springframework.security.web.session.SessionManagementFilter@559af296, org.springframework.security.web.access.ExceptionTranslationFilter@5edc3e29, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@18709cb2]
+26 jun 2018 - 21:31:31 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:31:33 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:31:26 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:31:33 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:31:33 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:31:33 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:31:49 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:31:49 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
+26 jun 2018 - 21:31:49 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:31:49 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
+26 jun 2018 - 21:31:49 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:31:50 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:31:50 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:31:50 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:31:50 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:31:50 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:31:50 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:31:50 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:31:50 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:31:50 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:31:50 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:31:50 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:31:51 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:31:51 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:31:51 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:31:51 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:31:51 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:31:52 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:31:52 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:31:53 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:31:54 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:31:54 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:31:54 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:31:54 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:31:54 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:31:54 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:31:55 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@7fb8bad0] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:31:55 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:31:55 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@6403a4a5, org.springframework.security.web.header.HeaderWriterFilter@3dbd7107, org.springframework.security.web.authentication.logout.LogoutFilter@4a6c0f38, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5f8a02cf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@26d5a317, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70b6db83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5a090f62, org.springframework.security.web.session.SessionManagementFilter@559af296, org.springframework.security.web.access.ExceptionTranslationFilter@5edc3e29, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@18709cb2]
+26 jun 2018 - 21:31:55 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:31:56 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:31:50 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:31:56 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:31:56 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:31:56 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:33:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:33:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
+26 jun 2018 - 21:33:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:33:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
+26 jun 2018 - 21:33:17 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:33:17 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:33:17 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:33:17 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:33:17 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:33:17 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:33:17 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:33:18 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:33:18 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:33:18 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:33:18 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:33:18 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:33:18 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:33:18 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:33:18 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:33:18 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:33:18 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:33:19 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:33:19 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:33:21 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:33:22 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:33:22 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:33:22 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:33:22 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:33:22 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:33:22 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:33:22 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@96897c8] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:33:22 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:33:23 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@268c030f, org.springframework.security.web.header.HeaderWriterFilter@4b87760e, org.springframework.security.web.authentication.logout.LogoutFilter@be164d8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1b24ea2a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5df6163a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d313c8c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2df65a56, org.springframework.security.web.session.SessionManagementFilter@113f9078, org.springframework.security.web.access.ExceptionTranslationFilter@7c1503a3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@586495f1]
+26 jun 2018 - 21:33:23 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:33:24 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:33:18 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:33:24 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:33:24 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:33:24 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:35:15 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:35:15 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
+26 jun 2018 - 21:35:15 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+26 jun 2018 - 21:35:15 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
+26 jun 2018 - 21:35:15 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+26 jun 2018 - 21:35:15 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+26 jun 2018 - 21:35:15 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+26 jun 2018 - 21:35:15 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+26 jun 2018 - 21:35:15 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+26 jun 2018 - 21:35:15 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+26 jun 2018 - 21:35:15 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+26 jun 2018 - 21:35:15 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+26 jun 2018 - 21:35:15 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:35:15 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:35:16 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+26 jun 2018 - 21:35:16 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+26 jun 2018 - 21:35:16 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:35:16 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+26 jun 2018 - 21:35:16 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+26 jun 2018 - 21:35:16 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+26 jun 2018 - 21:35:16 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+26 jun 2018 - 21:35:17 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+26 jun 2018 - 21:35:17 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+26 jun 2018 - 21:35:18 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+26 jun 2018 - 21:35:19 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+26 jun 2018 - 21:35:19 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:35:19 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+26 jun 2018 - 21:35:19 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+26 jun 2018 - 21:35:19 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:35:19 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+26 jun 2018 - 21:35:20 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@7f97bc14] of Hibernate SessionFactory for HibernateTransactionManager
+26 jun 2018 - 21:35:20 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+26 jun 2018 - 21:35:20 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@4b87760e, org.springframework.security.web.header.HeaderWriterFilter@be164d8, org.springframework.security.web.authentication.logout.LogoutFilter@1b24ea2a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5df6163a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2d313c8c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2df65a56, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@113f9078, org.springframework.security.web.session.SessionManagementFilter@7c1503a3, org.springframework.security.web.access.ExceptionTranslationFilter@586495f1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@47df5041]
+26 jun 2018 - 21:35:20 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+26 jun 2018 - 21:35:22 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Tue Jun 26 21:35:15 ART 2018]; root of context hierarchy
+26 jun 2018 - 21:35:22 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+26 jun 2018 - 21:35:22 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+26 jun 2018 - 21:35:22 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition

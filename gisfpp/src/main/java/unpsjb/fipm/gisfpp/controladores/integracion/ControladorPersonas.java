@@ -33,6 +33,7 @@ public class ControladorPersonas {
 	RestTemplate restTemplate;
 	
 	public void persistirPersonas(Personas personas) {
+		// TODO Crear miembro en staff (alumno o profesor)
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
 		for (Persona persona : personas.getPersonas()) {
@@ -45,6 +46,9 @@ public class ControladorPersonas {
 			personaFisica.addIdentificador(dni);
 			personaFisica.agregarDatoDeContacto(datoDeContacto);
 			try {
+				
+				// TODO servPersonaAdapter.existe(persona.getLegajo())
+				
 				servPersona.editar(personaFisica);
 				personaAdapter.setIdPersona(personaFisica.getId());
 				

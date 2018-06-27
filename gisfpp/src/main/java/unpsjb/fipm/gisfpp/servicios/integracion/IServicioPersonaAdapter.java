@@ -6,4 +6,5 @@ import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
 public interface IServicioPersonaAdapter extends IServicioGenerico<PersonaAdapter, Integer>{
 
+	int existe(int legajo) throws Exception;
 }
