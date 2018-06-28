@@ -1,6 +1,8 @@
 package unpsjb.fipm.gisfpp.controladores.integracion;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,7 +40,6 @@ public class ControladorPersonas {
 	RestTemplate restTemplate;
 	
 	public void persistirPersonas(Personas personas) {
-		// TODO Crear miembro en staff (alumno o profesor)
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
 		StaffFI staff;
@@ -46,18 +47,26 @@ public class ControladorPersonas {
 			personaFisica = crearPersonaFisica(persona);
 			try {							
 				servPersona.actualizarOguardar(personaFisica);
-				personaAdapter = crearPersonaAdapter(persona, personaFisica.getId());
-				servPersonaAdapter.actualizarOguardar(personaAdapter);
 				staff = crearStaff(persona.getRol(),personaFisica);
 				servStaff.actualizarOguardar(staff);
+				personaAdapter = crearPersonaAdapter(persona, personaFisica.getId());
+				servPersonaAdapter.actualizarOguardar(personaAdapter);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
+	
 	private StaffFI crearStaff(String rol, PersonaFisica personaFisica) {
+		Calendar calendar = Calendar.getInstance();
+		Date desde = calendar.getTime();
+		calendar.add(Calendar.YEAR, 1);
+		Date hasta = calendar.getTime();
 		StaffFI staff = new StaffFI();
+		staff.setDesde(desde);
+		staff.setHasta(hasta);
 		staff.setMiembro(personaFisica);
 		if(rol.equals("ALUMNO")) {
 			staff.setRol(ECargosStaffFi.ALUMNO);
@@ -68,7 +77,7 @@ public class ControladorPersonas {
 	}
 
 	private PersonaFisica crearPersonaFisica(Persona persona) {
-		DatoDeContacto datoDeContacto = new DatoDeContacto(TDatosContacto.EMAIL, persona.getE_mail());			
+		DatoDeContacto datoDeContacto = new DatoDeContacto(TDatosContacto.EMAIL, persona.getE_mail());		
 		Identificador dni = new Identificador(TIdentificador.DNI, persona.getDni());
 		Identificador legajo = new Identificador(TIdentificador.LEGAJO, persona.getLegajo());
 		PersonaFisica personaFisica = new PersonaFisica();
@@ -78,6 +87,7 @@ public class ControladorPersonas {
 		personaFisica.agregarDatoDeContacto(datoDeContacto);
 		personaFisica.getUsuario().setNickname(persona.getNombreCompleto());
 		personaFisica.getUsuario().setPassword("usuario_gisfpp");		
+		personaFisica.getUsuario().setPersona(personaFisica);
 		return personaFisica;
 	}
 	

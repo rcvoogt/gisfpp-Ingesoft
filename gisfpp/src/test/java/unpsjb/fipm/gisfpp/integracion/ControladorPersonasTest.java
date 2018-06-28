@@ -26,6 +26,7 @@ public class ControladorPersonasTest extends TemplateTest {
 	public void testGetPersonas() {
 		try {
 			personas = controladorPersonas.getPersonas();
+			System.out.println(personas);
 			assertNotNull(personas);
 			assertEquals(personas.getPersonas().length, 4);
 		} catch (IOException e) {
@@ -35,6 +36,11 @@ public class ControladorPersonasTest extends TemplateTest {
 
 	@Test
 	public void testIntegrarPersonas() {
+		try {
+			controladorPersonas.integrarPersonas();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}	
 
 	@Override

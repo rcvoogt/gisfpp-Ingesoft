@@ -13,7 +13,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
-import unpsjb.fipm.gisfpp.entidades.convocatoria.Convocatoria;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
@@ -68,14 +67,14 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 		String query = "select stf from StaffFI as stf left join fetch stf.miembro as p left join fetch p.identificadores";
 		try {
 			List<StaffFI> result = (List<StaffFI>) getHibernateTemplate().find(query, null);
-			//Se quitan los elementos duplicados que genera la consulta
+			// Se quitan los elementos duplicados que genera la consulta
 			Set<StaffFI> listaSinDuplicados = new LinkedHashSet<StaffFI>(result);
 			result.clear();
 			result.addAll(listaSinDuplicados);
 			for (StaffFI staff : result) {
 				getHibernateTemplate().initialize(staff.getMiembro().getDatosDeContacto());
 			}
-			return  result;
+			return result;
 		} catch (Exception e) {
 			log.error(this.getClass().getName(), e);
 			throw e;
@@ -116,12 +115,13 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 
 	@Override
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception {
-		String query="select staffFi from StaffFI as staffFi where staffFi.rol = ?";
+		String query = "select staffFi from StaffFI as staffFi where staffFi.rol = ?";
 		List<StaffFI> resultado;
 		try {
 			resultado = (List<StaffFI>) getHibernateTemplate().find(query, rol);
 		} catch (Exception exc1) {
-			log.error("Clase: "+this.getClass().getName() + "- Metodo: List<StaffFI> getMiembroPorRol(ECargosStaffFi rol)", exc1);
+			log.error("Clase: " + this.getClass().getName()
+					+ "- Metodo: List<StaffFI> getMiembroPorRol(ECargosStaffFi rol)", exc1);
 			throw exc1;
 		}
 		if (resultado != null && !resultado.isEmpty()) {
@@ -134,5 +134,27 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 		return new ArrayList<StaffFI>();
 	}
 
+	@Override
+	public void actualizarOguardar(StaffFI instancia) {
+		getHibernateTemplate().saveOrUpdate(instancia);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean existe(String legajo) {
+		String query = "select staff " 
+					 + "from StaffFI as staff " 
+					 + "where staff.miembro.legajo = ?";
+		List<StaffFI> result;
+		StaffFI staff;
+		try {
+			result = (List<StaffFI>) getHibernateTemplate().find(query, legajo);
+			staff = result.get(0);
+			if(staff != null)
+				return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 
 }// fin de la clase

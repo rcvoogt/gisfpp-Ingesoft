@@ -5,20 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.dao.staff.IDaoStaffFI;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 
 @Service("servStaffFI")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServiciosStaff implements IServiciosStaffFI {
 
 	private IDaoStaffFI dao;
-
+	private IServicioPF servPF;
 	
 	@Autowired(required = true)
 	public void setDao(IDaoStaffFI arg) {
@@ -87,9 +90,31 @@ public class ServiciosStaff implements IServiciosStaffFI {
 
 
 	@Override
-	public boolean actualizarOguardar(StaffFI staff) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public int actualizarOguardar(StaffFI staff) throws DataAccessException, Exception {
+		if(existe(staff)) {
+			dao.actualizar(staff);
+			return staff.getId();
+		}
+		dao.crear(staff);
+		return staff.getId();
+	}
+
+	@Override
+	@Transactional
+	public boolean existe(StaffFI staff) throws Exception {
+		List<PersonaFisica> personas = servPF.getxIdentificador(TIdentificador.LEGAJO, staff.getMiembro().getLegajo());
+		
+		if(personas.contains(staff.getMiembro()) && staff.getId() != null)
+			return true;
 		return false;
 	}
+
+	@Autowired(required = true)
+	public void setServPF(IServicioPF servPF) {
+		this.servPF = servPF;
+	}
+	
+	
 
 }// fin de la clase

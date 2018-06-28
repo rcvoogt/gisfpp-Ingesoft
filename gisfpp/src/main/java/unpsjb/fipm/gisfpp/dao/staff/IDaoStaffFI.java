@@ -12,4 +12,9 @@ public interface IDaoStaffFI extends DaoGenerico<StaffFI, Integer> {
 	public List<PersonaFisica> getListadoPersonas() throws Exception;
 	
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception;
+	
+	public void actualizarOguardar(StaffFI instancia);
+
+	public boolean existe(String legajo);
+
 }
