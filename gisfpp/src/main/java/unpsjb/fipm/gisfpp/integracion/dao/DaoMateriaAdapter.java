@@ -28,8 +28,7 @@ public class DaoMateriaAdapter extends HibernateDaoSupport implements IDaoMateri
 
 	@Override
 	public void actualizar(MateriaAdapter instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		getHibernateTemplate().update(instancia);
 	}
 
 	@Override

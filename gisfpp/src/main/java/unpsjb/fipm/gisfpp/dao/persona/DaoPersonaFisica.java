@@ -43,31 +43,35 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	}
 
 	@Override
-	public void eliminar(PersonaFisica instancia) throws DataAccessException{
+	public void eliminar(PersonaFisica instancia) throws DataAccessException {
 		getHibernateTemplate().delete(instancia);
-		
+
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaFisica> recuperarTodo() throws DataAccessException {
 		String query = "select pf from PersonaFisica pf left join fetch pf.identificadores";
 		List<PersonaFisica> lista = (List<PersonaFisica>) getHibernateTemplate().find(query, null);
-		//La consulta devuelve Personas duplicadas segun la cantidad de identificadores
-		//registrados que tenga. Por eso se utiliza este truco de pasar la lista resultado a un Set que 
-		//por definicion no permite duplicados, eliminando dichos elementos duplicados de la lista
+		// La consulta devuelve Personas duplicadas segun la cantidad de identificadores
+		// registrados que tenga. Por eso se utiliza este truco de pasar la lista
+		// resultado a un Set que
+		// por definicion no permite duplicados, eliminando dichos elementos duplicados
+		// de la lista
 		Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(lista);
 		lista.clear();
 		lista.addAll(listaSinDuplicados);
- 		return lista;
+		return lista;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public PersonaFisica recuperarxId(Integer id) throws DataAccessException {
-		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores left join fetch pf.usuario where pf.id = ?";
+		String query = "select pf from PersonaFisica pf left join fetch pf.identificadores left join fetch pf.usuario where pf.id = ?";
 		List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, id);
-		if(result ==null || result.isEmpty()){
+		if (result == null || result.isEmpty()) {
 			return null;
-		}else{
+		} else {
 			getHibernateTemplate().initialize(result.get(0).getDomicilios());
 			getHibernateTemplate().initialize(result.get(0).getDatosDeContacto());
 			return result.get(0);
@@ -77,34 +81,39 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaFisica> getxNombre(String patronNombre) throws Exception {
-		String query ="select pf from PersonaFisica pf left join fetch pf.identificadores where pf.nombre like concat('%',?,'%')";
+		String query = "select pf from PersonaFisica pf left join fetch pf.identificadores where pf.nombre like concat('%',?,'%')";
 		List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, patronNombre);
-		//La consulta devuelve Personas duplicadas segun la cantidad de identificadores
-		//registrados que tenga. Por eso se utiliza este truco de pasar la lista resultado a un Set que 
-		//por definicion no permite duplicados, eliminando dichos elementos duplicados de la lista
-		if(result != null && !result.isEmpty()){
+		// La consulta devuelve Personas duplicadas segun la cantidad de identificadores
+		// registrados que tenga. Por eso se utiliza este truco de pasar la lista
+		// resultado a un Set que
+		// por definicion no permite duplicados, eliminando dichos elementos duplicados
+		// de la lista
+		if (result != null && !result.isEmpty()) {
 			Set<PersonaFisica> listaSinDuplicados = new LinkedHashSet<PersonaFisica>(result);
 			result.clear();
 			result.addAll(listaSinDuplicados);
-	 		return result;
-		}else{
+			return result;
+		} else {
 			return null;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaFisica> getxIdentificador(TIdentificador tipo, String patron) throws Exception {
-		String query ="select pf from PersonaFisica pf inner join pf.identificadores id where id.tipo =? and id.valor like concat('%',?,'%')";
-		List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, tipo,patron);
-		//Al no poder inicializar la coleccion de identificadores en la consulta anterior (no se pudo usar inner join fetch)
-		//se inicializa los identificadores de las personas resultado de la consulta manualmente.
-		if(result!=null && !result.isEmpty()){
+		String query = "select pf from PersonaFisica pf inner join pf.identificadores id where id.tipo =? and id.valor like concat('%',?,'%')";
+		List<PersonaFisica> result = (List<PersonaFisica>) getHibernateTemplate().find(query, tipo, patron);
+		// Al no poder inicializar la coleccion de identificadores en la consulta
+		// anterior (no se pudo usar inner join fetch)
+		// se inicializa los identificadores de las personas resultado de la consulta
+		// manualmente.
+		if (result != null && !result.isEmpty()) {
 			for (PersonaFisica persona : result) {
 				getHibernateTemplate().initialize(persona.getIdentificadores());
 				getHibernateTemplate().initialize(persona.getDatosDeContacto());
 			}
 			return result;
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -114,5 +123,18 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 		getHibernateTemplate().saveOrUpdate(instancia);
 	}
 
-				
+	@Override
+	public boolean existe(String legajo) {
+		PersonaFisica persona;
+		try {
+			List<PersonaFisica> result = getxIdentificador(TIdentificador.LEGAJO, legajo);
+			persona = result.get(0);
+			if(persona != null)
+				return true;	
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+
 }// fin de la clase

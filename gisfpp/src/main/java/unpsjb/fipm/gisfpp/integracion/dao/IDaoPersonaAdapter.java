@@ -5,5 +5,7 @@ import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 
 public interface IDaoPersonaAdapter extends DaoGenerico<PersonaAdapter, Integer>{
 
+	int existe(String legajo);
+
 	
 }

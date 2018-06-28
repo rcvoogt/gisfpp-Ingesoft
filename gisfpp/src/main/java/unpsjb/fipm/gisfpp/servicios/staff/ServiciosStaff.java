@@ -85,4 +85,11 @@ public class ServiciosStaff implements IServiciosStaffFI {
 		return null;
 	}
 
+
+	@Override
+	public boolean actualizarOguardar(StaffFI staff) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }// fin de la clase

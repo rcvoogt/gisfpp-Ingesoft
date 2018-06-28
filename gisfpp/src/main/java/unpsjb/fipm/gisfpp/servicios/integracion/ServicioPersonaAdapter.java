@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +25,9 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	}
 
 	@Override
+	@Transactional(value="gisfpp", readOnly = false)
 	public void editar(PersonaAdapter instancia) throws Exception {
-		// TODO Auto-generated method stub
-		
+		dao.actualizar(instancia);
 	}
 
 	@Override
@@ -37,14 +38,12 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 
 	@Override
 	public PersonaAdapter getInstancia(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.recuperarxId(id);
 	}
 
 	@Override
 	public List<PersonaAdapter> getListado() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.recuperarTodo();
 	}
 	@Autowired
 	public void setDao(IDaoPersonaAdapter dao) {
@@ -52,8 +51,20 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	}
 
 	@Override
-	public int existe(int legajo) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int existe(String legajo) throws Exception {
+		return dao.existe(legajo);
 	}
+
+	@Override
+	@Transactional(value="gisfpp", readOnly = false)
+	public int actualizarOguardar(PersonaAdapter instancia) throws DataAccessException, Exception {
+		if(existe(instancia.getLegajo()) == -1) {
+			dao.crear(instancia);
+			return instancia.getId();
+		}
+		dao.actualizar(instancia);
+		return instancia.getId();
+	}
+
+	
 }

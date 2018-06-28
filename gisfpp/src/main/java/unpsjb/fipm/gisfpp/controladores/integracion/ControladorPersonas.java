@@ -15,11 +15,14 @@ import unpsjb.fipm.gisfpp.entidades.persona.Identificador;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.persona.TDatosContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
+import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.integracion.entidades.Persona;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.Personas;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
+import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 
 @Component
 public class ControladorPersonas {
@@ -30,45 +33,60 @@ public class ControladorPersonas {
 	@Autowired
 	IServicioPersonaAdapter servPersonaAdapter;
 	@Autowired
+	IServiciosStaffFI servStaff;
+	@Autowired
 	RestTemplate restTemplate;
 	
 	public void persistirPersonas(Personas personas) {
 		// TODO Crear miembro en staff (alumno o profesor)
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
+		StaffFI staff;
 		for (Persona persona : personas.getPersonas()) {
-			DatoDeContacto datoDeContacto = new DatoDeContacto(TDatosContacto.EMAIL, persona.getE_mail());			
-			Identificador dni = new Identificador(TIdentificador.DNI, persona.getDni());
-			personaAdapter = new PersonaAdapter();
-			personaAdapter.setLegajo(persona.getLegajo());
-			personaFisica = new PersonaFisica();
-			personaFisica.setNombre(persona.getNombreCompleto());
-			personaFisica.addIdentificador(dni);
-			personaFisica.agregarDatoDeContacto(datoDeContacto);
-			try {
-				
-				// TODO servPersonaAdapter.existe(persona.getLegajo())
-				
-				servPersona.editar(personaFisica);
-				personaAdapter.setIdPersona(personaFisica.getId());
-				
-			} catch (Exception e) {
-				personaFisica.getUsuario().setNickname(persona.getNombreCompleto());
-				personaFisica.getUsuario().setPassword("usuario_gisfpp");
-				try {
-					servPersona.persistir(personaFisica);
-					personaAdapter.setIdPersona(personaFisica.getId());
-					} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				e.printStackTrace();
-			}
-			try {
-				servPersonaAdapter.persistir(personaAdapter);
+			personaFisica = crearPersonaFisica(persona);
+			try {							
+				servPersona.actualizarOguardar(personaFisica);
+				personaAdapter = crearPersonaAdapter(persona, personaFisica.getId());
+				servPersonaAdapter.actualizarOguardar(personaAdapter);
+				staff = crearStaff(persona.getRol(),personaFisica);
+				servStaff.actualizarOguardar(staff);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private StaffFI crearStaff(String rol, PersonaFisica personaFisica) {
+		StaffFI staff = new StaffFI();
+		staff.setMiembro(personaFisica);
+		if(rol.equals("ALUMNO")) {
+			staff.setRol(ECargosStaffFi.ALUMNO);
+			return staff;
+		}
+		staff.setRol(ECargosStaffFi.PROFESOR);
+		return staff;
+	}
+
+	private PersonaFisica crearPersonaFisica(Persona persona) {
+		DatoDeContacto datoDeContacto = new DatoDeContacto(TDatosContacto.EMAIL, persona.getE_mail());			
+		Identificador dni = new Identificador(TIdentificador.DNI, persona.getDni());
+		Identificador legajo = new Identificador(TIdentificador.LEGAJO, persona.getLegajo());
+		PersonaFisica personaFisica = new PersonaFisica();
+		personaFisica.setNombre(persona.getNombreCompleto());
+		personaFisica.addIdentificador(dni);
+		personaFisica.addIdentificador(legajo);
+		personaFisica.agregarDatoDeContacto(datoDeContacto);
+		personaFisica.getUsuario().setNickname(persona.getNombreCompleto());
+		personaFisica.getUsuario().setPassword("usuario_gisfpp");		
+		return personaFisica;
+	}
+	
+	
+	private PersonaAdapter crearPersonaAdapter(Persona persona , Integer idPersonaFisica) {
+		PersonaAdapter personaAdapter = new PersonaAdapter();
+		personaAdapter.setLegajo(persona.getLegajo());
+		personaAdapter.setIdPersona(idPersonaFisica);
+		return personaAdapter;
 	}
 	
 	private Personas adaptarPersonas(String xml) throws JsonParseException, JsonMappingException, IOException {

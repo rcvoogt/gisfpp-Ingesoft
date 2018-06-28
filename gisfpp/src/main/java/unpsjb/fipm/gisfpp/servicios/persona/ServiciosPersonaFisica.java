@@ -105,11 +105,27 @@ public class ServiciosPersonaFisica implements IServicioPF {
 		
 	}
 
-
 	@Override
 	@Transactional(value="gisfpp", readOnly=false)
-	public void actualizarOguardar(PersonaFisica persona) throws Exception {
-		dao.actualizarOguardar(persona);
+	public int actualizarOguardar(PersonaFisica instancia) throws Exception {
+		PersonaFisica persona;
+		if(dao.existe(instancia.getLegajo())) {
+			persona = dao.recuperarxId(instancia.getId());
+			instancia.getUsuario().setNickname(persona.getUsuario().getNickname());
+			instancia.getUsuario().setPassword(persona.getUsuario().getPassword());
+			instancia.getUsuario().setActivo(true);
+			dao.actualizar(instancia);
+			return instancia.getId();
+		}
+		dao.crear(instancia);
+		return instancia.getId();
+	}
+
+
+	@Override
+	@Transactional(value="gisfpp", readOnly=true)
+	public boolean existe(String legajo) {
+		return dao.existe(legajo);
 	}
 	
 }//fin de la clase

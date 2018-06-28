@@ -19,5 +19,7 @@ public interface IServiciosStaffFI extends IServicioGenerico<StaffFI, Integer> {
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception;
 	
 	public StaffFI getMiembro(PersonaFisica personaFisica)throws Exception;
+
+	public boolean actualizarOguardar(StaffFI staff);
 	
 }
