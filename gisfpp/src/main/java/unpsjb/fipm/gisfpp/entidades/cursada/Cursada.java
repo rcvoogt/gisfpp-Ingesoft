@@ -30,6 +30,12 @@ public class Cursada implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCursada;
 
+	@Column(name = "codigo_comision")
+	private String codigoComision;
+	
+	@Column(name = "nombre")
+	private String nombre;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "cursada_alumno",
 	joinColumns = @JoinColumn(name = "idCursada", referencedColumnName = "idCursada"),
@@ -99,5 +105,25 @@ public class Cursada implements Serializable{
 	public void setCuatrimestre(String cuatrimestre) {
 		this.cuatrimestre = cuatrimestre;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCodigoComision() {
+		return codigoComision;
+	}
+
+	public void setCodigoComision(String codigoComision) {
+		this.codigoComision = codigoComision;
+	}
+
+	
+	
+	
 	
 }
