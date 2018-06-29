@@ -134,7 +134,12 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<bean id="daoCursada"
+		class="unpsjb.fipm.gisfpp.dao.cursada.DaoCursada">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
+	
 	<bean id="daoConvocatoria"
 		class="unpsjb.fipm.gisfpp.dao.convocatoria.DaoConvocatoria">
 		<property name="sessionFactory" ref="sessionFactoryHB" />

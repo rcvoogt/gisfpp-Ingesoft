@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Cursada;
-import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
 public class DaoCursada extends HibernateDaoSupport implements IDaoCursada {
