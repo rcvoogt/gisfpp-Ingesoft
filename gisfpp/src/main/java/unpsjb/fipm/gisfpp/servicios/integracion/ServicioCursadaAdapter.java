@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoCursadaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
+import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 
 @Service("servCursadaAdapter")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -55,5 +56,22 @@ public class ServicioCursadaAdapter implements IServicioCursadaAdapter{
 	public void setDao(IDaoCursadaAdapter dao) {
 		this.dao = dao;
 	}
+
+	@Override
+	public int existe(String codigoComision) throws Exception {
+		return dao.existe(codigoComision);
+	}
 	
+	@Override
+	@Transactional(value="gisfpp", readOnly = false)
+	public int actualizarOguardar(CursadaAdapter instancia) throws Exception {
+		if(dao.existe(instancia.getCodComision()) == -1) {
+			dao.crear(instancia);
+			return instancia.getId();
+		}
+		dao.actualizar(instancia);
+		return instancia.getId();
+	}
+
+
 }

@@ -44,11 +44,41 @@ public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursad
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public CursadaAdapter recuperarxId(Integer id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		String query ="select cursada "
+					+ "from CursadaAdapter cursada "
+					+ "where cursada.idCursadaAdapter = ?";
+		List<CursadaAdapter> result = (List<CursadaAdapter>) getHibernateTemplate().find(query, id);
+		if(result == null || result.isEmpty()){
+			return null;
+		}
+		return result.get(0);
 	}
-	
+
+	@Override
+	public int actualizarOguardar(CursadaAdapter instancia) throws Exception {
+		getHibernateTemplate().saveOrUpdate(instancia);
+		return instancia.getId();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int existe(String codigoComision) {
+		String query = "select cursada " 
+					 + "from CursadaAdapter as cursada " 
+					 + "where materia.codComision = ?";
+		List<CursadaAdapter> result;
+		CursadaAdapter cursadaAux;
+		try {
+			result = (List<CursadaAdapter>) getHibernateTemplate().find(query, codigoComision);
+			cursadaAux = result.get(0);
+		} catch (Exception e) {
+			return -1;
+		}
+		return cursadaAux.getId();
+	}
+
 
 }
