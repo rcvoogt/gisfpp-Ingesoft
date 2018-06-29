@@ -1,8 +1,7 @@
 package unpsjb.fipm.gisfpp.servicios;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -77,8 +76,8 @@ public class ServicioStaffTest extends TemplateTest {
 	@Test
 	public void existeTest() {
 		try {
-			assertTrue(servStaff.existe(staffPersonaPersistida));		
-			assertFalse(servStaff.existe(staffPersonaNoPersistida));
+			assertNotNull(servStaff.existe(staffPersonaPersistida));		
+			assertNull(servStaff.existe(staffPersonaNoPersistida));
 		} catch (Exception e) {
 			System.out.println(e);
 		}

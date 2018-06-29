@@ -5,6 +5,7 @@ import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
 public interface IServiciosMateria extends IServicioGenerico<Materia, Integer> {
 	public int actualizarOguardar(Materia instancia) throws Exception;
+
+	int existe(String codigoMateria) throws Exception;
 	
-	boolean existe(String codigoMateria) throws Exception;
 }

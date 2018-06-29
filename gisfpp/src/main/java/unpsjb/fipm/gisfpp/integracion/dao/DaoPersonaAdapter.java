@@ -21,7 +21,7 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 
 	@Override
 	public void actualizar(PersonaAdapter instancia) throws DataAccessException {
-		getHibernateTemplate().update(instancia);
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override

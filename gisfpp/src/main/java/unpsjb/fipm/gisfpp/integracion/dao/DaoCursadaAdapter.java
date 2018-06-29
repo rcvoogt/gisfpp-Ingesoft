@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursadaAdapter{
+public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursadaAdapter {
 
 	private Logger log = UtilGisfpp.getLogger();
 
@@ -21,16 +21,14 @@ public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursad
 		} catch (Exception e) {
 			log.debug(this.getClass().getName(), e);
 		}
-		
-		
+
 		getHibernateTemplate().saveOrUpdate(instancia);
 		return instancia.getId();
 	}
 
 	@Override
 	public void actualizar(CursadaAdapter instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override

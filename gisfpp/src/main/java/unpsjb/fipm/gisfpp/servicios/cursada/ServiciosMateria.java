@@ -52,7 +52,8 @@ public class ServiciosMateria implements IServiciosMateria{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(Materia instancia) throws Exception {
-		if(dao.existe(instancia.getCodigoMateria())) {
+		instancia.setId(dao.existe(instancia.getCodigoMateria()));
+		if(instancia.getId() != null) {
 			dao.actualizar(instancia);
 			return instancia.getId();
 		}
@@ -61,7 +62,7 @@ public class ServiciosMateria implements IServiciosMateria{
 	}
 
 	@Override
-	public boolean existe(String codigoMateria) throws Exception {
+	public int existe(String codigoMateria) throws Exception {
 		return dao.existe(codigoMateria);
 	}
 

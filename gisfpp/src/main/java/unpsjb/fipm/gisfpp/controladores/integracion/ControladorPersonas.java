@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,17 +45,30 @@ public class ControladorPersonas {
 		PersonaFisica personaFisica;
 		StaffFI staff;
 		for (Persona persona : personas.getPersonas()) {
-			personaFisica = crearPersonaFisica(persona);
-			try {							
-				servPersona.actualizarOguardar(personaFisica);
+			personaFisica = crearPersonaFisica(persona);									
+				try {
+					servPersona.actualizarOguardar(personaFisica);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				staff = crearStaff(persona.getRol(),personaFisica);
-				servStaff.actualizarOguardar(staff);
+				try {
+					servStaff.actualizarOguardar(staff);
+				} catch (DataAccessException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				personaAdapter = crearPersonaAdapter(persona, personaFisica.getId());
-				servPersonaAdapter.actualizarOguardar(personaAdapter);
+				try {
+					servPersonaAdapter.actualizarOguardar(personaAdapter);
+				} catch (DataAccessException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 		}
 	}
 	

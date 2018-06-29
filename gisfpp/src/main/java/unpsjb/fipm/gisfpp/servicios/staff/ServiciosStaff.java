@@ -92,9 +92,9 @@ public class ServiciosStaff implements IServiciosStaffFI {
 	@Override
 	@Transactional
 	public int actualizarOguardar(StaffFI staff) throws DataAccessException, Exception {
-		if(existe(staff)) {
-			dao.actualizar(staff);
-			return staff.getId();
+		StaffFI aux = existe(staff);
+		if(aux != null) {
+			return aux.getId();
 		}
 		dao.crear(staff);
 		return staff.getId();
@@ -102,12 +102,14 @@ public class ServiciosStaff implements IServiciosStaffFI {
 
 	@Override
 	@Transactional
-	public boolean existe(StaffFI staff) throws Exception {
-		List<PersonaFisica> personas = servPF.getxIdentificador(TIdentificador.LEGAJO, staff.getMiembro().getLegajo());
+	public StaffFI existe(StaffFI staff) throws Exception {
+		List<StaffFI> staffs = getListado();
+		for(StaffFI aux: staffs) {
+			if( aux.getMiembro().equals(staff.getMiembro()) && aux.getRol().equals(staff.getRol()) )
+				return aux;
+		}
 		
-		if(personas.contains(staff.getMiembro()) && staff.getId() != null)
-			return true;
-		return false;
+		return null;
 	}
 
 	@Autowired(required = true)

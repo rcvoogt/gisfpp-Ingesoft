@@ -24,6 +24,6 @@ public interface IServiciosStaffFI extends IServicioGenerico<StaffFI, Integer> {
 
 	public int actualizarOguardar(StaffFI staff) throws DataAccessException, Exception;
 	
-	public boolean existe(StaffFI staff) throws Exception;
+	public StaffFI existe(StaffFI staff) throws Exception;
 	
 }

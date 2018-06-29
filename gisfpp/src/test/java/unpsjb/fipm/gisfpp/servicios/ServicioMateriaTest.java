@@ -2,6 +2,7 @@ package unpsjb.fipm.gisfpp.servicios;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -34,8 +35,8 @@ public class ServicioMateriaTest extends TemplateTest {
 	@Test
 	public void existeTest() {
 		try {
-			assertTrue((servMateria.existe(materiaPersistida.getCodigoMateria())));
-			assertFalse(servMateria.existe(materiaNoPersistida.getCodigoMateria()));
+			assertNotNull((servMateria.existe(materiaPersistida.getCodigoMateria())));
+			assertNull(servMateria.existe(materiaNoPersistida.getCodigoMateria()));
 			
 		} catch (Exception e) {}
 		

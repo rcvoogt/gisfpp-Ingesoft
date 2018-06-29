@@ -39,7 +39,7 @@ public class DaoPersonaFisica extends HibernateDaoSupport implements IDaoPersona
 
 	@Override
 	public void actualizar(PersonaFisica instancia) throws DataAccessException {
-		getHibernateTemplate().update(instancia);
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override

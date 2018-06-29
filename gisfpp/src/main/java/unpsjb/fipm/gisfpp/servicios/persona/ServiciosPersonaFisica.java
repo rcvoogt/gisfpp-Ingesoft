@@ -123,7 +123,6 @@ public class ServiciosPersonaFisica implements IServicioPF {
 		return instancia.getId();
 	}
 
-
 	@Override
 	@Transactional(value="gisfpp", readOnly=true)
 	public boolean existe(String legajo) {

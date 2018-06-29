@@ -7,5 +7,5 @@ public interface IDaoMateria extends DaoGenerico<Materia, Integer>{
 
 	public int actualizarOguardar(Materia instancia) throws Exception;
 
-	public boolean existe(String codigoMateria);
+	public int existe(String codigoMateria);
 }

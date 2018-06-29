@@ -29,8 +29,7 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria {
 
 	@Override
 	public void actualizar(Materia instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override
@@ -63,9 +62,9 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria {
 		return instancia.getId();
 	}
 
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unchecked", "null" })
 	@Override
-	public boolean existe(String codigoMateria) {
+	public int existe(String codigoMateria) {
 		String query = "select materia " 
 					 + "from Materia as materia " 
 					 + "where materia.codigoMateria = ?";
@@ -74,10 +73,10 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria {
 		try {
 			result = (List<Materia>) getHibernateTemplate().find(query, codigoMateria);
 			materiaAux = result.get(0);
-			return true;
+			return materiaAux.getId();
 		} catch (Exception e) {
 		}
-		return false;
+		return (Integer) null;
 	}
 
 }

@@ -39,7 +39,7 @@ public class DaoStaffFI extends HibernateDaoSupport implements IDaoStaffFI {
 	@Override
 	public void actualizar(StaffFI instancia) throws DataAccessException {
 		try {
-			getHibernateTemplate().update(instancia);
+			getHibernateTemplate().merge(instancia);
 		} catch (DataIntegrityViolationException | ConstraintViolationException
 				| org.hibernate.exception.ConstraintViolationException cve) {
 			throw cve;

@@ -31,7 +31,7 @@ public class DaoCursada extends HibernateDaoSupport implements IDaoCursada {
 	@Override
 	public void actualizar(Cursada instancia) throws DataAccessException {
 		// TODO Auto-generated method stub
-
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override

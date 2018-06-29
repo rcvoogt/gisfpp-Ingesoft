@@ -30,9 +30,7 @@ public class ControladorMaterias {
 	public void integrarMaterias() throws Exception {
 		materias = getMaterias();
 		persistirMaterias(materias);
-	}
-	
-	
+	}	
 
 	private void persistirMaterias(Materias materias) throws Exception {
 		Materia materia;
@@ -44,9 +42,7 @@ public class ControladorMaterias {
 			materiaAdapter = crearMateriaAdapter(materiaXML,materia.getId());
 			servMateriaAdapter.actualizarOguardar(materiaAdapter);
 		}
-	}
-
-	
+	}	
 
 	private MateriaAdapter crearMateriaAdapter(MateriaXML materiaXML, Integer integer) {
 		MateriaAdapter materiaAdapter = new MateriaAdapter();
