@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.integracion.entidades;
+package unpsjb.fipm.gisfpp.entidades.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 /**
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * @author isaia
  *
  */
-public class Persona {
+public class PersonaXML {
 
     @JacksonXmlProperty(localName = "legajo")
 	private String legajo;

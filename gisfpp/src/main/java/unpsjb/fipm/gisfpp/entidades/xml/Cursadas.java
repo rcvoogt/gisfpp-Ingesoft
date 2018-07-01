@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.integracion.entidades;
+package unpsjb.fipm.gisfpp.entidades.xml;
 
 import java.util.Arrays;
 
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 @JacksonXmlRootElement(localName = "Cursadas")
 public class Cursadas {
 	
-	@JacksonXmlProperty(localName = "Materia")
+	@JacksonXmlProperty(localName = "Cursada")
 	@JacksonXmlElementWrapper(useWrapping = false)
 	private CursadaXML[] cursadas;
 

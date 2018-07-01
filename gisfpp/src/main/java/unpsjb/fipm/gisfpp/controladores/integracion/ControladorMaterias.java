@@ -11,9 +11,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
+import unpsjb.fipm.gisfpp.entidades.xml.MateriaXML;
+import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
-import unpsjb.fipm.gisfpp.integracion.entidades.MateriaXML;
-import unpsjb.fipm.gisfpp.integracion.entidades.Materias;
 import unpsjb.fipm.gisfpp.servicios.cursada.IServiciosMateria;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;
 

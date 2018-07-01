@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import unpsjb.fipm.gisfpp.controladores.integracion.ControladorMaterias;
-import unpsjb.fipm.gisfpp.integracion.entidades.Materias;
+import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.servicios.TemplateTest;
 import unpsjb.fipm.gisfpp.servicios.cursada.IServiciosMateria;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;

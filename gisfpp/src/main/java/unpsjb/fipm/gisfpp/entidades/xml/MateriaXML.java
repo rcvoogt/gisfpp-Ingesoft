@@ -1,4 +1,4 @@
-package unpsjb.fipm.gisfpp.integracion.entidades;
+package unpsjb.fipm.gisfpp.entidades.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 /**
