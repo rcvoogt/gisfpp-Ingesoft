@@ -52,8 +52,7 @@ public class ServiciosMateria implements IServiciosMateria{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(Materia instancia) throws Exception {
-		instancia.setId(dao.existe(instancia.getCodigoMateria()));
-		if(instancia.getId() != null) {
+		if(dao.existe(instancia.getCodigoMateria()) != -1) {
 			dao.actualizar(instancia);
 			return instancia.getId();
 		}

@@ -34,7 +34,7 @@ public class ControladorMateriasTest extends TemplateTest {
 			materias = controladorMaterias.getMaterias();
 			System.out.println(materias);
 			assertNotNull(materias);
-			assertEquals(materias.getMaterias().length, 2);
+			assertEquals(materias.getMaterias().length, 40);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

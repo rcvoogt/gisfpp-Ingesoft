@@ -3,8 +3,8 @@ package unpsjb.fipm.gisfpp.controladores.integracion;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,8 +24,8 @@ public class ControladorMaterias {
 	@Autowired
 	IServicioMateriaAdapter servMateriaAdapter;
 	@Autowired
-	RestTemplate restTemplate;
-	Materias materias;
+	RestImplementation restImplementation;
+	private Materias materias;
 
 	public void integrarMaterias() throws Exception {
 		materias = getMaterias();
@@ -59,12 +59,10 @@ public class ControladorMaterias {
 		materia.setCodigoMateria(materiaXML.getCodigoMateria());
 		return materia;
 	}
-
-
-
+	
 	public Materias getMaterias() throws JsonParseException, JsonMappingException, IOException {
-		String x = restTemplate.getForObject(Rutas.SERVICIO_MATERIA_TEST, String.class);
-		return adaptarMaterias(x);
+		HttpEntity<String> response = restImplementation.get(Rutas.SERVICIO_MATERIA, "application/xml");
+		return adaptarMaterias(response.getBody());
 	}
 
 	private Materias adaptarMaterias(String xml) throws JsonParseException, JsonMappingException, IOException {
@@ -73,4 +71,9 @@ public class ControladorMaterias {
 		return value;
 	}
 
+	public void setMaterias(Materias materias) {
+		this.materias = materias;
+	}
+
+	
 }

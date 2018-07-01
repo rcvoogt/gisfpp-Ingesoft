@@ -76,7 +76,7 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria {
 			return materiaAux.getId();
 		} catch (Exception e) {
 		}
-		return (Integer) null;
+		return -1;
 	}
 
 }

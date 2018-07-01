@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,6 +40,8 @@ public class ControladorPersonas {
 	IServiciosStaffFI servStaff;
 	@Autowired
 	RestTemplate restTemplate;
+	@Autowired
+	RestImplementation restImplementation;
 	
 	public void persistirPersonas(Personas personas) {
 		PersonaAdapter personaAdapter;
@@ -120,8 +123,8 @@ public class ControladorPersonas {
 	}
 
 	public Personas getPersonas() throws JsonParseException, JsonMappingException, IOException {
-		String x = restTemplate.getForObject(Rutas.SERVICIO_PERSONA_TEST, String.class);
-		return adaptarPersonas(x);
+		HttpEntity<String> response = restImplementation.get(Rutas.SERVICIO_PERSONA_TEST, "application/xml");
+		return adaptarPersonas(response.getBody());
 	}
 
 	public void integrarPersonas() throws JsonParseException, JsonMappingException, IOException {
