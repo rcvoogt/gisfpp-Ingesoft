@@ -12,12 +12,12 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Cursada;
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
+import unpsjb.fipm.gisfpp.entidades.xml.CursadaXML;
+import unpsjb.fipm.gisfpp.entidades.xml.Cursadas;
+import unpsjb.fipm.gisfpp.entidades.xml.MateriaXML;
+import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
-import unpsjb.fipm.gisfpp.integracion.entidades.CursadaXML;
-import unpsjb.fipm.gisfpp.integracion.entidades.Cursadas;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
-import unpsjb.fipm.gisfpp.integracion.entidades.MateriaXML;
-import unpsjb.fipm.gisfpp.integracion.entidades.Materias;
 import unpsjb.fipm.gisfpp.servicios.cursada.IServiciosCursada;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioCursadaAdapter;
 

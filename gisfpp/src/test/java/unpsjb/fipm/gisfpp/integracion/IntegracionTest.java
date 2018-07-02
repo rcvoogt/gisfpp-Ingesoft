@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import unpsjb.fipm.gisfpp.controladores.integracion.ControladorIntegracion;
-import unpsjb.fipm.gisfpp.integracion.entidades.Persona;
-import unpsjb.fipm.gisfpp.integracion.entidades.Personas;
+import unpsjb.fipm.gisfpp.entidades.xml.PersonaXML;
+import unpsjb.fipm.gisfpp.entidades.xml.Personas;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 
@@ -27,7 +27,7 @@ public class IntegracionTest {
 	private IServicioPF servPersonaFisica;
 	@Autowired
 	private IServicioPersonaAdapter servPersonaAdapter;
-	private Persona persona;
+	private PersonaXML persona;
 	private Personas personas;
 	private String apellido;
 	private Map<String, Object> persistidas;

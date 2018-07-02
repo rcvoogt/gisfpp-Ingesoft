@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import unpsjb.fipm.gisfpp.controladores.integracion.ControladorMaterias;
-import unpsjb.fipm.gisfpp.integracion.entidades.Materias;
+import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.servicios.TemplateTest;
 import unpsjb.fipm.gisfpp.servicios.cursada.IServiciosMateria;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;
@@ -34,7 +34,7 @@ public class ControladorMateriasTest extends TemplateTest {
 			materias = controladorMaterias.getMaterias();
 			System.out.println(materias);
 			assertNotNull(materias);
-			assertEquals(materias.getMaterias().length, 2);
+			assertEquals(materias.getMaterias().length, 40);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

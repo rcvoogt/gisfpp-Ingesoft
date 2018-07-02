@@ -73,6 +73,8 @@ public class DaoMateriaAdapter extends HibernateDaoSupport implements IDaoMateri
 		try {
 			result = (List<MateriaAdapter>) getHibernateTemplate().find(query, codigoMateria);
 			materiaAux = result.get(0);
+			if(materiaAux == null)
+				return -1;
 		} catch (Exception e) {
 			return -1;
 		}

@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas;
-import unpsjb.fipm.gisfpp.integracion.entidades.Personas;
+import unpsjb.fipm.gisfpp.entidades.xml.Personas;
 import unpsjb.fipm.gisfpp.servicios.TemplateTest;
 
 public class ControladorPersonasTest extends TemplateTest {

@@ -8,7 +8,8 @@ public class ControladorIntegracion {
 	
 	@Autowired
 	ControladorPersonas controladorPersonas;
-
+	@Autowired
+	ControladorMaterias controladorMaterias;
 
 	public ControladorIntegracion() {
 		super();
@@ -23,6 +24,7 @@ public class ControladorIntegracion {
 	public void migrar() {
 		try {
 			controladorPersonas.integrarPersonas();
+			controladorMaterias.integrarMaterias();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

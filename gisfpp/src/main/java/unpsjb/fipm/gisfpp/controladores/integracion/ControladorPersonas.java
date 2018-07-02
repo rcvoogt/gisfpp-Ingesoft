@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,9 +21,9 @@ import unpsjb.fipm.gisfpp.entidades.persona.TDatosContacto;
 import unpsjb.fipm.gisfpp.entidades.persona.TIdentificador;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
-import unpsjb.fipm.gisfpp.integracion.entidades.Persona;
+import unpsjb.fipm.gisfpp.entidades.xml.PersonaXML;
+import unpsjb.fipm.gisfpp.entidades.xml.Personas;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
-import unpsjb.fipm.gisfpp.integracion.entidades.Personas;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
@@ -39,12 +40,14 @@ public class ControladorPersonas {
 	IServiciosStaffFI servStaff;
 	@Autowired
 	RestTemplate restTemplate;
+	@Autowired
+	RestImplementation restImplementation;
 	
 	public void persistirPersonas(Personas personas) {
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
 		StaffFI staff;
-		for (Persona persona : personas.getPersonas()) {
+		for (PersonaXML persona : personas.getPersonas()) {
 			personaFisica = crearPersonaFisica(persona);									
 				try {
 					servPersona.actualizarOguardar(personaFisica);
@@ -90,7 +93,7 @@ public class ControladorPersonas {
 		return staff;
 	}
 
-	private PersonaFisica crearPersonaFisica(Persona persona) {
+	private PersonaFisica crearPersonaFisica(PersonaXML persona) {
 		DatoDeContacto datoDeContacto = new DatoDeContacto(TDatosContacto.EMAIL, persona.getE_mail());		
 		Identificador dni = new Identificador(TIdentificador.DNI, persona.getDni());
 		Identificador legajo = new Identificador(TIdentificador.LEGAJO, persona.getLegajo());
@@ -106,7 +109,7 @@ public class ControladorPersonas {
 	}
 	
 	
-	private PersonaAdapter crearPersonaAdapter(Persona persona , Integer idPersonaFisica) {
+	private PersonaAdapter crearPersonaAdapter(PersonaXML persona , Integer idPersonaFisica) {
 		PersonaAdapter personaAdapter = new PersonaAdapter();
 		personaAdapter.setLegajo(persona.getLegajo());
 		personaAdapter.setIdPersona(idPersonaFisica);
@@ -120,8 +123,8 @@ public class ControladorPersonas {
 	}
 
 	public Personas getPersonas() throws JsonParseException, JsonMappingException, IOException {
-		String x = restTemplate.getForObject(Rutas.SERVICIO_PERSONA_TEST, String.class);
-		return adaptarPersonas(x);
+		HttpEntity<String> response = restImplementation.get(Rutas.SERVICIO_PERSONA_TEST, "application/xml");
+		return adaptarPersonas(response.getBody());
 	}
 
 	public void integrarPersonas() throws JsonParseException, JsonMappingException, IOException {
@@ -131,9 +134,9 @@ public class ControladorPersonas {
 	
 	
 	@SuppressWarnings("unused")
-	private Persona adaptarPersona(String xml) throws JsonParseException, JsonMappingException, IOException {
+	private PersonaXML adaptarPersona(String xml) throws JsonParseException, JsonMappingException, IOException {
 		XmlMapper xmlMapper = new XmlMapper();
-		Persona value = xmlMapper.readValue(xml, Persona.class);
+		PersonaXML value = xmlMapper.readValue(xml, PersonaXML.class);
 		return value;
 	}
 
