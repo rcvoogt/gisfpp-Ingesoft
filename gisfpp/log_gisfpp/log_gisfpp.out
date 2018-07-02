@@ -1,156 +1,503 @@
-01 jul 2018 - 15:42:59 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 15:42:59 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
-01 jul 2018 - 15:42:59 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 15:42:59 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
-01 jul 2018 - 15:42:59 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
-01 jul 2018 - 15:43:00 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
-01 jul 2018 - 15:43:00 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
-01 jul 2018 - 15:43:00 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
-01 jul 2018 - 15:43:00 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
-01 jul 2018 - 15:43:00 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
-01 jul 2018 - 15:43:00 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
-01 jul 2018 - 15:43:00 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
-01 jul 2018 - 15:43:00 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 15:43:00 ART 2018]; root of context hierarchy
-01 jul 2018 - 15:43:00 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
-01 jul 2018 - 15:43:00 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
-01 jul 2018 - 15:43:00 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 15:43:01 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
-01 jul 2018 - 15:43:01 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
-01 jul 2018 - 15:43:01 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
-01 jul 2018 - 15:43:01 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
-01 jul 2018 - 15:43:01 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-01 jul 2018 - 15:43:02 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
-01 jul 2018 - 15:43:03 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 15:43:04 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
-01 jul 2018 - 15:43:04 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 15:43:04 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
-01 jul 2018 - 15:43:04 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
-01 jul 2018 - 15:43:04 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 15:43:04 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 15:43:04 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@46c10083] of Hibernate SessionFactory for HibernateTransactionManager
-01 jul 2018 - 15:43:05 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
-01 jul 2018 - 15:43:05 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@78c262ba, org.springframework.security.web.header.HeaderWriterFilter@7d2c9361, org.springframework.security.web.authentication.logout.LogoutFilter@329dc214, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@fbe70d8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64021427, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d2c345d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@217dc48e, org.springframework.security.web.session.SessionManagementFilter@5db948c9, org.springframework.security.web.access.ExceptionTranslationFilter@296edc75, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@357c9bd9]
-01 jul 2018 - 15:43:05 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
-01 jul 2018 - 15:43:06 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 15:43:00 ART 2018]; root of context hierarchy
-01 jul 2018 - 15:43:06 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 15:43:06 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
-01 jul 2018 - 15:43:06 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
-01 jul 2018 - 15:51:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 15:51:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
-01 jul 2018 - 15:51:17 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 15:51:17 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
-01 jul 2018 - 15:51:17 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
-01 jul 2018 - 15:51:18 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
-01 jul 2018 - 15:51:18 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
-01 jul 2018 - 15:51:18 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
-01 jul 2018 - 15:51:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
-01 jul 2018 - 15:51:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
-01 jul 2018 - 15:51:18 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
-01 jul 2018 - 15:51:18 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
-01 jul 2018 - 15:51:18 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 15:51:18 ART 2018]; root of context hierarchy
-01 jul 2018 - 15:51:18 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
-01 jul 2018 - 15:51:18 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
-01 jul 2018 - 15:51:19 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 15:51:19 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
-01 jul 2018 - 15:51:19 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
-01 jul 2018 - 15:51:19 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
-01 jul 2018 - 15:51:19 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
-01 jul 2018 - 15:51:19 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-01 jul 2018 - 15:51:20 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
-01 jul 2018 - 15:51:21 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 15:51:23 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
-01 jul 2018 - 15:51:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 15:51:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
-01 jul 2018 - 15:51:23 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
-01 jul 2018 - 15:51:23 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 15:51:23 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 15:51:23 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@1f4f0fcc] of Hibernate SessionFactory for HibernateTransactionManager
-01 jul 2018 - 15:51:23 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
-01 jul 2018 - 15:51:23 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@450f0235, org.springframework.security.web.header.HeaderWriterFilter@78c262ba, org.springframework.security.web.authentication.logout.LogoutFilter@7d2c9361, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@329dc214, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fbe70d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@64021427, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d2c345d, org.springframework.security.web.session.SessionManagementFilter@217dc48e, org.springframework.security.web.access.ExceptionTranslationFilter@5db948c9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@296edc75]
-01 jul 2018 - 15:51:23 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
-01 jul 2018 - 15:51:25 [INFO ] internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
-01 jul 2018 - 15:51:25 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 107 in HQL: [select materia from unpsjb.fipm.gisfpp.entidades.cursada.Materia as materia where materia.codigoMateria = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
-01 jul 2018 - 15:51:25 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 15:51:18 ART 2018]; root of context hierarchy
-01 jul 2018 - 15:51:25 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 15:51:25 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
-01 jul 2018 - 15:51:25 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
-01 jul 2018 - 16:01:58 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 16:01:58 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
-01 jul 2018 - 16:01:58 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 16:01:58 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
-01 jul 2018 - 16:01:58 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
-01 jul 2018 - 16:01:58 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
-01 jul 2018 - 16:01:58 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
-01 jul 2018 - 16:01:58 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
-01 jul 2018 - 16:01:58 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
-01 jul 2018 - 16:01:58 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
-01 jul 2018 - 16:01:58 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
-01 jul 2018 - 16:01:59 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
-01 jul 2018 - 16:01:59 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 16:01:59 ART 2018]; root of context hierarchy
-01 jul 2018 - 16:01:59 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
-01 jul 2018 - 16:01:59 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
-01 jul 2018 - 16:01:59 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 16:01:59 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
-01 jul 2018 - 16:01:59 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
-01 jul 2018 - 16:01:59 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
-01 jul 2018 - 16:01:59 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
-01 jul 2018 - 16:02:00 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-01 jul 2018 - 16:02:00 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
-01 jul 2018 - 16:02:02 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 16:02:03 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
-01 jul 2018 - 16:02:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 16:02:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
-01 jul 2018 - 16:02:03 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
-01 jul 2018 - 16:02:03 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 16:02:03 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 16:02:03 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@79627d27] of Hibernate SessionFactory for HibernateTransactionManager
-01 jul 2018 - 16:02:03 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
-01 jul 2018 - 16:02:04 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@4702e7a5, org.springframework.security.web.header.HeaderWriterFilter@6a2d867d, org.springframework.security.web.authentication.logout.LogoutFilter@73bb1337, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@685f5d0d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3830b06c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e28d779, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@15214920, org.springframework.security.web.session.SessionManagementFilter@784d9bc, org.springframework.security.web.access.ExceptionTranslationFilter@3a0aaaf0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@426131d7]
-01 jul 2018 - 16:02:04 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
-01 jul 2018 - 16:02:05 [INFO ] internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
-01 jul 2018 - 16:02:05 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 107 in HQL: [select materia from unpsjb.fipm.gisfpp.entidades.cursada.Materia as materia where materia.codigoMateria = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
-01 jul 2018 - 16:02:06 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 112 in HQL: [select materia from unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter as materia where materia.materia = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
-01 jul 2018 - 16:02:06 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 16:01:59 ART 2018]; root of context hierarchy
-01 jul 2018 - 16:02:06 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 16:02:06 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
-01 jul 2018 - 16:02:06 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
-01 jul 2018 - 16:09:44 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 16:09:44 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5d20e46, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@709ba3fb, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3d36e4cd, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6a472554, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7ff2a664]
-01 jul 2018 - 16:09:44 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-01 jul 2018 - 16:09:44 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@105fece7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3ec300f1, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@482cd91f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@123f1134, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d68ef40, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5b0abc94]
-01 jul 2018 - 16:09:45 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
-01 jul 2018 - 16:09:45 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
-01 jul 2018 - 16:09:45 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
-01 jul 2018 - 16:09:45 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
-01 jul 2018 - 16:09:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
-01 jul 2018 - 16:09:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
-01 jul 2018 - 16:09:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
-01 jul 2018 - 16:09:45 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
-01 jul 2018 - 16:09:45 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 16:09:45 ART 2018]; root of context hierarchy
-01 jul 2018 - 16:09:46 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
-01 jul 2018 - 16:09:46 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
-01 jul 2018 - 16:09:46 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 16:09:46 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
-01 jul 2018 - 16:09:46 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
-01 jul 2018 - 16:09:46 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
-01 jul 2018 - 16:09:46 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
-01 jul 2018 - 16:09:46 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-01 jul 2018 - 16:09:47 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
-01 jul 2018 - 16:09:48 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
-01 jul 2018 - 16:09:49 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
-01 jul 2018 - 16:09:49 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 16:09:49 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
-01 jul 2018 - 16:09:49 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
-01 jul 2018 - 16:09:49 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 16:09:49 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
-01 jul 2018 - 16:09:50 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@1f4f0fcc] of Hibernate SessionFactory for HibernateTransactionManager
-01 jul 2018 - 16:09:50 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
-01 jul 2018 - 16:09:50 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@450f0235, org.springframework.security.web.header.HeaderWriterFilter@78c262ba, org.springframework.security.web.authentication.logout.LogoutFilter@7d2c9361, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@329dc214, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fbe70d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@64021427, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d2c345d, org.springframework.security.web.session.SessionManagementFilter@217dc48e, org.springframework.security.web.access.ExceptionTranslationFilter@5db948c9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@296edc75]
-01 jul 2018 - 16:09:50 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
-01 jul 2018 - 16:09:51 [INFO ] internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
-01 jul 2018 - 16:09:51 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 107 in HQL: [select materia from unpsjb.fipm.gisfpp.entidades.cursada.Materia as materia where materia.codigoMateria = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
-01 jul 2018 - 16:09:51 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 112 in HQL: [select materia from unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter as materia where materia.materia = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
-01 jul 2018 - 16:09:55 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@6ac13091: startup date [Sun Jul 01 16:09:45 ART 2018]; root of context hierarchy
-01 jul 2018 - 16:09:55 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
-01 jul 2018 - 16:09:55 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
-01 jul 2018 - 16:09:55 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:29:04 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:29:04 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+02 jul 2018 - 19:29:04 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:29:04 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+02 jul 2018 - 19:29:04 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+02 jul 2018 - 19:29:05 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+02 jul 2018 - 19:29:05 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+02 jul 2018 - 19:29:05 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+02 jul 2018 - 19:29:05 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+02 jul 2018 - 19:29:05 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+02 jul 2018 - 19:29:05 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+02 jul 2018 - 19:29:05 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+02 jul 2018 - 19:29:05 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:29:05 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:29:05 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+02 jul 2018 - 19:29:05 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+02 jul 2018 - 19:29:06 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:29:06 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+02 jul 2018 - 19:29:06 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+02 jul 2018 - 19:29:06 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+02 jul 2018 - 19:29:06 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+02 jul 2018 - 19:29:07 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+02 jul 2018 - 19:29:08 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+02 jul 2018 - 19:29:09 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:29:11 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+02 jul 2018 - 19:29:11 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:29:11 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+02 jul 2018 - 19:29:11 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+02 jul 2018 - 19:29:11 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:29:11 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:29:12 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@7aaad0] of Hibernate SessionFactory for HibernateTransactionManager
+02 jul 2018 - 19:29:12 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+02 jul 2018 - 19:29:13 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@32507479, org.springframework.security.web.header.HeaderWriterFilter@632383b9, org.springframework.security.web.authentication.logout.LogoutFilter@4ae2e781, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@339f3a55, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2dd63e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d1c164a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@209f3887, org.springframework.security.web.session.SessionManagementFilter@6a98f353, org.springframework.security.web.access.ExceptionTranslationFilter@3b35798, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1e00bfe2]
+02 jul 2018 - 19:29:13 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+02 jul 2018 - 19:29:14 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:29:05 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:29:14 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:29:14 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:29:14 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:31:35 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:31:35 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+02 jul 2018 - 19:31:35 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:31:35 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+02 jul 2018 - 19:31:35 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+02 jul 2018 - 19:31:35 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+02 jul 2018 - 19:31:35 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+02 jul 2018 - 19:31:35 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+02 jul 2018 - 19:31:35 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+02 jul 2018 - 19:31:35 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+02 jul 2018 - 19:31:35 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+02 jul 2018 - 19:31:35 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+02 jul 2018 - 19:31:35 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:31:35 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:31:36 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+02 jul 2018 - 19:31:36 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+02 jul 2018 - 19:31:36 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:31:36 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+02 jul 2018 - 19:31:36 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+02 jul 2018 - 19:31:36 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+02 jul 2018 - 19:31:36 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+02 jul 2018 - 19:31:37 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+02 jul 2018 - 19:31:37 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+02 jul 2018 - 19:31:39 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:31:39 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+02 jul 2018 - 19:31:39 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:31:39 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+02 jul 2018 - 19:31:39 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+02 jul 2018 - 19:31:39 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:31:39 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:31:40 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@184823ed] of Hibernate SessionFactory for HibernateTransactionManager
+02 jul 2018 - 19:31:40 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+02 jul 2018 - 19:31:40 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@14b528b6, org.springframework.security.web.header.HeaderWriterFilter@c412556, org.springframework.security.web.authentication.logout.LogoutFilter@6f930e0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@450f0235, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@78c262ba, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d2c9361, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@329dc214, org.springframework.security.web.session.SessionManagementFilter@fbe70d8, org.springframework.security.web.access.ExceptionTranslationFilter@64021427, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7d2c345d]
+02 jul 2018 - 19:31:40 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+02 jul 2018 - 19:31:41 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:31:35 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:31:41 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:31:41 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:31:41 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:35:45 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:35:45 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@70b0b186, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@ba8d91c, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@7364985f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d20e46, org.springframework.test.context.transaction.TransactionalTestExecutionListener@709ba3fb, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3d36e4cd]
+02 jul 2018 - 19:35:45 [INFO ] support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+02 jul 2018 - 19:35:45 [INFO ] support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2145433b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2890c451, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@40e6dfe1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b083826, org.springframework.test.context.transaction.TransactionalTestExecutionListener@105fece7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ec300f1]
+02 jul 2018 - 19:35:45 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/daoContext-test.xml]
+02 jul 2018 - 19:35:45 [INFO ] xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/app-security.xml]
+02 jul 2018 - 19:35:45 [INFO ] core.SpringSecurityCoreVersion - You are running with Spring Security Core 4.0.3.RELEASE
+02 jul 2018 - 19:35:45 [INFO ] config.SecurityNamespaceHandler - Spring Security 'config' module version is 4.0.3.RELEASE
+02 jul 2018 - 19:35:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /zkau/**
+02 jul 2018 - 19:35:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'permitAll' for /inicio.zul
+02 jul 2018 - 19:35:45 [INFO ] http.FilterInvocationSecurityMetadataSourceParser - Creating access control expression attribute 'isAuthenticated()' for /**
+02 jul 2018 - 19:35:46 [INFO ] http.HttpSecurityBeanDefinitionParser - Checking sorted filter chain: [Root bean: class [org.springframework.security.web.context.SecurityContextPersistenceFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 200, Root bean: class [org.springframework.security.web.header.HeaderWriterFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 500, Root bean: class [org.springframework.security.web.authentication.logout.LogoutFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 700, <org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#0>, order = 1100, Root bean: class [org.springframework.security.web.savedrequest.RequestCacheAwareFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1600, Root bean: class [org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 1700, Root bean: class [org.springframework.security.web.authentication.AnonymousAuthenticationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2000, Root bean: class [org.springframework.security.web.session.SessionManagementFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2100, Root bean: class [org.springframework.security.web.access.ExceptionTranslationFilter]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null, order = 2200, <org.springframework.security.web.access.intercept.FilterSecurityInterceptor#0>, order = 2300]
+02 jul 2018 - 19:35:46 [INFO ] support.GenericApplicationContext - Refreshing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:35:46 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:35:46 [INFO ] config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [properties/config.properties]
+02 jul 2018 - 19:35:46 [WARN ] config.PropertyPlaceholderConfigurer - Could not load properties from class path resource [properties/config.properties]: class path resource [properties/config.properties] cannot be opened because it does not exist
+02 jul 2018 - 19:35:46 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:35:47 [INFO ] hibernate.Version - HHH000412: Hibernate Core {5.0.2.Final}
+02 jul 2018 - 19:35:47 [INFO ] cfg.Environment - HHH000206: hibernate.properties not found
+02 jul 2018 - 19:35:47 [INFO ] cfg.Environment - HHH000021: Bytecode provider name : javassist
+02 jul 2018 - 19:35:47 [INFO ] common.Version - HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
+02 jul 2018 - 19:35:47 [INFO ] dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+02 jul 2018 - 19:35:48 [INFO ] util.Version - HV000001: Hibernate Validator 5.2.2.Final
+02 jul 2018 - 19:35:50 [INFO ] datasource.DriverManagerDataSource - Loaded JDBC driver: com.mysql.jdbc.Driver
+02 jul 2018 - 19:35:51 [INFO ] impl.ProcessEngineImpl - ProcessEngine default created
+02 jul 2018 - 19:35:51 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Starting up the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:35:51 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating thread pool queue of size 100
+02 jul 2018 - 19:35:51 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Creating executor service with corePoolSize 2, maxPoolSize 10 and keepAliveTime 5000
+02 jul 2018 - 19:35:51 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:35:51 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} starting to acquire async jobs due
+02 jul 2018 - 19:35:52 [INFO ] hibernate5.HibernateTransactionManager - Using DataSource [org.springframework.jdbc.datasource.DriverManagerDataSource@794eeaf8] of Hibernate SessionFactory for HibernateTransactionManager
+02 jul 2018 - 19:35:52 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/recursos/**'], []
+02 jul 2018 - 19:35:52 [INFO ] web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.SecurityContextPersistenceFilter@fbe70d8, org.springframework.security.web.header.HeaderWriterFilter@64021427, org.springframework.security.web.authentication.logout.LogoutFilter@7d2c345d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@217dc48e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5db948c9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@296edc75, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@357c9bd9, org.springframework.security.web.session.SessionManagementFilter@7aea704c, org.springframework.security.web.access.ExceptionTranslationFilter@6d0290d8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@32507479]
+02 jul 2018 - 19:35:52 [INFO ] http.DefaultFilterChainValidator - Checking whether login URL '/inicio.zul' is accessible with your configuration
+02 jul 2018 - 19:35:53 [INFO ] internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+02 jul 2018 - 19:35:53 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 118 in HQL: [select pf from unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica pf inner join pf.identificadores id where id.tipo =? and id.valor like concat('%',?,'%')].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+02 jul 2018 - 19:35:53 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 149 in HQL: [select pf from unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica pf inner join pf.identificadores id where id.tipo =? and id.valor like concat('%',?,'%')].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+02 jul 2018 - 19:35:54 [WARN ] ast.HqlSqlWalker - [DEPRECATION] Encountered positional parameter near line 1, column 108 in HQL: [select persona from unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter persona where persona.legajo = ?].  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+02 jul 2018 - 19:35:59 [WARN ] spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+02 jul 2018 - 19:35:59 [ERROR] spi.SqlExceptionHelper - Duplicate entry 'HAPC GAHCHAES' for key 'uk_nickname'
+02 jul 2018 - 19:35:59 [WARN ] internal.UnresolvedEntityInsertActions - HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica#<null>])
+	Dependent entities: ([[unpsjb.fipm.gisfpp.entidades.staff.StaffFI#<null>]])
+	Non-nullable association(s): ([unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro])
+02 jul 2018 - 19:35:59 [ERROR] logger_gisfpp - unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI
+org.springframework.dao.InvalidDataAccessApiUsageException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica; nested exception is org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.springframework.orm.hibernate5.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:191)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:344)
+	at org.springframework.orm.hibernate5.HibernateTemplate.executeWithNativeSession(HibernateTemplate.java:309)
+	at org.springframework.orm.hibernate5.HibernateTemplate.save(HibernateTemplate.java:616)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:28)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:1)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff.actualizarOguardar(ServiciosStaff.java:99)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2312a3f.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2befbc3d.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.persistirPersonas(ControladorPersonas.java:59)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.integrarPersonas(ControladorPersonas.java:132)
+	at unpsjb.fipm.gisfpp.integracion.ControladorPersonasTest.testIntegrarPersonas(ControladorPersonasTest.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.hibernate.action.internal.UnresolvedEntityInsertActions.checkNoUnresolvedActionsAfterOperation(UnresolvedEntityInsertActions.java:123)
+	at org.hibernate.engine.spi.ActionQueue.checkNoUnresolvedActionsAfterOperation(ActionQueue.java:302)
+	at org.hibernate.internal.SessionImpl.checkNoUnresolvedActionsAfterOperation(SessionImpl.java:618)
+	at org.hibernate.internal.SessionImpl.fireSave(SessionImpl.java:680)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:670)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:665)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:620)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:616)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:341)
+	... 76 more
+02 jul 2018 - 19:36:01 [WARN ] spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+02 jul 2018 - 19:36:01 [ERROR] spi.SqlExceptionHelper - Duplicate entry 'ANBB MEIFEWAE' for key 'uk_nickname'
+02 jul 2018 - 19:36:01 [WARN ] internal.UnresolvedEntityInsertActions - HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica#<null>])
+	Dependent entities: ([[unpsjb.fipm.gisfpp.entidades.staff.StaffFI#<null>]])
+	Non-nullable association(s): ([unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro])
+02 jul 2018 - 19:36:01 [ERROR] logger_gisfpp - unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI
+org.springframework.dao.InvalidDataAccessApiUsageException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica; nested exception is org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.springframework.orm.hibernate5.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:191)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:344)
+	at org.springframework.orm.hibernate5.HibernateTemplate.executeWithNativeSession(HibernateTemplate.java:309)
+	at org.springframework.orm.hibernate5.HibernateTemplate.save(HibernateTemplate.java:616)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:28)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:1)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff.actualizarOguardar(ServiciosStaff.java:99)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2312a3f.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2befbc3d.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.persistirPersonas(ControladorPersonas.java:59)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.integrarPersonas(ControladorPersonas.java:132)
+	at unpsjb.fipm.gisfpp.integracion.ControladorPersonasTest.testIntegrarPersonas(ControladorPersonasTest.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.hibernate.action.internal.UnresolvedEntityInsertActions.checkNoUnresolvedActionsAfterOperation(UnresolvedEntityInsertActions.java:123)
+	at org.hibernate.engine.spi.ActionQueue.checkNoUnresolvedActionsAfterOperation(ActionQueue.java:302)
+	at org.hibernate.internal.SessionImpl.checkNoUnresolvedActionsAfterOperation(SessionImpl.java:618)
+	at org.hibernate.internal.SessionImpl.fireSave(SessionImpl.java:680)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:670)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:665)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:620)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:616)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:341)
+	... 76 more
+02 jul 2018 - 19:37:27 [WARN ] spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+02 jul 2018 - 19:37:27 [ERROR] spi.SqlExceptionHelper - Duplicate entry 'EABN XICAIKOO' for key 'uk_nickname'
+02 jul 2018 - 19:37:27 [WARN ] internal.UnresolvedEntityInsertActions - HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica#<null>])
+	Dependent entities: ([[unpsjb.fipm.gisfpp.entidades.staff.StaffFI#<null>]])
+	Non-nullable association(s): ([unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro])
+02 jul 2018 - 19:37:27 [ERROR] logger_gisfpp - unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI
+org.springframework.dao.InvalidDataAccessApiUsageException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica; nested exception is org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.springframework.orm.hibernate5.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:191)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:344)
+	at org.springframework.orm.hibernate5.HibernateTemplate.executeWithNativeSession(HibernateTemplate.java:309)
+	at org.springframework.orm.hibernate5.HibernateTemplate.save(HibernateTemplate.java:616)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:28)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:1)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff.actualizarOguardar(ServiciosStaff.java:99)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2312a3f.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2befbc3d.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.persistirPersonas(ControladorPersonas.java:59)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.integrarPersonas(ControladorPersonas.java:132)
+	at unpsjb.fipm.gisfpp.integracion.ControladorPersonasTest.testIntegrarPersonas(ControladorPersonasTest.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.hibernate.action.internal.UnresolvedEntityInsertActions.checkNoUnresolvedActionsAfterOperation(UnresolvedEntityInsertActions.java:123)
+	at org.hibernate.engine.spi.ActionQueue.checkNoUnresolvedActionsAfterOperation(ActionQueue.java:302)
+	at org.hibernate.internal.SessionImpl.checkNoUnresolvedActionsAfterOperation(SessionImpl.java:618)
+	at org.hibernate.internal.SessionImpl.fireSave(SessionImpl.java:680)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:670)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:665)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:620)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:616)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:341)
+	... 76 more
+02 jul 2018 - 19:37:49 [WARN ] spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+02 jul 2018 - 19:37:49 [ERROR] spi.SqlExceptionHelper - Duplicate entry 'SZBJ EIXOHDEO' for key 'uk_nickname'
+02 jul 2018 - 19:37:49 [WARN ] internal.UnresolvedEntityInsertActions - HHH000437: Attempting to save one or more entities that have a non-nullable association with an unsaved transient entity. The unsaved transient entity must be saved in an operation prior to saving these dependent entities.
+	Unsaved transient entity: ([unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica#<null>])
+	Dependent entities: ([[unpsjb.fipm.gisfpp.entidades.staff.StaffFI#<null>]])
+	Non-nullable association(s): ([unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro])
+02 jul 2018 - 19:37:49 [ERROR] logger_gisfpp - unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI
+org.springframework.dao.InvalidDataAccessApiUsageException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica; nested exception is org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.springframework.orm.hibernate5.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:191)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:344)
+	at org.springframework.orm.hibernate5.HibernateTemplate.executeWithNativeSession(HibernateTemplate.java:309)
+	at org.springframework.orm.hibernate5.HibernateTemplate.save(HibernateTemplate.java:616)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:28)
+	at unpsjb.fipm.gisfpp.dao.staff.DaoStaffFI.crear(DaoStaffFI.java:1)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff.actualizarOguardar(ServiciosStaff.java:99)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:281)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2312a3f.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$FastClassBySpringCGLIB$$57a3827.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:717)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:133)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:121)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:653)
+	at unpsjb.fipm.gisfpp.servicios.staff.ServiciosStaff$$EnhancerBySpringCGLIB$$2befbc3d.actualizarOguardar(<generated>)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.persistirPersonas(ControladorPersonas.java:59)
+	at unpsjb.fipm.gisfpp.controladores.integracion.ControladorPersonas.integrarPersonas(ControladorPersonas.java:132)
+	at unpsjb.fipm.gisfpp.integracion.ControladorPersonasTest.testIntegrarPersonas(ControladorPersonasTest.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.junit.vintage.engine.execution.RunnerExecutor.execute(RunnerExecutor.java:42)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:418)
+	at org.junit.vintage.engine.VintageTestEngine.executeAllChildren(VintageTestEngine.java:83)
+	at org.junit.vintage.engine.VintageTestEngine.execute(VintageTestEngine.java:74)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:170)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:154)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:90)
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:538)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:760)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:206)
+Caused by: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : unpsjb.fipm.gisfpp.entidades.staff.StaffFI.miembro -> unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica
+	at org.hibernate.action.internal.UnresolvedEntityInsertActions.checkNoUnresolvedActionsAfterOperation(UnresolvedEntityInsertActions.java:123)
+	at org.hibernate.engine.spi.ActionQueue.checkNoUnresolvedActionsAfterOperation(ActionQueue.java:302)
+	at org.hibernate.internal.SessionImpl.checkNoUnresolvedActionsAfterOperation(SessionImpl.java:618)
+	at org.hibernate.internal.SessionImpl.fireSave(SessionImpl.java:680)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:670)
+	at org.hibernate.internal.SessionImpl.save(SessionImpl.java:665)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:620)
+	at org.springframework.orm.hibernate5.HibernateTemplate$12.doInHibernate(HibernateTemplate.java:616)
+	at org.springframework.orm.hibernate5.HibernateTemplate.doExecute(HibernateTemplate.java:341)
+	... 76 more
+02 jul 2018 - 19:38:05 [INFO ] support.GenericApplicationContext - Closing org.springframework.context.support.GenericApplicationContext@12e61fe6: startup date [Mon Jul 02 19:35:46 ART 2018]; root of context hierarchy
+02 jul 2018 - 19:38:05 [INFO ] asyncexecutor.DefaultAsyncJobExecutor - Shutting down the default async job executor [org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor].
+02 jul 2018 - 19:38:05 [INFO ] asyncexecutor.AcquireTimerJobsRunnable - {} stopped async job due acquisition
+02 jul 2018 - 19:38:05 [INFO ] asyncexecutor.AcquireAsyncJobsDueRunnable - {} stopped async job due acquisition

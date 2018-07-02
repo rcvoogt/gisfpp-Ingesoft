@@ -56,10 +56,10 @@ public class ServicioMateriaAdapter implements IServicioMateriaAdapter{
 	public int actualizarOguardar(MateriaAdapter instancia) throws Exception {
 		if(dao.existe(instancia.getMateria()) == -1) {
 			dao.crear(instancia);
-			return instancia.getId();
+			return -1;
 		}
 		dao.actualizar(instancia);
-		return instancia.getId();
+		return instancia.getIdMateria();
 	}
 
 	@Override

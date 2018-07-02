@@ -75,7 +75,7 @@ public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursad
 		} catch (Exception e) {
 			return -1;
 		}
-		return cursadaAux.getId();
+		return cursadaAux.getIdCursadaGisfpp();
 	}
 
 

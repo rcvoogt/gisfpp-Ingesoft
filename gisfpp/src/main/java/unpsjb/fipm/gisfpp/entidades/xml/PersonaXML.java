@@ -18,7 +18,7 @@ public class PersonaXML {
 	private String rol;
     @JacksonXmlProperty(localName = "e_mail")
 	private String e_mail;
-    @JacksonXmlProperty(localName = "dni")
+    @JacksonXmlProperty(localName = "nro_documento")
 	private String dni;
 	public String getLegajo() {
 		return legajo;

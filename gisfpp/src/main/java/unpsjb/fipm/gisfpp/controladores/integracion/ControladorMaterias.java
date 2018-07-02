@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
+import unpsjb.fipm.gisfpp.entidades.xml.CursadaXML;
 import unpsjb.fipm.gisfpp.entidades.xml.MateriaXML;
 import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
@@ -35,19 +36,29 @@ public class ControladorMaterias {
 	private void persistirMaterias(Materias materias) throws Exception {
 		Materia materia;
 		MateriaAdapter materiaAdapter;
+		int existe;
 		
 		for(MateriaXML materiaXML: materias.getMaterias()) {
+			materiaAdapter = crearMateriaAdapter(materiaXML);
+			//Obtenemos el id de la materia en la tabla gisfpp si es que existe
+			existe = servMateriaAdapter.actualizarOguardar(materiaAdapter);
 			materia = crearMateria(materiaXML);
-			servMateria.actualizarOguardar(materia);
-			materiaAdapter = crearMateriaAdapter(materiaXML,materia.getId());
-			servMateriaAdapter.actualizarOguardar(materiaAdapter);
+			if(existe == -1) {
+				//Si la materia no existe, la creamos y actualizamos el id en el adapter
+				servMateria.persistir(materia);
+				materiaAdapter.setIdMateria(materia.getId());
+				servMateriaAdapter.editar(materiaAdapter);
+			}else {
+				//Si la materia existe, la actualizamos
+				materia.setId(existe);
+				servMateria.editar(materia);
+			}
 		}
 	}	
 
-	private MateriaAdapter crearMateriaAdapter(MateriaXML materiaXML, Integer integer) {
+	private MateriaAdapter crearMateriaAdapter(MateriaXML materiaXML) {
 		MateriaAdapter materiaAdapter = new MateriaAdapter();
 		materiaAdapter.setMateria(materiaXML.getCodigoMateria());
-		materiaAdapter.setIdMateria(integer);
 		return materiaAdapter;
 	}
 
