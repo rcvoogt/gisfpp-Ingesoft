@@ -7,6 +7,6 @@ import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 public interface IDaoCursada extends DaoGenerico<Cursada, Integer>{
 
 	public int actualizarOguardar(Cursada instancia) throws Exception;
-	public boolean existe(String codigoComision);
+	public int existe(String codigoComision);
 
 }

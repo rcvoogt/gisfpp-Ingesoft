@@ -34,6 +34,11 @@
 					image="recursos/img/icon-arrow-left.png"
 					onClick="@command('volver')"
 					tooltiptext="Volver al listado de Proyectos" />
+				
+				<toolbarbutton image="recursos/img/icon-save.png"
+					label="Guardar" class="btn btn-success btn-xs"
+					onClick="@command('guardar')"/>
+					
 				<toolbarbutton label="Salir"
 					class="btn btn-success btn-xs" image="recursos/img/icon-exit.png"
 					disabled="@load(vm.creando or vm.editando)"

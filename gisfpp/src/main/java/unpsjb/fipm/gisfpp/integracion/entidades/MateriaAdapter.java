@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name="materiaAdapter")
+@Table(name="materiaAdapter" ,schema ="gisfpp_integracion")
 public class MateriaAdapter implements Serializable{
 
 	@Id
