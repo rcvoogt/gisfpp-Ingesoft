@@ -8,5 +8,5 @@ public interface IServiciosCursada extends IServicioGenerico<Cursada, Integer> {
 
 	public int actualizarOguardar(Cursada instancia) throws Exception;
 
-	boolean existe(String codigoComision) throws Exception;
+	int existe(String codigoComision) throws Exception;
 }

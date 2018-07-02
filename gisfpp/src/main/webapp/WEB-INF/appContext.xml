@@ -12,6 +12,7 @@
 <import resource="app-security.xml"/>
 <import resource="activiti-config.xml"/>
 
+
 <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
     <property name="messageConverters">
       <list>

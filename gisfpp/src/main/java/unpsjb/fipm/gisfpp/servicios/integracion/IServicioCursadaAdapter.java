@@ -8,6 +8,12 @@ public interface IServicioCursadaAdapter extends IServicioGenerico<CursadaAdapte
 
 	int actualizarOguardar(CursadaAdapter instancia) throws Exception;
 
+	/**
+	 * 
+	 * @param codigoComision
+	 * @return id
+	 * @throws Exception
+	 */
 	int existe(String codigoComision) throws Exception;
 
 }

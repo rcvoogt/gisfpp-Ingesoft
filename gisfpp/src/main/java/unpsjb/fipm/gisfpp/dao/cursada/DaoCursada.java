@@ -64,7 +64,7 @@ public class DaoCursada extends HibernateDaoSupport implements IDaoCursada {
 
 	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
-	public boolean existe(String codigoComision) {
+	public int existe(String codigoComision) {
 		String query = "select cursada " + 
 				"from Cursada as cursada " + 
 				"where cursada.codigo_comision = ?";
@@ -73,10 +73,10 @@ public class DaoCursada extends HibernateDaoSupport implements IDaoCursada {
 		try {
 			result = (List<Cursada>) getHibernateTemplate().find(query, codigoComision);
 			cursadaAux = result.get(0);
-			return true;
+			return cursadaAux.getIdCursada();
 		} catch (Exception e) {
 		}
-		return false;
+		return (Integer) null;
 
 	}
 

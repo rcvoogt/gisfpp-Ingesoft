@@ -27,10 +27,14 @@
 		<qualifier value="gisfpp"/>
 	</bean>
 	
+
 	<bean id="transactionManager2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="pool2" />
     	 <qualifier value="activiti"/>
   	</bean>
+  	
+  	
+  	
   	
   	<bean id="mySpringUtil" class="unpsjb.fipm.gisfpp.util.MySpringUtil"/>
 	

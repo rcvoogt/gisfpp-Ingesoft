@@ -55,16 +55,17 @@ public class ServiciosCursada implements IServiciosCursada {
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(Cursada instancia) throws Exception {
-		if(dao.existe(instancia.getCodigoComision())) {
+		instancia.setIdCursada(dao.existe(instancia.getCodigoComision()));
+		if(instancia.getIdCursada()!= null) {
 			dao.actualizar(instancia);
 			return instancia.getIdCursada();
 		}
 		dao.crear(instancia);
 		return instancia.getIdCursada();
 	}
-
+	
 	@Override
-	public boolean existe(String codigoComision) throws Exception {
+	public int existe(String codigoComision) throws Exception {
 		return dao.existe(codigoComision);
 	}
 
