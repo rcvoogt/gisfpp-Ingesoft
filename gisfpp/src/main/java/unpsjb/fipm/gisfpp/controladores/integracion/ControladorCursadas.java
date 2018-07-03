@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Cursada;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
+import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
+import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
 import unpsjb.fipm.gisfpp.entidades.xml.CursadaXML;
 import unpsjb.fipm.gisfpp.entidades.xml.Cursadas;
 import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
@@ -19,12 +22,15 @@ import unpsjb.fipm.gisfpp.servicios.cursada.IServiciosCursada;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioCursadaAdapter;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
+import unpsjb.fipm.gisfpp.servicios.staff.IServiciosStaffFI;
 
 @Component
 public class ControladorCursadas {
 	
 	@Autowired
 	private IServiciosCursada servCursada;
+	@Autowired
+	private IServiciosStaffFI servStaff;
 	@Autowired
 	private IServicioCursadaAdapter servCursadaAdapter;
 	@Autowired
@@ -73,12 +79,30 @@ public class ControladorCursadas {
 
 
 	private Cursada crearCursada(CursadaXML cursadaXML) {
+		PersonaFisica aux = null;
+		StaffFI auxStaff = null;
 		Cursada cursada = new Cursada();
 		cursada.setNombre(cursadaXML.getNombre());
 		cursada.setAnio(cursadaXML.getAnio());
 		cursada.setCuatrimestre(cursadaXML.getCuatrimestre());
 		//Meterle los docentes, alumnos y materia!!!
-		//servPersonaAdapter.getPfxLegajo(cursadaXML.getPersonaLegajo());	
+		try {
+			aux = servPersonaAdapter.getPFxLegajo(cursadaXML.getPersonaLegajo());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			auxStaff = servStaff.getMiembro(aux);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(auxStaff.getRol().equals(ECargosStaffFi.ALUMNO)) {
+			cursada.addAlumno(aux);
+		}else {
+			cursada.addDocente(aux);
+		}
 		cursada.setMateria(servMateriaAdapter.getMateriaxCodigo(cursadaXML.getMateria()));	
 		return cursada;
 	}
