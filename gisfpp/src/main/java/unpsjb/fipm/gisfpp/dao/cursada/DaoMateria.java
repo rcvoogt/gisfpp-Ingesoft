@@ -4,16 +4,15 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-public class DaoMateria extends HibernateDaoSupport implements IDaoMateria{
+public class DaoMateria extends HibernateDaoSupport implements IDaoMateria {
 
-	
 	private Logger log = UtilGisfpp.getLogger();
-	
+
 	@Override
 	public Integer crear(Materia instancia) throws DataAccessException {
 		try {
@@ -22,8 +21,7 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria{
 		} catch (Exception e) {
 			log.debug(this.getClass().getName(), e);
 		}
-		
-		
+
 		getHibernateTemplate().saveOrUpdate(instancia);
 		return instancia.getId();
 
@@ -31,8 +29,7 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria{
 
 	@Override
 	public void actualizar(Materia instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override
@@ -46,11 +43,40 @@ public class DaoMateria extends HibernateDaoSupport implements IDaoMateria{
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Materia recuperarxId(Integer id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select materia " 
+					 + "from Materia materia " 
+					 + "where materia.id = ?";
+		List<Materia> result = (List<Materia>) getHibernateTemplate().find(query, id);
+		if (result == null || result.isEmpty()) {
+			return null;
+		}
+		return result.get(0);
 	}
 
-		
+	@Override
+	public int actualizarOguardar(Materia instancia) throws Exception {
+		getHibernateTemplate().saveOrUpdate(instancia);
+		return instancia.getId();
+	}
+
+	@SuppressWarnings({ "unchecked", "null" })
+	@Override
+	public int existe(String codigoMateria) {
+		String query = "select materia " 
+					 + "from Materia as materia " 
+					 + "where materia.codigoMateria = ?";
+		List<Materia> result;
+		Materia materiaAux;
+		try {
+			result = (List<Materia>) getHibernateTemplate().find(query, codigoMateria);
+			materiaAux = result.get(0);
+			return materiaAux.getId();
+		} catch (Exception e) {
+		}
+		return -1;
+	}
+
 }

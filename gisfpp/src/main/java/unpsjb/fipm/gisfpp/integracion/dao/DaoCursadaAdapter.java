@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursadaAdapter{
+public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursadaAdapter {
 
 	private Logger log = UtilGisfpp.getLogger();
 
@@ -21,16 +21,14 @@ public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursad
 		} catch (Exception e) {
 			log.debug(this.getClass().getName(), e);
 		}
-		
-		
+
 		getHibernateTemplate().saveOrUpdate(instancia);
 		return instancia.getId();
 	}
 
 	@Override
 	public void actualizar(CursadaAdapter instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override
@@ -44,11 +42,45 @@ public class DaoCursadaAdapter extends HibernateDaoSupport implements IDaoCursad
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public CursadaAdapter recuperarxId(Integer id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		String query ="select cursada "
+					+ "from CursadaAdapter cursada "
+					+ "where cursada.idCursadaAdapter = ?";
+		List<CursadaAdapter> result = (List<CursadaAdapter>) getHibernateTemplate().find(query, id);
+		if(result == null || result.isEmpty()){
+			return null;
+		}
+		return result.get(0);
 	}
-	
+
+	@Override
+	public int actualizarOguardar(CursadaAdapter instancia) throws Exception {
+		getHibernateTemplate().saveOrUpdate(instancia);
+		return instancia.getId();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int existe(String codigoComision) {
+		String query = "select cursada " 
+					 + "from CursadaAdapter as cursada " 
+					 + "where cursada.codComision = ? ";
+		List<CursadaAdapter> result;
+		CursadaAdapter cursadaAux;
+		try {
+			result = (List<CursadaAdapter>) getHibernateTemplate().find(query, codigoComision);
+			cursadaAux = result.get(0);
+			if(cursadaAux == null)
+				return -1;
+		} catch (Exception e) {
+			return -1;
+		}
+		if(cursadaAux.getIdCursadaGisfpp() == null)
+			return -1;
+		return cursadaAux.getIdCursadaGisfpp();
+	}
+
 
 }

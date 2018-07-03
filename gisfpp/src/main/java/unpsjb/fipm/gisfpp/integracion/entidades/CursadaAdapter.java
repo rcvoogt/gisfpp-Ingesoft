@@ -24,7 +24,7 @@ public class CursadaAdapter implements Serializable{
 	private Integer idCursadaGisfpp;
 	
 	@Column(name = "codComision")
-	private Integer codComision;
+	private String codComision;
 
 	public Integer getId() {
 		return id;
@@ -42,11 +42,11 @@ public class CursadaAdapter implements Serializable{
 		this.idCursadaGisfpp = idCursadaGisfpp;
 	}
 
-	public Integer getCodComision() {
+	public String getCodComision() {
 		return codComision;
 	}
 
-	public void setCodComision(Integer codComision) {
+	public void setCodComision(String codComision) {
 		this.codComision = codComision;
 	}
 	

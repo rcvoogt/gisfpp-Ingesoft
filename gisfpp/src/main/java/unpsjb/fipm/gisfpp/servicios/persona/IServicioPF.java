@@ -33,5 +33,7 @@ public interface IServicioPF extends IServicioGenerico<PersonaFisica, Integer> {
 	 */
 	public List<PersonaFisica> getxIdentificador(TIdentificador campo, String patronValor) throws Exception;
 	
-	public void actualizarOguardar(PersonaFisica persona) throws Exception;
+	public int actualizarOguardar(PersonaFisica persona) throws Exception;
+
+	public boolean existe(String legajo);
 }

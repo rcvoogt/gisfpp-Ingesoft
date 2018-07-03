@@ -13,9 +13,9 @@ public class FinalizacionProceso implements ExecutionListener {
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
 		
-		RuntimeService rtService = MySpringUtil.getRunTimeService();
+		//RuntimeService rtService = MySpringUtil.getRunTimeService();
 		
-		rtService.startProcessInstanceByKey("prcConvocatoriaYConvenios", execution.getProcessBusinessKey());
+		//rtService.startProcessInstanceByKey("prcConvocatoriaYConvenios", execution.getProcessBusinessKey());
 		
 	}
 

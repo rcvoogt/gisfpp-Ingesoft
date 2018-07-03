@@ -1,8 +1,12 @@
-package unpsjb.fipm.gisfpp.integracion.entidades;
+package unpsjb.fipm.gisfpp.entidades.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
-public class Persona {
+/**
+ * Clase bean utilizada para parsear los datos desde un archivo xml
+ * @author isaia
+ *
+ */
+public class PersonaXML {
 
     @JacksonXmlProperty(localName = "legajo")
 	private String legajo;
@@ -14,8 +18,10 @@ public class Persona {
 	private String rol;
     @JacksonXmlProperty(localName = "e_mail")
 	private String e_mail;
-    @JacksonXmlProperty(localName = "dni")
+    @JacksonXmlProperty(localName = "nro_documento")
 	private String dni;
+    @JacksonXmlProperty(localName = "nro_inscripcion")
+    private String nro_inscripcion;
 	public String getLegajo() {
 		return legajo;
 	}
@@ -51,6 +57,13 @@ public class Persona {
 	}
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+	
+	public String getNro_inscripcion() {
+		return nro_inscripcion;
+	}
+	public void setNro_inscripcion(String nro_inscripcion) {
+		this.nro_inscripcion = nro_inscripcion;
 	}
 	@Override
 	public String toString() {

@@ -29,6 +29,7 @@ public enum Operaciones {
 	ACEPTAR_CONVOCATORIA("Aceptar convocatoria"),
 	SELECCIONAR_CONVOCADOS("Seleccionar convocados"),
 	VER_TRACE("Ver Trace"),
+	MIGRACION("Migracion")
 	;
 	
 	

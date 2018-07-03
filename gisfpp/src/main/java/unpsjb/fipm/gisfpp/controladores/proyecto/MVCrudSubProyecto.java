@@ -341,18 +341,18 @@ public class MVCrudSubProyecto {
 	@NotifyChange("item")
 	public boolean isValido(){
 		
-		//if ((item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) ||
-		//		  item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)) ) 
-		//	return true; 
-//		if((item.getPerteneceA().getFecha_inicio().equals(new Date()) || item.getPerteneceA().getFecha_inicio().after(new
-//				  Date())) && item.getPerteneceA().getFecha_fin().before(new Date()) || item.getPerteneceA().getFecha_fin().equals(new Date())) 
-//			return true;  
-//		if (item.getConvocatorias().size() > 0) { 
-//			for(Convocatoria convocatoria : item.getConvocatorias()) {
-//				if (convocatoria.getFechaVencimiento().after(new Date())) {
-//				 return true; } 
-//				}
-//			}
+		if ((item.getPerteneceA().getEstado().equals(EstadoProyecto.ACTIVO) ||
+				  item.getPerteneceA().getEstado().equals(EstadoProyecto.GENERADO)) ) 
+			return true; 
+		if((item.getPerteneceA().getFecha_inicio().equals(new Date()) || item.getPerteneceA().getFecha_inicio().after(new
+				  Date())) && item.getPerteneceA().getFecha_fin().before(new Date()) || item.getPerteneceA().getFecha_fin().equals(new Date())) 
+			return true;  
+		if (item.getConvocatorias().size() > 0) { 
+			for(Convocatoria convocatoria : item.getConvocatorias()) {
+				if (convocatoria.getFechaVencimiento().after(new Date())) {
+				 return true; } 
+				}
+			}
 	return false;
 }
 	

@@ -10,13 +10,14 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios"/>
-	
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.cursada"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.convocatoria"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.proyecto"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.persona"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.staff"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.workflow"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.servicios.integracion"/>
+	<context:component-scan base-package="unpsjb.fipm.gisfpp.controladores.integracion"/>
 	<context:component-scan base-package="unpsjb.fipm.gisfpp.aspectos"/>
 	
 	<tx:annotation-driven/>
@@ -27,10 +28,14 @@
 		<qualifier value="gisfpp"/>
 	</bean>
 	
+
 	<bean id="transactionManager2" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="pool2" />
     	 <qualifier value="activiti"/>
   	</bean>
+  	
+  	
+  	
   	
   	<bean id="mySpringUtil" class="unpsjb.fipm.gisfpp.util.MySpringUtil"/>
 	

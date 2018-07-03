@@ -25,8 +25,22 @@ public class PersonaAdapter implements Serializable{
 	@Column(name = "IdPersonaGisfpp")
 	private Integer idPersona;
 	
-	@Column(name = "legajoPersonaGuarani")
-	private String legajo;
+	@Column(name = "legajo1")
+	private String legajo1;
+	
+	@Column(name = "legajo2")
+	private String legajo2;
+	
+	@Column(name = "nroInscripcion", unique=true)
+	private String nroInscripcion;
+
+	public String getNroInscripcion() {
+		return nroInscripcion;
+	}
+
+	public void setNroInscripcion(String nroInscripcion) {
+		this.nroInscripcion = nroInscripcion;
+	}
 
 	public Integer getId() {
 		return id;
@@ -36,12 +50,20 @@ public class PersonaAdapter implements Serializable{
 		this.id = id;
 	}
 
-	public String getLegajo() {
-		return legajo;
+	public String getLegajo1() {
+		return legajo1;
 	}
 
-	public void setLegajo(String legajo) {
-		this.legajo = legajo;
+	public void setLegajo1(String legajo1) {
+		this.legajo1 = legajo1;
+	}
+
+	public String getLegajo2() {
+		return legajo2;
+	}
+
+	public void setLegajo2(String legajo2) {
+		this.legajo2 = legajo2;
 	}
 
 	public Integer getIdPersona() {

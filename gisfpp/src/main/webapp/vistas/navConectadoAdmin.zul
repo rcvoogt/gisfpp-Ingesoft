@@ -80,6 +80,11 @@
 									disabled="${not (sec:isAutorizado('CONCEDER_REVOCAR_PERMISOS'))}">
 									Permisos</a>
 							</n:li>
+							<n:li>
+								<a onClick="@command('verPantallaMigracion')"
+									>
+									Migracion</a>
+							</n:li>
 						</n:ul>
 					</n:li>
 					<n:li class="dropdown">

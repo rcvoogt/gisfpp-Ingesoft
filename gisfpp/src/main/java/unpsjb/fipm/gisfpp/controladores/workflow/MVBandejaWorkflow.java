@@ -17,6 +17,7 @@ import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.ItemBreadCrumb;
 import unpsjb.fipm.gisfpp.entidades.persona.Usuario;
 import unpsjb.fipm.gisfpp.entidades.workflow.EstadosTarea;
 import unpsjb.fipm.gisfpp.entidades.workflow.InfoTarea;
@@ -51,6 +52,10 @@ public class MVBandejaWorkflow {
 	private Usuario usuarioConectado;
 	
 	private String tituloPnlLista;
+	
+	//Reutilizo este objeto que tiene la misma estructura que necesito para navegar
+	private ItemBreadCrumb navegable;
+	
 	
 	@Init
 	@NotifyChange({"tareasPendientes", "vistaTareas", "vistaProcesos"})
@@ -330,6 +335,12 @@ public class MVBandejaWorkflow {
 		procesoSeleccionado =null;
 		procesos=null;
 		vistaProcesos = false;
+	}
+	
+	@NotifyChange({"*"})
+	@GlobalCommand("abrirPantallaAlCerrarDialogo")
+	public void abrirPantallaAlCerrarDialogo(@BindingParam("navegable")ItemBreadCrumb nav){
+		this.navegable = nav;
 	}
 	
 	@Command("realizarTarea")

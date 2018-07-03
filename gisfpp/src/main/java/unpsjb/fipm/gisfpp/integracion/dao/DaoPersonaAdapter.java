@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
-public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPersonaAdapter{
+public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPersonaAdapter {
 
 	private Logger log = UtilGisfpp.getLogger();
 
@@ -21,14 +21,13 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 
 	@Override
 	public void actualizar(PersonaAdapter instancia) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		getHibernateTemplate().merge(instancia);
 	}
 
 	@Override
 	public void eliminar(PersonaAdapter instancia) throws DataAccessException {
 		getHibernateTemplate().delete(instancia);
-		
+
 	}
 
 	@Override
@@ -37,12 +36,66 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public PersonaAdapter recuperarxId(Integer id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select persona " + "from PersonaAdapter persona " + "where persona.id = ?";
+		List<PersonaAdapter> result = (List<PersonaAdapter>) getHibernateTemplate().find(query, id);
+		if (result == null || result.isEmpty()) {
+			return null;
+		}
+		return result.get(0);
 	}
 
-	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public int existe(String nroInscripcion) {
+		String query = "select persona " + "from PersonaAdapter persona " + "where persona.nroInscripcion = ?";
+		List<PersonaAdapter> result;
+		PersonaAdapter materiaAux;
+		try {
+			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, nroInscripcion);
+			materiaAux = result.get(0);
+			if (materiaAux == null)
+				return -1;
+		} catch (Exception e) {
+			return -1;
+		}
+		return materiaAux.getId();
+	}
+
+	@Override
+	public PersonaAdapter recuperarxNroInscripcion(String nroInscripcion) {
+		String query = "select persona " + "from PersonaAdapter persona " + "where persona.nroInscripcion = ?";
+		List<PersonaAdapter> result;
+		PersonaAdapter materiaAux;
+		try {
+			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, nroInscripcion);
+			materiaAux = result.get(0);
+			if (materiaAux == null)
+				return null;
+		} catch (Exception e) {
+			return null;
+		}
+		return materiaAux;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public PersonaAdapter recuperarxLegajo(String legajo) {
+		String query = "select persona " 
+					+ "from PersonaAdapter persona " 
+					+ "where persona.legajo1 = ? or persona.legajo2 = ? ";
+		List<PersonaAdapter> result;
+		PersonaAdapter materiaAux;
+		try {
+			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, legajo, legajo);
+			materiaAux = result.get(0);
+		} catch (Exception e) {
+			return null;
+		}
+		return materiaAux;
+
+	}
+
 }

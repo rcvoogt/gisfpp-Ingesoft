@@ -2,6 +2,8 @@ package unpsjb.fipm.gisfpp.servicios.staff;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.entidades.staff.ECargosStaffFi;
 import unpsjb.fipm.gisfpp.entidades.staff.StaffFI;
@@ -19,5 +21,9 @@ public interface IServiciosStaffFI extends IServicioGenerico<StaffFI, Integer> {
 	public List<StaffFI> getMiembroPorRol(ECargosStaffFi rol) throws Exception;
 	
 	public StaffFI getMiembro(PersonaFisica personaFisica)throws Exception;
+
+	public int actualizarOguardar(StaffFI staff) throws DataAccessException, Exception;
+	
+	public StaffFI existe(StaffFI staff) throws Exception;
 	
 }

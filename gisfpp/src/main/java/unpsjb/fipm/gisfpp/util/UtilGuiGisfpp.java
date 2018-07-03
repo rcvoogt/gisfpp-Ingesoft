@@ -119,6 +119,8 @@ public class UtilGuiGisfpp {
         	return " Convocatoria ";
         case "vistas/convocatoria/verCrearConvocatoria.zul":
         	return " Convocatoria ";
+        case "vistas/migracion.zul":
+        	return "Migracion";
         	
         default:
             throw new IllegalArgumentException("pantalla desconocida para el breadcrumb	: " + zulLlamado);

@@ -3,8 +3,6 @@ package unpsjb.fipm.gisfpp.integracion.entidades;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +12,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="materiaAdapter", schema ="gisfpp_integracion")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name="materiaAdapter" ,schema ="gisfpp_integracion")
 public class MateriaAdapter implements Serializable{
 
 	@Id
@@ -52,9 +51,10 @@ public class MateriaAdapter implements Serializable{
 		this.materia = materia;
 	}
 
-	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "MateriaAdapter [id=" + id + ", idMateria=" + idMateria + ", materia=" + materia + "]";
+	}
+
+		
 }

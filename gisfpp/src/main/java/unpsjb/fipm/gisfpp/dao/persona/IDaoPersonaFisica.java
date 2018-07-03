@@ -15,4 +15,6 @@ public interface IDaoPersonaFisica extends DaoGenerico<PersonaFisica, Integer> {
 	public List<PersonaFisica> getxIdentificador(TIdentificador tipo, String patron) throws Exception;
 	
 	public void actualizarOguardar(PersonaFisica instancia) throws DataAccessException;
+
+	public boolean existe(String legajo);
 }
