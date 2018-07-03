@@ -7,5 +7,7 @@ public interface IDaoPersonaAdapter extends DaoGenerico<PersonaAdapter, Integer>
 
 	int existe(String legajo);
 
+	PersonaAdapter recuperarxLegajo(String legajo);
+
 	
 }

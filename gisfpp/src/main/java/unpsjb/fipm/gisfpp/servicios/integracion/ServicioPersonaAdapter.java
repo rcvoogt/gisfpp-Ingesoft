@@ -12,11 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoPersonaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 	
 @Service("servPersonaAdapter")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
-	
+	@Autowired
+	private IServicioPF servPersonaFisica;
 	private IDaoPersonaAdapter dao;
 
 	@Override
@@ -69,8 +71,13 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 
 	@Override
 	public PersonaFisica getPFxLegajo(String legajo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Integer idPersona;
+		PersonaAdapter personaAdapter = dao.recuperarxLegajo(legajo);
+		idPersona = personaAdapter.getIdPersona();
+		if(idPersona == null)
+			return null;
+		PersonaFisica personaFisica = servPersonaFisica.getInstancia(idPersona);
+		return personaFisica;
 	}
 
 	
