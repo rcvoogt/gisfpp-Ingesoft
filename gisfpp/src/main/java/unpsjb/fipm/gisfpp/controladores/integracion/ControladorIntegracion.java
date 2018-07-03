@@ -1,7 +1,12 @@
 package unpsjb.fipm.gisfpp.controladores.integracion;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Component("contIntegracion")
 public class ControladorIntegracion implements IControladorIntegracion{
@@ -23,14 +28,12 @@ public class ControladorIntegracion implements IControladorIntegracion{
 
 	
 
-	public void migrar() {
-		try {
+	public void migrar() throws Exception {
+	
 			controladorPersonas.integrarPersonas();
 			controladorMaterias.integrarMaterias();
 			controladorCursadas.integrarCursadas();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 
