@@ -7,7 +7,7 @@ public class CursadaXML {
 	@JacksonXmlProperty(localName = "nombre")
 	private String nombre;
 	
-	@JacksonXmlProperty(localName = "COMISION")
+	@JacksonXmlProperty(localName = "comision")
 	private String codigoComision;
 	
 	@JacksonXmlProperty(localName = "cuatrimestre")
@@ -16,8 +16,11 @@ public class CursadaXML {
 	@JacksonXmlProperty(localName = "anio")
 	private Integer anio;
 	
-	@JacksonXmlProperty(localName = "Legajo")
+	@JacksonXmlProperty(localName = "legajo")
 	private String personaLegajo;
+	
+	@JacksonXmlProperty(localName = "rol")
+	private String personaRol;
 	
 	@JacksonXmlProperty(localName = "materia")
 	private String materia;

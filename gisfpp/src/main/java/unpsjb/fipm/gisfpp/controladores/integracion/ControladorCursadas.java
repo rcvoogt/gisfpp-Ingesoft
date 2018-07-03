@@ -103,6 +103,7 @@ public class ControladorCursadas {
 		}else {
 			cursada.addDocente(aux);
 		}
+//		cursada.setCodigoComision(cursadaXML.getCodigoComision());
 		cursada.setMateria(servMateriaAdapter.getMateriaxCodigo(cursadaXML.getMateria()));	
 		return cursada;
 	}
