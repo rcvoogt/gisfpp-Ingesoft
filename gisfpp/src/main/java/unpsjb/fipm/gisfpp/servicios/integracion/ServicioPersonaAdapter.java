@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoPersonaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 	
@@ -58,12 +59,18 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(PersonaAdapter instancia) throws DataAccessException, Exception {
-		if(existe(instancia.getLegajo()) == -1) {
+		if(existe(instancia.getNro_inscripcion()) == -1) {
 			dao.crear(instancia);
-			return instancia.getId();
+			return -1;
 		}
 		dao.actualizar(instancia);
-		return instancia.getId();
+		return instancia.getIdPersona();
+	}
+
+	@Override
+	public PersonaFisica getPFxLegajo(String legajo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
