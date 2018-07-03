@@ -20,6 +20,8 @@ public class PersonaXML {
 	private String e_mail;
     @JacksonXmlProperty(localName = "nro_documento")
 	private String dni;
+    @JacksonXmlProperty(localName = "nro_inscripcion")
+    private String nro_inscripcion;
 	public String getLegajo() {
 		return legajo;
 	}
@@ -55,6 +57,13 @@ public class PersonaXML {
 	}
 	public void setDni(String dni) {
 		this.dni = dni;
+	}
+	
+	public String getNro_inscripcion() {
+		return nro_inscripcion;
+	}
+	public void setNro_inscripcion(String nro_inscripcion) {
+		this.nro_inscripcion = nro_inscripcion;
 	}
 	@Override
 	public String toString() {

@@ -54,22 +54,29 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	}
 
 	@Override
-	public int existe(String legajo) throws Exception {
-		return dao.existe(legajo);
+	@Transactional
+	public int existe(String nroInscripcion) throws Exception {
+		PersonaAdapter personaAdapter = dao.recuperarxNroInscripcion(nroInscripcion);
+		if(personaAdapter == null)
+			return -1;
+		return personaAdapter.getIdPersona();
 	}
 
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(PersonaAdapter instancia) throws DataAccessException, Exception {
-		if(existe(instancia.getNro_inscripcion()) == -1) {
+		PersonaAdapter aux = dao.recuperarxNroInscripcion(instancia.getNroInscripcion());
+		if(aux == null) {
 			dao.crear(instancia);
 			return -1;
-		}
-		dao.actualizar(instancia);
-		return instancia.getIdPersona();
+		}	
+		if(aux.getIdPersona() == null)
+			return -1;
+		return aux.getIdPersona();
 	}
 
 	@Override
+	@Transactional
 	public PersonaFisica getPFxLegajo(String legajo) throws Exception {
 		Integer idPersona;
 		PersonaAdapter personaAdapter = dao.recuperarxLegajo(legajo);
@@ -78,6 +85,11 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 			return null;
 		PersonaFisica personaFisica = servPersonaFisica.getInstancia(idPersona);
 		return personaFisica;
+	}
+
+	@Override
+	public PersonaAdapter getPAxNroInscripcion(String nro_inscripcion) {
+		return dao.recuperarxNroInscripcion(nro_inscripcion);
 	}
 
 	

@@ -28,7 +28,7 @@ public class ControladorPersonasTest extends TemplateTest {
 			personas = controladorPersonas.getPersonas();
 			System.out.println(personas);
 			assertNotNull(personas);
-			assertEquals(personas.getPersonas().length, 4);
+			assertEquals(personas.getPersonas().length, 206);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -9,5 +9,7 @@ public interface IDaoPersonaAdapter extends DaoGenerico<PersonaAdapter, Integer>
 
 	PersonaAdapter recuperarxLegajo(String legajo);
 
+	PersonaAdapter recuperarxNroInscripcion(String nroInscripcion);
+
 	
 }

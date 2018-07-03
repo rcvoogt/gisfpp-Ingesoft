@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
-import unpsjb.fipm.gisfpp.entidades.xml.CursadaXML;
 import unpsjb.fipm.gisfpp.entidades.xml.MateriaXML;
 import unpsjb.fipm.gisfpp.entidades.xml.Materias;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
@@ -41,6 +40,7 @@ public class ControladorMaterias {
 		for(MateriaXML materiaXML: materias.getMaterias()) {
 			materiaAdapter = crearMateriaAdapter(materiaXML);
 			//Obtenemos el id de la materia en la tabla gisfpp si es que existe
+			
 			existe = servMateriaAdapter.actualizarOguardar(materiaAdapter);
 			materia = crearMateria(materiaXML);
 			if(existe == -1) {

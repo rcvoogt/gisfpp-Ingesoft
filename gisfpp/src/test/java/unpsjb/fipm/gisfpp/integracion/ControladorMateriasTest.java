@@ -41,7 +41,7 @@ public class ControladorMateriasTest extends TemplateTest {
 	}
 
 	@Test
-	public void testIntegrarPersonas() {
+	public void testIntegrarMaterias() {
 		try {
 			controladorMaterias.integrarMaterias();
 		} catch (Exception e) {

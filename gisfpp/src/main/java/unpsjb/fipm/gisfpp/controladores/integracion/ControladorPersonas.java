@@ -43,41 +43,40 @@ public class ControladorPersonas {
 	@Autowired
 	RestImplementation restImplementation;
 	
-	public void persistirPersonas(Personas personas) {
-		int id;
+	public void persistirPersonas(Personas personas) throws DataAccessException, Exception {
+		int existe;
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
 		StaffFI staff;
 		for (PersonaXML persona : personas.getPersonas()) {
-			personaFisica = crearPersonaFisica(persona);									
-				try {
-					id= servPersona.actualizarOguardar(personaFisica);
-					personaFisica.setId(id);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				staff = crearStaff(persona.getRol(),personaFisica);
-				try {
-					servStaff.actualizarOguardar(staff);
-				} catch (DataAccessException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				personaAdapter = crearPersonaAdapter(persona, personaFisica.getId());
-				try {
-					servPersonaAdapter.actualizarOguardar(personaAdapter);
-				} catch (DataAccessException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			
+			personaAdapter = crearPersonaAdapter(persona);
+			existe = servPersonaAdapter.actualizarOguardar(personaAdapter);
+			personaFisica = crearPersonaFisica(persona);
+			if(existe == -1) {
+				//Si la materia no existe, la creamos y actualizamos el id en el adapter
+				servPersona.persistir(personaFisica);
+				staff = crearStaff(persona.getRol(), personaFisica);
+				servStaff.actualizarOguardar(staff);
+				personaAdapter.setIdPersona(personaFisica.getId());
+				servPersonaAdapter.editar(personaAdapter);
+			}
+			else {
+				personaAdapter = servPersonaAdapter.getPAxNroInscripcion(persona.getNro_inscripcion());
+				personaAdapter.setLegajo2(persona.getLegajo());
+				servPersonaAdapter.editar(personaAdapter);
+			}			
 		}
 	}
 	
 	
+	private PersonaAdapter crearPersonaAdapter(PersonaXML persona) {
+		PersonaAdapter personaAdapter = new PersonaAdapter();
+		personaAdapter.setLegajo1(persona.getLegajo());
+		personaAdapter.setNroInscripcion(persona.getNro_inscripcion());
+		return personaAdapter;
+	}
+
+
 	private StaffFI crearStaff(String rol, PersonaFisica personaFisica) {
 		Calendar calendar = Calendar.getInstance();
 		Date desde = calendar.getTime();
@@ -111,9 +110,10 @@ public class ControladorPersonas {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private PersonaAdapter crearPersonaAdapter(PersonaXML persona , Integer idPersonaFisica) {
 		PersonaAdapter personaAdapter = new PersonaAdapter();
-		personaAdapter.setLegajo(persona.getLegajo());
+		personaAdapter.setLegajo1(persona.getLegajo());
 		personaAdapter.setIdPersona(idPersonaFisica);
 		return personaAdapter;
 	}
@@ -131,7 +131,15 @@ public class ControladorPersonas {
 
 	public void integrarPersonas() throws JsonParseException, JsonMappingException, IOException {
 		Personas personas = getPersonas();
-		persistirPersonas(personas);
+		try {
+			persistirPersonas(personas);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

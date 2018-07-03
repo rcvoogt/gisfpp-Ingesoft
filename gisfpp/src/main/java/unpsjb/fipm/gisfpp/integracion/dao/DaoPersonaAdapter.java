@@ -50,7 +50,7 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 	@SuppressWarnings("unchecked")
 	@Override
 	public int existe(String nroInscripcion) {
-		String query = "select persona " + "from PersonaAdapter persona " + "where persona.nro_inscripcion = ?";
+		String query = "select persona " + "from PersonaAdapter persona " + "where persona.nroInscripcion = ?";
 		List<PersonaAdapter> result;
 		PersonaAdapter materiaAux;
 		try {
@@ -64,12 +64,28 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 		return materiaAux.getId();
 	}
 
+	@Override
+	public PersonaAdapter recuperarxNroInscripcion(String nroInscripcion) {
+		String query = "select persona " + "from PersonaAdapter persona " + "where persona.nroInscripcion = ?";
+		List<PersonaAdapter> result;
+		PersonaAdapter materiaAux;
+		try {
+			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, nroInscripcion);
+			materiaAux = result.get(0);
+			if (materiaAux == null)
+				return null;
+		} catch (Exception e) {
+			return null;
+		}
+		return materiaAux;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public PersonaAdapter recuperarxLegajo(String legajo) {
 		String query = "select persona " 
-					 + "from PersonaAdapter persona "
-					 + "where persona.legajo = ?";
+					+ "from PersonaAdapter persona " 
+					+ "where persona.legajo1 = ? or persona.legajo2 = ? ";
 		List<PersonaAdapter> result;
 		PersonaAdapter materiaAux;
 		try {

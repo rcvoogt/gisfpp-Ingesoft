@@ -54,7 +54,7 @@ public class ServicioMateriaAdapter implements IServicioMateriaAdapter{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(MateriaAdapter instancia) throws Exception {
-		if(dao.existe(instancia.getMateria()) == -1) {
+		if(existe(instancia.getMateria()) == -1) {
 			dao.crear(instancia);
 			return -1;
 		}

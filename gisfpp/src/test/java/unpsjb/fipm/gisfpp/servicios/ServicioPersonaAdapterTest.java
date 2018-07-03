@@ -8,9 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
-import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
-import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
 import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 
@@ -33,11 +31,14 @@ public class ServicioPersonaAdapterTest extends TemplateTest {
 		}
 		personaPersistida = new PersonaAdapter();
 		personaPersistida.setIdPersona(pf.getId());
-		personaPersistida.setLegajo("404-000-401");
+		personaPersistida.setLegajo1("404-000-401");
+		personaPersistida.setNroInscripcion("persona_persistida_nro_insc");
 		
 		personaNoPersistida = new PersonaAdapter();
 		personaNoPersistida.setIdPersona(401);
-		personaNoPersistida.setLegajo("404-000-406");
+		personaNoPersistida.setLegajo1("404-000-406");
+		personaNoPersistida.setNroInscripcion("persona_no_persistida_nro_insc");
+
 		try {
 			servPersonaAdapter.persistir(personaPersistida);
 		} catch (Exception e) {
@@ -47,8 +48,8 @@ public class ServicioPersonaAdapterTest extends TemplateTest {
 	@Test
 	public void existeTest() {
 		try {
-			Integer idMateria = new Integer(servPersonaAdapter.existe(personaPersistida.getLegajo()));
-			Integer idMateriaNoPersistida = new Integer(servPersonaAdapter.existe(personaNoPersistida.getLegajo()));
+			Integer idMateria = new Integer(servPersonaAdapter.existe(personaPersistida.getNroInscripcion()));
+			Integer idMateriaNoPersistida = new Integer(servPersonaAdapter.existe(personaNoPersistida.getNroInscripcion()));
 			
 			assertEquals(idMateria,personaPersistida.getId());
 			
@@ -77,7 +78,7 @@ public class ServicioPersonaAdapterTest extends TemplateTest {
 	@Test
 	public void getxLegajoTest() {
 		try {
-			PersonaFisica personaFisica = servPersonaAdapter.getPFxLegajo(personaPersistida.getLegajo());
+			PersonaFisica personaFisica = servPersonaAdapter.getPFxLegajo(personaPersistida.getLegajo1());
 			assertEquals(personaFisica,pf);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

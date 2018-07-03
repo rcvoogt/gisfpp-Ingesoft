@@ -21,4 +21,6 @@ public interface IServicioPersonaAdapter extends IServicioGenerico<PersonaAdapte
 	int existe(String legajo) throws Exception;
 	
 	PersonaFisica getPFxLegajo(String legajo) throws Exception;
+
+	PersonaAdapter getPAxNroInscripcion(String nro_inscripcion);
 }
