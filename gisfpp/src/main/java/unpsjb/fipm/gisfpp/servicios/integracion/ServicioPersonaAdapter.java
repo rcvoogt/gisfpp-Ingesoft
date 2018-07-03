@@ -9,13 +9,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.integracion.dao.IDaoPersonaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 	
 @Service("servPersonaAdapter")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
-	
+	@Autowired
+	private IServicioPF servPersonaFisica;
 	private IDaoPersonaAdapter dao;
 
 	@Override
@@ -58,12 +61,23 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(PersonaAdapter instancia) throws DataAccessException, Exception {
-		if(existe(instancia.getLegajo()) == -1) {
+		if(existe(instancia.getNro_inscripcion()) == -1) {
 			dao.crear(instancia);
-			return instancia.getId();
+			return -1;
 		}
 		dao.actualizar(instancia);
-		return instancia.getId();
+		return instancia.getIdPersona();
+	}
+
+	@Override
+	public PersonaFisica getPFxLegajo(String legajo) throws Exception {
+		Integer idPersona;
+		PersonaAdapter personaAdapter = dao.recuperarxLegajo(legajo);
+		idPersona = personaAdapter.getIdPersona();
+		if(idPersona == null)
+			return null;
+		PersonaFisica personaFisica = servPersonaFisica.getInstancia(idPersona);
+		return personaFisica;
 	}
 
 	

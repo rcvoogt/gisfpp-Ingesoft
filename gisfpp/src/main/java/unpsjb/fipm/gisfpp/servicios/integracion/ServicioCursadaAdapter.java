@@ -65,12 +65,13 @@ public class ServicioCursadaAdapter implements IServicioCursadaAdapter{
 	@Override
 	@Transactional(value="gisfpp", readOnly = false)
 	public int actualizarOguardar(CursadaAdapter instancia) throws Exception {
-		if(dao.existe(instancia.getCodComision()) == -1) {
+		int idGisfpp = dao.existe(instancia.getCodComision());
+		if(idGisfpp == -1) {
 			dao.crear(instancia);
-			return instancia.getId();
+			return -1;
 		}
 		dao.actualizar(instancia);
-		return instancia.getId();
+		return instancia.getIdCursadaGisfpp();
 	}
 
 

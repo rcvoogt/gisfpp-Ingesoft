@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import unpsjb.fipm.gisfpp.entidades.persona.Persona;
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -120,6 +121,14 @@ public class Cursada implements Serializable{
 
 	public void setCodigoComision(String codigoComision) {
 		this.codigoComision = codigoComision;
+	}
+
+	public void addAlumno(PersonaFisica aux) {
+		this.alumnos.add(aux);
+	}
+	
+	public void addDocente(PersonaFisica aux) {
+		this.docentes.add(aux);
 	}
 
 	

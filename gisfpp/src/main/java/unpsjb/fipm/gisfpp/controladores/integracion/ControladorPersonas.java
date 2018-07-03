@@ -44,13 +44,15 @@ public class ControladorPersonas {
 	RestImplementation restImplementation;
 	
 	public void persistirPersonas(Personas personas) {
+		int id;
 		PersonaAdapter personaAdapter;
 		PersonaFisica personaFisica;
 		StaffFI staff;
 		for (PersonaXML persona : personas.getPersonas()) {
 			personaFisica = crearPersonaFisica(persona);									
 				try {
-					servPersona.actualizarOguardar(personaFisica);
+					id= servPersona.actualizarOguardar(personaFisica);
+					personaFisica.setId(id);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,7 +125,7 @@ public class ControladorPersonas {
 	}
 
 	public Personas getPersonas() throws JsonParseException, JsonMappingException, IOException {
-		HttpEntity<String> response = restImplementation.get(Rutas.SERVICIO_PERSONA_TEST, "application/xml");
+		HttpEntity<String> response = restImplementation.get(Rutas.SERVICIO_PERSONA, "application/xml");
 		return adaptarPersonas(response.getBody());
 	}
 
