@@ -1,5 +1,6 @@
 package unpsjb.fipm.gisfpp.servicios.integracion;
 
+import unpsjb.fipm.gisfpp.entidades.cursada.Materia;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 import unpsjb.fipm.gisfpp.servicios.IServicioGenerico;
 
@@ -12,5 +13,6 @@ public interface IServicioMateriaAdapter extends IServicioGenerico<MateriaAdapte
 	 * @throws Exception
 	 */
 	int existe(String codigoMateria) throws Exception;
+	public Materia getMateriaxCodigo(String materia);
 
 }
