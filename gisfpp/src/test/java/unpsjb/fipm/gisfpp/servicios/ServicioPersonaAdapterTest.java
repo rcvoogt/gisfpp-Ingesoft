@@ -7,21 +7,32 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.PersonaAdapter;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioMateriaAdapter;
 import unpsjb.fipm.gisfpp.servicios.integracion.IServicioPersonaAdapter;
+import unpsjb.fipm.gisfpp.servicios.persona.IServicioPF;
 
 public class ServicioPersonaAdapterTest extends TemplateTest {
 	@Autowired
 	IServicioPersonaAdapter servPersonaAdapter;
+	@Autowired
+	IServicioPF servPersonaFisica;
 	PersonaAdapter personaPersistida;
 	PersonaAdapter personaNoPersistida;
+	PersonaFisica pf;
 
 	@Override
 	public void setBefore() {
+		try {
+			pf = servPersonaFisica.getListado().get(0);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		personaPersistida = new PersonaAdapter();
-		personaPersistida.setIdPersona(400);
+		personaPersistida.setIdPersona(pf.getId());
 		personaPersistida.setLegajo("404-000-401");
 		
 		personaNoPersistida = new PersonaAdapter();
@@ -59,6 +70,17 @@ public class ServicioPersonaAdapterTest extends TemplateTest {
 			servPersonaAdapter.eliminar(personaNoPersistida);
 
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getxLegajoTest() {
+		try {
+			PersonaFisica personaFisica = servPersonaAdapter.getPFxLegajo(personaPersistida.getLegajo());
+			assertEquals(personaFisica,pf);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
