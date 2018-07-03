@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import unpsjb.fipm.gisfpp.integracion.entidades.CursadaAdapter;
 import unpsjb.fipm.gisfpp.integracion.entidades.MateriaAdapter;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 
@@ -79,6 +80,19 @@ public class DaoMateriaAdapter extends HibernateDaoSupport implements IDaoMateri
 			return -1;
 		}
 		return materiaAux.getId();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public int recuperarxNombre(String materia) throws DataAccessException {
+		String query ="select idMateria "
+					+ "from Materia materia "
+					+ "where materia.codigoMateria = ?";
+		List<Integer> result = (List<Integer>) getHibernateTemplate().find(query, materia);
+		if(result == null || result.isEmpty()){
+			return -1;
+		}
+		return result.get(0);
 	}
 
 }

@@ -19,6 +19,9 @@ public class CursadaXML {
 	@JacksonXmlProperty(localName = "Legajo")
 	private String personaLegajo;
 	
+	@JacksonXmlProperty(localName = "materia")
+	private String materia;
+	
 	public CursadaXML() {
 		super();
 	}
@@ -49,6 +52,14 @@ public class CursadaXML {
 
 	public String getPersonaLegajo() {
 		return personaLegajo;
+	}
+	
+	public String getMateria() {
+		return materia;
+	}
+
+	public void setMateria(String materia) {
+		this.materia = materia;
 	}
 
 	@Override
