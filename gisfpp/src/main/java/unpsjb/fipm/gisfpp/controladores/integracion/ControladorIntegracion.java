@@ -10,6 +10,8 @@ public class ControladorIntegracion implements IControladorIntegracion{
 	ControladorPersonas controladorPersonas;
 	@Autowired
 	ControladorMaterias controladorMaterias;
+	@Autowired
+	ControladorCursadas controladorCursadas;
 
 	public ControladorIntegracion() {
 		super();
@@ -25,6 +27,7 @@ public class ControladorIntegracion implements IControladorIntegracion{
 		try {
 			controladorPersonas.integrarPersonas();
 			controladorMaterias.integrarMaterias();
+			controladorCursadas.integrarCursadas();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
