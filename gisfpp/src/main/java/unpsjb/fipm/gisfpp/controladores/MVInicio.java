@@ -7,6 +7,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
+import unpsjb.fipm.gisfpp.entidades.Operaciones;
 import unpsjb.fipm.gisfpp.entidades.persona.PersonaFisica;
 import unpsjb.fipm.gisfpp.util.UtilGisfpp;
 import unpsjb.fipm.gisfpp.util.UtilGuiGisfpp;
@@ -103,6 +104,11 @@ public class MVInicio {
 	public void pruebaAgregarConvocados(){
 		Window dlg = (Window) Executions.createComponents("vistas/workflow/tareas/dlgAsignarConvocados.zul", null, null);
 		dlg.doModal();
+	}
+	
+	@Command("verPantallaMigracion")
+	public void verPantallaMigracion() {
+		UtilGuiGisfpp.loadPnlCentral("vistas/migracion.zul");
 	}
 	
 	
