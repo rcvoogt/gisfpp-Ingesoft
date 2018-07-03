@@ -63,8 +63,8 @@ public class ControladorCursadas {
 				cursadaAdapter.setIdCursadaGisfpp(cursada.getIdCursada());
 				servCursadaAdapter.editar(cursadaAdapter);
 			}else {
-				cursada.setIdCursada(existe);
-				servCursada.editar(cursada);
+				cursadaAdapter.setIdCursadaGisfpp(existe);
+				servCursadaAdapter.editar(cursadaAdapter);
 			}
 		}
 	}

@@ -134,6 +134,10 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="daoCursadaAdapter"
+		class="unpsjb.fipm.gisfpp.integracion.dao.DaoCursadaAdapter">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
 	
 	<bean id="daoCursada"
 		class="unpsjb.fipm.gisfpp.dao.cursada.DaoCursada">

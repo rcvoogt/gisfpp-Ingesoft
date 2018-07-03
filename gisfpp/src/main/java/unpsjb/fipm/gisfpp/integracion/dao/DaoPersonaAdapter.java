@@ -89,7 +89,7 @@ public class DaoPersonaAdapter extends HibernateDaoSupport implements IDaoPerson
 		List<PersonaAdapter> result;
 		PersonaAdapter materiaAux;
 		try {
-			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, legajo);
+			result = (List<PersonaAdapter>) getHibernateTemplate().find(query, legajo, legajo);
 			materiaAux = result.get(0);
 		} catch (Exception e) {
 			return null;

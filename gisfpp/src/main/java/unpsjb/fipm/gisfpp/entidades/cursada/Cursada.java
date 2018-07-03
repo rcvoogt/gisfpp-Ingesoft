@@ -1,6 +1,7 @@
 package unpsjb.fipm.gisfpp.entidades.cursada;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -41,13 +42,13 @@ public class Cursada implements Serializable{
 	@JoinTable(name = "cursada_alumno",
 	joinColumns = @JoinColumn(name = "idCursada", referencedColumnName = "idCursada"),
 	inverseJoinColumns = @JoinColumn(name = "idAlumno", referencedColumnName = "idPersona"))
-	private Collection<Persona> alumnos;	
+	private Collection<PersonaFisica> alumnos;	
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "cursada_docente",
 	joinColumns = @JoinColumn(name = "idCursada", referencedColumnName = "idCursada"),
 	inverseJoinColumns = @JoinColumn(name = "idDocente", referencedColumnName = "idPersona"))
-	private Collection<Persona> docentes;	
+	private Collection<PersonaFisica> docentes;	
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idMateria")
@@ -58,6 +59,14 @@ public class Cursada implements Serializable{
 	
 	@Column(name = "cuatrimestre")
 	private String cuatrimestre;
+	
+	
+
+	public Cursada() {
+		super();
+		this.alumnos = new ArrayList<PersonaFisica>();
+		this.docentes = new ArrayList<PersonaFisica>();
+	}
 
 	public Integer getIdCursada() {
 		return idCursada;
@@ -67,19 +76,19 @@ public class Cursada implements Serializable{
 		this.idCursada = idCursada;
 	}
 
-	public Collection<Persona> getAlumnos() {
+	public Collection<PersonaFisica> getAlumnos() {
 		return alumnos;
 	}
 
-	public void setAlumnos(Collection<Persona> alumnos) {
+	public void setAlumnos(Collection<PersonaFisica> alumnos) {
 		this.alumnos = alumnos;
 	}
 
-	public Collection<Persona> getDocentes() {
+	public Collection<PersonaFisica> getDocentes() {
 		return docentes;
 	}
 
-	public void setDocentes(Collection<Persona> docentes) {
+	public void setDocentes(Collection<PersonaFisica> docentes) {
 		this.docentes = docentes;
 	}
 

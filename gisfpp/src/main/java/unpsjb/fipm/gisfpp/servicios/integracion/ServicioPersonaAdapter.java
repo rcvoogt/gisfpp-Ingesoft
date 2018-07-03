@@ -80,6 +80,8 @@ public class ServicioPersonaAdapter implements IServicioPersonaAdapter{
 	public PersonaFisica getPFxLegajo(String legajo) throws Exception {
 		Integer idPersona;
 		PersonaAdapter personaAdapter = dao.recuperarxLegajo(legajo);
+		if(personaAdapter == null)
+			return null;
 		idPersona = personaAdapter.getIdPersona();
 		if(idPersona == null)
 			return null;

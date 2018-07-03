@@ -35,7 +35,10 @@
 			</value>
 		</property>
 	</bean>
-
+	<bean id="daoCursadaAdapter"
+		class="unpsjb.fipm.gisfpp.integracion.dao.DaoCursadaAdapter">
+		<property name="sessionFactory" ref="sessionFactoryHB" />
+	</bean>
 	<bean id="daoCursada"
 		class="unpsjb.fipm.gisfpp.dao.cursada.DaoCursada">
 		<property name="sessionFactory" ref="sessionFactoryHB" />
@@ -95,18 +98,18 @@
 		class="unpsjb.fipm.gisfpp.dao.DaoPermisosImp">
 		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
-	
-	
+
+
 	<bean id="daoCursaAdapter"
 		class="unpsjb.fipm.gisfpp.integracion.dao.DaoMateriaAdapter">
 		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
-	
+
 	<bean id="daoMateria"
 		class="unpsjb.fipm.gisfpp.dao.cursada.DaoMateria">
 		<property name="sessionFactory" ref="sessionFactoryHB" />
 	</bean>
-	
+
 	<bean id="daoPersonaAdapter"
 		class="unpsjb.fipm.gisfpp.integracion.dao.DaoPersonaAdapter">
 		<property name="sessionFactory" ref="sessionFactoryHB" />

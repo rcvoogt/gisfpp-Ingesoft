@@ -44,8 +44,8 @@ public class ControladorCursadasTest extends TemplateTest {
 	public void testIntegrarPersonas() {
 		
 		try {
-			controladorPersonas.integrarPersonas();
-			controladorMaterias.integrarMaterias();
+//			controladorPersonas.integrarPersonas();
+//			controladorMaterias.integrarMaterias();
 			controladorCursadas.integrarCursadas();
 		} catch (Exception e) {
 			e.printStackTrace();
